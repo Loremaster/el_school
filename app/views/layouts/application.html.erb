@@ -2,13 +2,23 @@
 <html>
 <head>
   <title>ElSchool</title>
+  <%= javascript_include_tag "jquery" %>                                      <%# Adding jquery. We need that for working dropdown buttons, for example. %>
+  <%= javascript_tag "$(document).ready(function(){
+  			          $('.dropdown-toggle').dropdown();
+  			          });" %>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "bootstrap" %>                                   <%# Adding bootstrap css file.  %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+    <%= render 'layouts/header' %>
 
-    <%= yield %>
-    <%= debug(params) if Rails.env.development? %>
+    <div class="container">
+        <div class="well">
+          <%= yield %>
+          <%= debug(params) if Rails.env.development? %>
+        </div>
+    </div>
 </body>
 </html>

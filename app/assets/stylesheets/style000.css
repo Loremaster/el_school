@@ -1,0 +1,125 @@
+#header {
+	text-align: left;
+	color: #333;
+	font-size: 16px;
+	padding: 10px;
+}
+
+body {
+	font-size: 10pt;
+}
+
+h2 {
+	font-size: 13pt;
+	text-decoration: none;
+}
+
+#menu ul {
+	list-style: none;
+	border-bottom: 1px #888899 solid;
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+
+#menu ul li {
+	display: inline;
+	margin-right: 5px;
+}
+
+#menu ul li a {
+	color: #888899;
+	text-decoration: none;
+	background: #ffffff;
+	border: 1px #bbbbcc solid;
+	border-bottom: none;
+	padding: 10px 14px;
+}
+
+#menu ul li a:hover {
+	padding: 14px 14px 10px 14px;
+}
+
+#menu ul li a.active {
+	color: #000000;
+	background: #ffffff;
+	border: 1px #888899 solid;
+	border-bottom: 1px #ffffff solid;
+	padding: 14px 14px 10px 14px;
+}
+
+.unvisited
+{
+	background: #FFC0CB;
+}
+
+.visited
+{
+	background: #aaccaa;
+}
+
+table {
+	background: #E0E0E0;
+}
+
+table tr {
+	background: #ffffff;
+}
+
+table tr th {
+	font-size: 11pt;
+	background: #E0E0E0;
+	color: #000000;
+	padding: 5px;
+}
+
+table tr td {
+	padding: 5px 5px 5px 5px;
+}
+
+table tr td a {
+	text-decoration: none;
+	color: #000000;
+	display: block;
+	width: 100%;
+	height: 100%;
+	margin: -5px -5px -5px -5px;
+	padding: 5px 5px 5px 5px;
+}
+
+
+
+/*table.select-params {
+	background: #ffffff;
+}*/
+
+table.select-params tr th {
+	background: #ffffff;
+}
+
+.pupil a {
+	text-decoration: none;
+	color: #000000;
+	
+}
+
+
+ .cross { cursor: pointer; }
+ 
+.even {
+ width: 200px;
+} 
+ 
+.week-day
+{
+	background: #aabbcc;
+	color: gray;
+}
+
+.control-work, .lab-work {
+	color: #aa0a0a;
+}
+.butt {
+float: none;
+}
+
+

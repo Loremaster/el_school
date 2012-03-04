@@ -1,5 +1,5 @@
 ElSchool::Application.routes.draw do
-  get "pages/home"
+  root :to => 'pages#home'                                                    #Home
 
   get "pages/contact"
 
