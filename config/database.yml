@@ -26,7 +26,7 @@
 
 development:
   adapter: postgresql
-  database: dev_development
+  database: el_school_development
   username: postgres
   password: def!ne_p0stgre
   host: localhost
@@ -34,7 +34,7 @@ development:
 
 test:
   adapter: postgresql
-  database: test_development
+  database: el_school_test
   username: postgres
   password: def!ne_p0stgre
   host: localhost
@@ -42,7 +42,7 @@ test:
 
 production:
   adapter: postgresql
-  database: production_development
+  database: el_school_production
   username: postgres
   password: def!ne_p0stgre
   host: localhost
