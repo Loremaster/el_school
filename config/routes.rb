@@ -1,8 +1,16 @@
 ElSchool::Application.routes.draw do
-  root :to => 'pages#home'                                                    #Home
+  resources :users
+  resources :sessions, :only => [:new, :create, :destroy]
 
+  get "sessions/new"
+  get "users/new"
   get "pages/contact"
 
+  #match '/signup',  :to => 'users#new'
+  match '/signin',  :to => 'sessions#new'
+  match '/signout', :to => 'sessions#destroy'
+
+  root :to => 'sessions#new'                                                  #Home
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
