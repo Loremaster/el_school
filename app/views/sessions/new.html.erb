@@ -1,0 +1,24 @@
+<legend>Вход в систему</legend>
+
+<%= form_for :session, :url => sessions_path, :html => {:class => "form-horizontal"} do |f| %>
+    <fieldset>
+      <div class="control-group">
+            <%= f.label :user_login, "Логин", :class => "control-label" %>
+
+            <div class="controls">
+                <%= f.text_field :user_login %>
+            </div>
+      </div>
+      <div class="control-group">
+            <%= f.label :password, "Пароль", :class => "control-label" %>
+
+            <div class="controls">
+                <%= f.password_field :password %>
+            </div>
+      </div>
+
+      <div class="actions">
+            <%= f.submit "Войти", :class => "btn btn-primary" %>
+      </div>
+    </fieldset>
+<% end %>
