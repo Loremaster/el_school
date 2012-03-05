@@ -17,7 +17,7 @@
     <div class="container">
         <div class="well">
           <% flash.each do |key, value| %>                                    <%# Now we can call flash messages in our views. %>
-              <%= content_tag(:div, value, :class => "alert alert-#{key}") %>
+              <%= content_tag(:div, value, :class => "alert alert-#{key}") %> <%# Now we support bootstrap pop-up messages. %>
           <% end %>
 
           <%= yield %>
