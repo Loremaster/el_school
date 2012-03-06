@@ -17,6 +17,33 @@ module SessionsHelper
     !current_user.nil?
   end
 
+  def authenticate
+    deny_access unless signed_in?
+  end
+
+  #def admin?
+  #  u = current_user
+  #  u.role == "admin"
+  #end
+  #
+  #def authenticate_admins
+  #  deny_access_except_admins unless ( signed_in? and admin? )
+  #end
+
+  def deny_access
+    store_location
+    redirect_to signin_path, :notice => "Please sign in to access this page." #here :notice is "flash[:notice]"
+  end
+
+  #def deny_access_except_admins
+  #  store_location
+  #  redirect_to signin_path, :notice => "Please sign in as admin to access this page." #here :notice is "flash[:notice]"
+  #end
+
+  def redirect_back_or( default )
+      redirect_to( session[:return_to] || default )
+      clear_return_to
+  end
 
   private
 
@@ -26,5 +53,13 @@ module SessionsHelper
 
     def remember_token
       cookies.signed[:remember_token] || [nil, nil]
+    end
+
+    def store_location
+      session[:return_to] = request.fullpath
+    end
+
+    def clear_return_to
+      session[:return_to] = nil
     end
 end

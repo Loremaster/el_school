@@ -1,0 +1,24 @@
+<legend>Список пользователей системы</legend>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Категория</th>
+            <th>Логин</th>
+            <th>Пароль</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @all_users.each do |user| %>
+          <tr>
+            <td><%= user.user_role %></td>
+            <td><%= user.user_login %></td>
+            <% if user.encrypted_password.blank? %>
+                <td></td>
+            <% else %>
+                <td>*********</td>
+            <% end %>
+          </tr>
+        <% end %>
+    </tbody>
+</table>

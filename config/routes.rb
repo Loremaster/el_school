@@ -10,6 +10,12 @@ ElSchool::Application.routes.draw do
   match '/signin',  :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
 
+  match '/admins/backups', :controller => 'admins',
+                           :action     => 'backups'
+
+  match '/admins/users_of_system', :controller => 'admins',
+                                   :action     => 'users_of_system'
+
   root :to => 'sessions#new'                                                  #Home
   # The priority is based upon order of creation:
   # first created -> highest priority.
