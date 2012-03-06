@@ -12,8 +12,15 @@ class SessionsController < ApplicationController
                           "Проверьте, не нажата ли клавиша CAPS-lock."
       render 'new'
     else
-      sign_in user
-      redirect_back_or user
+      sign_in user                                                            #Signing in user, giving him cookies and etc
+
+      #Check who user is and redirect him to his page(s).
+      case
+        when current_user_admin? == true                                      #If user is admin then redirect him to his page
+          redirect_back_or admins_users_of_system_path
+        else
+          redirect_back_or user
+      end
     end
   end
 
