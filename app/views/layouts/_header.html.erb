@@ -1,7 +1,22 @@
 <div class="navbar">
   	<div class="navbar-inner">
         <div class="container">
-             <%= link_to "E-school", root_path, :class => "brand" %>
+
+             <% if not signed_in?  %>
+                <%= link_to "E-school", root_path, :class => "brand" %>
+             <% end %>
+
+             <% if signed_in? and current_user_admin? %>
+                 <%= link_to "E-school", admins_users_of_system_path, :class => "brand" %>
+                 <ul class="nav">
+                    <li class=<%= active_toolbar?( admins_backups_path ) %>>
+                      <%= link_to "Резервные копии",admins_backups_path %>
+                    </li>
+                    <li class=<%= active_toolbar?(admins_users_of_system_path) %>>
+                      <%= link_to "Учетные записи", admins_users_of_system_path %>
+                    </li>
+                 </ul>
+             <% end %>
 
              <ul class="nav pull-right">
                 <li class="divider-vertical"/></li>
