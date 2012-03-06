@@ -4,11 +4,10 @@ ElSchool::Application.routes.draw do
 
   get "sessions/new"
   get "users/new"
-  get "pages/contact"
 
-  #match '/signup',  :to => 'users#new'
-  match '/signin',  :to => 'sessions#new'
-  match '/signout', :to => 'sessions#destroy'
+  match 'pages/wrong_page', :to => 'pages#wrong_page'
+  match '/signin',          :to => 'sessions#new'
+  match '/signout',         :to => 'sessions#destroy'
 
   match '/admins/backups', :controller => 'admins',
                            :action     => 'backups'

@@ -1,5 +1,5 @@
 class AdminsController < ApplicationController
-  before_filter :authenticate, :only => [ :backups, :users_of_system ]
+  before_filter :authenticate_admins, :only => [ :backups, :users_of_system ]
 
   def backups
 

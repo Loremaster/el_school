@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 module SessionsHelper
   def sign_in( user )
     cookies.permanent.signed[:remember_token] = [user.id, user.salt]          #Creating secure remember token associated with the User model to be used in place of the user id
@@ -21,24 +23,28 @@ module SessionsHelper
     deny_access unless signed_in?
   end
 
-  #def admin?
-  #  u = current_user
-  #  u.role == "admin"
-  #end
-  #
-  #def authenticate_admins
-  #  deny_access_except_admins unless ( signed_in? and admin? )
-  #end
+  def current_user_admin?
+    @user = current_user
+    @user.user_login == "admin"
+  end
+
+  def authenticate_admins
+    deny_access_except_admins unless ( signed_in? and current_user_admin? )
+  end
 
   def deny_access
     store_location
-    redirect_to signin_path, :notice => "Please sign in to access this page." #here :notice is "flash[:notice]"
+    redirect_to signin_path, :notice => "Пожалуйста, войдите в систему, чтобы увидеть эту страницу." #here :notice is "flash[:notice]"
   end
 
-  #def deny_access_except_admins
-  #  store_location
-  #  redirect_to signin_path, :notice => "Please sign in as admin to access this page." #here :notice is "flash[:notice]"
-  #end
+  def deny_access_except_admins
+    store_location
+    if signed_in?
+      redirect_to pages_wrong_page_path, :flash => { :error => "К сожалению, вы не можете увидеть эту страницу." }
+    else
+      redirect_to signin_path, :notice => "Пожалуйста, войдите в систему как администратор, чтобы увидеть эту страницу." #here :notice is "flash[:notice]"
+    end
+  end
 
   def redirect_back_or( default )
       redirect_to( session[:return_to] || default )
