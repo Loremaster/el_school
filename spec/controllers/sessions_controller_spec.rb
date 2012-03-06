@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 require 'spec_helper'
 
 describe SessionsController do
@@ -22,7 +24,7 @@ describe SessionsController do
       
       it "should have a flash.now message" do
         post :create, :session => @attr
-        flash.now[:error].should =~ /invalid/i
+        flash.now[:error].should =~ /Не удается войти/i
       end
 
       it "should re-render the new page" do

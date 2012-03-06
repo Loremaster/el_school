@@ -1,12 +1,15 @@
+# encoding: UTF-8
+
 class SessionsController < ApplicationController
-  def new
+  def new                                                                     #Sign in page
   end
 
   def create
     user = User.authenticate(params[:session][:user_login],
                              params[:session][:password])
     if user.nil?
-      flash.now[:error] = "Invalid email/password combination."
+      flash.now[:error] = "Не удается войти. Пожалуйста, проверьте правильность написания логина и пароля. "\
+                          "Проверьте, не нажата ли клавиша CAPS-lock."
       render 'new'
     else
       sign_in user
