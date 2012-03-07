@@ -25,7 +25,7 @@ module SessionsHelper
 
   def current_user_admin?
     @user = current_user
-    @user.user_login == "admin"
+    @user.user_role == "admin"
   end
 
   def authenticate_admins

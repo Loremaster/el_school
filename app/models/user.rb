@@ -18,15 +18,15 @@ class User < ActiveRecord::Base
                   :user_role,
                   :password
 
-  validates :user_login, :presence => true,
-                         :length   => { :maximum => 50 },
+  validates :user_login, :presence   => true,
+                         :length     => { :maximum => 50 },
                          :uniqueness => true                                  #Warning! It doesn't guarantee that field ll be unique! Tho connection in same time still can create same data!
 
-  validates :user_role, :presence => true,
+  validates :user_role, :presence  => true,
                         :inclusion => { :in => %w(admin teacher pupil class_head school_head) }
 
-  validates :password, :presence     => true,
-                       :length       => { :within => 6..40 }
+  validates :password, :presence  => true,
+                       :length    => { :within => 6..40 }
 
   before_save :encrypt_password
 

@@ -23,8 +23,10 @@ describe User do
       }
   end
 
-  it "should create a new instance given valid attributes" do
-      User.create!(@attr)
+  it "should create new user in database" do
+      lambda do
+        User.create!(@attr)
+      end.should change( User, :count ).by( 1 )
   end
 
   it "should require a login" do

@@ -18,7 +18,7 @@ describe SessionsController do
       before(:each) do
         @attr = { 
                   :user_login => "login",
-                  :password => "invalid"
+                  :password   => "invalid"
                  }
       end
       
@@ -33,7 +33,7 @@ describe SessionsController do
       end
     end
     
-    describe "with valid email and password" do
+    describe "with valid login and password" do
       before(:each) do
          @attr_user = { 
                         :user_login => "Admin",

@@ -5,3 +5,4 @@ This is **el-school** project.
 - Added beginner signing in.
 - Added rights to view admins page only by admin.
 - Added links (with active states) in admin toolbar.
+- Redirect admin after signing-in to his page.
