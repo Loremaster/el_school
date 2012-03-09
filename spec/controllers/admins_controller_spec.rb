@@ -5,16 +5,19 @@ describe AdminsController do
   render_views
   
   describe "GET 'users_of_system'" do
-    describe "for non-signed-in users" do
-      it "should deny access" do
-        get :users_of_system
-        response.should redirect_to( signin_path )
-        flash[:notice].should =~ /войдите в систему как администратор/i
+    describe "for non-signed-in as admin users" do      
+      it "should deny access to admin's pages" do
+        admin_pages = %w(users_of_system backups new_school_head new_teacher create_school_head )
+        admin_pages.each do |admin_pg|
+          get admin_pg
+          response.should redirect_to( signin_path )
+          flash[:notice].should =~ /войдите в систему как администратор/i
+        end
       end
     end
   end
   
-  describe "for signed-in admins" do
+  describe "for signed-in as admin users" do
     before(:each) do
       @user = Factory(:user)
       test_sign_in( @user )
@@ -42,6 +45,30 @@ describe AdminsController do
         have_selector('td', :content => @user.user_role)
         have_selector('td', :content => @user.user_login)
         have_selector('td', :content => pass_text)
+      end
+    end
+    
+    describe "POST 'create school head'" do
+      before(:each) do
+        @attr_correct = { :user_login => "School", :user_role => "school_head", :password => "qwerty"}
+        @attr_wrong = { :user_login => "", :user_role => "", :password => ""}
+      end
+      
+      it "should have legend" do
+        get :new_school_head
+        response.should have_selector("legend", :content => "Создание учетной записи Завуча")
+      end
+      
+      it "should create school head with valid data" do
+        lambda do
+          post :create_school_head, :user => @attr_correct
+        end.should change(User, :count).by(1)
+      end
+      
+      it "should not create school head with invalid data" do
+        lambda do
+          post :create_school_head, :user => @attr_wrong
+        end.should_not change(User, :count)
       end
     end  
   end

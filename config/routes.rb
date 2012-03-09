@@ -15,10 +15,10 @@ ElSchool::Application.routes.draw do
                                    :action     => 'users_of_system'
 
   match '/admins/new_school_head', :controller => 'admins',
-                                      :action => 'new_school_head'
+                                   :action => 'new_school_head'
 
   match '/admins/new_teacher', :controller => 'admins',
-                                  :action => 'new_teacher'
+                               :action => 'new_teacher'
 
   match '/admins/create_school_head' => 'admins#create_school_head',
                                          :as => :create_school_head          #named route
