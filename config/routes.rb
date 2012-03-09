@@ -3,7 +3,6 @@ ElSchool::Application.routes.draw do
   resources :sessions, :only => [ :new, :create, :destroy ]
 
   get "sessions/new"
-  get "users/new"
 
   match 'pages/wrong_page', :to => 'pages#wrong_page'
   match '/signin',          :to => 'sessions#new'
@@ -15,7 +14,20 @@ ElSchool::Application.routes.draw do
   match '/admins/users_of_system', :controller => 'admins',
                                    :action     => 'users_of_system'
 
+  match '/admins/new_school_head', :controller => 'admins',
+                                      :action => 'new_school_head'
+
+  match '/admins/new_teacher', :controller => 'admins',
+                                  :action => 'new_teacher'
+
+  match '/admins/create_school_head' => 'admins#create_school_head',
+                                         :as => :create_school_head          #named route
+
+  #match '/admins/process_school_head' => 'admins#process_school_head',
+  #                                         :as => :process_school_head          #named route
+
   root :to => 'sessions#new'                                                  #Home
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

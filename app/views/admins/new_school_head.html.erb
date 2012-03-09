@@ -1,0 +1,25 @@
+<legend>Создание учетной записи Завуча</legend>
+
+<%= form_for @user, :url => create_school_head_url, :html => {:class => "form-horizontal"} do |f| %>
+    <fieldset>
+      <div class="control-group">
+        <%= f.label :user_login, "Логин учетной записи", :class => "control-label" %>
+
+        <div class="controls">
+          <%= f.text_field :user_login %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <%= f.label :password, "Пароль учетной записи", :class => "control-label" %>
+
+        <div class="controls">
+          <%= f.text_field :password %>
+        </div>
+      </div>
+
+      <%#= f.hidden_field :group_creator, {:value => ''}  %>
+    </fieldset>
+
+    <%= f.submit "Создать", :class => "btn btn-success" %>
+<%  end %>

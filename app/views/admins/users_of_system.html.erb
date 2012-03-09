@@ -22,3 +22,13 @@
         <% end %>
     </tbody>
 </table>
+
+<div style="margin-top: 18px;" class="btn-toolbar">
+  <div class="btn-group">
+    <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle">Создать учетную запись<span class="caret"></span></a>
+    <ul class="dropdown-menu">
+			<li><%= link_to "Завуч", admins_new_school_head_path %></li>
+			<li><%= link_to "Учитель", admins_new_teacher_path %></li>
+    </ul>
+  </div>
+</div>
