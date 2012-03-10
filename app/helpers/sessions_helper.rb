@@ -1,7 +1,7 @@
 # encoding: UTF-8
 
 module SessionsHelper
-  def redirect_back_to_user_page    
+  def redirect_back_to_user_page                                              #Redirecting user to his pages
     if nil?                                                                   #Not autorized user
       redirect_back_or signin_path
     else

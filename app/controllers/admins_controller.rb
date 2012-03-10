@@ -23,11 +23,11 @@ class AdminsController < ApplicationController
     user = User.new(params[:user])
 
     if user.save
+      redirect_to admins_users_of_system_path
       flash[:success] = "Завуч успешно создан!"
-      redirect_to admins_users_of_system_path
     else
-      flash[:error] = "Не удалось создать завуча!"
       redirect_to admins_users_of_system_path
+      flash[:error] = "Не удалось создать завуча!"
     end
   end
 

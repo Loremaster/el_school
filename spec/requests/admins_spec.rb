@@ -38,26 +38,47 @@ describe "Admins" do
     end
   end
   
-  describe "for sign-in user" do
-    it "should have correct links in toolbar with active states" do
-      user = Factory(:user)
+  describe "for sign-in admin" do 
+    before(:each) do  
+      user = Factory(:user, :user_login => "user login")
       visit signin_path
       fill_in "Логин",  :with => user.user_login
       fill_in "Пароль", :with => user.password
       click_button "Войти"
+    end
       
+    it "should have correct links in toolbar with active states" do      
       click_link "Резервные копии"
       response.should be_success
       response.body.should have_selector( "li.active") do
         have_selector('a', :content => 'Бекапы')
       end
-      
-      
+            
       click_link "Учетные записи"
       response.should be_success
       response.body.should have_selector( "li.active") do
         have_selector('a', :content => 'Список учетных записей системы')
       end
+    end
+    
+    it "should redirect from root path to users list" do      
+      visit signin_path
+      response.body.should have_selector( "li.active") do
+        have_selector('a', :content => 'Список учетных записей системы')
+      end                                           
+    end
+    
+    describe "should be able to create school head" do
+     it "and should visit creating class head page after it's creation" do
+        click_link "Создать учетную запись"
+        click_link "Завуч"
+        response.should have_selector("legend", :content => "Создание учетной записи Завуча")
+        
+        click_link "Сгенерировать логин"
+        click_link "Сгенерировать пароль"
+        click_button "Создать"
+        response.should have_selector("legend", :content => "Список учетных записей системы")       
+     end
     end
   end  
 end

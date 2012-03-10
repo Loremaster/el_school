@@ -7,7 +7,7 @@ describe AdminsController do
   describe "GET 'users_of_system'" do
     describe "for non-signed-in as admin users" do      
       it "should deny access to admin's pages" do
-        admin_pages = %w(users_of_system backups new_school_head new_teacher create_school_head )
+        admin_pages = %w(users_of_system backups new_school_head new_teacher create_school_head)
         admin_pages.each do |admin_pg|
           get admin_pg
           response.should redirect_to( signin_path )
@@ -77,6 +77,11 @@ describe AdminsController do
         lambda do
           post :create_school_head, :user => @attr_wrong
         end.should_not change(User, :count)
+      end
+      
+      it "should show success message if class head has been created" do
+        post :create_school_head, :user => @attr_correct
+        flash[:success].should_not be_nil
       end
     end  
   end
