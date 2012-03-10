@@ -2,6 +2,7 @@
 
 class SessionsController < ApplicationController
   def new                                                                     #Sign in page
+    redirect_back_to_user_page                                                     #Check who user is and redirect him to his page(s).
   end
 
   def create
@@ -13,14 +14,7 @@ class SessionsController < ApplicationController
       render 'new'
     else
       sign_in user                                                            #Signing in user, giving him cookies and etc
-
-      #Check who user is and redirect him to his page(s).
-      case
-        when current_user_admin? == true                                      #If user is admin then redirect him to his page
-          redirect_back_or admins_users_of_system_path
-        else
-          redirect_back_or user
-      end
+      redirect_back_to_user_page                                                   #Check who user is and redirect him to his page(s).
     end
   end
 

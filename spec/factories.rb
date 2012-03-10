@@ -12,3 +12,4 @@ end
 #Factory.sequence :user_role do |n|
 #  "Person #{n}"
 #end
+

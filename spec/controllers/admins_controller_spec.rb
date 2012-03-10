@@ -50,8 +50,16 @@ describe AdminsController do
     
     describe "POST 'create school head'" do
       before(:each) do
-        @attr_correct = { :user_login => "School", :user_role => "school_head", :password => "qwerty"}
-        @attr_wrong = { :user_login => "", :user_role => "", :password => ""}
+        @attr_correct = { 
+                          :user_login => "School", 
+                          :user_role => "school_head", 
+                          :password => "qwerty"
+                        }
+        @attr_wrong =   { 
+                          :user_login => "", 
+                          :user_role => "", 
+                          :password => ""
+                        }
       end
       
       it "should have legend" do

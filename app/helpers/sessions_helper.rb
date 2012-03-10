@@ -1,6 +1,16 @@
 # encoding: UTF-8
 
 module SessionsHelper
+  def redirect_back_to_user_page    
+    if nil?                                                                   #Not autorized user
+      redirect_back_or signin_path
+    else
+      if signed_in? and current_user_admin?
+        redirect_back_or admins_users_of_system_path
+      end
+    end
+  end
+  
   def sign_in( user )
     cookies.permanent.signed[:remember_token] = [user.id, user.salt]          #Creating secure remember token associated with the User model to be used in place of the user id
     @current_user = user
