@@ -23,6 +23,8 @@ ElSchool::Application.routes.draw do
   match '/admins/create_school_head' => 'admins#create_school_head',
                                          :as => :create_school_head          #named route
 
+  match '/admins/create_teacher' => 'admins#create_teacher',
+                                    :as => :create_teacher
   #match '/admins/process_school_head' => 'admins#process_school_head',
   #                                         :as => :process_school_head          #named route
 

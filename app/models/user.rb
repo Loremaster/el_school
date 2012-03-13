@@ -13,16 +13,19 @@
 #
 
 class User < ActiveRecord::Base
-  attr_accessor   :password                                                   #Creating virtual attribute
-  attr_accessible :user_login,                                                #ALL users can set these fields.
+  attr_accessor   :password                                                               #Creating virtual attribute
+  attr_accessible :user_login,                                                            #ALL users can set these fields.
                   :user_role,
                   :password
+                  # :teacher_attributes
 
   has_one :teacher
 
+  accepts_nested_attributes_for :teacher                                                  #Can save teacher data with user data now
+
   validates :user_login, :presence   => true,
                          :length     => { :maximum => 50 },
-                         :uniqueness => true                                  #Warning! It doesn't guarantee that field ll be unique! Tho connection in same time still can create same data!
+                         :uniqueness => true                                              #Warning! It doesn't guarantee that field ll be unique! Tho connection in same time still can create same data!
 
   validates :user_role, :presence  => true,
                         :inclusion => { :in => %w(admin teacher pupil class_head school_head) }
@@ -50,7 +53,7 @@ class User < ActiveRecord::Base
 
   private
     def encrypt_password
-      self.salt = make_salt if new_record?                                    #Here self means user, object of User's class.
+      self.salt = make_salt if new_record?                                                #Here self means user, object of User's class.
       self.encrypted_password = encrypt( password )
     end
 

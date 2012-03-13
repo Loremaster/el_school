@@ -1,2 +1,79 @@
 <legend>Создание учетной записи Учителя</legend>
 
+<%= form_for @user, :url => create_teacher_url, :html => {:class => "form-horizontal"} do |f| %>
+  <%= field_set_tag do %>
+		<%= f.fields_for :teacher do |builder| %>
+      <div class="control-group">
+        <%= builder.label :teacher_last_name, "Фамилия", :class => "control-label" %>
+        <div class="controls">
+          <%= builder.text_field :teacher_last_name %>
+        </div>
+      </div>
+      
+      <div class="control-group">
+        <%= builder.label :teacher_first_name, "Имя", :class => "control-label" %>
+        <div class="controls">
+          <%= builder.text_field :teacher_first_name %>
+        </div>
+      </div>
+      
+      <div class="control-group">
+        <%= builder.label :teacher_middle_name, "Отчество", :class => "control-label" %>
+        <div class="controls">
+          <%= builder.text_field :teacher_middle_name %>
+        </div>
+      </div>
+      
+      <div class="control-group">
+        <%= builder.label :teacher_sex, "Пол", :class => "control-label" %>
+        <div class="controls">
+          <%= label_tag nil, nil, :class => "radio" do %>
+            <%= builder.radio_button :teacher_sex, 'm' %>
+            Мужской
+          <% end %>
+        
+          <%= label_tag nil, nil, :class => "radio" do %>
+            <%= builder.radio_button :teacher_sex, 'w', :checked => true %>
+            Женский
+          <% end %>
+        </div> 
+      </div>
+      
+      <div class="control-group">
+        <%= builder.label :teacher_birthday, "Дата рождения", :class => "control-label" %>
+        <div class="controls">
+          <%= builder.text_field :teacher_birthday %>
+          <p class="help-block">Формат даты: дд.мм.гггг</p>
+        </div>
+      </div>
+            
+      <hr/>
+      
+      <div class="control-group">
+        <%= builder.label :teacher_category, "Категория", :class => "control-label" %>
+        <div class="controls">
+          <%= builder.text_field :teacher_category %>
+        </div>
+      </div>        
+		<% end %>
+	
+
+		<div class="control-group">
+	    <%= f.label :user_login, "Логин учетной записи", :class => "control-label" %>
+	    <div class="controls">
+	      <%= f.text_field :user_login, :value => "" %>
+			  <%= link_to_function "Сгенерировать логин", "generate_login()", :class => "btn" %>
+	    </div>
+	  </div>
+
+	  <div class="control-group">
+	    <%= f.label :password, "Пароль учетной записи", :class => "control-label" %>
+	    <div class="controls">
+	      <%= f.text_field :password %>
+				<%= link_to_function "Сгенерировать пароль", "generate_password()", :class => "btn" %>
+	    </div>
+	  </div>
+	<% end %>
+	
+	<%= f.submit "Создать", :class => "btn btn-large btn-success" %>
+<% end %>

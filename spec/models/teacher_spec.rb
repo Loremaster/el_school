@@ -25,8 +25,8 @@ describe Teacher do
         :teacher_last_name   => "Каров",
         :teacher_first_name  => "Петр",
         :teacher_middle_name => "Иванович",
-        :teacher_birthday    => "28.08.1980",
-        :teacher_sex         => "м",
+        :teacher_birthday    => "31.12.1980",                                             #dd.mm.yyyy
+        :teacher_sex         => "m",
         :teacher_category    => "1я Категория"
     }
   end
@@ -34,7 +34,7 @@ describe Teacher do
   it "should be able to be created via user" do
     lambda do
       @user.create_teacher( @attr_teacher )
-    end.should change( Teacher, :count ).by( 1 )  
+    end.should change( Teacher, :count ).by( 1 ) 
   end
   
   describe "user-teacher association" do
@@ -85,7 +85,7 @@ describe Teacher do
     end
     
     it "should accept right sex chars" do
-      teacher_sex = %w(м ж)
+      teacher_sex = %w(m w)
       teacher_sex.each do |sex|  
         correct_teacher =  @user.build_teacher( @attr_teacher.merge(:teacher_sex => sex ) )
         correct_teacher.should be_valid     
@@ -93,7 +93,7 @@ describe Teacher do
     end
     
     it "should reject wrong sex chars" do
-      teacher_sex = %w(М Ж К И)
+      teacher_sex = %w(M W K F)
       teacher_sex.each do |sex|  
         wrong_teacher =  @user.build_teacher( @attr_teacher.merge(:teacher_sex => sex ) )
         wrong_teacher.should_not be_valid     
