@@ -6,7 +6,7 @@
 		    <%= f.label :user_login, "Логин учетной записи", :class => "control-label" %>
 		    <div class="controls">
 		      <%= f.text_field :user_login, :value => "" %>
-				  <%= link_to_function "Сгенерировать логин", "generate_login()"%>
+				  <%= link_to_function "Сгенерировать логин", "generate_login()", :class => "btn" %>
 		    </div>
 		  </div>
 
@@ -14,12 +14,10 @@
 		    <%= f.label :password, "Пароль учетной записи", :class => "control-label" %>
 		    <div class="controls">
 		      <%= f.text_field :password %>
-					<%= link_to_function "Сгенерировать пароль", "generate_password()"%>
+					<%= link_to_function "Сгенерировать пароль", "generate_password()", :class => "btn" %>
 		    </div>
 		  </div>
 		<% end %>
 
     <%= f.submit "Создать", :class => "btn btn-large btn-success" %>
 <%  end %>
-
-<%#= content_tag(:button, "Foo", :class => "btn", :onclick=>"javascript:window.print()")%>

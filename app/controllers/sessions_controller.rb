@@ -14,6 +14,7 @@ class SessionsController < ApplicationController
       render 'new'
     else
       sign_in user                                                            #Signing in user, giving him cookies and etc
+      #redirect_to user
       redirect_back_to_user_page                                              #Check who user is and redirect him to his page(s).
     end
   end
