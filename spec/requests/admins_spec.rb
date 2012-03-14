@@ -74,8 +74,8 @@ describe "Admins" do
         click_link "Завуч"
         response.should have_selector("legend", :content => "Создание учетной записи Завуча")
         
-        click_link "Сгенерировать логин"
-        click_link "Сгенерировать пароль"
+        fill_in "Логин учетной записи",  :with => "user.user_login"
+        fill_in "Пароль учетной записи", :with => "user.password"
         click_button "Создать"
         response.should have_selector("legend", :content => "Список учетных записей системы")       
      end

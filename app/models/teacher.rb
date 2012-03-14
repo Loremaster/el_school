@@ -24,9 +24,9 @@ class Teacher < ActiveRecord::Base
                   :teacher_sex,
                   :teacher_category
 
-  belongs_to :user
+  belongs_to :user#, dependent => :destroy                                                 #If we delete teacher, we delete his user row too.
    
-  # date_regexp = /\A\d{2}\.\d{2}\.\d{4}\z/                                                 #dd.mm.yyyy
+  # date_regexp = /\A\d{2}\.\d{2}\.\d{4}\z/                                               #dd.mm.yyyy
    
   validates :user_id,             :presence => true                                       #That means that we can't create teacher like that - Teacher.new(...). We should create it like that - @user.create_teacher( @attr_teacher )      
                     

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # Created by 'bundle exec annotate --position before'
 # == Schema Information
 #
@@ -23,15 +24,24 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :teacher                                                  #Can save teacher data with user data now
 
-  validates :user_login, :presence   => true,
-                         :length     => { :maximum => 50 },
-                         :uniqueness => true                                              #Warning! It doesn't guarantee that field ll be unique! Tho connection in same time still can create same data!
+  validates :user_login, 
+              :presence   => { :message => "не может быть пустым" },     
+              :length     => { 
+                                :maximum => 50,
+                                :message => "не более 50 символов"
+                              },
+              :uniqueness => { :message => "уже занят" }                                  #Warning! It doesn't guarantee that field ll be unique! Tho connection in same time still can create same data!
 
-  validates :user_role, :presence  => true,
-                        :inclusion => { :in => %w(admin teacher pupil class_head school_head) }
+  validates :user_role,                                                                   #User role is giving automatically
+              :presence  => true,
+              :inclusion => { :in => %w(admin teacher pupil class_head school_head) }
 
-  validates :password, :presence  => true,
-                       :length    => { :within => 6..40 }
+  validates :password, 
+              :presence  => { :message => "не может быть пустым" },
+              :length    => { 
+                              :within => 6..40, 
+                              :message => "должен содержать от 6 до 40 символов"
+                            }
 
   before_save :encrypt_password
 

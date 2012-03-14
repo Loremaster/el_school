@@ -9,4 +9,7 @@ module ApplicationHelper
     end
   end
 
+  # def get_errors ( user )    
+  #   user.errors.full_messages.each { |e|  }
+  # end
 end

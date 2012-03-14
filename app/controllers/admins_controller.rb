@@ -25,8 +25,11 @@ class AdminsController < ApplicationController
       redirect_to admins_users_of_system_path
       flash[:success] = "Завуч успешно создан!"
     else
-      redirect_to admins_users_of_system_path
-      flash[:error] = "Не удалось создать завуча!"
+       redirect_to admins_new_school_head_path
+       flash[:error] = user.errors
+                           .full_messages
+                           .to_sentence :last_word_connector => ", ",
+                                        :two_words_connector => ", "
     end
   end
 
@@ -34,6 +37,11 @@ class AdminsController < ApplicationController
     @user = User.new
     teacher = @user.build_teacher
   end
+
+  #TODO Add Data testing - format, dd.mm.yyyy in field and etc.
+  #TODO Add more talking and clear error messages.
+  #TODO Add russian error messages in models.
+  
 
   def create_teacher
     params[:user][:user_role] = "teacher"

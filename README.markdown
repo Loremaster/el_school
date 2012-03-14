@@ -13,6 +13,8 @@ This is **el-school** project.
 
 ------------------------------------------------------------------------------
 
+- Added russian error messages for creation of User. All errors in schoolhead popup as flash message
+and contains russian words. For translation words i use locale, it set as :en (default). 
 - Added password and login generation (for class head). Plus some tests for that.
 - Redirect admin from root of site to his list of users.
 - Redirect admin after signing-in to his page.
