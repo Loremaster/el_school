@@ -39,6 +39,7 @@ class AdminsController < ApplicationController
   #TODO Add Data testing - format, dd.mm.yyyy in field and etc.
   #TODO test ingration, that create_school_head works.
   #TODO test that create_teacher works.
+  #TODO keep data in worms while redirecting.
   
   def create_teacher
     user_errors = nil 
