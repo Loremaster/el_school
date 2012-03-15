@@ -7,3 +7,9 @@ en:
           user:
             user_login: "Логин пользователя"
             password:   "Пароль"
+          teacher:
+            teacher_last_name: "Фамилия"
+            teacher_first_name: "Имя"
+            teacher_middle_name: "Отчество"
+            teacher_category: "Категория учителя"
+            teacher_birthday: "Дата рождения"  

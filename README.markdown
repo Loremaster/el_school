@@ -4,6 +4,7 @@ This is **el-school** project.
 
 ------------------------------------------------------------------------------
 
+- Now we can create basic teacher - saving user and teacher models.
 - Teacher model created. 
 - Test for teacher model (no integration tests).
 
@@ -13,7 +14,7 @@ This is **el-school** project.
 
 ------------------------------------------------------------------------------
 
-- Added russian error messages for creation of User. All errors in schoolhead popup as flash message
+- Added russian error messages for creation of User. All errors in schoolhead popup as flash message.
 and contains russian words. For translation words i use locale, it set as :en (default). 
 - Added password and login generation (for class head). Plus some tests for that.
 - Redirect admin from root of site to his list of users.

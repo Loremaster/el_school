@@ -28,26 +28,46 @@ class Teacher < ActiveRecord::Base
    
   # date_regexp = /\A\d{2}\.\d{2}\.\d{4}\z/                                               #dd.mm.yyyy
    
-  validates :user_id,             :presence => true                                       #That means that we can't create teacher like that - Teacher.new(...). We should create it like that - @user.create_teacher( @attr_teacher )      
+  validates :user_id,             
+              :presence => true                                                           #That means that we can't create teacher like that - Teacher.new(...). We should create it like that - @user.create_teacher( @attr_teacher )      
                     
-  validates :teacher_last_name,   :presence => true,             
-                                  :length   => { :maximum => 40 }
+  validates :teacher_last_name,   
+              :presence   => { :message => "не может быть пустой" },             
+              :length     => { 
+                               :maximum => 40,
+                               :message => "должна содержать не более 40 символов" 
+                             }
                                                                   
-  validates :teacher_first_name,  :presence => true,             
-                                  :length   => { :maximum => 40 }
+  validates :teacher_first_name,  
+              :presence   => { :message => "не может быть пустым" },             
+              :length     => { 
+                               :maximum => 40,
+                               :message => "должно содержать не более 40 символов" 
+                             }
                                  
-  validates :teacher_middle_name, :presence => true,                                             
-                                  :length   => { :maximum => 40 }
+  validates :teacher_middle_name, 
+              :presence   => { :message => "не может быть пустым" },             
+              :length     => { 
+                               :maximum => 40,
+                               :message => "должно содержать не более 40 символов" 
+                             }
                                    
-  validates :teacher_sex,         :presence => true,
-                                  :inclusion => { :in => %w(m w) }
+  validates :teacher_sex,         
+              :presence  => true,
+              :inclusion => { :in => %w(m w) }
                                   
-  validates :teacher_category,    :length   => { :maximum => 20 }                         #Might be empty as i understand.
+  validates :teacher_category,                                                            #Might be empty as i understand.
+              :length   => { 
+                            :maximum => 20,
+                            :message => "должна содержать не более 20 символов" 
+                           }         
           
-  validates :teacher_birthday, :inclusion => {
-                                              :in => Date.civil(1970, 1, 1)..Date.today,
-                                              :message => "Дата должна быть с 1970 по сегодняшний день"
-                                             }
+  validates :teacher_birthday, 
+              :inclusion => {
+                              :in => Date.civil(1970, 1, 1)..Date.today,
+                              :message => "должна быть с 1970 по сегодняшний день"
+                             }
+                                             
   
   # validates :teacher_birthday, :presence => true,
   #                                :unless   => :date_is_correct?

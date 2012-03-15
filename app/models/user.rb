@@ -17,8 +17,8 @@ class User < ActiveRecord::Base
   attr_accessor   :password                                                               #Creating virtual attribute
   attr_accessible :user_login,                                                            #ALL users can set these fields.
                   :user_role,
-                  :password
-                  # :teacher_attributes
+                  :password,
+                  :teacher_attributes
 
   has_one :teacher
 
