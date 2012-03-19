@@ -103,37 +103,70 @@ describe "Admins" do
     end
     
     describe "Creating teacher" do
+      before(:each) do
+        @teacher_surname     = 'Klukin'
+        @teacher_name        = 'Petr'
+        @teacher_middle_name = 'Ivanovich'
+        @teacher_birth       = '24.12.1991'
+        @teacher_category    = 'First category'
+        @user_login          = 'login'
+      end
+      
+      it "should create teacher with valid data" do
+        lambda do
+          lambda do 
+            user_pas = 'password'
+        
+            click_link 'Создать учетную запись'
+            click_link 'Учитель'
+            response.should have_selector( 'legend', 
+                                           :content => 'Создание учетной записи Учителя' )
+    
+            fill_in 'Фамилия',               :with => @teacher_surname
+            fill_in 'Имя',                   :with => @teacher_name
+            fill_in 'Отчество',              :with => @teacher_middle_name
+            choose 'Мужской'                                                              # Choose radio button
+            fill_in 'Дата рождения',         :with => @teacher_birth
+            fill_in 'Категория',             :with => @teacher_category
+            fill_in 'Логин учетной записи',  :with => @user_login
+            fill_in 'Пароль учетной записи', :with => user_pas
+            click_button 'Создать'
+        
+            response.should have_selector('legend', 
+                                          :content => 'Список учетных записей системы')
+          end.should change(User, :count).by(1)
+        end.should change(Teacher, :count).by(1) 
+      end
+      
       it "should keep values in forms after submit with wrong values" do
         lambda do
           lambda do
-            teacher_surname, teacher_name, teacher_middle_name = 'Klukin', 'Petr', 'Ivanovich'
-            teacher_birth, teacher_category = '24.12.1991', 'First category'
-            user_login, wrong_user_pas = 'login', 'pas'
+            wrong_user_pas = 'pas'
         
             click_link 'Создать учетную запись'
             click_link 'Учитель'
             response.should have_selector( 'legend', 
                                            :content => 'Создание учетной записи Учителя' )
         
-            fill_in 'Фамилия',               :with => teacher_surname
-            fill_in 'Имя',                   :with => teacher_name
-            fill_in 'Отчество',              :with => teacher_middle_name
-            choose 'Мужской'                                                                  # Choose radio button
-            fill_in 'Дата рождения',         :with => teacher_birth
-            fill_in 'Категория',             :with => teacher_category
-            fill_in 'Логин учетной записи',  :with => user_login
+            fill_in 'Фамилия',               :with => @teacher_surname
+            fill_in 'Имя',                   :with => @teacher_name
+            fill_in 'Отчество',              :with => @teacher_middle_name
+            choose 'Мужской'                                                              # Choose radio button
+            fill_in 'Дата рождения',         :with => @teacher_birth
+            fill_in 'Категория',             :with => @teacher_category
+            fill_in 'Логин учетной записи',  :with => @user_login
             fill_in 'Пароль учетной записи', :with => wrong_user_pas
             click_button 'Создать'
         
             response.should have_selector( 'legend', 
                                            :content => 'Создание учетной записи Учителя' )
             response.should have_selector('form') do |form|
-              form.should have_selector( 'input', :value => teacher_surname )
-              form.should have_selector( 'input', :value => teacher_name )
-              form.should have_selector( 'input', :value => teacher_middle_name )
-              form.should have_selector( 'input', :value => teacher_birth )
-              form.should have_selector( 'input', :value => teacher_category )
-              form.should have_selector( 'input', :value => user_login )
+              form.should have_selector( 'input', :value => @teacher_surname )
+              form.should have_selector( 'input', :value => @teacher_name )
+              form.should have_selector( 'input', :value => @teacher_middle_name )
+              form.should have_selector( 'input', :value => @teacher_birth )
+              form.should have_selector( 'input', :value => @teacher_category )
+              form.should have_selector( 'input', :value => @user_login )
               form.should have_selector( 'input', :value => wrong_user_pas  )
               form.should have_selector( 'input', :value => 'm', :checked => 'checked'  )     # In DB 'w' is woman, 'm' is man thats why we keep such letters in view. 
             end

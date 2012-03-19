@@ -53,11 +53,11 @@ class AdminsController < ApplicationController
       
       #Set value of radio button by receiving value from users.
       case user_sex
-        when 'm' then @user_sex_man = true
+        when 'm' then @user_sex_man   = true
         when 'w' then @user_sex_woman = true  
       end    
     else
-       @user_sex_woman = true                                                             # By default sex of teacher is woman.
+      @user_sex_woman = true                                                              # By default sex of teacher is woman.
     end  
   end
 
