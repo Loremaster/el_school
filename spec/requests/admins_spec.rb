@@ -68,17 +68,78 @@ describe "Admins" do
       end                                           
     end
     
-    describe "should be able to create school head" do
-     it "and should visit creating class head page after it's creation" do
+    describe "Creating school head" do
+     it "should visit list of users after creating school head" do
         click_link "Создать учетную запись"
         click_link "Завуч"
-        response.should have_selector("legend", :content => "Создание учетной записи Завуча")
+        response.should have_selector('legend', :content => 'Создание учетной записи Завуча')
         
         fill_in "Логин учетной записи",  :with => "user.user_login"
         fill_in "Пароль учетной записи", :with => "user.password"
         click_button "Создать"
-        response.should have_selector("legend", :content => "Список учетных записей системы")       
+        response.should have_selector('legend', :content => 'Список учетных записей системы')       
      end
+     
+     it "should keep values in forms after submit with wrong values and should not create user" do
+        lambda do
+          user_login, wrong_user_pas = "login", "pas"
+        
+          click_link "Учетные записи"
+          click_link "Создать учетную запись"
+          click_link "Завуч"
+        
+          fill_in "Логин учетной записи",  :with => user_login
+          fill_in "Пароль учетной записи", :with => wrong_user_pas
+          click_button "Создать"
+        
+          response.should have_selector("legend", 
+                                        :content => "Создание учетной записи Завуча")     # We stay on this page because we have wrong value in form 
+          response.should have_selector("form") do |form|
+            form.should have_selector( "input", :value => user_login )
+            form.should have_selector( "input", :value => wrong_user_pas  )
+          end
+        end.should_not change(User, :count)
+     end
+    end
+    
+    describe "Creating teacher" do
+      it "should keep values in forms after submit with wrong values" do
+        lambda do
+          lambda do
+            teacher_surname, teacher_name, teacher_middle_name = 'Klukin', 'Petr', 'Ivanovich'
+            teacher_birth, teacher_category = '24.12.1991', 'First category'
+            user_login, wrong_user_pas = 'login', 'pas'
+        
+            click_link 'Создать учетную запись'
+            click_link 'Учитель'
+            response.should have_selector( 'legend', 
+                                           :content => 'Создание учетной записи Учителя' )
+        
+            fill_in 'Фамилия',               :with => teacher_surname
+            fill_in 'Имя',                   :with => teacher_name
+            fill_in 'Отчество',              :with => teacher_middle_name
+            choose 'Мужской'                                                                  # Choose radio button
+            fill_in 'Дата рождения',         :with => teacher_birth
+            fill_in 'Категория',             :with => teacher_category
+            fill_in 'Логин учетной записи',  :with => user_login
+            fill_in 'Пароль учетной записи', :with => wrong_user_pas
+            click_button 'Создать'
+        
+            response.should have_selector( 'legend', 
+                                           :content => 'Создание учетной записи Учителя' )
+            response.should have_selector('form') do |form|
+              form.should have_selector( 'input', :value => teacher_surname )
+              form.should have_selector( 'input', :value => teacher_name )
+              form.should have_selector( 'input', :value => teacher_middle_name )
+              form.should have_selector( 'input', :value => teacher_birth )
+              form.should have_selector( 'input', :value => teacher_category )
+              form.should have_selector( 'input', :value => user_login )
+              form.should have_selector( 'input', :value => wrong_user_pas  )
+              form.should have_selector( 'input', :value => 'm', :checked => 'checked'  )     # In DB 'w' is woman, 'm' is man thats why we keep such letters in view. 
+            end
+          end.should_not change(User, :count)
+        end.should_not change(Teacher, :count)
+      end
     end
   end  
 end

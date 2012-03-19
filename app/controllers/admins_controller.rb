@@ -15,17 +15,20 @@ class AdminsController < ApplicationController
 
   def new_school_head
     @user = User.new
+    @user_login, @user_pass = "", ""
+    @user_login = params[:user_login]
+    @user_pass  = params[:password]
   end
 
   def create_school_head
-    user = User.new(params[:user])
+    user = User.new( params[:user] )
     user.user_role = "school_head"
 
     if user.save
       redirect_to admins_users_of_system_path
       flash[:success] = "Завуч успешно создан!"
     else
-      redirect_to admins_new_school_head_path
+      redirect_to admins_new_school_head_path( params[:user] )
       flash[:error] = user.errors.full_messages.to_sentence :last_word_connector => ", ",
                                                             :two_words_connector => ", "
     end
@@ -34,52 +37,50 @@ class AdminsController < ApplicationController
   def new_teacher
     @user = User.new
     teacher = @user.build_teacher
+    @teacher_last_name, @teacher_first_name, @teacher_middle_name     = "", "", ""
+    @teacher_birthday, @teacher_category, @user_login, @user_password = "", "", "", ""
+    @user_sex_man, @user_sex_woman                                    = false, false      # Values of radio buttons of sex.
+
+    if ( params.has_key?( :user ) )                                                       # This has such key only if user have wrong values in fields and we've redirected to this method.
+      @teacher_last_name   = params[:user][:teacher_attributes][:teacher_last_name]     
+      @teacher_first_name  = params[:user][:teacher_attributes][:teacher_first_name]
+      @teacher_middle_name = params[:user][:teacher_attributes][:teacher_middle_name]
+      @teacher_birthday    = params[:user][:teacher_attributes][:teacher_birthday]
+      @teacher_category    = params[:user][:teacher_attributes][:teacher_category]
+      @user_login          = params[:user][:user_login]
+      @user_password       = params[:user][:password]        
+      user_sex             = params[:user][:teacher_attributes][:teacher_sex]
+      
+      #Set value of radio button by receiving value from users.
+      case user_sex
+        when 'm' then @user_sex_man = true
+        when 'w' then @user_sex_woman = true  
+      end    
+    else
+       @user_sex_woman = true                                                             # By default sex of teacher is woman.
+    end  
   end
 
   #TODO Add Data testing - format, dd.mm.yyyy in field and etc.
-  #TODO test ingration, that create_school_head works.
+  #TODO test integration, that create_school_head works.
   #TODO test that create_teacher works.
-  #TODO keep data in worms while redirecting.
   
   def create_teacher
     user_errors = nil 
-  
     user = User.new( params[:user] )
     user.user_role = "teacher"
     user.teacher.user_id = current_user.id                                                #Set this manually because teacher need this.
     
     if user.save
       redirect_to admins_users_of_system_path
-      flash[:success] = "Teacher created!"
+      flash[:success] = "Учитель успешно создан!"
     else
-      redirect_to admins_new_teacher_path
+      redirect_to admins_new_teacher_path( params )
       user_errors = user.errors.full_messages.to_sentence :last_word_connector => ", ",
                                                           :two_words_connector => ", "
       flash[:error] = user_errors if user_errors.present?
     end 
   end
 
-  
-  
-  # def create_teacher
-  #    params[:user][:user_role] = "teacher"      
-  #    user = User.new(params[:user])
-  #  
-  #    if user.save
-  #      teacher = user.build_teacher( params[:user][:teacher_attributes] )
-  #      if teacher.valid?
-  #        teacher.save
-  #        redirect_to admins_users_of_system_path
-  #        flash[:success] = "Teacher created!"
-  #      else
-  #        redirect_to admins_new_teacher_path
-  #        flash[:error] = teacher.errors.full_messages.to_sentence
-  #        user.destroy
-  #      end
-  #    else
-  #      redirect_to admins_new_teacher_path
-  #      flash[:error] = user.errors.full_messages.to_sentence
-  #       # flash[:notice] = user.teacher.errors.full_messages.to_sentence
-  #    end
-  #  end
 end
+

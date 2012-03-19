@@ -6,21 +6,21 @@
       <div class="control-group">
         <%= builder.label :teacher_last_name, "Фамилия", :class => "control-label" %>
         <div class="controls">
-          <%= builder.text_field :teacher_last_name %>
+          <%= builder.text_field :teacher_last_name, :value => @teacher_last_name %>
         </div>
       </div>
       
       <div class="control-group">
         <%= builder.label :teacher_first_name, "Имя", :class => "control-label" %>
         <div class="controls">
-          <%= builder.text_field :teacher_first_name %>
+          <%= builder.text_field :teacher_first_name, :value => @teacher_first_name %>
         </div>
       </div>
       
       <div class="control-group">
         <%= builder.label :teacher_middle_name, "Отчество", :class => "control-label" %>
         <div class="controls">
-          <%= builder.text_field :teacher_middle_name %>
+          <%= builder.text_field :teacher_middle_name, :value => @teacher_middle_name %>
         </div>
       </div>
       
@@ -28,12 +28,12 @@
         <%= builder.label :teacher_sex, "Пол", :class => "control-label" %>
         <div class="controls">
           <%= label_tag nil, nil, :class => "radio" do %>
-            <%= builder.radio_button :teacher_sex, 'm' %>
+            <%= builder.radio_button :teacher_sex, 'm', :checked => @user_sex_man %>
             Мужской
           <% end %>
         
           <%= label_tag nil, nil, :class => "radio" do %>
-            <%= builder.radio_button :teacher_sex, 'w', :checked => true %>
+            <%= builder.radio_button :teacher_sex, 'w', :checked => @user_sex_woman %>
             Женский
           <% end %>
         </div> 
@@ -42,7 +42,7 @@
       <div class="control-group">
         <%= builder.label :teacher_birthday, "Дата рождения", :class => "control-label" %>
         <div class="controls">
-          <%= builder.text_field :teacher_birthday %>
+          <%= builder.text_field :teacher_birthday, :value => @teacher_birthday %>
           <p class="help-block">Формат даты: дд.мм.гггг</p>
         </div>
       </div>
@@ -52,7 +52,7 @@
       <div class="control-group">
         <%= builder.label :teacher_category, "Категория", :class => "control-label" %>
         <div class="controls">
-          <%= builder.text_field :teacher_category %>
+          <%= builder.text_field :teacher_category, :value => @teacher_category %>
         </div>
       </div>        
 		<% end %>
@@ -61,7 +61,7 @@
 		<div class="control-group">
 	    <%= f.label :user_login, "Логин учетной записи", :class => "control-label" %>
 	    <div class="controls">
-	      <%= f.text_field :user_login, :value => "" %>
+	      <%= f.text_field :user_login, :value => @user_login %>
 			  <%= link_to_function "Сгенерировать логин", "generate_login()", :class => "btn" %>
 	    </div>
 	  </div>
@@ -69,7 +69,7 @@
 	  <div class="control-group">
 	    <%= f.label :password, "Пароль учетной записи", :class => "control-label" %>
 	    <div class="controls">
-	      <%= f.text_field :password %>
+	      <%= f.text_field :password, :value => @user_password  %>
 				<%= link_to_function "Сгенерировать пароль", "generate_password()", :class => "btn" %>
 	    </div>
 	  </div>
