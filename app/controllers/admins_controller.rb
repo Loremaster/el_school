@@ -69,7 +69,7 @@ class AdminsController < ApplicationController
   end
 
   #TODO test integration, that create_school_head works.
-  #TODO remove user role from atrr_accesible.
+  #TODO test integration that education saves.
   
   def create_teacher
     user_errors, date_errors = nil, nil     

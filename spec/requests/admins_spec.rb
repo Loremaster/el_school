@@ -116,6 +116,10 @@ describe "Admins" do
         @teacher_category    = 'First category'
         @user_login          = 'login'
         @user_password       = 'password'
+        @user_univ           = 'МГУ'
+        @user_finish_univ    = '01.01.1980'
+        @user_graduation     = 'Бакалавр'
+        @user_speciality     = 'Математик'
       end
       
       it "should not create teacher with invalid date" do
@@ -147,28 +151,34 @@ describe "Admins" do
       
       it "should create teacher with valid data" do
         lambda do
-          lambda do 
-            user_pas = 'password'
+          lambda do
+            lambda do 
+              user_pas = 'password'
         
-            click_link 'Создать учетную запись'
-            click_link 'Учитель'
-            response.should have_selector( 'legend', 
-                                           :content => 'Создание учетной записи Учителя' )
+              click_link 'Создать учетную запись'
+              click_link 'Учитель'
+              response.should have_selector( 'legend', 
+                                             :content => 'Создание учетной записи Учителя' )
     
-            fill_in 'Фамилия',               :with => @teacher_surname
-            fill_in 'Имя',                   :with => @teacher_name
-            fill_in 'Отчество',              :with => @teacher_middle_name
-            choose 'Мужской'                                                              # Choose radio button
-            fill_in 'Дата рождения',         :with => @teacher_birth
-            fill_in 'Категория',             :with => @teacher_category
-            fill_in 'Логин учетной записи',  :with => @user_login
-            fill_in 'Пароль учетной записи', :with => user_pas
-            click_button 'Создать'
+              fill_in 'Фамилия',               :with => @teacher_surname
+              fill_in 'Имя',                   :with => @teacher_name
+              fill_in 'Отчество',              :with => @teacher_middle_name
+              choose 'Мужской'                                                            # Choose radio button
+              fill_in 'Дата рождения',         :with => @teacher_birth
+              fill_in 'Категория',             :with => @teacher_category
+              fill_in 'Логин учетной записи',  :with => @user_login
+              fill_in 'Пароль учетной записи', :with => user_pas
+              fill_in 'Название ВУЗа',         :with => @user_univ
+              fill_in 'Дата выпуска из ВУЗа',  :with => @user_finish_univ
+              fill_in 'Степень',               :with => @user_graduation
+              fill_in 'Специальность',         :with => @user_speciality
+              click_button 'Создать'
         
-            response.should have_selector('legend', 
-                                          :content => 'Список учетных записей системы')
-          end.should change( User, :count ).by(1)
-        end.should change( Teacher, :count ).by(1) 
+              response.should have_selector( 'legend', 
+                                             :content => 'Список учетных записей системы' )
+            end.should change( User, :count ).by(1)
+          end.should change( Teacher, :count ).by(1)
+        end.should change( TeacherEducation, :count ).by(1) 
       end
       
       it "should keep values in forms after submit with wrong values" do
