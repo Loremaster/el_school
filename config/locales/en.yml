@@ -12,4 +12,9 @@ en:
             teacher_first_name: "Имя"
             teacher_middle_name: "Отчество"
             teacher_category: "Категория учителя"
-            teacher_birthday: "Дата рождения"  
+            teacher_birthday: "Дата рождения" 
+          teacher_education:
+            teacher_education_university: "Название ВУЗа"
+            teacher_education_year:       "Дата выпуска из ВУЗа"
+            teacher_education_graduation: "Степень" 
+            teacher_education_speciality: "Специальность"      

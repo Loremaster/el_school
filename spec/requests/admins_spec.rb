@@ -22,7 +22,8 @@ describe "Admins" do
         fill_in "Логин",  :with => ""
         fill_in "Пароль", :with => ""
         click_button "Войти" 
-        response.should have_selector("div.alert.alert-error", :content => "Не удается войти. Пожалуйста, проверьте правильность написания логина и пароля. Проверьте, не нажата ли клавиша CAPS-lock.")
+        response.should have_selector("div.alert.alert-error", 
+          :content => "Не удается войти. Пожалуйста, проверьте правильность написания логина и пароля. Проверьте, не нажата ли клавиша CAPS-lock.")
       end
     end
     
@@ -200,7 +201,7 @@ describe "Admins" do
               form.should have_selector( 'input', :value => @teacher_category )
               form.should have_selector( 'input', :value => @user_login )
               form.should have_selector( 'input', :value => wrong_user_pas  )
-              form.should have_selector( 'input', :value => 'm', :checked => 'checked'  )     # In DB 'w' is woman, 'm' is man thats why we keep such letters in view. 
+              form.should have_selector( 'input', :value => 'm', :checked => 'checked'  ) # In DB 'w' is woman, 'm' is man thats why we keep such letters in view. 
             end
           end.should_not change( User, :count )
         end.should_not change( Teacher, :count )

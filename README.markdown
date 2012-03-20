@@ -1,12 +1,16 @@
 This is **el-school** project.
 
+------------------------------------------------------------------------------
+
+**Teacher education**
+
+- Basic tests for validations.
 
 ------------------------------------------------------------------------------
 
 **Teacher**
 
 - Now we can create basic teacher - saving user and teacher models.
-- Teacher model created. 
 - Test for teacher model (no integration tests).
 
 ------------------------------------------------------------------------------

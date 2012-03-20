@@ -29,15 +29,32 @@ describe Teacher do
         :teacher_sex         => "m",
         :teacher_category    => "1я Категория"
     }
+    
+    @attr_invalid_teacher = {
+        :teacher_last_name   => "Каров",
+        :teacher_first_name  => "Петр",
+        :teacher_middle_name => "Иванович",
+        :teacher_birthday    => "",                                                       #dd.mm.yyyy
+        :teacher_sex         => "",
+        :teacher_category    => ""
+    }
   end
 
-  it "should be able to be created via user" do
-    lambda do
-      @user.create_teacher( @attr_teacher )
-    end.should change( Teacher, :count ).by( 1 ) 
+  describe "User cretion" do
+    it "should create valid teacher via user" do
+      lambda do
+        @user.create_teacher( @attr_teacher )
+      end.should change( Teacher, :count ).by( 1 ) 
+    end
+
+    it "should not create invalid teacher via user" do
+      lambda do
+        @user.create_teacher( @attr_invalid_teacher )
+      end.should_not change( Teacher, :count ) 
+    end  
   end
-  
-  describe "user-teacher association" do
+ 
+  describe "User-Teacher association" do
     before(:each) do
       @teacher = @user.create_teacher( @attr_teacher )
     end
@@ -52,7 +69,7 @@ describe Teacher do
     end
   end
   
-  describe "validations of teacher" do
+  describe "Validations of teacher" do
     it "should require a user id" do
       Teacher.new( @attr_teacher ).should_not be_valid
     end

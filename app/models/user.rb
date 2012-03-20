@@ -16,11 +16,11 @@
 class User < ActiveRecord::Base
   attr_accessor   :password                                                               #Creating virtual attribute
   attr_accessible :user_login,                                                            #ALL users can set these fields.
-                  # :user_role,
                   :password,
                   :teacher_attributes
 
   has_one :teacher
+  has_one :teacher_education
 
   accepts_nested_attributes_for :teacher                                                  #Can save teacher data with user data now
 

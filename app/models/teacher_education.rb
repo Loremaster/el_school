@@ -1,0 +1,54 @@
+# encoding: UTF-8
+# Created by 'bundle exec annotate --position before'
+# == Schema Information
+#
+# Table name: teacher_educations
+#
+#  id                           :integer         not null, primary key
+#  user_id                      :integer
+#  teacher_education_university :string(255)
+#  teacher_education_year       :date
+#  teacher_education_graduation :string(255)
+#  teacher_education_speciality :string(255)
+#  created_at                   :datetime        not null
+#  updated_at                   :datetime        not null
+#
+
+class TeacherEducation < ActiveRecord::Base
+  attr_accessible :teacher_education_university,
+                  :teacher_education_year,
+                  :teacher_education_graduation,
+                  :teacher_education_speciality
+                  
+  belongs_to :user
+  
+  validates :user_id,             
+              :presence => true
+              
+  validates :teacher_education_university,   
+              :presence   => { :message => "не может быть пустым" },             
+              :length     => { 
+                                :maximum => 100,
+                                :message => "должно содержать не более 100 символов" 
+                             }
+                             
+  validates :teacher_education_year, 
+              :inclusion => {
+                               :in => Date.civil(1970, 1, 1)..Date.today,
+                               :message => "должна быть с 1970 по сегодняшний день"
+                            } 
+                                                      
+  validates :teacher_education_graduation,   
+              :presence   => { :message => "не может быть пустой" },             
+              :length     => { 
+                                :maximum => 30,
+                                :message => "должна содержать не более 30 символов" 
+                              }
+                              
+  validates :teacher_education_speciality,   
+              :presence   => { :message => "не может быть пустой" },             
+              :length     => { 
+                                :maximum => 30,
+                                :message => "должна содержать не более 30 символов" 
+                              }
+end
