@@ -125,5 +125,9 @@ describe Teacher do
       text = "a" * 21
       @user.build_teacher( @attr_teacher.merge(:teacher_category => text ) ).should_not be_valid
     end
+    
+    it "should accept blank teacher birthday" do
+      @user.build_teacher( @attr_teacher.merge(:teacher_birthday => "  " ) ).should_not be_valid
+    end
   end
 end

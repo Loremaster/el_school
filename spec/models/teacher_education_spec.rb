@@ -94,5 +94,9 @@ describe TeacherEducation do
       text = "a" * 31 
       @user.build_teacher_education( @attr_teacher_edu.merge(:teacher_education_graduation => text ) ).should_not be_valid
     end
+    
+    it "should reject empty date" do
+      @user.build_teacher_education( @attr_teacher_edu.merge(:teacher_education_year => " " ) ).should_not be_valid
+    end
   end
 end

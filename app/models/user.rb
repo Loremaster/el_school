@@ -17,12 +17,14 @@ class User < ActiveRecord::Base
   attr_accessor   :password                                                               #Creating virtual attribute
   attr_accessible :user_login,                                                            #ALL users can set these fields.
                   :password,
-                  :teacher_attributes
+                  :teacher_attributes,
+                  :teacher_education_attributes
+                  
 
   has_one :teacher
   has_one :teacher_education
 
-  accepts_nested_attributes_for :teacher                                                  #Can save teacher data with user data now
+  accepts_nested_attributes_for :teacher, :teacher_education                              #Can save teacher data with user data now
 
   validates :user_login, 
               :presence   => { :message => "не может быть пустым" },     

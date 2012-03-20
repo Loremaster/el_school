@@ -57,6 +57,39 @@
       </div>        
 		<% end %>
 	
+	  <hr/>
+	
+    <%= f.fields_for :teacher_education do |builder| %>
+      <div class="control-group">
+        <%= builder.label :teacher_education_university, "Название ВУЗа", :class => "control-label" %>
+        <div class="controls">
+          <%= builder.text_field :teacher_education_university, :value => @teacher_university %>
+        </div>
+      </div>
+      
+      <div class="control-group">
+        <%= builder.label :teacher_education_year, "Дата выпуска из ВУЗа", :class => "control-label" %>
+        <div class="controls">
+          <%= builder.text_field :teacher_education_year, :value => @teacher_finish_univ %>
+        </div>
+      </div>
+      
+      <div class="control-group">
+        <%= builder.label :teacher_education_graduation, "Степень", :class => "control-label" %>
+        <div class="controls">
+          <%= builder.text_field :teacher_education_graduation, :value => @teacher_graduation %>
+        </div>
+      </div>
+      
+      <div class="control-group">
+        <%= builder.label :teacher_education_speciality, "Специальность", :class => "control-label" %>
+        <div class="controls">
+          <%= builder.text_field :teacher_education_speciality, :value => @teacher_specl %>
+        </div>
+      </div>
+    <% end %>
+
+    <hr/>
 
 		<div class="control-group">
 	    <%= f.label :user_login, "Логин учетной записи", :class => "control-label" %>
