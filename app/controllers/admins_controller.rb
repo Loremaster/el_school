@@ -61,24 +61,26 @@ class AdminsController < ApplicationController
     end  
   end
 
-  #TODO Add Data testing - format, dd.mm.yyyy in field and etc.
   #TODO test integration, that create_school_head works.
-  #TODO test that create_teacher works.
   
   def create_teacher
-    user_errors = nil 
+    user_errors, date_errors = nil, nil 
     user = User.new( params[:user] )
     user.user_role = "teacher"
-    user.teacher.user_id = current_user.id                                                #Set this manually because teacher need this.
-    
-    if user.save
+    user.teacher.user_id = current_user.id                                                # Set this manually because teacher we should add foreign key.
+
+    valid_birthday = date_valid?( params[:user][:teacher_attributes][:teacher_birthday] ) # Check our date. You can find method in application controller. Such way is bad, but i didn't find good solution to use it in validation.
+        
+    if user.save and valid_birthday                                                       # Save if validaions gone well and date is ok.
       redirect_to admins_users_of_system_path
       flash[:success] = "Учитель успешно создан!"
     else
       redirect_to admins_new_teacher_path( params )
-      user_errors = user.errors.full_messages.to_sentence :last_word_connector => ", ",
-                                                          :two_words_connector => ", "
-      flash[:error] = user_errors if user_errors.present?
+      all_err = user.errors.full_messages 
+      all_err << "Дата рождения неверного формата или не существует" if not valid_birthday# Adding error if date is not valid.
+      user_errors = all_err.to_sentence :last_word_connector => ", ",
+                                        :two_words_connector => ", "                                                                                                                                                    
+      flash[:error] = user_errors if user_errors.present?   
     end 
   end
 

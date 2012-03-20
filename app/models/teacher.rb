@@ -67,7 +67,31 @@ class Teacher < ActiveRecord::Base
                               :in => Date.civil(1970, 1, 1)..Date.today,
                               :message => "должна быть с 1970 по сегодняшний день"
                              }
-                                             
+  
+  # validate :validate_teacher_birthday                                           
+  
+  # private
+  # 
+  #   def validate_teacher_birthday
+  #     errors.add(:teacher_birthday, "is invalid.") unless ( check_valid_date)
+  #   end
+  # 
+  #   # def valid_date_format
+  #   #   parts = self.teacher_birthday.to_s.split("-")
+  #   #   formatted_date_in_str = "#{parts[2]}.#{parts[1]}.#{parts[0]}"  
+  #   #   formatted_date_in_str.match(/[0-9][0-9].[0-9][0-9].[0-9][0-9][0-9][0-9]/)
+  #   # end
+  # 
+  #   def check_valid_date
+  #         begin
+  #           parts = self.teacher_birthday.to_s.split("-") #contains array of the form [day,month,year]
+  #           Date.civil(parts[2].to_i,parts[1].to_i,parts[0].to_i)
+  #           return true
+  #         rescue ArgumentError
+  #           #ArgumentError is thrown by the Date.civil method if the date is invalid
+  #           false
+  #         end
+  #       end
   
   # validates :teacher_birthday, :presence => true,
   #                                :unless   => :date_is_correct?

@@ -25,7 +25,7 @@ describe Teacher do
         :teacher_last_name   => "Каров",
         :teacher_first_name  => "Петр",
         :teacher_middle_name => "Иванович",
-        :teacher_birthday    => "31.12.1980",                                             #dd.mm.yyyy
+        :teacher_birthday    => "01.12.1980",                                             #dd.mm.yyyy
         :teacher_sex         => "m",
         :teacher_category    => "1я Категория"
     }
