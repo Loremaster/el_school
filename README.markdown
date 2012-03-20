@@ -13,6 +13,7 @@ This is **el-school** project.
 
 **Admin**
 
+- Date validation - format dd.mm.yyyy and date existance. Checking via method of controller (i didn't find good method for that).
 - Keep data in forms even if user did some mistakes. Added for that some tests.
 - Added russian error messages for creation of User. All errors in schoolhead popup as flash message.
 and contains russian words. For translation words i use locale, it set as :en (default). 
