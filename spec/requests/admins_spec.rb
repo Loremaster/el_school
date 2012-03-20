@@ -10,7 +10,9 @@ describe "Admins" do
                 :password => "foobar"
               }
       
-      User.create!(@attr)
+      user = User.new( @attr )
+      user.user_role = "admin"
+      user.save!
   end
   
   describe "sign in/out" do
@@ -79,7 +81,7 @@ describe "Admins" do
          fill_in "Пароль учетной записи", :with => "user.password"
          click_button "Создать"
          response.should have_selector('legend', :content => 'Список учетных записей системы')
-       end.should change(User, :count).by(1)       
+       end.should change( User, :count ).by(1)       
      end
      
      it "should keep values in forms after submit with wrong values and should not create user" do
@@ -100,7 +102,7 @@ describe "Admins" do
             form.should have_selector( "input", :value => user_login )
             form.should have_selector( "input", :value => wrong_user_pas  )
           end
-        end.should_not change(User, :count)
+        end.should_not change( User, :count )
      end
     end
     
@@ -120,12 +122,11 @@ describe "Admins" do
         click_link 'Учитель'
         response.should have_selector( 'legend', 
                                        :content => 'Создание учетной записи Учителя' )
-                                       
-        lambda do
-          lambda do 
-                                           
-            teacher_date = ["01.002.1991", "01.02.19991" "32.01.1991", " "]
-            teacher_date.each do |date|  
+                                                                            
+        teacher_date = ["01.002.1991", "01.02.19991" "32.01.1991", " "]
+        teacher_date.each do |date|
+          lambda do
+            lambda do                    
               fill_in 'Фамилия',               :with => @teacher_surname
               fill_in 'Имя',                   :with => @teacher_name
               fill_in 'Отчество',              :with => @teacher_middle_name
@@ -138,10 +139,9 @@ describe "Admins" do
 
               response.should have_selector( 'legend', 
                                              :content => 'Создание учетной записи Учителя' )  
-              
-            end
-          end.should_not change(User, :count)
-        end.should_not change(Teacher, :count)  
+            end.should_not change( User, :count )
+          end.should_not change( Teacher, :count )
+        end
       end
       
       it "should create teacher with valid data" do
@@ -166,8 +166,8 @@ describe "Admins" do
         
             response.should have_selector('legend', 
                                           :content => 'Список учетных записей системы')
-          end.should change(User, :count).by(1)
-        end.should change(Teacher, :count).by(1) 
+          end.should change( User, :count ).by(1)
+        end.should change( Teacher, :count ).by(1) 
       end
       
       it "should keep values in forms after submit with wrong values" do
@@ -202,8 +202,8 @@ describe "Admins" do
               form.should have_selector( 'input', :value => wrong_user_pas  )
               form.should have_selector( 'input', :value => 'm', :checked => 'checked'  )     # In DB 'w' is woman, 'm' is man thats why we keep such letters in view. 
             end
-          end.should_not change(User, :count)
-        end.should_not change(Teacher, :count)
+          end.should_not change( User, :count )
+        end.should_not change( Teacher, :count )
       end
     end
   end  

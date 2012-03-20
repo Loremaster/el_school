@@ -22,7 +22,7 @@ and contains russian words. For translation words i use locale, it set as :en (d
 - Redirect admin after signing-in to his page.
 - Added links (with active states) in admin toolbar.
 - Added beginner signing in.
-- Added rights to view admins page only by admin.
+- Added rights to view admin page only by admin.
 
 
 ------------------------------------------------------------------------------

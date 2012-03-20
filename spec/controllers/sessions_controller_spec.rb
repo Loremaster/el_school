@@ -36,10 +36,12 @@ describe SessionsController do
       before(:each) do
          @attr_user = { 
                         :user_login => "Admin",
-                        :user_role => "admin",
+                        # :user_role => "admin",
                         :password => "password"
                       }
-         @user = User.create!( @attr_user )
+        @user = User.new( @attr_user )
+        @user.user_role = "admin"
+        @user.save!
       end
       
       it "should sign the user in" do
@@ -54,10 +56,12 @@ describe SessionsController do
     it "should sign a user out" do
       @attr_user = { 
                       :user_login => "Admin",
-                      :user_role => "admin",
+                      # :user_role => "admin",
                       :password => "password"
                     }
-      @user = User.create!( @attr_user )
+      @user = User.new( @attr_user )
+      @user.user_role = "admin"
+      @user.save!
       test_sign_in( @user )
       delete :destroy
       controller.should_not be_signed_in

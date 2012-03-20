@@ -51,7 +51,7 @@ class AdminsController < ApplicationController
       @user_password       = params[:user][:password]        
       user_sex             = params[:user][:teacher_attributes][:teacher_sex]
       
-      #Set value of radio button by receiving value from users.
+      # Set value of radio button by receiving value from users.
       case user_sex
         when 'm' then @user_sex_man   = true
         when 'w' then @user_sex_woman = true  
@@ -62,6 +62,7 @@ class AdminsController < ApplicationController
   end
 
   #TODO test integration, that create_school_head works.
+  #TODO remove user role from atrr_accesible.
   
   def create_teacher
     user_errors, date_errors = nil, nil 

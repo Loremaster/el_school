@@ -25,7 +25,9 @@ describe User do
 
   it "should create new user in database" do
       lambda do
-        User.create!(@attr)
+        user = User.new( @attr )
+        user.user_role = "admin"
+        user.save!
       end.should change( User, :count ).by( 1 )
   end
 
@@ -47,8 +49,9 @@ describe User do
 
   it "should accept valid names of roles" do
     role = %w(admin teacher pupil class_head school_head)
-    role.each do |one_role|
-      valid_email_user = User.new( @attr.merge( :user_role => one_role ) )
+    role.each do |one_role| 
+      valid_email_user = User.new( @attr )
+      valid_email_user.user_role = one_role
       valid_email_user.should be_valid
     end
   end
@@ -56,13 +59,16 @@ describe User do
   it "should reject invalid names of roles" do
     role = %w(admin1 teacher1 pupil1 class_head1 school_head1)
     role.each do |one_role|
-      valid_email_user = User.new( @attr.merge( :user_role => one_role ) )
-      valid_email_user.should_not be_valid
+      invalid_email_user = User.new( @attr )
+      invalid_email_user.user_role = one_role
+      invalid_email_user.should_not be_valid
     end
   end
 
   it "should reject duplicate logins" do
-    User.create!( @attr )
+    user = User.new( @attr )
+    user.user_role = "admin"
+    user.save!
     user_with_duplicate_login = User.new( @attr )
     user_with_duplicate_login.should_not be_valid
   end
@@ -77,7 +83,9 @@ describe User do
 
   describe "password encryption" do
     before(:each) do
-      @user = User.create!(@attr)
+      @user = User.new( @attr )
+      @user.user_role = "admin"
+      @user.save!
     end
 
     it "should have an encrypted password attribute" do
