@@ -11,16 +11,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120320172354) do
+ActiveRecord::Schema.define(:version => 20120321165339) do
 
   create_table "teacher_educations", :force => true do |t|
-    t.integer  "user_id"
+    t.integer  "teacher_id"
     t.string   "teacher_education_university"
     t.date     "teacher_education_year"
     t.string   "teacher_education_graduation"
     t.string   "teacher_education_speciality"
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
+  end
+
+  create_table "teacher_phones", :force => true do |t|
+    t.integer  "teacher_id"
+    t.string   "teacher_home_number"
+    t.string   "teacher_mobile_number"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
   end
 
   create_table "teachers", :force => true do |t|
@@ -31,15 +39,15 @@ ActiveRecord::Schema.define(:version => 20120320172354) do
     t.date     "teacher_birthday"
     t.string   "teacher_sex"
     t.string   "teacher_category"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
 
   create_table "users", :force => true do |t|
     t.string   "user_login"
     t.string   "user_role"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
     t.string   "encrypted_password"
     t.string   "salt"
   end

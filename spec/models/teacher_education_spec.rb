@@ -5,7 +5,7 @@
 # Table name: teacher_educations
 #
 #  id                           :integer         not null, primary key
-#  user_id                      :integer
+#  teacher_id                   :integer
 #  teacher_education_university :string(255)
 #  teacher_education_year       :date
 #  teacher_education_graduation :string(255)
@@ -18,14 +18,14 @@ require 'spec_helper'
 
 describe TeacherEducation do
   before(:each) do
-    @user = Factory(:user)
+    @teacher = Factory(:teacher)
+    
     @attr_teacher_edu = {
       :teacher_education_university => "МГУ",
       :teacher_education_year => "01.01.1970",
       :teacher_education_graduation => "Специалист",
       :teacher_education_speciality => "Механика и математика"
     }
-    
     @attr_invalid_teacher_edu = {
       :teacher_education_university => "МГУ",
       :teacher_education_year => "",
@@ -34,32 +34,32 @@ describe TeacherEducation do
     }
   end
   
-  describe "User-TeacherEducation creation" do
+  describe "Teacher-TeacherEducation creation" do
     it "should create teacher education via user" do
       expect do
-        @user.create_teacher_education( @attr_teacher_edu )
+        @teacher.create_teacher_education( @attr_teacher_edu )
       end.should change( TeacherEducation, :count ).by( 1 )
     end
-
+  
     it "should not create invalid teacher education via user" do
       expect do
-        @user.create_teacher_education( @attr_invalid_teacher_edu )
+        @teacher.create_teacher_education( @attr_invalid_teacher_edu )
       end.should_not change( TeacherEducation, :count )
     end  
   end
   
   describe "User-TeacherEducation association" do
     before(:each) do
-      @teacher_edu = @user.create_teacher( @attr_teacher_edu )
+      @teacher_edu = @teacher.create_teacher_education( @attr_teacher_edu )
     end
     
     it "should have a user attribute" do
-      @teacher_edu.should respond_to(:user)
+      @teacher_edu.should respond_to(:teacher)
     end
     
     it "should have the right associated user" do
-      @teacher_edu.user_id.should == @user.id
-      @teacher_edu.user.should == @user
+      @teacher_edu.teacher_id.should == @teacher.id
+      @teacher_edu.teacher.should == @teacher
     end
   end
   
@@ -69,34 +69,34 @@ describe TeacherEducation do
     end
     
     it "should reject blank teacher university" do
-      @user.build_teacher_education( @attr_teacher_edu.merge(:teacher_education_university => "  " ) ).should_not be_valid
+      @teacher.build_teacher_education( @attr_teacher_edu.merge(:teacher_education_university => "  " ) ).should_not be_valid
     end 
     
     it "should reject too long teacher university" do
       text = "a" * 101 
-      @user.build_teacher_education( @attr_teacher_edu.merge(:teacher_education_university => text ) ).should_not be_valid
+      @teacher.build_teacher_education( @attr_teacher_edu.merge(:teacher_education_university => text ) ).should_not be_valid
     end
     
     it "should reject blank teacher graduation" do
-      @user.build_teacher_education( @attr_teacher_edu.merge(:teacher_education_graduation => "  " ) ).should_not be_valid
+      @teacher.build_teacher_education( @attr_teacher_edu.merge(:teacher_education_graduation => "  " ) ).should_not be_valid
     end 
     
     it "should reject too long teacher graduation" do
       text = "a" * 31 
-      @user.build_teacher_education( @attr_teacher_edu.merge(:teacher_education_graduation => text ) ).should_not be_valid
+      @teacher.build_teacher_education( @attr_teacher_edu.merge(:teacher_education_graduation => text ) ).should_not be_valid
     end
     
     it "should reject blank teacher speciality" do
-      @user.build_teacher_education( @attr_teacher_edu.merge(:teacher_education_speciality => "  " ) ).should_not be_valid
+      @teacher.build_teacher_education( @attr_teacher_edu.merge(:teacher_education_speciality => "  " ) ).should_not be_valid
     end
     
     it "should reject too long teacher speciality" do
       text = "a" * 31 
-      @user.build_teacher_education( @attr_teacher_edu.merge(:teacher_education_graduation => text ) ).should_not be_valid
+      @teacher.build_teacher_education( @attr_teacher_edu.merge(:teacher_education_graduation => text ) ).should_not be_valid
     end
     
     it "should reject empty date" do
-      @user.build_teacher_education( @attr_teacher_edu.merge(:teacher_education_year => " " ) ).should_not be_valid
+      @teacher.build_teacher_education( @attr_teacher_edu.merge(:teacher_education_year => " " ) ).should_not be_valid
     end
-  end
+    end
 end

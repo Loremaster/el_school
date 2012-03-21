@@ -130,9 +130,9 @@ describe "Admins" do
                                                                             
         teacher_date = ["01.002.1991", "01.02.19991" "32.01.1991", " "]
         teacher_date.each do |date|
-          expect do
+          # expect do
             expect do
-              expect do                    
+               expect do                    
                 fill_in 'Фамилия',               :with => @teacher_surname
                 fill_in 'Имя',                   :with => @teacher_name
                 fill_in 'Отчество',              :with => @teacher_middle_name
@@ -147,14 +147,14 @@ describe "Admins" do
                                                :content => 'Создание учетной записи Учителя' )  
               end.should_not change( User, :count )
             end.should_not change( Teacher, :count )
-          end.should_not change( TeacherEducation, :count )
+          # end.should_not change( TeacherEducation, :count )
         end
       end
       
       it "should create teacher with valid data" do
-        expect do
+        # expect do
           expect do
-            expect do 
+             expect do 
               user_pas = 'password'
         
               click_link 'Создать учетную запись'
@@ -170,23 +170,23 @@ describe "Admins" do
               fill_in 'Категория',             :with => @teacher_category
               fill_in 'Логин учетной записи',  :with => @user_login
               fill_in 'Пароль учетной записи', :with => user_pas
-              fill_in 'Название ВУЗа',         :with => @user_univ
-              fill_in 'Дата выпуска из ВУЗа',  :with => @user_finish_univ
-              fill_in 'Степень',               :with => @user_graduation
-              fill_in 'Специальность',         :with => @user_speciality
+              # fill_in 'Название ВУЗа',         :with => @user_univ
+              # fill_in 'Дата выпуска из ВУЗа',  :with => @user_finish_univ
+              # fill_in 'Степень',               :with => @user_graduation
+              # fill_in 'Специальность',         :with => @user_speciality
               click_button 'Создать'
         
               response.should have_selector( 'legend', 
                                              :content => 'Список учетных записей системы' )
             end.should change( User, :count ).by(1)
           end.should change( Teacher, :count ).by(1)
-        end.should change( TeacherEducation, :count ).by(1) 
+        # end.should change( TeacherEducation, :count ).by(1) 
       end
       
       it "should keep values in forms after submit with wrong values" do
-        expect do
+        # expect do
           expect do
-            expect do
+             expect do
               wrong_user_pas = 'pas'
         
               click_link 'Создать учетную запись'
@@ -202,10 +202,10 @@ describe "Admins" do
               fill_in 'Категория',             :with => @teacher_category
               fill_in 'Логин учетной записи',  :with => @user_login
               fill_in 'Пароль учетной записи', :with => wrong_user_pas
-              fill_in 'Название ВУЗа',         :with => @user_univ
-              fill_in 'Дата выпуска из ВУЗа',  :with => @user_finish_univ
-              fill_in 'Степень',               :with => @user_graduation
-              fill_in 'Специальность',         :with => @user_speciality
+              # fill_in 'Название ВУЗа',         :with => @user_univ
+              # fill_in 'Дата выпуска из ВУЗа',  :with => @user_finish_univ
+              # fill_in 'Степень',               :with => @user_graduation
+              # fill_in 'Специальность',         :with => @user_speciality
               click_button 'Создать'
         
               response.should have_selector( 'legend', 
@@ -221,14 +221,14 @@ describe "Admins" do
                 form.should have_selector( 'input', :value => wrong_user_pas  )
                 form.should have_selector( 'input', :value   => 'm', 
                                                     :checked => 'checked'  )              # In DB 'w' is woman, 'm' is man thats why we keep such letters in view. 
-                form.should have_selector( 'input', :value => @user_univ        )
-                form.should have_selector( 'input', :value => @user_finish_univ )
-                form.should have_selector( 'input', :value => @user_graduation  )
-                form.should have_selector( 'input', :value => @user_speciality  )
+                # form.should have_selector( 'input', :value => @user_univ        )
+                # form.should have_selector( 'input', :value => @user_finish_univ )
+                # form.should have_selector( 'input', :value => @user_graduation  )
+                # form.should have_selector( 'input', :value => @user_speciality  )
               end
             end.should_not change( User, :count )
           end.should_not change( Teacher, :count )
-        end.should_not change( TeacherEducation, :count )
+        # end.should_not change( TeacherEducation, :count )
       end
     end
   end  

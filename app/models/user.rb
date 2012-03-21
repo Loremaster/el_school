@@ -7,8 +7,8 @@
 #  id                 :integer         not null, primary key
 #  user_login         :string(255)
 #  user_role          :string(255)
-#  created_at         :datetime
-#  updated_at         :datetime
+#  created_at         :datetime        not null
+#  updated_at         :datetime        not null
 #  encrypted_password :string(255)
 #  salt               :string(255)
 #
@@ -17,20 +17,20 @@ class User < ActiveRecord::Base
   attr_accessor   :password                                                               #Creating virtual attribute
   attr_accessible :user_login,                                                            #ALL users can set these fields.
                   :password,
-                  :teacher_attributes,
-                  :teacher_education_attributes
+                  :teacher_attributes#,
+                  # :teacher_education_attributes
                   
 
   has_one :teacher
-  has_one :teacher_education
+  # has_one :teacher_education
 
-  accepts_nested_attributes_for :teacher, :teacher_education                              #Can save teacher data with user data now
+  accepts_nested_attributes_for :teacher                                                  #Can save teacher data with user data now
 
   validates :user_login, 
               :presence   => { :message => "не может быть пустым" },     
               :length     => { 
                                 :maximum => 50,
-                                :message => "не более 50 символов"
+                                :message => "должен содержать не более 50 символов"
                               },
               :uniqueness => { :message => "уже занят" }                                  #Warning! It doesn't guarantee that field ll be unique! Tho connection in same time still can create same data!
 

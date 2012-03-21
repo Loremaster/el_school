@@ -6,8 +6,8 @@
 #  id                 :integer         not null, primary key
 #  user_login         :string(255)
 #  user_role          :string(255)
-#  created_at         :datetime
-#  updated_at         :datetime
+#  created_at         :datetime        not null
+#  updated_at         :datetime        not null
 #  encrypted_password :string(255)
 #  salt               :string(255)
 #

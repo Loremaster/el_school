@@ -45,52 +45,51 @@
           <%= builder.text_field :teacher_birthday, :value => @teacher_birthday %>
           <p class="help-block">Формат даты: дд.мм.гггг</p>
         </div>
-      </div>            
-		<% end %>
-	
-	  <hr/>
-	
-    <%= f.fields_for :teacher_education do |builder| %>
-      <div class="control-group">
-        <%= builder.label :teacher_education_university, "Название ВУЗа", :class => "control-label" %>
-        <div class="controls">
-          <%= builder.text_field :teacher_education_university, :value => @teacher_university %>
-        </div>
       </div>
       
-      <div class="control-group">
-        <%= builder.label :teacher_education_year, "Дата выпуска из ВУЗа", :class => "control-label" %>
-        <div class="controls">
-          <%= builder.text_field :teacher_education_year, :value => @teacher_finish_univ %>
-          <p class="help-block">Формат даты: дд.мм.гггг</p>
-        </div>
-      </div>
-      
-      <div class="control-group">
-        <%= builder.label :teacher_education_graduation, "Степень", :class => "control-label" %>
-        <div class="controls">
-          <%= builder.text_field :teacher_education_graduation, :value => @teacher_graduation %>
-        </div>
-      </div>
-      
-      <div class="control-group">
-        <%= builder.label :teacher_education_speciality, "Специальность", :class => "control-label" %>
-        <div class="controls">
-          <%= builder.text_field :teacher_education_speciality, :value => @teacher_specl %>
-        </div>
-      </div>
-    <% end %>
-
-    <hr/>
-    
-    <%= f.fields_for :teacher do |builder| %>
       <div class="control-group">
         <%= builder.label :teacher_category, "Категория", :class => "control-label" %>
         <div class="controls">
           <%= builder.text_field :teacher_category, :value => @teacher_category %>
         </div>
       </div>
-    <% end %>
+      
+      <%= builder.fields_for :teacher_education do |edu_fields| %>
+        <div class="control-group">
+          <%= edu_fields.label :teacher_education_university, "Название ВУЗа", :class => "control-label" %>
+          <div class="controls">
+            <%= edu_fields.text_field :teacher_education_university, :value => @teacher_university %>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <%= edu_fields.label :teacher_education_year, "Дата выпуска из ВУЗа", :class => "control-label" %>
+          <div class="controls">
+            <%= edu_fields.text_field :teacher_education_year, :value => @teacher_finish_univ %>
+            <p class="help-block">Формат даты: дд.мм.гггг</p>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <%= edu_fields.label :teacher_education_graduation, "Степень", :class => "control-label" %>
+          <div class="controls">
+            <%= edu_fields.text_field :teacher_education_graduation, :value => @teacher_graduation %>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <%= edu_fields.label :teacher_education_speciality, "Специальность", :class => "control-label" %>
+          <div class="controls">
+            <%= edu_fields.text_field :teacher_education_speciality, :value => @teacher_specl %>
+          </div>
+        </div>
+      <% end %>             
+		<% end %>
+	
+	  <hr/>
+	
+    
+
     
     <hr/>
 

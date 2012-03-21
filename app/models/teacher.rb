@@ -12,8 +12,8 @@
 #  teacher_birthday    :date
 #  teacher_sex         :string(255)
 #  teacher_category    :string(255)
-#  created_at          :datetime
-#  updated_at          :datetime
+#  created_at          :datetime        not null
+#  updated_at          :datetime        not null
 #
 
 class Teacher < ActiveRecord::Base
@@ -22,9 +22,15 @@ class Teacher < ActiveRecord::Base
                   :teacher_middle_name,
                   :teacher_birthday,
                   :teacher_sex,
-                  :teacher_category
+                  :teacher_category,
+                  :teacher_education_attributes
 
-  belongs_to :user#, dependent => :destroy                                                 #If we delete teacher, we delete his user row too.
+  belongs_to :user                                              
+  
+  has_one :teacher_education
+  has_one :teacher_phone
+  
+  accepts_nested_attributes_for :teacher_education
    
   # date_regexp = /\A\d{2}\.\d{2}\.\d{4}\z/                                               #dd.mm.yyyy
    

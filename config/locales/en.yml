@@ -17,4 +17,7 @@ en:
             teacher_education_university: "Название ВУЗа"
             teacher_education_year:       "Дата выпуска из ВУЗа"
             teacher_education_graduation: "Степень" 
-            teacher_education_speciality: "Специальность"      
+            teacher_education_speciality: "Специальность" 
+          teacher_phone:
+            teacher_home_number:   "Домашний телефон"
+            teacher_mobile_number: "Мобильный телефон"     

@@ -5,7 +5,7 @@
 # Table name: teacher_educations
 #
 #  id                           :integer         not null, primary key
-#  user_id                      :integer
+#  teacher_id                   :integer
 #  teacher_education_university :string(255)
 #  teacher_education_year       :date
 #  teacher_education_graduation :string(255)
@@ -20,9 +20,10 @@ class TeacherEducation < ActiveRecord::Base
                   :teacher_education_graduation,
                   :teacher_education_speciality
                   
-  belongs_to :user
+  # belongs_to :user
+  belongs_to :teacher
   
-  validates :user_id,             
+  validates :teacher_id,             
               :presence => true
               
   validates :teacher_education_university,   
