@@ -24,7 +24,7 @@ describe User do
   end
 
   it "should create new user in database" do
-      lambda do
+      expect do
         user = User.new( @attr )
         user.user_role = "admin"
         user.save!

@@ -42,13 +42,13 @@ describe Teacher do
 
   describe "User cretion" do
     it "should create valid teacher via user" do
-      lambda do
+      expect do
         @user.create_teacher( @attr_teacher )
       end.should change( Teacher, :count ).by( 1 ) 
     end
 
     it "should not create invalid teacher via user" do
-      lambda do
+      expect do
         @user.create_teacher( @attr_invalid_teacher )
       end.should_not change( Teacher, :count ) 
     end  

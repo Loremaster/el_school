@@ -45,16 +45,7 @@
           <%= builder.text_field :teacher_birthday, :value => @teacher_birthday %>
           <p class="help-block">Формат даты: дд.мм.гггг</p>
         </div>
-      </div>
-            
-      <hr/>
-      
-      <div class="control-group">
-        <%= builder.label :teacher_category, "Категория", :class => "control-label" %>
-        <div class="controls">
-          <%= builder.text_field :teacher_category, :value => @teacher_category %>
-        </div>
-      </div>        
+      </div>            
 		<% end %>
 	
 	  <hr/>
@@ -71,6 +62,7 @@
         <%= builder.label :teacher_education_year, "Дата выпуска из ВУЗа", :class => "control-label" %>
         <div class="controls">
           <%= builder.text_field :teacher_education_year, :value => @teacher_finish_univ %>
+          <p class="help-block">Формат даты: дд.мм.гггг</p>
         </div>
       </div>
       
@@ -89,6 +81,17 @@
       </div>
     <% end %>
 
+    <hr/>
+    
+    <%= f.fields_for :teacher do |builder| %>
+      <div class="control-group">
+        <%= builder.label :teacher_category, "Категория", :class => "control-label" %>
+        <div class="controls">
+          <%= builder.text_field :teacher_category, :value => @teacher_category %>
+        </div>
+      </div>
+    <% end %>
+    
     <hr/>
 
 		<div class="control-group">

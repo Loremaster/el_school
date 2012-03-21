@@ -68,13 +68,13 @@ describe AdminsController do
       end
       
       it "should create school head with valid data" do
-        lambda do
+        expect do
           post :create_school_head, :user => @attr_correct
         end.should change(User, :count).by(1)
       end
       
       it "should not create school head with invalid data" do
-        lambda do
+        expect do
           post :create_school_head, :user => @attr_wrong
         end.should_not change(User, :count)
       end
