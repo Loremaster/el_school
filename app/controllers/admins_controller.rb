@@ -38,6 +38,7 @@ class AdminsController < ApplicationController
     @user = User.new
     teacher = @user.build_teacher
     teacher_education = teacher.build_teacher_education
+    
     @teacher_last_name, @teacher_first_name, @teacher_middle_name     = "", "", ""
     @teacher_birthday, @teacher_category, @user_login, @user_password = "", "", "", ""
     @teacher_university, @teacher_finish_univ, @teacher_graduation    = "", "", ""
@@ -53,10 +54,10 @@ class AdminsController < ApplicationController
       @user_login          = params[:user][:user_login]
       @user_password       = params[:user][:password]        
       user_sex             = params[:user][:teacher_attributes][:teacher_sex]
-      # @teacher_university  = params[:user][:teacher_education_attributes][:teacher_education_university]
-      #       @teacher_finish_univ = params[:user][:teacher_education_attributes][:teacher_education_year]
-      #       @teacher_graduation  = params[:user][:teacher_education_attributes][:teacher_education_graduation]
-      #       @teacher_specl       = params[:user][:teacher_education_attributes][:teacher_education_speciality]
+      @teacher_university  = params[:user][:teacher_attributes][:teacher_education_attributes][:teacher_education_university]
+      @teacher_finish_univ = params[:user][:teacher_attributes][:teacher_education_attributes][:teacher_education_year]
+      @teacher_graduation  = params[:user][:teacher_attributes][:teacher_education_attributes][:teacher_education_graduation]
+      @teacher_specl       = params[:user][:teacher_attributes][:teacher_education_attributes][:teacher_education_speciality]
       
       # Set value of radio button by receiving value from users.
       case user_sex
@@ -111,6 +112,7 @@ class AdminsController < ApplicationController
       all_errors = ( user_errors + teacher_errors )
     end
     
+    # Collect errors only for user. In our case - only for login and password.
     def collect_user_errors( usr_model, login_field, pass_field )
       tmp, errors = [], [] 
       
