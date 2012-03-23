@@ -72,6 +72,24 @@ describe "Admins" do
     end
     
     describe "Creating school head" do
+     before(:each) do
+       @everpresent_field_placeholder = "Обязательное поле"
+     end  
+      
+     it "should have placeholders for everprecent attributes" do 
+       click_link "Создать учетную запись"
+       click_link "Завуч"
+       
+       response.should have_selector('form') do |form|
+         form.should have_selector( 'input', 
+                                    :id => 'user_user_login',        
+                                    :placeholder => @everpresent_field_placeholder )
+         form.should have_selector( 'input',
+                                    :id => 'user_password',
+                                    :placeholder => @everpresent_field_placeholder)                          
+       end   
+     end  
+      
      it "should visit list of users after creating school head" do
        expect do
          click_link "Создать учетную запись"
@@ -120,6 +138,49 @@ describe "Admins" do
         @user_finish_univ    = '01.01.1980'
         @user_graduation     = 'Бакалавр'
         @user_speciality     = 'Математик'
+        
+        @everpresent_field_placeholder = "Обязательное поле"
+      end
+      
+      it "should have placeholders for everprecent attributes" do
+        click_link 'Создать учетную запись'
+        click_link 'Учитель'
+        
+        response.should have_selector('form') do |form|
+          form.should have_selector( 'input', 
+                                     :id => 'user_teacher_attributes_teacher_last_name',        
+                                     :placeholder => @everpresent_field_placeholder )
+          form.should have_selector( 'input',
+                                     :id => 'user_teacher_attributes_teacher_first_name',
+                                     :placeholder => @everpresent_field_placeholder) 
+          form.should have_selector( 'input',
+                                      :id => 'user_teacher_attributes_teacher_middle_name',
+                                      :placeholder => @everpresent_field_placeholder) 
+          form.should have_selector( 'input',
+                                      :id => 'user_teacher_attributes_teacher_birthday',
+                                      :placeholder => @everpresent_field_placeholder)
+          form.should have_selector( 'input',
+                                      :id => 'user_teacher_attributes_teacher_education_attributes_teacher_education_university',
+                                      :placeholder => @everpresent_field_placeholder)  
+          form.should have_selector( 'input',
+                                      :id => 'user_teacher_attributes_teacher_education_attributes_teacher_education_year',
+                                      :placeholder => @everpresent_field_placeholder) 
+          form.should have_selector( 'input',
+                                      :id => 'user_teacher_attributes_teacher_education_attributes_teacher_education_graduation',
+                                      :placeholder => @everpresent_field_placeholder)
+          form.should have_selector( 'input',
+                                      :id => 'user_teacher_attributes_teacher_education_attributes_teacher_education_speciality',
+                                      :placeholder => @everpresent_field_placeholder) 
+          form.should_not have_selector( 'input',
+                                          :id => 'user_teacher_attributes_teacher_category',
+                                          :placeholder => @everpresent_field_placeholder) 
+          form.should have_selector( 'input',
+                                      :id => 'user_user_login',
+                                      :placeholder => @everpresent_field_placeholder)
+          form.should have_selector( 'input',
+                                      :id => 'user_password',
+                                      :placeholder => @everpresent_field_placeholder)                                                                                                                                            
+        end
       end
       
       it "should not create teacher with invalid date" do
