@@ -17,7 +17,7 @@ describe "Admins" do
   
   describe "sign in/out" do
     describe "failure" do
-      it "should not sign a user in" do
+      it "should not sign a user in if user login/pass incorrect" do
         visit signin_path
         fill_in "Логин",  :with => ""
         fill_in "Пароль", :with => ""

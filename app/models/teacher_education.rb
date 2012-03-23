@@ -20,7 +20,6 @@ class TeacherEducation < ActiveRecord::Base
                   :teacher_education_graduation,
                   :teacher_education_speciality
                   
-  # belongs_to :user
   belongs_to :teacher
   
   # validates :teacher_id,             
