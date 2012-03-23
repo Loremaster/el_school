@@ -131,7 +131,9 @@ class AdminsController < ApplicationController
       empty_field = model_name.errors[field].empty?
 
       if ( not empty_field )
-        model_name.errors.full_message( field, model_name.errors[field].to_sentence.gsub(" and", ",")  ) # Using gsub because it doesn't want to use word_connectors.
+        model_name.errors.full_message( field, model_name.errors[field]
+                                                         .to_sentence
+                                                         .gsub(" and", ",")  )            # Using gsub because it doesn't want to use word_connectors.
       else
         ""
       end

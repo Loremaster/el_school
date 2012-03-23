@@ -70,8 +70,8 @@ describe Teacher do
   end
   
   describe "Validations of teacher" do
-    it "should require a user id" do
-      Teacher.new( @attr_teacher ).should_not be_valid
+    it "should not require a user id" do
+      Teacher.new( @attr_teacher ).should be_valid
     end
     
     it "should reject blank teacher last name" do

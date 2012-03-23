@@ -64,8 +64,8 @@ describe TeacherEducation do
   end
   
   describe "Validations of teacher education" do
-    it "should require a user id" do
-      TeacherEducation.new( @attr_teacher_edu ).should_not be_valid
+    it "should not require a user id" do
+      TeacherEducation.new( @attr_teacher_edu ).should be_valid
     end
     
     it "should reject blank teacher university" do
