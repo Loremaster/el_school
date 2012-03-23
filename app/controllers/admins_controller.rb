@@ -16,6 +16,8 @@ class AdminsController < ApplicationController
   def new_school_head
     @user = User.new
     @user_login, @user_pass = "", ""
+    @everpresent_field_placeholder = "Обязательное поле"
+    
     @user_login = params[:user_login]
     @user_pass  = params[:password]
   end
@@ -39,11 +41,12 @@ class AdminsController < ApplicationController
     teacher = @user.build_teacher
     teacher_education = teacher.build_teacher_education
     
+    @everpresent_field_placeholder = "Обязательное поле"
     @teacher_last_name, @teacher_first_name, @teacher_middle_name     = "", "", ""
     @teacher_birthday, @teacher_category, @user_login, @user_password = "", "", "", ""
     @teacher_university, @teacher_finish_univ, @teacher_graduation    = "", "", ""
     @teacher_specl                                                    = ""
-    @user_sex_man, @user_sex_woman                                    = false, false      # Values of radio buttons of sex.
+    @user_sex_man, @user_sex_woman                                    = false, true       # Values of radio buttons of sex.
 
     if ( params.has_key?( :user ) )                                                       # This has such key only if user have wrong values in fields and we've redirected to this method.
       @teacher_last_name   = params[:user][:teacher_attributes][:teacher_last_name]     
@@ -61,11 +64,9 @@ class AdminsController < ApplicationController
       
       # Set value of radio button by receiving value from users.
       case user_sex
-        when 'm' then @user_sex_man   = true
-        when 'w' then @user_sex_woman = true  
+        when 'm' then @user_sex_man, @user_sex_woman = true, false
+        when 'w' then @user_sex_man, @user_sex_woman = false, true  
       end    
-    else
-      @user_sex_woman = true                                                              # By default sex of teacher is woman.
     end
   end
 
@@ -74,8 +75,8 @@ class AdminsController < ApplicationController
   #TODO create correct version of teacher education. And test that!
   
   def create_teacher
-    user_errors, date_errors = nil, nil     
-    @user = User.new( params[:user] )                                                      # Important note! We shouldn't set id here, nested_attributes do that automatically. Also, be sure, that you don't check id presence in belongs_to models.
+    user_errors, date_errors = nil, nil; all_correct_errors = []     
+    @user = User.new( params[:user] )                                                     # Important note! We shouldn't set id here, nested_attributes do that automatically. Also, be sure, that you don't check id presence in belongs_to models.
     @user.user_role = "teacher"                                                            
 
     valid_birthday = date_valid?( params[:user][:teacher_attributes][:teacher_birthday] ) # Check our date. You can find method in application controller. Such way is bad, but i didn't find good solution to use it in validation.
@@ -87,13 +88,12 @@ class AdminsController < ApplicationController
     else
       redirect_to admins_new_teacher_path( params )
       
-      all_correct_errors = []
       all_correct_errors = collect_all_errors( @user )
       all_correct_errors << "Дата рождения неверного формата или не существует" if not valid_birthday
       all_correct_errors << "Дата выпуска из ВУЗа неверного формата или не существует" if not valid_finish_univer
       
-      flash[:notice] = all_correct_errors.to_sentence :last_word_connector => ", ",
-                                                      :two_words_connector => ", " if all_correct_errors.present?     
+      flash[:error] = all_correct_errors.to_sentence :last_word_connector => ", ",        
+                                                     :two_words_connector => ", "  if all_correct_errors.present?     
     end 
   end
   
@@ -133,7 +133,7 @@ class AdminsController < ApplicationController
       if ( not empty_field )
         model_name.errors.full_message( field, model_name.errors[field]
                                                          .to_sentence
-                                                         .gsub(" and", ",")  )            # Using gsub because it doesn't want to use word_connectors.
+                                                         .gsub(" and", ",")  )            # Using gsub because here it doesn't want to use word_connectors.
       else
         ""
       end
