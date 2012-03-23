@@ -1,8 +1,8 @@
 # encoding: UTF-8
 
 class SessionsController < ApplicationController
-  def new                                                                     #Sign in page
-    redirect_back_to_user_page                                                #Check who user is and redirect him to his page(s).
+  def new                                                                                 # Sign in page
+    redirect_back_to_user_page                                                            # Check who user is and redirect him to his page(s).
   end
 
   def create
@@ -13,9 +13,9 @@ class SessionsController < ApplicationController
                           "Проверьте, не нажата ли клавиша CAPS-lock."
       render 'new'
     else
-      sign_in user                                                            #Signing in user, giving him cookies and etc
+      sign_in user                                                                        # Signing in user, giving him cookies and etc
       #redirect_to user
-      redirect_back_to_user_page                                              #Check who user is and redirect him to his page(s).
+      redirect_back_to_user_page                                                          # Check who user is and redirect him to his page(s).
     end
   end
 

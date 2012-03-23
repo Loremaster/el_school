@@ -23,8 +23,8 @@ class TeacherEducation < ActiveRecord::Base
   # belongs_to :user
   belongs_to :teacher
   
-  validates :teacher_id,             
-              :presence => true
+  # validates :teacher_id,             
+  #               :presence => true
               
   validates :teacher_education_university,   
               :presence   => { :message => "не может быть пустым" },             

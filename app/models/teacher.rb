@@ -34,8 +34,8 @@ class Teacher < ActiveRecord::Base
    
   # date_regexp = /\A\d{2}\.\d{2}\.\d{4}\z/                                               #dd.mm.yyyy
    
-  validates :user_id,             
-              :presence => true                                                           #That means that we can't create teacher like that - Teacher.new(...). We should create it like that - @user.create_teacher( @attr_teacher )      
+  # validates :user_id,             
+  #             :presence => true                                                           #That means that we can't create teacher like that - Teacher.new(...). We should create it like that - @user.create_teacher( @attr_teacher )      
                     
   validates :teacher_last_name,   
               :presence   => { :message => "не может быть пустой" },             

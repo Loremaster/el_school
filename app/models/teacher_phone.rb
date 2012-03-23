@@ -18,8 +18,8 @@ class TeacherPhone < ActiveRecord::Base
   
   belongs_to :teacher 
   
-  validates :teacher_id,             
-              :presence => true
+  # validates :teacher_id,             
+  #               :presence => true
   
   validates :teacher_home_number,
               :presence   => { :message => "не может быть пустым" },     
