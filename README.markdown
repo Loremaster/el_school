@@ -2,8 +2,16 @@ This is **el-school** project.
 
 ------------------------------------------------------------------------------
 
+**Teacher phones**
+
+- Basic tests for validations.
+
+------------------------------------------------------------------------------
+
 **Teacher education**
 
+- Added error messages to flash bubble.
+- Added forms for that.
 - Basic tests for validations.
 
 ------------------------------------------------------------------------------

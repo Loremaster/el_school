@@ -1,6 +1,7 @@
 <legend>Создание учетной записи Учителя</legend>
 
-<%= form_for @user, :url => create_teacher_url, :html => {:class => "form-horizontal"} do |f| %>
+<%= form_for @user, :url => create_teacher_url, 
+                    :html => {:class => "form-horizontal"} do |f| %>
   <%= field_set_tag do %>
 		<%= f.fields_for :teacher do |builder| %>
       <div class="control-group">

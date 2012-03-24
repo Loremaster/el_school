@@ -1,10 +1,12 @@
 # encoding: UTF-8
 class AdminsController < ApplicationController
-  before_filter :authenticate_admins, :only => [ :backups,
+  before_filter :authenticate_admins, :only => [ 
+                                                 :backups,
                                                  :users_of_system,
                                                  :new_school_head,
                                                  :new_teacher,
-                                                 :create_school_head ]
+                                                 :create_school_head 
+                                                ]
 
   def backups
   end
@@ -70,9 +72,7 @@ class AdminsController < ApplicationController
     end
   end
 
-  #TODO test integration, that create_school_head works.
-  #TODO test integration that education saves.
-  #TODO create correct version of teacher education. And test that!
+  #TODO Add teacher phones.
   
   def create_teacher
     user_errors, date_errors = nil, nil; all_correct_errors = []     
@@ -84,6 +84,7 @@ class AdminsController < ApplicationController
         
     if @user.save and valid_birthday and valid_finish_univer                              # Save if validaions gone well and date is ok.
       redirect_to admins_users_of_system_path
+      
       flash[:success] = "Завуч успешно создан!"
     else
       redirect_to admins_new_teacher_path( params )
@@ -139,4 +140,3 @@ class AdminsController < ApplicationController
       end
     end
 end
-
