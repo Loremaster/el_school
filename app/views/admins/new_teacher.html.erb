@@ -56,6 +56,29 @@
         </div>
       </div>
       
+      <hr/>
+           
+      <%= builder.fields_for :teacher_phone do |tp_fields| %>
+        <div class="control-group">
+          <%= tp_fields.label :teacher_mobile_number, "Мобильный телефон", :class => "control-label" %>
+          <div class="controls">
+            <%= tp_fields.text_field :teacher_mobile_number, 
+                              :value => @teacher_mobile_num,
+                              :placeholder => @everpresent_field_placeholder %>
+          </div>
+        </div>
+        
+        <div class="control-group">
+          <%= tp_fields.label :teacher_home_number, "Домашний телефон", :class => "control-label" %>
+          <div class="controls">
+            <%= tp_fields.text_field :teacher_home_number, 
+                              :value => @teacher_home_num,
+                              :placeholder => @everpresent_field_placeholder %>
+          </div>
+        </div>
+      <% end %>
+      
+      <hr/>
       
       <%= builder.fields_for :teacher_education do |edu_fields| %>
         <div class="control-group">
@@ -94,7 +117,7 @@
                                       :placeholder => @everpresent_field_placeholder %>
           </div>
         </div>
-      <% end %>             
+      <% end %>            
 		<% end %>
 	
 	  <%= f.fields_for :teacher do |builder| %>

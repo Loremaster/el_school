@@ -1,16 +1,20 @@
-This is **el-school** project.
+**E-school** project.
 
 ------------------------------------------------------------------------------
 
 **Teacher phones**
 
+- Show errors.
+- Saving to DB.
+- Added forms. 
 - Basic tests for validations.
 
 ------------------------------------------------------------------------------
 
 **Teacher education**
 
-- Added error messages to flash bubble.
+- Show errors.
+- Saving to DB.
 - Added forms for that.
 - Basic tests for validations.
 
@@ -25,6 +29,8 @@ This is **el-school** project.
 
 **Admin**
 
+- Now we can also add teacher phones.
+- Added new method to show error messages of User, Teacher, Teacher education.
 - Now we can also fill forms of teacher education.
 - Date validation - format dd.mm.yyyy and date existance. Checking via method of controller (i didn't find good method for that).
 - Keep data in forms even if user did some mistakes. Added for that some tests.

@@ -42,12 +42,13 @@ class AdminsController < ApplicationController
     @user = User.new
     teacher = @user.build_teacher
     teacher_education = teacher.build_teacher_education
+    teacher_phone = teacher.build_teacher_phone
     
     @everpresent_field_placeholder = "Обязательное поле"
     @teacher_last_name, @teacher_first_name, @teacher_middle_name     = "", "", ""
     @teacher_birthday, @teacher_category, @user_login, @user_password = "", "", "", ""
     @teacher_university, @teacher_finish_univ, @teacher_graduation    = "", "", ""
-    @teacher_specl                                                    = ""
+    @teacher_specl, @teacher_mobile_num, @teacher_home_num            = "", "", ""
     @user_sex_man, @user_sex_woman                                    = false, true       # Values of radio buttons of sex.
 
     if ( params.has_key?( :user ) )                                                       # This has such key only if user have wrong values in fields and we've redirected to this method.
@@ -63,6 +64,8 @@ class AdminsController < ApplicationController
       @teacher_finish_univ = params[:user][:teacher_attributes][:teacher_education_attributes][:teacher_education_year]
       @teacher_graduation  = params[:user][:teacher_attributes][:teacher_education_attributes][:teacher_education_graduation]
       @teacher_specl       = params[:user][:teacher_attributes][:teacher_education_attributes][:teacher_education_speciality]
+      @teacher_mobile_num  = params[:user][:teacher_attributes][:teacher_phone_attributes][:teacher_mobile_number]
+      @teacher_home_num    = params[:user][:teacher_attributes][:teacher_phone_attributes][:teacher_home_number]
       
       # Set value of radio button by receiving value from users.
       case user_sex
@@ -94,7 +97,7 @@ class AdminsController < ApplicationController
       all_correct_errors << "Дата выпуска из ВУЗа неверного формата или не существует" if not valid_finish_univer
       
       flash[:error] = all_correct_errors.to_sentence :last_word_connector => ", ",        
-                                                     :two_words_connector => ", "  if all_correct_errors.present?     
+                                                     :two_words_connector => ", "  if all_correct_errors.present?
     end 
   end
   
@@ -109,6 +112,7 @@ class AdminsController < ApplicationController
     def collect_all_errors( usr )
       user_errors = collect_user_errors( usr, :user_login, :password ) 
       teacher_errors = usr.teacher.errors.full_messages
+      
       
       all_errors = ( user_errors + teacher_errors )
     end
