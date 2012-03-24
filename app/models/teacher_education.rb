@@ -20,12 +20,8 @@ class TeacherEducation < ActiveRecord::Base
                   :teacher_education_graduation,
                   :teacher_education_speciality
                   
-  # belongs_to :user
   belongs_to :teacher
-  
-  # validates :teacher_id,             
-  #               :presence => true
-              
+                
   validates :teacher_education_university,   
               :presence   => { :message => "не может быть пустым" },             
               :length     => { 

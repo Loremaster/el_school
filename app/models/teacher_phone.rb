@@ -17,10 +17,7 @@ class TeacherPhone < ActiveRecord::Base
                   :teacher_mobile_number
   
   belongs_to :teacher 
-  
-  # validates :teacher_id,             
-  #               :presence => true
-  
+    
   validates :teacher_home_number,
               :presence   => { :message => "не может быть пустым" },     
               :length     => { 

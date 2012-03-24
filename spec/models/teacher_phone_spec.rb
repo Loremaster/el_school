@@ -16,34 +16,69 @@ require 'spec_helper'
 
 describe TeacherPhone do
   before(:each) do
-    @user = Factory(:user)
-    attr_teacher = {
-        :teacher_last_name   => "Каров",
-        :teacher_first_name  => "Петр",
-        :teacher_middle_name => "Иванович",
-        :teacher_birthday    => "01.12.1980",                                             #dd.mm.yyyy
-        :teacher_sex         => "m",
-        :teacher_category    => "1я Категория"
-    }   
-    @teacher = @user.build_teacher( attr_teacher )
-    @teacher.save!
+    @teacher = Factory(:teacher)
+    
     @attr_teacher_phones = {
       :teacher_mobile_number => "8903111111",
       :teacher_home_number => "777-33-22"
-    }    
+    } 
+    
+    @attr_invalid_teacher_phones = {
+      :teacher_mobile_number => " ",
+      :teacher_home_number => " "
+    }  
   end
   
-  describe "User-TeacherPhone creation" do
-    it "should create teacher phones via user" do
+  describe "Teacher-TeacherPhone creation" do
+    it "should create teacher phones via teacher" do
       expect do
         @teacher.create_teacher_phone( @attr_teacher_phones )
       end.should change( TeacherPhone, :count ).by( 1 )
     end
 
-    # it "should not create invalid teacher education via user" do
-    #   expect do
-    #     @user.create_teacher_education( @attr_invalid_teacher_edu )
-    #   end.should_not change( TeacherEducation, :count )
-    # end  
+    it "should not create invalid teacher phones via teacher" do
+      expect do
+        @teacher.create_teacher_education( @attr_invalid_teacher_phones )
+      end.should_not change( TeacherEducation, :count )
+    end  
+  end
+    
+  describe "Teacher-TeacherPhone association" do
+    before(:each) do
+      @teacher_ph = @teacher.create_teacher_phone( @attr_teacher_phones )
+    end
+    
+    it "should have a teacher attribute" do
+      @teacher_ph.should respond_to(:teacher)
+    end
+    
+    it "should have right associated teacher" do
+      @teacher_ph.teacher_id.should == @teacher.id
+      @teacher_ph.teacher.should == @teacher
+    end      
+  end
+  
+  describe "Validations of teacher phones" do
+    it "should not require a user id" do
+      TeacherPhone.new( @attr_teacher_phones ).should be_valid
+    end
+    
+    it "should reject blank teacher home phone number" do
+      @teacher.build_teacher_phone( @attr_teacher_phones.merge(:teacher_home_number => "  " ) ).should_not be_valid
+    end
+    
+    it "should reject too long teacher home phone number" do
+      p = 'p' * 16
+      @teacher.build_teacher_phone( @attr_teacher_phones.merge(:teacher_home_number => p) ).should_not be_valid
+    end
+    
+    it "should reject blank teacher mobile phone number" do
+      @teacher.build_teacher_phone( @attr_teacher_phones.merge(:teacher_mobile_number => "  " ) ).should_not be_valid
+    end
+    
+    it "should reject too long teacher mobile phone number" do
+      p = 'p' * 16
+      @teacher.build_teacher_phone( @attr_teacher_phones.merge(:teacher_mobile_number => p ) ).should_not be_valid
+    end
   end
 end

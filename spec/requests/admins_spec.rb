@@ -21,7 +21,8 @@ describe "Admins" do
         visit signin_path
         fill_in "Логин",  :with => ""
         fill_in "Пароль", :with => ""
-        click_button "Войти" 
+        click_button "Войти"
+         
         response.should have_selector("div.alert.alert-error", 
           :content => "Не удается войти. Пожалуйста, проверьте правильность написания логина и пароля. Проверьте, не нажата ли клавиша CAPS-lock.")
       end
@@ -44,6 +45,7 @@ describe "Admins" do
   describe "for sign-in admin" do 
     before(:each) do  
       user = Factory(:user, :user_login => "user login")
+      
       visit signin_path
       fill_in "Логин",  :with => user.user_login
       fill_in "Пароль", :with => user.password
@@ -52,6 +54,7 @@ describe "Admins" do
       
     it "should have correct links in toolbar with active states" do      
       click_link "Резервные копии"
+      
       response.should be_success
       response.body.should have_selector( "li.active") do
         have_selector('a', :content => 'Бекапы')
@@ -66,6 +69,7 @@ describe "Admins" do
     
     it "should redirect from root path to users list" do      
       visit signin_path
+      
       response.body.should have_selector( "li.active") do
         have_selector('a', :content => 'Список учетных записей системы')
       end                                           
@@ -94,6 +98,7 @@ describe "Admins" do
        expect do
          click_link "Создать учетную запись"
          click_link "Завуч"
+         
          response.should have_selector('legend', :content => 'Создание учетной записи Завуча')
         
          fill_in "Логин учетной записи",  :with => "user.user_login"
@@ -186,6 +191,7 @@ describe "Admins" do
       it "should not create teacher with invalid date" do
         click_link 'Создать учетную запись'
         click_link 'Учитель'
+        
         response.should have_selector( 'legend', 
                                        :content => 'Создание учетной записи Учителя' )
                                                                             
@@ -197,7 +203,7 @@ describe "Admins" do
                 fill_in 'Фамилия',               :with => @teacher_surname
                 fill_in 'Имя',                   :with => @teacher_name
                 fill_in 'Отчество',              :with => @teacher_middle_name
-                choose 'Мужской'                                                              # Choose radio button
+                choose 'Мужской'                                                          # Choose radio button
                 fill_in 'Дата рождения',         :with => date
                 fill_in 'Категория',             :with => @teacher_category
                 fill_in 'Логин учетной записи',  :with => @user_login
@@ -215,11 +221,12 @@ describe "Admins" do
       it "should create teacher with valid data" do
         expect do
           expect do
-             expect do 
+            expect do 
               user_pas = 'password'
         
               click_link 'Создать учетную запись'
               click_link 'Учитель'
+              
               response.should have_selector( 'legend', 
                                              :content => 'Создание учетной записи Учителя' )
     
