@@ -23,7 +23,8 @@ class Teacher < ActiveRecord::Base
                   :teacher_birthday,
                   :teacher_sex,
                   :teacher_category,
-                  :teacher_education_attributes
+                  :teacher_education_attributes,
+                  :teacher_phone_attributes
 
   belongs_to :user                                              
   
@@ -31,6 +32,7 @@ class Teacher < ActiveRecord::Base
   has_one :teacher_phone
   
   accepts_nested_attributes_for :teacher_education
+  accepts_nested_attributes_for :teacher_phone
                        
   validates :teacher_last_name,   
               :presence   => { :message => "не может быть пустой" },             
