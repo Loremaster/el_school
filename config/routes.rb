@@ -1,5 +1,5 @@
 ElSchool::Application.routes.draw do
-  resources :users,    :only => [ :new, :create, :show ]
+  resources :users,    :only => [ :edit, :update ]
   resources :sessions, :only => [ :new, :create, :destroy ]
 
   get "sessions/new"
@@ -25,14 +25,7 @@ ElSchool::Application.routes.draw do
   
   match '/admins/create_teacher' => 'admins#create_teacher',
                                     :as => :create_teacher
-                                     
-  match '/admins/edit_user',   :controller => 'admins',
-                               :action => 'edit_user'
-  #                                   
-   match '/admins/update_user', :controller => 'admins',
-                                :action => 'update_user',
-                                :as => :update_user                                    
-
+                            
   root :to => 'sessions#new'                                                              # Home
 
   # The priority is based upon order of creation:

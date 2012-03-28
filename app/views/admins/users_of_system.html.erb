@@ -21,8 +21,7 @@
             <%# @path_to_update = admins_new_teacher_path %>
           <%# end %>
           
-          <!-- <tr> -->
-          <tr onclick="location.href='<%= admins_edit_user_path( :id => "#{user.id}" ) %>'">
+          <tr onclick="location.href='<%= edit_user_path(:id=>user.id) %>'">
             <td><%= user.user_role %></td>
             <td><%= user.user_login %></td>
             <% if user.encrypted_password.blank? %>

@@ -1,9 +1,8 @@
 # encoding: UTF-8
 class AdminsController < ApplicationController
-  before_filter :authenticate_admins, :only => [ :backups,
+  before_filter :authenticate_admins, :only => [ 
+                                                 :backups,
                                                  :users_of_system,
-                                                 :edit_user,
-                                                 :update_user,
                                                  :new_school_head,
                                                  :new_teacher,
                                                  :create_school_head,
@@ -15,24 +14,6 @@ class AdminsController < ApplicationController
   #TODO Refactor AdminsController.
   #TODO Test user updating.
   def backups
-  end
-
-  def edit_user
-    @everpresent_field_placeholder = "Обязательное поле"
-    @user = User.find( params[:id] )
-  end
-
-  def update_user
-     @user = User.find( params[:id] )
-     
-     if @user.update_attributes( params[:user] )
-       redirect_to admins_users_of_system_path
-       flash[:success] = "Пользователь успешно обновлен!"
-     else
-       redirect_to admins_edit_user_path( params )
-       flash[:error] = @user.errors.full_messages.to_sentence :last_word_connector => ", ",
-                                                              :two_words_connector => ", "
-     end
   end
 
   def users_of_system
