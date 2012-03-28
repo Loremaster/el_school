@@ -1,5 +1,4 @@
 # encoding: UTF-8
-
 module SessionsHelper
   def redirect_back_to_user_page                                                          # Redirecting user to his pages.
     if nil?                                                                               # If not autorized user.
@@ -7,6 +6,9 @@ module SessionsHelper
     else
       if signed_in? and current_user_admin?
         redirect_back_or users_path
+      end
+      if signed_in? and current_user_school_head?
+        redirect_back_or pupils_path
       end
     end
   end
@@ -34,12 +36,19 @@ module SessionsHelper
   end
 
   def current_user_admin?
-    @user = current_user
-    @user.user_role == "admin"
+    current_user.user_role == "admin"
+  end
+
+  def current_user_school_head?
+    current_user.user_role == "school_head"
   end
 
   def authenticate_admins
     deny_access_except_admins unless ( signed_in? and current_user_admin? )
+  end
+  
+  def authenticate_school_heads
+    deny_access_except_school_heads unless ( signed_in? and current_user_school_head? )
   end
 
   def deny_access
@@ -56,6 +65,17 @@ module SessionsHelper
     else
       redirect_to signin_path, 
                   :notice => "Пожалуйста, войдите в систему как администратор, чтобы увидеть эту страницу." #here :notice is "flash[:notice]".
+    end
+  end
+
+  def deny_access_except_school_heads
+    store_location
+    if signed_in?
+      redirect_to pages_wrong_page_path, 
+                  :flash => { :error => "К сожалению, вы не можете увидеть эту страницу." }
+    else
+      redirect_to signin_path, 
+                  :notice => "Пожалуйста, войдите в систему как Завуч, чтобы увидеть эту страницу." 
     end
   end
 

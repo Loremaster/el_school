@@ -7,7 +7,11 @@
              <% end %>
 
              <% if signed_in? and current_user_admin? %>
-                 <%= render 'layouts/header_for_admin' %>
+                <%= render 'layouts/header_for_admin' %>
+             <% end %>
+             
+             <% if signed_in? and current_user_school_head? %>
+                <%= render 'layouts/header_for_school_head'%>
              <% end %>
 
              <ul class="nav pull-right">

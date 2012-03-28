@@ -2,13 +2,13 @@
 <html>
 <head>
   <title>ElSchool</title>
-  <%= javascript_include_tag "jquery" %>                                      <%# Adding jquery. We need that for working dropdown buttons, for example. %>
+  <%= javascript_include_tag "jquery" %>                                                  <%# Adding jquery. We need that for working dropdown buttons, for example. %>
   <%= javascript_tag "$(document).ready(function(){
   			          $('.dropdown-toggle').dropdown();
   			          });" %>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
-  <%= javascript_include_tag "bootstrap" %>                                   <%# Adding bootstrap css file.  %>
+  <%= javascript_include_tag "bootstrap" %>                                               <%# Adding bootstrap css file.  %>
   <%= javascript_include_tag "admin_js" %>
   <%= csrf_meta_tags %>
 </head>
@@ -17,8 +17,8 @@
 
     <div class="container">
         <div class="well">
-          <% flash.each do |key, value| %>                                    <%# Now we can call flash messages in our views. %>
-              <%= content_tag(:div, value, :class => "alert alert-#{key}") %> <%# Now we support bootstrap pop-up messages. %>
+          <% flash.each do |key, value| %>                                                <%# Now we can call flash messages in our views. %>
+              <%= content_tag(:div, value, :class => "alert alert-#{key}") %>             <%# Now we support bootstrap pop-up messages. %>
           <% end %>
 
           <%= yield %>

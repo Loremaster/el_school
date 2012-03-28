@@ -1,12 +1,10 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe "Admins" do
-  
+describe "Admins" do 
   before(:each) do
       @attr = {
                 :user_login => "Admin2",
-                :user_role => "admin",
                 :password => "foobar"
               }
       
@@ -52,7 +50,13 @@ describe "Admins" do
       click_button "Войти"
     end
       
-    it "should have correct links in toolbar with active states" do      
+    it "should have correct links in toolbar with active states" do   
+      # State of button when user log-in
+      response.should be_success
+      response.body.should have_selector( "li.active") do
+        have_selector('a', :content => 'Список учетных записей системы')
+      end
+         
       click_link "Резервные копии"
       
       response.should be_success
@@ -61,6 +65,7 @@ describe "Admins" do
       end
             
       click_link "Учетные записи"
+      
       response.should be_success
       response.body.should have_selector( "li.active") do
         have_selector('a', :content => 'Список учетных записей системы')

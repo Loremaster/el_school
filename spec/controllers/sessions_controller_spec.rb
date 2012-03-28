@@ -36,7 +36,6 @@ describe SessionsController do
       before(:each) do
          @attr_user = { 
                         :user_login => "Admin",
-                        # :user_role => "admin",
                         :password => "password"
                       }
         @user = User.new( @attr_user )

@@ -9,9 +9,7 @@ class AdminsController < ApplicationController
                                                 ]
 
   #TODO Creating backups. Restore DB from backup.
-  #TODO Test, that only admin can see his pages.
-  #TODO Refactor AdminsController.
-  #TODO Test user updating.
+  #TODO Test user updating (integration).
   def backups
   end
 
