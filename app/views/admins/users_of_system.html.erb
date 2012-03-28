@@ -9,8 +9,20 @@
         </tr>
     </thead>
     <tbody>
+        
         <% @all_users.each do |user| %>
-          <tr>
+          <%# if user.user_role == "admin" %>
+            <%# @path_to_update = admins_new_school_head_path %>              
+          <%# end %>
+          <%# if user.user_role == "school_head" %>
+            <%# @path_to_update = admins_new_school_head_path %>
+          <%# end %>
+          <%# if user.user_role == "teacher" %>
+            <%# @path_to_update = admins_new_teacher_path %>
+          <%# end %>
+          
+          <!-- <tr> -->
+          <tr onclick="location.href='<%= admins_edit_user_path( :id => "#{user.id}" ) %>'">
             <td><%= user.user_role %></td>
             <td><%= user.user_login %></td>
             <% if user.encrypted_password.blank? %>

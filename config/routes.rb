@@ -10,25 +10,30 @@ ElSchool::Application.routes.draw do
 
   match '/admins/backups', :controller => 'admins',
                            :action     => 'backups'
-
+  
   match '/admins/users_of_system', :controller => 'admins',
                                    :action     => 'users_of_system'
-
+  
   match '/admins/new_school_head', :controller => 'admins',
                                    :action => 'new_school_head'
-
+  
   match '/admins/new_teacher', :controller => 'admins',
                                :action => 'new_teacher'
-
+  
   match '/admins/create_school_head' => 'admins#create_school_head',
-                                         :as => :create_school_head          #named route
-
+                                         :as => :create_school_head                       # named route
+  
   match '/admins/create_teacher' => 'admins#create_teacher',
                                     :as => :create_teacher
-  #match '/admins/process_school_head' => 'admins#process_school_head',
-  #                                         :as => :process_school_head          #named route
+                                     
+  match '/admins/edit_user',   :controller => 'admins',
+                               :action => 'edit_user'
+  #                                   
+   match '/admins/update_user', :controller => 'admins',
+                                :action => 'update_user',
+                                :as => :update_user                                    
 
-  root :to => 'sessions#new'                                                  #Home
+  root :to => 'sessions#new'                                                              # Home
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

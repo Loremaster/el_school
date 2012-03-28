@@ -29,6 +29,7 @@
 
 **Admin**
 
+- Admin now can update user login/pass.
 - Now we can also add teacher phones.
 - Added new method to show error messages of User, Teacher, Teacher education.
 - Now we can also fill forms of teacher education.
