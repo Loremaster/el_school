@@ -7,7 +7,7 @@ describe AdminsController do
   describe "GET 'users_of_system'" do
     describe "for non-signed-in as admin users" do      
       it "should deny access to admin's pages" do
-        admin_pages = %w(users_of_system backups new_school_head new_teacher create_school_head)
+        admin_pages = %w(users_of_system backups new_school_head new_teacher create_school_head create_teacher)
         admin_pages.each do |admin_pg|
           get admin_pg
           response.should redirect_to( signin_path )

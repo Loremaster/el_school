@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class UsersController < ApplicationController
-  before_filter :authenticate_admins, :only => [ :edit,:update ]
+  before_filter :authenticate_admins, :only => [ :edit, :update ]
   
   def edit
     @everpresent_field_placeholder = "Обязательное поле"

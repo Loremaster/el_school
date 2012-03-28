@@ -1,8 +1,8 @@
 # encoding: UTF-8
 
 module SessionsHelper
-  def redirect_back_to_user_page                                              #Redirecting user to his pages
-    if nil?                                                                   #Not autorized user
+  def redirect_back_to_user_page                                                          # Redirecting user to his pages.
+    if nil?                                                                               # If not autorized user.
       redirect_back_or signin_path
     else
       if signed_in? and current_user_admin?
@@ -12,7 +12,7 @@ module SessionsHelper
   end
   
   def sign_in( user )
-    cookies.permanent.signed[:remember_token] = [user.id, user.salt]          #Creating secure remember token associated with the User model to be used in place of the user id
+    cookies.permanent.signed[:remember_token] = [user.id, user.salt]                      # Creating secure remember token associated with the User model to be used in place of the user id.
     @current_user = user
   end
 
@@ -44,15 +44,18 @@ module SessionsHelper
 
   def deny_access
     store_location
-    redirect_to signin_path, :notice => "Пожалуйста, войдите в систему, чтобы увидеть эту страницу." #here :notice is "flash[:notice]"
+    redirect_to signin_path, 
+                :notice => "Пожалуйста, войдите в систему, чтобы увидеть эту страницу."   # Here :notice is "flash[:notice]".
   end
 
   def deny_access_except_admins
     store_location
     if signed_in?
-      redirect_to pages_wrong_page_path, :flash => { :error => "К сожалению, вы не можете увидеть эту страницу." }
+      redirect_to pages_wrong_page_path, 
+                  :flash => { :error => "К сожалению, вы не можете увидеть эту страницу." }
     else
-      redirect_to signin_path, :notice => "Пожалуйста, войдите в систему как администратор, чтобы увидеть эту страницу." #here :notice is "flash[:notice]"
+      redirect_to signin_path, 
+                  :notice => "Пожалуйста, войдите в систему как администратор, чтобы увидеть эту страницу." #here :notice is "flash[:notice]".
     end
   end
 

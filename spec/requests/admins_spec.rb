@@ -327,5 +327,13 @@ describe "Admins" do
         end.should_not change( TeacherPhone, :count )
       end
     end
-  end  
+  end 
+  
+  # describe "updating attributes" do
+  #   before(:each) do
+  #     user = Factory(:user, :user_login => "iamadmin")
+  #     user.user_role = "admin"
+  #     user.save!
+  #   end
+  # end 
 end
