@@ -6,7 +6,7 @@ module SessionsHelper
       redirect_back_or signin_path
     else
       if signed_in? and current_user_admin?
-        redirect_back_or admins_users_of_system_path
+        redirect_back_or users_path
       end
     end
   end

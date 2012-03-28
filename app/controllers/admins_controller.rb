@@ -2,7 +2,6 @@
 class AdminsController < ApplicationController
   before_filter :authenticate_admins, :only => [ 
                                                  :backups,
-                                                 :users_of_system,
                                                  :new_school_head,
                                                  :new_teacher,
                                                  :create_school_head,
@@ -14,10 +13,6 @@ class AdminsController < ApplicationController
   #TODO Refactor AdminsController.
   #TODO Test user updating.
   def backups
-  end
-
-  def users_of_system
-    @all_users = User.all
   end
 
   def new_school_head
@@ -34,7 +29,7 @@ class AdminsController < ApplicationController
     user.user_role = "school_head"
 
     if user.save
-      redirect_to admins_users_of_system_path
+      redirect_to users_path
       flash[:success] = "Завуч успешно создан!"
     else
       redirect_to admins_new_school_head_path( params[:user] )
@@ -89,8 +84,8 @@ class AdminsController < ApplicationController
     valid_finish_univer = date_valid?( params[:user][:teacher_attributes][:teacher_education_attributes][:teacher_education_year] )
         
     if @user.save and valid_birthday and valid_finish_univer                              # Save if validaions gone well and date is ok.
-      redirect_to admins_users_of_system_path     
-      flash[:success] = "Завуч успешно создан!"
+      redirect_to users_path     
+      flash[:success] = "Учитель успешно создан!"
     else
       redirect_to admins_new_teacher_path( params )
       

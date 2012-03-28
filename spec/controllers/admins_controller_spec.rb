@@ -7,7 +7,7 @@ describe AdminsController do
   describe "GET 'users_of_system'" do
     describe "for non-signed-in as admin users" do      
       it "should deny access to admin's pages" do
-        admin_pages = %w(users_of_system backups new_school_head new_teacher create_school_head create_teacher)
+        admin_pages = %w(backups new_school_head new_teacher create_school_head create_teacher)
         admin_pages.each do |admin_pg|
           get admin_pg
           response.should redirect_to( signin_path )
@@ -22,32 +22,12 @@ describe AdminsController do
       @user = Factory(:user)
       test_sign_in( @user )
     end
-      
-    it "should accept access to users list" do
-      get :users_of_system
-      response.should be_success
-    end
-    
-    it "should have legend for users list page" do
-      get :users_of_system
-      response.should have_selector("legend", :content => "Список учетных записей системы")
-    end
-    
+              
     it "should have legend for backups page" do
       get :backups
       response.should have_selector("legend", :content => "Бекапы")
     end
-    
-    it "should have admin user in users list" do
-      pass_text = '*' * 10
-      get :users_of_system
-      response.body.should have_selector( "tr") do
-        have_selector('td', :content => @user.user_role)
-        have_selector('td', :content => @user.user_login)
-        have_selector('td', :content => pass_text)
-      end
-    end
-    
+        
     describe "POST 'create school head'" do
       before(:each) do
         @attr_correct = { 

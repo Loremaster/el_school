@@ -12,11 +12,17 @@ describe UsersController do
         @user.save
       end
       
-      it "should deny access for pages which can visit only admin" do
+      it "should deny access to edit users" do
         get :edit, :id => @user
         response.should redirect_to( signin_path )
         flash[:notice].should =~ /войдите в систему как администратор/i
       end 
+      
+      it "should deny access to see users of system" do
+        get :index
+        response.should redirect_to( signin_path )
+        flash[:notice].should =~ /войдите в систему как администратор/i
+      end
     end
     
     # describe "for signed-in not admins" do
@@ -42,9 +48,29 @@ describe UsersController do
         test_sign_in( @adm )
       end
       
-      it "should be acesses admins pages" do
+      it "should accept access to edit users" do
         get :edit, :id => @adm
         response.should be_success
+      end
+      
+      it "should accept access to get users list" do
+        get :index
+        response.should be_success
+      end
+      
+      it "should have legend for users list page" do
+        get :index
+        response.should have_selector("legend", :content => "Список учетных записей системы")
+      end
+      
+      it "should have admin user in users list" do
+        pass_text = '*' * 10
+        get :index
+        response.body.should have_selector( "tr") do
+          have_selector('td', :content => @adm.user_role)
+          have_selector('td', :content => @adm.user_login)
+          have_selector('td', :content => pass_text)
+        end
       end
     end  
   end
@@ -86,7 +112,7 @@ describe UsersController do
       
       it "should redirect to users list" do
         put :update, :id => @adm, :user => @attr
-        response.should redirect_to( admins_users_of_system_path )
+        response.should redirect_to( users_path )
       end
       
       it "should change the user login" do

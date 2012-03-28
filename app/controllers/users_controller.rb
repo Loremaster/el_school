@@ -1,6 +1,10 @@
 # encoding: UTF-8
 class UsersController < ApplicationController
-  before_filter :authenticate_admins, :only => [ :edit, :update ]
+  before_filter :authenticate_admins, :only => [ :index, :edit, :update ]
+  
+  def index
+    @all_users = User.all
+  end
   
   def edit
     @everpresent_field_placeholder = "Обязательное поле"
@@ -11,7 +15,7 @@ class UsersController < ApplicationController
     @user = User.find( params[:id] )
     
     if @user.update_attributes( params[:user] )
-       redirect_to admins_users_of_system_path
+       redirect_to users_path
        flash[:success] = "Пользователь успешно обновлен!"
      else
        redirect_to edit_user_path

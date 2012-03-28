@@ -1,5 +1,5 @@
 ElSchool::Application.routes.draw do
-  resources :users,    :only => [ :edit, :update ]
+  resources :users,    :only => [ :index, :edit, :update ]
   resources :sessions, :only => [ :new, :create, :destroy ]
 
   get "sessions/new"
@@ -10,10 +10,7 @@ ElSchool::Application.routes.draw do
 
   match '/admins/backups', :controller => 'admins',
                            :action     => 'backups'
-  
-  match '/admins/users_of_system', :controller => 'admins',
-                                   :action     => 'users_of_system'
-  
+    
   match '/admins/new_school_head', :controller => 'admins',
                                    :action => 'new_school_head'
   
