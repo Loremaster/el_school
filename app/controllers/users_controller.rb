@@ -2,15 +2,18 @@
 class UsersController < ApplicationController
   before_filter :authenticate_admins, :only => [ :index, :edit, :update ]
   
+  # List of all users in system.
   def index
     @all_users = User.all
   end
   
+  # Editing user with forms.
   def edit
     @everpresent_field_placeholder = "Обязательное поле"
     @user = User.find( params[:id] )
   end
   
+  # Updating user via fresh data from 'edit'.
   def update
     @user = User.find( params[:id] )
     
