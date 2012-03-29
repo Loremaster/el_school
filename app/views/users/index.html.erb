@@ -1,37 +1,26 @@
 <legend>Список учетных записей системы</legend>
 
 <table class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>Категория</th>
-            <th>Логин</th>
-            <th>Пароль</th>
-        </tr>
-    </thead>
-    <tbody>
-        
-        <% @all_users.each do |user| %>
-          <%# if user.user_role == "admin" %>
-            <%# @path_to_update = admins_new_school_head_path %>              
-          <%# end %>
-          <%# if user.user_role == "school_head" %>
-            <%# @path_to_update = admins_new_school_head_path %>
-          <%# end %>
-          <%# if user.user_role == "teacher" %>
-            <%# @path_to_update = admins_new_teacher_path %>
-          <%# end %>
-          
-          <tr class="cross" onclick = "location.href='<%= edit_user_path( :id => user.id ) %>'">        <%# Go to edit page of user we want to edit. %>
-            <td><%= user.user_role %></td>
-            <td><%= user.user_login %></td>
-            <% if user.encrypted_password.blank? %>
-                <td></td>
-            <% else %>
-                <td>*********</td>
-            <% end %>
-          </tr>
+  <thead>
+    <tr>
+      <th>Категория</th>
+      <th>Логин</th>
+      <th>Пароль</th>
+    </tr>
+  </thead>
+  <tbody>        
+    <% @all_users.each do |user| %>          
+      <tr class="cross" onclick = "location.href='<%= edit_user_path( :id => user.id ) %>'"> <%# Go to edit page of user we want to edit. %>
+        <td><%= user.user_role %></td>
+        <td><%= user.user_login %></td>
+        <% if user.encrypted_password.blank? %>
+          <td></td>
+        <% else %>
+          <td>*********</td>
         <% end %>
-    </tbody>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
 <div style="margin-top: 18px;" class="btn-toolbar">

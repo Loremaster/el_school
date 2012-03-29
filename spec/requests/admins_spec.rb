@@ -3,14 +3,14 @@ require 'spec_helper'
 
 describe "Admins" do 
   before(:each) do
-      @attr = {
-                :user_login => "Admin2",
-                :password => "foobar"
-              }
-      
-      user = User.new( @attr )
-      user.user_role = "admin"
-      user.save!
+    @attr = {
+              :user_login => "Admin2",
+              :password => "foobar"
+            }
+    
+    user = User.new( @attr )
+    user.user_role = "admin"
+    user.save!
   end
   
   describe "sign in/out" do

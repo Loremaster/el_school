@@ -1,12 +1,12 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe PupilsController do
+describe SubjectsController do
   render_views
   
   describe "GET 'index'" do
     describe "for non-signed users" do
-      it "should deny access to see pupils" do
+      it "should deny access to see subjects" do
         get :index
         response.should redirect_to( signin_path )
         flash[:notice].should =~ /войдите в систему как завуч/i
@@ -21,7 +21,7 @@ describe PupilsController do
         test_sign_in( @adm )
       end
       
-      it "should deny access to see pupils" do
+      it "should deny access to see subjects" do
         get :index
         response.should redirect_to( pages_wrong_page_path )
         flash[:error].should =~ /вы не можете увидеть эту страницу/i
@@ -36,7 +36,7 @@ describe PupilsController do
         test_sign_in( @sh )
       end
       
-      it "should show pupils" do
+      it "should show subjects" do
         get :index
         response.should be_success
       end

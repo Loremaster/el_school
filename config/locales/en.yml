@@ -20,4 +20,6 @@ en:
             teacher_education_speciality: "Специальность" 
           teacher_phone:
             teacher_home_number:   "Домашний телефон"
-            teacher_mobile_number: "Мобильный телефон"     
+            teacher_mobile_number: "Мобильный телефон" 
+          subject:
+            subject_name: "Предмет"    
