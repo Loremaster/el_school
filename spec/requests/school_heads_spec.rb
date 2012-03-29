@@ -69,5 +69,12 @@ describe "SchoolHeads" do
         have_selector('a', :content => 'Предметы')
       end
     end
+  
+    it "should visit subject creation page" do
+      click_link "Предметы" 
+      click_link "Создать"
+      
+      response.body.should have_selector('legend', :content => 'Создание предмета')
+    end
   end
 end

@@ -18,5 +18,6 @@ class Subject < ActiveRecord::Base
              :length     => { 
                              :maximum => 30,
                              :message => "должен содержать не более 30 символов" 
-                            }
+                            },
+             :uniqueness => { :message => "с таким названием уже существует" }
 end

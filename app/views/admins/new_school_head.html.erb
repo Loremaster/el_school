@@ -4,6 +4,7 @@
 		<%= field_set_tag do %>
 		  <div class="control-group">
 		    <%= f.label :user_login, "Логин учетной записи", :class => "control-label" %>
+		    
 		    <div class="controls">
 		      <%= f.text_field :user_login, :value => @user_login,
                                         :placeholder => @everpresent_field_placeholder %>
@@ -13,6 +14,7 @@
 
 		  <div class="control-group">
 		    <%= f.label :password, "Пароль учетной записи", :class => "control-label" %>
+		    
 		    <div class="controls">
 		      <%= f.text_field :password, :value => @user_pass,
                                       :placeholder => @everpresent_field_placeholder %>

@@ -1,1 +1,18 @@
 <legend>Список предметов</legend>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Предмет</th>
+    </tr>
+  </thead>
+  <tbody>        
+    <% @all_subjects.each do |sj| %>          
+      <tr>
+        <td><%= sj.subject_name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Создать", new_subject_path, :class => "btn btn-primary btn-large" %>
