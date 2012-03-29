@@ -12,6 +12,8 @@ describe SubjectsController do
     @sh = Factory( :user, :user_login => "shh" )
     @sh.user_role = "school_head"
     @sh.save!
+    
+    @attr = { :subject_name => "Psy"}
   end 
   
   describe "GET 'index'" do
@@ -76,6 +78,40 @@ describe SubjectsController do
       it "should show subjects" do
         get :new
         response.should be_success
+      end
+    end
+  end
+  
+  describe "POST 'create'" do
+    describe "for non-signed users" do
+      it "should deny access to create subjects" do
+        expect do
+          post :create, :subject => @attr
+          response.should redirect_to( signin_path )
+          flash[:notice].should =~ /войдите в систему как завуч/i
+        end.should_not change(Subject, :count)
+      end
+    end
+    
+    describe "for signed-in admins" do
+      it "should deny access to create subjects" do
+        expect do
+          post :create, :subject => @attr
+          response.should redirect_to( signin_path )
+          flash[:notice].should =~ /войдите в систему как завуч/i
+        end.should_not change(Subject, :count)
+      end
+    end
+    
+    describe "for signed-in school-heads" do
+      before(:each) do
+        test_sign_in( @sh )
+      end
+      
+      it "should create subjects" do
+        expect do
+          post :create, :subject => @attr
+        end.should change(Subject, :count).by(1)
       end
     end
   end

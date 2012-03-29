@@ -6,6 +6,8 @@ class SubjectsController < ApplicationController
     @all_subjects = Subject.all  
   end
   
+  #TODO: keep value in form
+  #TODO: test.  
   def new
     @everpresent_field_placeholder = "Обязательное поле"
     @subject = Subject.new

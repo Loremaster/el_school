@@ -70,11 +70,18 @@ describe "SchoolHeads" do
       end
     end
   
-    it "should visit subject creation page" do
-      click_link "Предметы" 
-      click_link "Создать"
+    it "should create subject" do
+      expect do 
+        click_link "Предметы" 
+        click_link "Создать"
       
-      response.body.should have_selector('legend', :content => 'Создание предмета')
+        response.body.should have_selector('legend', :content => 'Создание предмета')
+      
+        fill_in "Имя предмета", :with => "Химия"      
+        click_button "Создать"
+      
+        response.body.should have_selector('legend', :content => 'Список предметов')
+      end.should change(Subject, :count).by(1)
     end
   end
 end
