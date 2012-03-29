@@ -74,11 +74,13 @@ describe "SchoolHeads" do
   
     describe "Subject creation" do
       describe "success" do
+        before(:each) do
+          click_link "Предметы" 
+          click_link "Создать"
+        end
+        
         it "should create subject" do
           expect do 
-            click_link "Предметы" 
-            click_link "Создать"
-
             response.body.should have_selector('legend', :content => 'Создание предмета')
 
             fill_in "Имя предмета", :with => "Химия"      
@@ -89,13 +91,22 @@ describe "SchoolHeads" do
         end
         
         it "should have placeholders for everprecent attributes" do
-          click_link "Предметы" 
-          click_link "Создать"
-          
           response.should have_selector('form') do |form|
             form.should have_selector( 'input', 
                                        :id => 'subject_subject_name',        
                                        :placeholder => @everpresent_field_placeholder )
+          end  
+        end
+        
+        it "should keep data in form" do
+          fill_in "Имя предмета", :with => "  "
+          
+          click_button "Создать"
+            
+          response.should have_selector('form') do |form|
+            form.should have_selector( 'input', 
+                                       :id => 'subject_subject_name', 
+                                       :value => "  " )
           end  
         end
       end
