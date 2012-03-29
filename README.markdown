@@ -2,28 +2,15 @@
 
 ------------------------------------------------------------------------------
 
-**Teacher phones**
+**School head**
 
-- Show errors.
-- Saving to DB.
-- Added forms. 
-- Basic tests for validations.
-
-------------------------------------------------------------------------------
-
-**Teacher education**
-
-- Show errors.
-- Saving to DB.
-- Added forms for that.
-- Basic tests for validations.
+- Can create subjects.
 
 ------------------------------------------------------------------------------
 
 **Teacher**
 
-- Now we can create basic teacher - saving user and teacher models.
-- Test for teacher model (no integration tests).
+- Can log-in.
 
 ------------------------------------------------------------------------------
 

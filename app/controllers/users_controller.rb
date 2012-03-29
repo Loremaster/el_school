@@ -20,10 +20,10 @@ class UsersController < ApplicationController
     if @user.update_attributes( params[:user] )
        redirect_to users_path
        flash[:success] = "Пользователь успешно обновлен!"
-     else
+    else
        redirect_to edit_user_path
        flash[:error] = @user.errors.full_messages.to_sentence :last_word_connector => ", ",
                                                               :two_words_connector => ", "
-     end
+    end
   end
 end

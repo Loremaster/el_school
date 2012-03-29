@@ -4,6 +4,7 @@
 		<%= field_set_tag do %>
 		  <div class="control-group">
 		    <%= f.label :user_login, "Логин учетной записи", :class => "control-label" %>
+		    
 		    <div class="controls">
 		      <%= f.text_field :user_login, :placeholder => @everpresent_field_placeholder %>
 				  <%= link_to_function "Сгенерировать логин", "generate_login()", :class => "btn" %>
@@ -12,14 +13,13 @@
 
 		  <div class="control-group">
 		    <%= f.label :password, "Пароль учетной записи", :class => "control-label" %>
+		    
 		    <div class="controls">
 		      <%= f.text_field :password, :placeholder => @everpresent_field_placeholder %>
 					<%= link_to_function "Сгенерировать пароль", "generate_password()", :class => "btn" %>
 		    </div>
-		  </div>
-		  
+		  </div>		  
 		<% end %>
 		
-
     <%= f.submit "Обновить", :class => "btn btn-large btn-success" %>
 <%  end %>

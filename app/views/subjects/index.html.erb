@@ -7,9 +7,9 @@
     </tr>
   </thead>
   <tbody>        
-    <% @all_subjects.each do |sj| %>          
-      <tr>
-        <td><%= sj.subject_name %></td>
+    <% @all_subjects.each do |sbj| %>          
+      <tr class="cross" onclick = "location.href='<%= edit_subject_path( :id => sbj.id ) %>'">
+        <td><%= sbj.subject_name %></td>
       </tr>
     <% end %>
   </tbody>
