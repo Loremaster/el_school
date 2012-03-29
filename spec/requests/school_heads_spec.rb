@@ -11,6 +11,8 @@ describe "SchoolHeads" do
     user = User.new( @attr )
     user.user_role = "school_head"
     user.save!
+    
+    @everpresent_field_placeholder = "Обязательное поле"
   end
   
   describe "sign in/out" do
@@ -70,18 +72,33 @@ describe "SchoolHeads" do
       end
     end
   
-    it "should create subject" do
-      expect do 
-        click_link "Предметы" 
-        click_link "Создать"
-      
-        response.body.should have_selector('legend', :content => 'Создание предмета')
-      
-        fill_in "Имя предмета", :with => "Химия"      
-        click_button "Создать"
-      
-        response.body.should have_selector('legend', :content => 'Список предметов')
-      end.should change(Subject, :count).by(1)
+    describe "Subject creation" do
+      describe "success" do
+        it "should create subject" do
+          expect do 
+            click_link "Предметы" 
+            click_link "Создать"
+
+            response.body.should have_selector('legend', :content => 'Создание предмета')
+
+            fill_in "Имя предмета", :with => "Химия"      
+            click_button "Создать"
+
+            response.body.should have_selector('legend', :content => 'Список предметов')
+          end.should change(Subject, :count).by(1)
+        end
+        
+        it "should have placeholders for everprecent attributes" do
+          click_link "Предметы" 
+          click_link "Создать"
+          
+          response.should have_selector('form') do |form|
+            form.should have_selector( 'input', 
+                                       :id => 'subject_subject_name',        
+                                       :placeholder => @everpresent_field_placeholder )
+          end  
+        end
+      end
     end
   end
 end
