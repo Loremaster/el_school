@@ -4,20 +4,19 @@ require 'spec_helper'
 describe UsersController do
   render_views
   
-  describe "GET 'edit'" do
+  before(:each) do
+    @adm = Factory(:user, :user_login => "iadmin")
+    @adm.user_role = "admin"
+    @adm.save!
+    
+    @user = Factory(:user, :user_login => "bla-bla")
+    @user.user_role = "teacher"
+    @user.save
+  end
+    
+    
+  describe "GET 'index'" do
     describe "for non-signed users" do
-      before(:each) do
-        @user = Factory(:user, :user_login => "bla-bla")
-        @user.user_role = "teacher"
-        @user.save
-      end
-      
-      it "should deny access to edit users" do
-        get :edit, :id => @user
-        response.should redirect_to( signin_path )
-        flash[:notice].should =~ /войдите в систему как администратор/i
-      end 
-      
       it "should deny access to see users of system" do
         get :index
         response.should redirect_to( signin_path )
@@ -25,34 +24,11 @@ describe UsersController do
       end
     end
     
-    # describe "for signed-in not admins" do
-    #   before(:each) do
-    #     @user = Factory(:user, :user_login => "iTeach")
-    #     @user.user_role = "teacher"
-    #     @user.save
-    #     test_sign_in( @user )
-    #   end
-    #   
-    #   it "should deny access for pages which can visit only admin" do
-    #     get :edit, :id => @user
-    #     response.should redirect_to( pages_wrong_page_path )
-    #     flash[:notice].should =~ /войдите в систему как администратор/i
-    #   end
-    # end
-
     describe "for signed-in admins" do
       before(:each) do
-        @adm = Factory(:user, :user_login => "iadmin")
-        @adm.user_role = "admin"
-        @adm.save!
         test_sign_in( @adm )
       end
-      
-      it "should accept access to edit users" do
-        get :edit, :id => @adm
-        response.should be_success
-      end
-      
+            
       it "should accept access to get users list" do
         get :index
         response.should be_success
@@ -74,12 +50,30 @@ describe UsersController do
       end
     end  
   end
+  
+  describe "GET 'edit'" do
+    describe "for non-signed users" do      
+      it "should deny access to edit users" do
+        get :edit, :id => @user
+        response.should redirect_to( signin_path )
+        flash[:notice].should =~ /войдите в систему как администратор/i
+      end 
+    end
+   
+    describe "for signed-in admins" do
+      before(:each) do
+        test_sign_in( @adm )
+      end
+      
+      it "should accept access to edit users" do
+        get :edit, :id => @adm
+        response.should be_success
+      end
+    end     
+  end
 
   describe "PUT 'update'" do
     before(:each) do
-      @adm = Factory(:user)
-      @adm.user_role = "admin"
-      @adm.save!
       test_sign_in( @adm )
     end
     
