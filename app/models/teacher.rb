@@ -24,7 +24,8 @@ class Teacher < ActiveRecord::Base
                   :teacher_sex,
                   :teacher_category,
                   :teacher_education_attributes,
-                  :teacher_phone_attributes
+                  :teacher_phone_attributes,
+                  :subject_ids
 
   belongs_to :user                                              
   
