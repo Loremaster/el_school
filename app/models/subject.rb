@@ -13,6 +13,9 @@
 class Subject < ActiveRecord::Base
   attr_accessible :subject_name
   
+  has_many :qualifications
+  has_many :teachers, :through => :qualifications  
+  
   validates :subject_name,
              :presence   => { :message => "не может быть пустым" },             
              :length     => { 

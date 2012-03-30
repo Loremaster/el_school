@@ -9,7 +9,7 @@ class SubjectsController < ApplicationController
   
   def new
     @everpresent_field_placeholder, @subj_text = "Обязательное поле", ""
-    @subj_text = params[:subject][:subject_name] if  params.has_key?( :subject )          # Read subject name form param if such data exists.
+    @subj_text = params[:subject][:subject_name] if params.has_key?( :subject )           # Read subject name form param if such data exists.
     
     @subject = Subject.new
   end
@@ -27,7 +27,6 @@ class SubjectsController < ApplicationController
     end
   end
   
-  #TODO test edit/update.
   def edit
     @subject = Subject.find( params[:id] )
   end
