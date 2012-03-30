@@ -5,6 +5,13 @@
      <%= link_to "Ученики", pupils_path %>
    </li>
 </ul>
+
+<ul class="nav">
+   <li class=<%= active_toolbar?( teachers_path ) %>>
+     <%= link_to "Учителя", teachers_path %>
+   </li>
+</ul>
+
 <ul class="nav">
    <li class=<%= active_toolbar?( subjects_path ) %>>
      <%= link_to "Предметы", subjects_path %>
