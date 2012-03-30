@@ -1,14 +1,27 @@
-<%= form_for( @teacher ) do |f| %>
-
-  <div class="field">
-    <%= hidden_field_tag "teacher[subject_ids][]", nil %>
-    <% Subject.all.each do |subject| %>
-      <%= check_box_tag "teacher[subject_ids][]", subject.id, @teacher.subject_ids.include?(subject.id), id: dom_id(subject) %>
-      <%= label_tag dom_id(subject), subject.subject_name %><br>
-    <% end %>
-  </div>
+<%= form_for( @teacher ) do |f| %>  
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Выбрать</th>
+        <th>Предмет</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= hidden_field_tag "teacher[subject_ids][]", nil %>        
+      <% Subject.all.each do |subject| %>         
+        <tr>
+          <td>
+            <%= check_box_tag "teacher[subject_ids][]", 
+                              subject.id, 
+                              @teacher.subject_ids.include?(subject.id), 
+                              id: dom_id(subject) %>
+          </td>
+          <td><%= label_tag dom_id(subject), subject.subject_name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
   
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= f.submit "Обновить", :class => "btn btn-large btn-warning" %>
+  
 <% end %>
