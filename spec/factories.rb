@@ -19,6 +19,10 @@ Factory.define :teacher do |teacher|
   teacher.user                                                                            # That means that teacher belongs to user.
 end
 
+Factory.define :subject do |subject|
+  subject.subject_name 'Math'
+end  
+
 # Factory.define :teacher_phone do |tp|
 #   tp.teacher_home_number '8-499-111-11-11'
 #   tp.teacher_mobile_number '8-999-555-44-33'

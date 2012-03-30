@@ -27,6 +27,7 @@ class SubjectsController < ApplicationController
     end
   end
   
+  #TODO test edit/update.
   def edit
     @subject = Subject.find( params[:id] )
   end
