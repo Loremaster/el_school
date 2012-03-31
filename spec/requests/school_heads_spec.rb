@@ -115,7 +115,53 @@ describe "SchoolHeads" do
                                        :id => 'subject_subject_name', 
                                        :value => "  " )
           end  
-        end
+        end      
+      end
+    end
+  
+    describe "Teacher-Subjects (Qualification) creation" do
+      before(:each) do
+        @subj = Factory( :subject, :subject_name => "Physics" )
+        
+        @teacher = Factory( :teacher )
+        @teacher.user.user_role = "teacher"
+        @teacher.save!
+      end
+      
+      it "should change subjects for teacher (qualification) if checkbox checked and unchecked" do
+        expect do
+          visit edit_teacher_path( :id => @teacher.id )
+        
+          # Checking that we have in one table row label and that checkbox still unchecked.
+          response.should have_selector( 'tr' ) do |tr|
+            tr.should have_selector( 'td' ) do |td|
+              td.should have_selector( 'label', :content => "Physics" )
+            end
+            tr.should have_selector( 'td' ) do |td| 
+              td.should_not have_selector( 'input', :checked => "checked" )
+            end
+          end
+        
+          check "Physics"       
+          click_button "Обновить"
+        end.should change( Qualification, :count ).by( 1 ) 
+        
+        expect do
+          visit edit_teacher_path( :id => @teacher.id )
+        
+          # Checking that we have in one table row label and that checkbox've checked.
+          response.should have_selector( 'tr' ) do |tr|
+            tr.should have_selector( 'td' ) do |td|
+              td.should have_selector( 'label', :content => "Physics" )
+            end
+            tr.should have_selector( 'td' ) do |td| 
+               td.should have_selector( 'input', :checked => "checked" )
+            end
+          end  
+        
+          uncheck "Physics"       
+          click_button "Обновить"
+        end.should change( Qualification, :count ).by( -1 )
       end
     end
   end

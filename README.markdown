@@ -4,7 +4,9 @@
 
 **School head**
 
-- Can create subjects.
+- He can switch between links in head.
+- He can create subjects.
+- He can choose subjects for teachers.
 
 ------------------------------------------------------------------------------
 
@@ -46,4 +48,3 @@ and contains russian words. For translation words i use locale, it set as :en (d
 - Updated to Rails 3.2
 
 ------------------------------------------------------------------------------
-
