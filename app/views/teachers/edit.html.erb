@@ -14,7 +14,7 @@
             <%= check_box_tag "teacher[subject_ids][]",                                   # [] brackets tells that this is array.
                               subject.id,                                                 # Value of checkbox.
                               @teacher.subject_ids.include?(subject.id),                  # Here we automatically check checkboxes.
-                              id: dom_id( subject ) %>                                    <%# Give unique id for each value. 'dom_id' is Rails helper. Here we will have id like: 'subject_1', 'subject_2' and etc%>
+                              id: dom_id( subject ) %>                                    <%# Give unique id for each value. 'dom_id' is Rails helper. We will have ids like: 'subject_1', 'subject_2' and etc. %>
           </td>
           <td>
             <%= label_tag dom_id(subject), 
@@ -25,6 +25,5 @@
     </tbody>
   </table>
   
-  <%= f.submit "Обновить", :class => "btn btn-large btn-warning" %>
-  
+  <%= f.submit "Обновить", :class => "btn btn-large btn-warning" %> 
 <% end %>
