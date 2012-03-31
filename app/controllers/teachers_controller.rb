@@ -5,6 +5,7 @@ class TeachersController < ApplicationController
   #TODO test that teacher name appear here.
   def index
     @teachers = Teacher.all
+    @teachers_leaders = TeacherLeader.all
   end
   
   def edit

@@ -1,0 +1,31 @@
+<legend>Создание классного руководителя</legend>
+
+<%= form_for @user, :url => teacher_leaders_url, :html => {:class => "form-horizontal"} do |f| %>
+		<%= field_set_tag do %>		  
+  	  <div class="control-group">
+  	    <%= f.label :teacher_id, "ФИО учителя", :class => "control-label" %>
+  	    <div class="controls">
+          <%= select_tag( :teacher_id, 
+                          options_for_select( @teachers_collection, @choosen_teacher )) %>  	     
+  	    </div>
+  	  </div>
+  	  
+		  <div class="control-group">
+  	    <%= f.label :user_login, "Логин учетной записи", :class => "control-label" %>
+  	    <div class="controls">
+  	      <%= f.text_field :user_login, :placeholder => @everpresent_field_placeholder %>
+  			  <%= link_to_function "Сгенерировать логин", "generate_login()", :class => "btn" %>
+  	    </div>
+  	  </div>
+  	  
+  	  <div class="control-group">
+  	    <%= f.label :password, "Пароль учетной записи", :class => "control-label" %>
+  	    <div class="controls">
+  	      <%= f.text_field :password, :placeholder => @everpresent_field_placeholder %>
+  				<%= link_to_function "Сгенерировать пароль", "generate_password()", :class => "btn" %>
+  	    </div>
+  	  </div>
+		<% end %> 
+		
+		<%= f.submit "Создать", :class => "btn btn-large btn-success" %>
+<% end %>		 

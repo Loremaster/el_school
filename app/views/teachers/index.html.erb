@@ -18,3 +18,28 @@
     <% end %>
   </tbody>
 </table>
+
+<legend>Список классных руководителей</legend>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Фамилия</th>      
+      <th>Имя</th>                 
+      <th>Отчество</th>                 
+    </tr>
+  </thead>
+  <tbody>
+    <% TeacherLeader.all.each do |t| %>
+      <tr>
+        <td><%=t.teacher.teacher_last_name%></td>
+        <td><%=t.teacher.teacher_first_name%></td>
+        <td><%=t.teacher.teacher_middle_name%></td>
+      </tr>
+    <% end %>
+  </tbody>   
+</table>
+
+<%= link_to "Создать классного руководителя", 
+    new_teacher_leader_path, 
+    :class => "btn btn-primary btn-large" %>

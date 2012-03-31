@@ -31,6 +31,8 @@ class Teacher < ActiveRecord::Base
   
   has_one :teacher_education
   has_one :teacher_phone
+  has_one :teacher_leader
+  
   has_many :qualifications
   has_many :subjects, :through => :qualifications
      

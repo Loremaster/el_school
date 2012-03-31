@@ -24,7 +24,7 @@ class AdminsController < ApplicationController
 
   def create_school_head
     user = User.new( params[:user] )
-    user.user_role = "school_head"
+    user.user_role = "school_head" if current_user_admin?
 
     if user.save
       redirect_to users_path
@@ -76,7 +76,7 @@ class AdminsController < ApplicationController
   def create_teacher
     user_errors, date_errors = nil, nil; all_correct_errors = []     
     @user = User.new( params[:user] )                                                     # Important note! We shouldn't set id here, nested_attributes do that automatically. Also, be sure, that you don't check id presence in belongs_to models.
-    @user.user_role = "teacher"                                                            
+    @user.user_role = "teacher" if current_user_admin?                                                         
 
     valid_birthday = date_valid?( params[:user][:teacher_attributes][:teacher_birthday] ) # Check our date. You can find method in application controller. Such way is bad, but i didn't find good solution to use it in validation.
     valid_finish_univer = date_valid?( params[:user][:teacher_attributes][:teacher_education_attributes][:teacher_education_year] )
