@@ -5,7 +5,7 @@ class TeacherLeadersController < ApplicationController
   def new
     @everpresent_field_placeholder = "Обязательное поле"
     @user = User.new
-    # @teacher_leader = @user.build_teacher_leader
+    @teacher_leader = @user.build_teacher_leader
     
     
     @teachers_collection = Teacher.all                                                    # Collect array of ["teacher names", teacher.id] which are options of select in view.
@@ -17,37 +17,49 @@ class TeacherLeadersController < ApplicationController
   end
    
   def create
-    t, errors = nil, nil
+    user = User.new( params[:user] )
+    user.user_role = "class_head"
     
-    if ( params.has_key?( :teacher_id ) )
-      user = User.new( params[:user] )
-      user.user_role = "class_head"
-      
-      if user.save
-         t = TeacherLeader.new( :teacher_id => params[:teacher_id], :user_id => user.id )
-         
-         if t.save
-           redirect_to teachers_path
-           flash[:success] = "Классный руководитель успешно создан!"
-         else
-           errors = t.errors.full_messages.to_sentence :last_word_connector => ", ",        
-                                                       :two_words_connector => ", "
-           user.destroy
-         end 
-      else
-        errors = user.errors.full_messages.to_sentence :last_word_connector => ", ",        
-                                                       :two_words_connector => ", "
-            
-      end
+    if user.save
+      flash[:success] = "Successfully created class head!"
     else
-      errors = "К сожалениею, невозможно создать классного руководителя." +
-                      "Пожалуйста, создайте сначала учителя."
+      flash[:error] = user.errors.full_messages.to_sentence :last_word_connector => ", ",        
+                                                            :two_words_connector => ", "
+      # redirect_to new_teacher_leader_path
     end
     
-    if not errors.nil? 
-      redirect_to new_teacher_leader_path
-      flash[:error] = errors
-    end  
+    
+    # t, errors = nil, nil
+    # 
+    # if ( params.has_key?( :teacher_id ) )
+    #   user = User.new( params[:user] )
+    #   user.user_role = "class_head"
+    #   
+    #   if user.save
+    #      t = TeacherLeader.new( :teacher_id => params[:teacher_id], :user_id => user.id )
+    #      
+    #      if t.save
+    #        redirect_to teachers_path
+    #        flash[:success] = "Классный руководитель успешно создан!"
+    #      else
+    #        errors = t.errors.full_messages.to_sentence :last_word_connector => ", ",        
+    #                                                    :two_words_connector => ", "
+    #        user.destroy
+    #      end 
+    #   else
+    #     errors = user.errors.full_messages.to_sentence :last_word_connector => ", ",        
+    #                                                    :two_words_connector => ", "
+    #         
+    #   end
+    # else
+    #   errors = "К сожалениею, невозможно создать классного руководителя." +
+    #                   "Пожалуйста, создайте сначала учителя."
+    # end
+    # 
+    # if not errors.nil? 
+    #   redirect_to new_teacher_leader_path
+    #   flash[:error] = errors
+    # end  
     
   end
 end

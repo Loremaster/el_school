@@ -2,34 +2,32 @@
 
 <%= form_for @user, :url => teacher_leaders_url, :html => {:class => "form-horizontal"} do |f| %>
 	<%= field_set_tag do %>
-	  <%#= fields_for :user do |user| %>
-  	  <%#= user.fields_for :teacher_leader do |tl| %>
-  		  <div class="control-group">
-    	    <%= label :teacher_id, "ФИО учителя", :class => "control-label" %>
-    	    <div class="controls">
-            <%= select_tag( :teacher_id, 
-                            options_for_select( @teachers_collection, @choosen_teacher )) %>  	     
-    	    </div>
-    	  </div>
-  		<% end %>
-	  
-  	  <div class="control-group">
-  	    <%= f.label :user_login, "Логин учетной записи", :class => "control-label" %>
+	  <%= f.fields_for :teacher_leader do |tl| %>
+		  <div class="control-group">
+  	    <%= tl.label :teacher_id, "ФИО учителя", :class => "control-label" %>
   	    <div class="controls">
-  	      <%= f.text_field :user_login, :placeholder => @everpresent_field_placeholder %>
-  			  <%= link_to_function "Сгенерировать логин", "generate_login()", :class => "btn" %>
+          <%= tl.select( :teacher_id,                                                     # Here we use 'select' instead of 'select_tag' because 'select' allows us to give builder ('tl.select' here).
+                          options_for_select( @teachers_collection, @choosen_teacher )) %>  	     
   	    </div>
   	  </div>
-	  
-  	  <div class="control-group">
-  	    <%= f.label :password, "Пароль учетной записи", :class => "control-label" %>
-  	    <div class="controls">
-  	      <%= f.text_field :password, :placeholder => @everpresent_field_placeholder %>
-  				<%= link_to_function "Сгенерировать пароль", "generate_password()", :class => "btn" %>
-  	    </div>
-  	  </div>  
-  	  <%# end %>
-	<%# end %> 
-	
+		<% end %>
+  
+	  <div class="control-group">
+	    <%= f.label :user_login, "Логин учетной записи", :class => "control-label" %>
+	    <div class="controls">
+	      <%= f.text_field :user_login, :placeholder => @everpresent_field_placeholder %>
+			  <%= link_to_function "Сгенерировать логин", "generate_login()", :class => "btn" %>
+	    </div>
+	  </div>
+  
+	  <div class="control-group">
+	    <%= f.label :password, "Пароль учетной записи", :class => "control-label" %>
+	    <div class="controls">
+	      <%= f.text_field :password, :placeholder => @everpresent_field_placeholder %>
+				<%= link_to_function "Сгенерировать пароль", "generate_password()", :class => "btn" %>
+	    </div>
+	  </div>  
+	  <% end %>
+
 	<%= f.submit "Создать", :class => "btn btn-large btn-success" %>
 <% end %>		 
