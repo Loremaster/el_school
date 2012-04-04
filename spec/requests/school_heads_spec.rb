@@ -164,5 +164,60 @@ describe "SchoolHeads" do
         end.should change( Qualification, :count ).by( -1 )
       end
     end
+  
+    describe "Teacher Leader creation" do
+      before(:each) do              
+        @teacher = Factory( :teacher )
+        @teacher.user.user_role = "teacher"
+        @teacher.save!
+      end
+      
+      describe "Success" do
+        before(:each) do
+          click_link "Учителя" 
+          click_link "Создать классного руководителя"
+        end
+        
+        it "should create teacher leader" do
+          expect do
+            fill_in "Логин учетной записи",  :with => "My login"
+            fill_in "Пароль учетной записи", :with => "My password"
+          
+            click_button "Создать"
+          end.should change( TeacherLeader, :count ).by( 1 )
+        end       
+      end
+    
+      describe "Failure" do
+        before(:each) do
+          click_link "Учителя" 
+          click_link "Создать классного руководителя"
+        end
+        
+        it "should not create teacher leader with empty data" do
+          expect do
+            fill_in "Логин учетной записи",  :with => "  "
+            fill_in "Пароль учетной записи", :with => "  "
+          
+            click_button "Создать"
+          end.should_not change( TeacherLeader, :count )
+        end
+        
+        it "should not create teacher leader if he already exists" do                     # It shoul not create teacher leader because select already has same option.
+          fill_in "Логин учетной записи",  :with => "something"
+          fill_in "Пароль учетной записи", :with => "another something"
+        
+          click_button "Создать"
+          
+          expect do
+            click_link "Учителя" 
+            click_link "Создать классного руководителя"
+          
+            fill_in "Логин учетной записи",  :with => "something2"
+            fill_in "Пароль учетной записи", :with => "another something"
+          end.should_not change( TeacherLeader, :count )
+        end  
+      end
+    end
   end
 end
