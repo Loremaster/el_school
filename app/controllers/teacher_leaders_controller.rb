@@ -4,16 +4,23 @@ class TeacherLeadersController < ApplicationController
   
   def new
     @everpresent_field_placeholder = "Обязательное поле"
+    @login, @password = "", ""
+    
     @user = User.new
     @teacher_leader = @user.build_teacher_leader
-    
     
     @teachers_collection = Teacher.all                                                    # Collect array of ["teacher names", teacher.id] which are options of select in view.
                                   .collect do |t| 
                                     [ "#{t.teacher_last_name} #{t.teacher_first_name} #{t.teacher_middle_name}", t.id ] 
                                    end
-                                   
+                          
     @choosen_teacher = @teachers_collection.first.last unless @teachers_collection.empty? # First array, then last element in array. Get it ONLY if we've found teachers.
+    
+    if ( params.has_key?( :user ) ) 
+      @login    = params[:user][:user_login]
+      @password = params[:user][:password]
+      @choosen_teacher = params[:user][:teacher_leader_attributes][:teacher_id]
+    end
   end
    
   def create
