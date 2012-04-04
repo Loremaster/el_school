@@ -35,13 +35,13 @@ describe TeacherEducation do
   end
   
   describe "Teacher-TeacherEducation creation" do
-    it "should create teacher education via user" do
+    it "should create teacher education via teacher" do
       expect do
         @teacher.create_teacher_education( @attr_teacher_edu )
       end.should change( TeacherEducation, :count ).by( 1 )
     end
   
-    it "should not create invalid teacher education via user" do
+    it "should not create invalid teacher education via teacher" do
       expect do
         @teacher.create_teacher_education( @attr_invalid_teacher_edu )
       end.should_not change( TeacherEducation, :count )
@@ -98,5 +98,5 @@ describe TeacherEducation do
     it "should reject empty date" do
       @teacher.build_teacher_education( @attr_teacher_edu.merge(:teacher_education_year => " " ) ).should_not be_valid
     end
-    end
+  end
 end

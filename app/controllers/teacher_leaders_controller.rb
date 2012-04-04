@@ -16,6 +16,7 @@ class TeacherLeadersController < ApplicationController
                           
     @choosen_teacher = @teachers_collection.first.last unless @teachers_collection.empty? # First array, then last element in array. Get it ONLY if we've found teachers.
     
+    # Saving values from params if we receives them
     if ( params.has_key?( :user ) ) 
       @login    = params[:user][:user_login]
       @password = params[:user][:password]
