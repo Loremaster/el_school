@@ -14,15 +14,16 @@
 #
 
 class User < ActiveRecord::Base
-  attr_accessor   :password                                                               #Creating virtual attribute
-  attr_accessible :user_login,                                                            #ALL users can set these fields.
+  attr_accessor   :password                                                               # Creating virtual attribute.
+  attr_accessible :user_login,                                                            # ALL users can set these fields.
                   :password,
                   :teacher_attributes
                   
   has_one :teacher
   has_one :teacher_leader
 
-  accepts_nested_attributes_for :teacher                                                  #Can save teacher data with user data now
+  accepts_nested_attributes_for :teacher                                                  # Can save teacher data with user data now.
+  # accepts_nested_attributes_for :teacher_leader
 
   validates :user_login, 
               :presence   => { :message => "не может быть пустым" },     
@@ -30,9 +31,9 @@ class User < ActiveRecord::Base
                                 :maximum => 50,
                                 :message => "должен содержать не более 50 символов"
                               },
-              :uniqueness => { :message => "уже занят" }                                  #Warning! It doesn't guarantee that field ll be unique! Tho connection in same time still can create same data!
+              :uniqueness => { :message => "уже занят" }                                  # Warning! It doesn't guarantee that field ll be unique! Tho connection in same time still can create same data!
 
-  validates :user_role,                                                                   #User role is giving automatically
+  validates :user_role,                                                                   # User role is giving automatically.
               :presence  => true,
               :inclusion => { :in => %w(admin teacher pupil class_head school_head) }
 
@@ -63,7 +64,7 @@ class User < ActiveRecord::Base
 
   private
     def encrypt_password
-      self.salt = make_salt if new_record?                                                #Here self means user, object of User's class.
+      self.salt = make_salt if new_record?                                                # Here self means user, object of User's class.
       self.encrypted_password = encrypt( password )
     end
 
