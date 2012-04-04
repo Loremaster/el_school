@@ -31,7 +31,7 @@ class TeacherLeadersController < ApplicationController
       end
     else
       flash[:error] = "К сожалению, невозможно создать классного руководителя. " +
-                      "Администратор должен создайть хотя бы одного учителя."
+                      "Администратор должен создать хотя бы одного учителя."
       redirect_to new_teacher_leader_path    
     end    
   end
