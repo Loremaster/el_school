@@ -12,12 +12,15 @@ class TeacherLeadersController < ApplicationController
                                   .collect do |t| 
                                     [ "#{t.teacher_last_name} #{t.teacher_first_name} #{t.teacher_middle_name}", t.id ] 
                                    end
-    # @teachers_collection = [] #Just to test
+                                   
     @choosen_teacher = @teachers_collection.first.last unless @teachers_collection.empty? # First array, then last element in array. Get it ONLY if we've found teachers.
   end
    
   def create
-    if ( params.has_key?( :teacher_id ) )
+    errors = nil
+    teachers_existance = params[:user][:teacher_leader_attributes]
+    
+    if not teachers_existance.nil?                                                        # If we have teachers.
       user = User.new( params[:user] )
       user.user_role = "class_head"
     
@@ -25,14 +28,17 @@ class TeacherLeadersController < ApplicationController
         flash[:success] = "Классный руководитель успешно создан!"
         redirect_to teachers_path
       else
-        flash[:error] = user.errors.full_messages.to_sentence :last_word_connector => ", ",        
-                                                              :two_words_connector => ", "
-        redirect_to new_teacher_leader_path
+        errors = user.errors.full_messages.to_sentence :last_word_connector => ", ",        
+                                                       :two_words_connector => ", "
       end
     else
-      flash[:error] = "К сожалению, невозможно создать классного руководителя. " +
-                      "Администратор должен создать хотя бы одного учителя."
-      redirect_to new_teacher_leader_path    
+      errors = "К сожалению, невозможно создать классного руководителя. " +
+               "Администратор должен создать хотя бы одного учителя." 
+    end
+    
+    if not errors.nil?
+      flash[:error] = "#{errors}"
+      redirect_to new_teacher_leader_path( params ) 
     end    
   end
 end
