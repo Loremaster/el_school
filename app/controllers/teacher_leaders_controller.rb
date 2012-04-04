@@ -12,54 +12,27 @@ class TeacherLeadersController < ApplicationController
                                   .collect do |t| 
                                     [ "#{t.teacher_last_name} #{t.teacher_first_name} #{t.teacher_middle_name}", t.id ] 
                                    end
-    # @teachers_collection = []
+    # @teachers_collection = [] #Just to test
     @choosen_teacher = @teachers_collection.first.last unless @teachers_collection.empty? # First array, then last element in array. Get it ONLY if we've found teachers.
   end
    
   def create
-    user = User.new( params[:user] )
-    user.user_role = "class_head"
+    if ( params.has_key?( :teacher_id ) )
+      user = User.new( params[:user] )
+      user.user_role = "class_head"
     
-    if user.save
-      flash[:success] = "Successfully created class head!"
+      if user.save
+        flash[:success] = "Классный руководитель успешно создан!"
+        redirect_to teachers_path
+      else
+        flash[:error] = user.errors.full_messages.to_sentence :last_word_connector => ", ",        
+                                                              :two_words_connector => ", "
+        redirect_to new_teacher_leader_path
+      end
     else
-      flash[:error] = user.errors.full_messages.to_sentence :last_word_connector => ", ",        
-                                                            :two_words_connector => ", "
-      # redirect_to new_teacher_leader_path
-    end
-    
-    
-    # t, errors = nil, nil
-    # 
-    # if ( params.has_key?( :teacher_id ) )
-    #   user = User.new( params[:user] )
-    #   user.user_role = "class_head"
-    #   
-    #   if user.save
-    #      t = TeacherLeader.new( :teacher_id => params[:teacher_id], :user_id => user.id )
-    #      
-    #      if t.save
-    #        redirect_to teachers_path
-    #        flash[:success] = "Классный руководитель успешно создан!"
-    #      else
-    #        errors = t.errors.full_messages.to_sentence :last_word_connector => ", ",        
-    #                                                    :two_words_connector => ", "
-    #        user.destroy
-    #      end 
-    #   else
-    #     errors = user.errors.full_messages.to_sentence :last_word_connector => ", ",        
-    #                                                    :two_words_connector => ", "
-    #         
-    #   end
-    # else
-    #   errors = "К сожалениею, невозможно создать классного руководителя." +
-    #                   "Пожалуйста, создайте сначала учителя."
-    # end
-    # 
-    # if not errors.nil? 
-    #   redirect_to new_teacher_leader_path
-    #   flash[:error] = errors
-    # end  
-    
+      flash[:error] = "К сожалению, невозможно создать классного руководителя. " +
+                      "Администратор должен создайть хотя бы одного учителя."
+      redirect_to new_teacher_leader_path    
+    end    
   end
 end
