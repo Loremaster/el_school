@@ -12,25 +12,14 @@
   	  </div>
 		<% end %>
   
-	  <div class="control-group">
-	    <%= f.label :user_login, "Логин учетной записи", :class => "control-label" %>
-	    <div class="controls">
-	      <%= f.text_field :user_login,
-	                       :value => @login,
-	                       :placeholder => @everpresent_field_placeholder %>
-			  <%= link_to_function "Сгенерировать логин", "generate_login()", :class => "btn" %>
-	    </div>
-	  </div>
-  
-	  <div class="control-group">
-	    <%= f.label :password, "Пароль учетной записи", :class => "control-label" %>
-	    <div class="controls">
-	      <%= f.text_field :password, 
-                         :value => @password,
-	                       :placeholder => @everpresent_field_placeholder %>
-				<%= link_to_function "Сгенерировать пароль", "generate_password()", :class => "btn" %>
-	    </div>
-	  </div>  
+    <%= render :partial => 'shared/user_fields', 
+        :locals => { 
+                    :f => f,
+                    :field_placeholder => @everpresent_field_placeholder,
+                    :login => @login,
+                    :password => @password 
+                    }  
+    %> 
 	  <% end %>
 
 	<%= f.submit "Создать", :class => "btn btn-large btn-success" %>
