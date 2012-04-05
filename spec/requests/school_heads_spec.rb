@@ -184,6 +184,9 @@ describe "SchoolHeads" do
             fill_in "Пароль учетной записи", :with => "My password"
           
             click_button "Создать"
+            
+            response.should have_selector('legend', 
+                                          :content => 'Список классных руководителей')
           end.should change( TeacherLeader, :count ).by( 1 )
         end       
       end
@@ -200,10 +203,13 @@ describe "SchoolHeads" do
             fill_in "Пароль учетной записи", :with => "  "
           
             click_button "Создать"
+            
+            response.should have_selector('legend', 
+                                          :content => 'Создание классного руководителя')
           end.should_not change( TeacherLeader, :count )
         end
         
-        it "should not create teacher leader if he already exists" do                     # It shoul not create teacher leader because select already has same option.
+        it "should not create teacher leader if he already exists" do                     # It should not create teacher leader because select already has same option.
           fill_in "Логин учетной записи",  :with => "something"
           fill_in "Пароль учетной записи", :with => "another something"
         
@@ -215,6 +221,9 @@ describe "SchoolHeads" do
           
             fill_in "Логин учетной записи",  :with => "something2"
             fill_in "Пароль учетной записи", :with => "another something"
+            
+            response.should have_selector('legend', 
+                                          :content => 'Создание классного руководителя')
           end.should_not change( TeacherLeader, :count )
         end  
       end
