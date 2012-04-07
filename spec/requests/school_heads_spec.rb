@@ -247,8 +247,8 @@ describe "SchoolHeads" do
           describe "Success" do
             before(:each) do
               @teacher2 = Factory( :teacher, 
-                                   :teacher_last_name => "B.", 
-                                   :teacher_first_name => "B.",
+                                   :teacher_last_name   => "B.", 
+                                   :teacher_first_name  => "B.",
                                    :teacher_middle_name => "King",
                                    :user => Factory( :user, :user_login => Factory.next( :user_login )))
               @teacher2.user.user_role = "teacher"
@@ -268,7 +268,8 @@ describe "SchoolHeads" do
               
               response.should have_selector('legend', 
                                             :content => 'Список классных руководителей')
-                                            
+              
+              # Checking that new class head appear in list of class heads.                              
               response.should have_selector( 'table', :name => "class_heads" ) do |table|
                 table.should have_selector('tbody') do |tbody|
                   tbody.should have_selector('tr') do |td|
