@@ -165,67 +165,132 @@ describe "SchoolHeads" do
       end
     end
   
-    describe "Teacher Leader creation" do
-      before(:each) do              
-        @teacher = Factory( :teacher )
-        @teacher.user.user_role = "teacher"
-        @teacher.save!
-      end
-      
-      describe "Success" do
-        before(:each) do
-          click_link "Учителя" 
-          click_link "Создать классного руководителя"
+    describe "Teacher Leader" do      
+      describe "Creation" do
+        before(:each) do              
+          @teacher = Factory( :teacher )
+          @teacher.user.user_role = "teacher"
+          @teacher.save!
         end
-        
-        it "should create teacher leader" do
-          expect do
-            fill_in "Логин учетной записи",  :with => "My login"
-            fill_in "Пароль учетной записи", :with => "My password"
-          
-            click_button "Создать"
-            
-            response.should have_selector('legend', 
-                                          :content => 'Список классных руководителей')
-          end.should change( TeacherLeader, :count ).by( 1 )
-        end       
-      end
-    
-      describe "Failure" do
-        before(:each) do
-          click_link "Учителя" 
-          click_link "Создать классного руководителя"
-        end
-        
-        it "should not create teacher leader with empty data" do
-          expect do
-            fill_in "Логин учетной записи",  :with => "  "
-            fill_in "Пароль учетной записи", :with => "  "
-          
-            click_button "Создать"
-            
-            response.should have_selector('legend', 
-                                          :content => 'Создание классного руководителя')
-          end.should_not change( TeacherLeader, :count )
-        end
-        
-        it "should not create teacher leader if he already exists" do                     # It should not create teacher leader because select already has same option.
-          fill_in "Логин учетной записи",  :with => "something"
-          fill_in "Пароль учетной записи", :with => "another something"
-        
-          click_button "Создать"
-          
-          expect do
+             
+        describe "Success" do
+          before(:each) do
             click_link "Учителя" 
             click_link "Создать классного руководителя"
+          end
+        
+          it "should create teacher leader" do
+            expect do
+              fill_in "Логин учетной записи",  :with => "My login"
+              fill_in "Пароль учетной записи", :with => "My password"
           
-            fill_in "Логин учетной записи",  :with => "something2"
-            fill_in "Пароль учетной записи", :with => "another something"
+              click_button "Создать"
             
-            response.should have_selector('legend', 
-                                          :content => 'Создание классного руководителя')
-          end.should_not change( TeacherLeader, :count )
-        end  
+              response.should have_selector('legend', 
+                                            :content => 'Список классных руководителей')
+            end.should change( TeacherLeader, :count ).by( 1 )
+          end       
+        end
+    
+        describe "Failure" do
+          before(:each) do
+            click_link "Учителя" 
+            click_link "Создать классного руководителя"
+          end
+        
+          it "should not create teacher leader with empty data" do
+            expect do
+              fill_in "Логин учетной записи",  :with => "  "
+              fill_in "Пароль учетной записи", :with => "  "
+          
+              click_button "Создать"
+            
+              response.should have_selector('legend', 
+                                            :content => 'Создание классного руководителя')
+            end.should_not change( TeacherLeader, :count )
+          end
+        
+          it "should not create teacher leader if he already exists" do                     # It should not create teacher leader because select already has same option.
+            fill_in "Логин учетной записи",  :with => "something"
+            fill_in "Пароль учетной записи", :with => "another something"
+        
+            click_button "Создать"
+          
+            expect do
+              click_link "Учителя" 
+              click_link "Создать классного руководителя"
+          
+              fill_in "Логин учетной записи",  :with => "something2"
+              fill_in "Пароль учетной записи", :with => "another something"
+            
+              response.should have_selector('legend', 
+                                            :content => 'Создание классного руководителя')
+            end.should_not change( TeacherLeader, :count )
+          end  
+        end
+      end
+    
+      describe "Update" do        
+        describe "Success and Failure" do
+          before(:each) do              
+            @teacher = Factory( :teacher )
+            @teacher.user.user_role = "teacher"
+            @teacher.save!
+             
+            @user = Factory( :user, :user_login => Factory.next(:user_login) )
+            @user.user_role = "class_head"
+            @user.save!
+             
+            @leader = @user.create_teacher_leader({ :user_id => @user.id, :teacher_id => @teacher.id })
+          end
+          
+          describe "Success" do
+            before(:each) do
+              @teacher2 = Factory( :teacher, 
+                                   :teacher_last_name => "B.", 
+                                   :teacher_first_name => "B.",
+                                   :teacher_middle_name => "King",
+                                   :user => Factory( :user, :user_login => Factory.next( :user_login )))
+              @teacher2.user.user_role = "teacher"
+              @teacher2.save!
+              
+              click_link "Учителя" 
+              visit edit_teacher_leader_path( :id => @leader.id )  
+            end
+            
+            it "should save another teacher as teacher leader instead of current teacher leader and should show it in lists of class heads" do
+              select "#{@teacher2.teacher_last_name} "  +                                 # Select option via name.
+                     "#{@teacher2.teacher_first_name} " + 
+                     "#{@teacher2.teacher_middle_name}", 
+                     :from => "teacher_leader[teacher_id]"
+             
+              click_button "Обновить"
+              
+              response.should have_selector('legend', 
+                                            :content => 'Список классных руководителей')
+                                            
+              response.should have_selector( 'table', :name => "class_heads" ) do |table|
+                table.should have_selector('tbody') do |tbody|
+                  tbody.should have_selector('tr') do |td|
+                    td.should contain( @teacher2.teacher_last_name )
+                    td.should contain( @teacher2.teacher_first_name )
+                    td.should contain( @teacher2.teacher_middle_name )
+                  end
+                end
+              end                                       
+            end
+          end
+          
+          describe "Failure" do
+            it "should not save same teacher leader" do
+              expect do
+                click_link "Учителя" 
+                visit edit_teacher_leader_path( :id => @leader.id )
+                click_button "Обновить"
+              end.should_not change( TeacherLeader, :count )
+            end
+          end           
+        end     
       end
     end
   end
