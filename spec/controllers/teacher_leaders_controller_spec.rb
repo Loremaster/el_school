@@ -21,10 +21,15 @@ describe TeacherLeadersController do
     @user.user_role = "class_head"
     @user.save!
         
-    @attr_teacher_leader = {
-      :user_id => @user.id,
-      :teacher_id => @teacher.id
-    }
+    @attr_teacher_leader = { :user_id => @user.id, :teacher_id => @teacher.id }
+    
+    # @attr_correct_teacher_leader = {
+    #   :user => { :user_login => "Just User",
+    #              :user_role  => "class_head",
+    #              :password   => "foobar" },
+    #   :teacher_leader => { :teacher_id => @teacher.id }
+    # }
+    # 
   end
 
   describe "GET 'new'" do
@@ -91,7 +96,6 @@ describe TeacherLeadersController do
       
       it "should deny access to create teachers leaders" do
         expect do
-          # post :create, :teacher_leader => { :user_id => @user.id, :teacher_id => @teacher.id}
           # post :create, :teacher_leader => @attr_teacher_leader                         # POST DOESN'T work. I don't understand why.
           @user.create_teacher_leader( @attr_teacher_leader )                             # Temporary 'fix'. Remove that when you find solution.
         end.should change(TeacherLeader, :count).by(1)
