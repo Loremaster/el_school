@@ -1,0 +1,15 @@
+<legend>Редактирование классного руководителя</legend>
+
+<%= form_for @teacher_leader, :html => {:class => "form-horizontal"} do |f| %>
+	<%= field_set_tag do %>
+	  <div class="control-group">
+	    <%= f.label :teacher_id, "ФИО учителя", :class => "control-label" %>
+	    <div class="controls">
+        <%= f.select( :teacher_id,                                                     # Here we use 'select' instead of 'select_tag' because 'select' allows us to give builder ('tl.select' here).
+                        options_for_select( @teachers_collection, @choosen_teacher  )) %>  	     
+	    </div>
+	  </div>
+	<% end %>
+
+	<%= f.submit "Обновить", :class => "btn btn-large btn-warning" %>
+<% end %>

@@ -1,19 +1,15 @@
 # encoding: UTF-8
 class TeacherLeadersController < ApplicationController
-  before_filter :authenticate_school_heads, :only => [ :new, :create ] 
+  before_filter :authenticate_school_heads, :only => [ :new, :create, :edit, :update ] 
   
   def new
     @everpresent_field_placeholder = "Обязательное поле"
     @login, @password = "", ""
     
     @user = User.new
-    @teacher_leader = @user.build_teacher_leader
-    
-    @teachers_collection = Teacher.all                                                    # Collect array of ["teacher names", teacher.id] which are options of select in view.
-                                  .collect do |t| 
-                                    [ "#{t.teacher_last_name} #{t.teacher_first_name} #{t.teacher_middle_name}", t.id ] 
-                                   end
-                          
+    @teacher_leader = @user.build_teacher_leader 
+      
+    @teachers_collection = collect_teachers                         
     @choosen_teacher = @teachers_collection.first.last unless @teachers_collection.empty? # First array, then last element in array. Get it ONLY if we've found teachers.
     
     # Saving values from params if we receives them
@@ -49,4 +45,41 @@ class TeacherLeadersController < ApplicationController
       redirect_to new_teacher_leader_path( params ) 
     end    
   end
+  
+  def edit
+    @teacher_leader = TeacherLeader.find( params[:id] )    
+    @teachers_collection = collect_teachers
+    @choosen_teacher = @teacher_leader.teacher_id
+  end
+  
+  def update
+    @teacher_leader = TeacherLeader.find( params[:id] )
+    @choosen_teacher_id_by_user = params[:teacher_leader][:teacher_id].to_i
+
+
+     if ( @teacher_leader.teacher_id != @choosen_teacher_id_by_user )  and                # Is current teacher not already leader?
+        ( @teacher_leader.update_attributes( params[:teacher_leader] ) )                  # Do we get valid data so we can update?
+      redirect_to teachers_path
+      flash[:success] = "Классный руководитель успешно обновлен!"
+    else
+      redirect_to edit_teacher_leader_path
+      if @teacher_leader.errors.empty?
+        flash[:error] = "Выбранный учитель уже является классным руководителем!"          # We show this only if we want to update current choosen teacher who ALREADY is leader.
+      else
+        flash[:error] = @teacher_leader.errors.full_messages.to_sentence :last_word_connector => ", ", 
+                                                                         :two_words_connector => ", "
+      end
+      
+    end
+  end
+  
+  private 
+  
+    # Collect array of ["teacher names", teacher.id] which are options of select in view.
+    def collect_teachers
+      Teacher.all.collect do |t| 
+        [ "#{t.teacher_last_name} #{t.teacher_first_name} #{t.teacher_middle_name}", t.id ] 
+      end
+    end
 end
+
