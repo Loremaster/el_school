@@ -10,7 +10,7 @@
 #  updated_at :datetime        not null
 #
 
-class TeacherLeader < ActiveRecord::Base
+class TeacherLeader < ActiveRecord::Base  
   belongs_to :user
   belongs_to :teacher
   

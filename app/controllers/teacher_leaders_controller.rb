@@ -56,9 +56,8 @@ class TeacherLeadersController < ApplicationController
     @teacher_leader = TeacherLeader.find( params[:id] )
     @choosen_teacher_id_by_user = params[:teacher_leader][:teacher_id].to_i
 
-
-     if ( @teacher_leader.teacher_id != @choosen_teacher_id_by_user )  and                # Is current teacher not already leader?
-        ( @teacher_leader.update_attributes( params[:teacher_leader] ) )                  # Do we get valid data so we can update?
+    if ( @teacher_leader.teacher_id != @choosen_teacher_id_by_user )  and                 # Is current teacher not already leader?
+       ( @teacher_leader.update_attributes( params[:teacher_leader] ) )                   # Do we get valid data so we can update?
       redirect_to teachers_path
       flash[:success] = "Классный руководитель успешно обновлен!"
     else
@@ -68,8 +67,7 @@ class TeacherLeadersController < ApplicationController
       else
         flash[:error] = @teacher_leader.errors.full_messages.to_sentence :last_word_connector => ", ", 
                                                                          :two_words_connector => ", "
-      end
-      
+      end      
     end
   end
   

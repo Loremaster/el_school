@@ -48,6 +48,7 @@ describe SubjectsController do
       it "should show subjects" do
         get :index
         response.should be_success
+        flash[:error].should be_nil
       end
     end
   end
@@ -81,6 +82,7 @@ describe SubjectsController do
       it "should show subjects" do
         get :new
         response.should be_success
+        flash[:error].should be_nil
       end
     end
   end
@@ -152,6 +154,7 @@ describe SubjectsController do
       it "should allow to edit subjects" do
         get :edit, :id => @subj
         response.should be_success
+        flash[:error].should be_nil
       end
     end
   end
