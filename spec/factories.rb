@@ -21,7 +21,12 @@ end
 
 Factory.define :subject do |subject|
   subject.subject_name 'Math'
-end  
+end 
+
+Factory.define :teacher_leader do |tl|
+  tl.user
+  tl.teacher
+end   
 
 # Factory.define :teacher_phone do |tp|
 #   tp.teacher_home_number '8-499-111-11-11'

@@ -370,19 +370,8 @@ describe "SchoolHeads" do
         end
         
         it "should keep values in forms" do
-          teacher3 = Factory( :teacher, 
-                               :teacher_last_name   => "B.", 
-                               :teacher_first_name  => "B.",
-                               :teacher_middle_name => "King",
-                               :user => Factory( :user, :user_login => Factory.next( :user_login )))
-          teacher3.user.user_role = "teacher"
-          teacher3.save!
-          
-          user3 = Factory( :user, :user_login => Factory.next( :user_login ) )
-          teacher_leader = user3.create_teacher_leader({ 
-                                                          :user_id => user3.id, 
-                                                          :teacher_id => teacher3.id 
-                                                        })
+          teacher_leader = Factory( :teacher_leader,
+                                    :user => Factory( :user, :user_login => Factory.next( :user_login )) )
           
           click_link "Классы"
           click_link "Создать класс"
