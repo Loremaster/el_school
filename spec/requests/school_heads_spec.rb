@@ -327,16 +327,8 @@ describe "SchoolHeads" do
         
         describe "Failure" do
           it "should not save same teacher leader" do
-            @teacher = Factory( :teacher )
-            @teacher.user.user_role = "teacher"
-            @teacher.save!
-             
-            @user = Factory( :user, :user_login => Factory.next(:user_login) )
-            @user.user_role = "class_head"
-            @user.save!
-             
-            @leader = @user.create_teacher_leader({ :user_id => @user.id, :teacher_id => @teacher.id })
-            
+            @leader = teacher_leader = Factory( :teacher_leader,
+                                      :user => Factory( :user, :user_login => Factory.next( :user_login )) )
             expect do
               click_link "Учителя" 
               visit edit_teacher_leader_path( :id => @leader.id )
