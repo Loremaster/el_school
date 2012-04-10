@@ -3,13 +3,11 @@ class TeacherLeadersController < ApplicationController
   before_filter :authenticate_school_heads, :only => [ :new, :create, :edit, :update ] 
   
   def new
-    @everpresent_field_placeholder = "Обязательное поле"; @login, @password = "", ""
-    
-    @user = User.new
-    @teacher_leader = @user.build_teacher_leader 
-      
+    @everpresent_field_placeholder = "Обязательное поле"; @login, @password = "", ""        
     @teachers_collection = collect_teachers                         
     @choosen_teacher = @teachers_collection.first.last unless @teachers_collection.empty? # First array, then last element in array. Get it ONLY if we've found teachers.
+    @user = User.new
+    @teacher_leader = @user.build_teacher_leader
     
     # Saving values from params if we receive them
     if params.has_key?( :user )

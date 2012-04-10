@@ -368,6 +368,49 @@ describe "SchoolHeads" do
                                         :placeholder => @everpresent_field_placeholder)                              
             
         end
+        
+        it "should keep values in forms" do
+          teacher3 = Factory( :teacher, 
+                               :teacher_last_name   => "B.", 
+                               :teacher_first_name  => "B.",
+                               :teacher_middle_name => "King",
+                               :user => Factory( :user, :user_login => Factory.next( :user_login )))
+          teacher3.user.user_role = "teacher"
+          teacher3.save!
+          
+          user3 = Factory( :user, :user_login => Factory.next( :user_login ) )
+          teacher_leader = user3.create_teacher_leader({ 
+                                                          :user_id => user3.id, 
+                                                          :teacher_id => teacher3.id 
+                                                        })
+          
+          click_link "Классы"
+          click_link "Создать класс"
+          
+          fill_in "Номер класса",  :with => "11"
+          fill_in "Дата создания класса", :with => "21"
+          select "#{teacher_leader.teacher.teacher_last_name} "  +                                 # Select option via name.
+                 "#{teacher_leader.teacher.teacher_first_name} " + 
+                 "#{teacher_leader.teacher.teacher_middle_name}", 
+                 :from => "school_class[teacher_leader_id]"
+          
+          click_button "Создать"
+          
+          response.should have_selector("form") do |form|
+            form.should have_selector( "input", 
+                                       :name => "school_class[class_code]", 
+                                       :value => "11" )
+            form.should have_selector( "input", 
+                                       :name => "school_class[date_of_class_creation]",
+                                       :value => "21"  )                                       
+          end
+          response.should have_selector( "select",
+                                         :name => "school_class[teacher_leader_id]") do |sel|
+             sel.should have_selector( "option",
+                                       :selected => "selected",
+                                       :value => "#{teacher_leader.id}" )                              
+          end                                 
+        end
       end
     end
   end
