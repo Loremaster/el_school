@@ -10,9 +10,17 @@ class SchoolClassesController < ApplicationController
   end
   
   def new
-    @everpresent_field_placeholder = "Обязательное поле"
+    @everpresent_field_placeholder, @class_code = "Обязательное поле", ""
+    @creation_class_date = ""
+    @leaders = collect_teachers_leaders 
+    @choosen_teacher = @leaders.first.last unless @leaders.empty?                         # First - array, then last element in array. Get it ONLY if we've found data.    
     @class = SchoolClass.new 
-    @leaders = collect_teachers_leaders   
+    
+    if params.has_key?( :school_class )
+      @class_code = params[:school_class][:class_code]
+      @creation_class_date = params[:school_class][:date_of_class_creation]
+      @choosen_teacher = params[:school_class][:teacher_leader_id]
+    end  
   end
   
   def create
@@ -23,12 +31,11 @@ class SchoolClassesController < ApplicationController
     else
       flash[:error] = school_class.errors.full_messages.to_sentence :last_word_connector => ", ",        
                                                                     :two_words_connector => ", "
-      redirect_to new_school_class_path
+      redirect_to new_school_class_path( params )
     end    
   end
   
-  private 
-  
+  private   
     # Collect array of ["teacher names", teacher.id] which are options of select in view.
     def collect_teachers_leaders
       TeacherLeader.all.collect do |t| 

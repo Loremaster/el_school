@@ -8,6 +8,7 @@
       <div class="controls">
         <%= f.text_field :class_code, 
                          :class => "span2",
+                         :value => @class_code,
                          :placeholder => @everpresent_field_placeholder %>
       </div>
     </div>
@@ -19,6 +20,7 @@
       <div class="controls">
         <%= f.text_field :date_of_class_creation, 
                          :class => "span2",
+                         :value => @creation_class_date,
                          :placeholder => @everpresent_field_placeholder %>
       </div>    
     </div>
@@ -29,7 +31,7 @@
 	        
 	    <div class="controls">
         <%= f.select( :teacher_leader_id,                                                # Here we use 'select' instead of 'select_tag' because 'select' allows us to give builder ('tl.select' here).
-                        options_for_select( @leaders )) %>  	     
+                      options_for_select( @leaders, @choosen_teacher )) %>  	     
 	    </div>
 	  </div>
     
