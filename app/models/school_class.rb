@@ -14,7 +14,8 @@
 
 class SchoolClass < ActiveRecord::Base
   attr_accessible :class_code,
-                  :date_of_class_creation
+                  :date_of_class_creation,
+                  :teacher_leader_id
                   
   belongs_to :teacher_leader
                   

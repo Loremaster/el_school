@@ -1,0 +1,34 @@
+<legend>Создание класса</legend>
+
+<%= form_for @class, :html => {:class => "form-horizontal"} do |f| %>
+  <%= field_set_tag do %>
+    <div class="control-group">
+      <%= f.label :class_code, "Номер класса", :class => "control-label" %>
+      
+      <div class="controls">
+        <%= f.text_field :class_code %>
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <%= f.label :date_of_class_creation, "Дата создания класса", 
+          :class => "control-label" %>
+          
+      <div class="controls">
+        <%= f.text_field :date_of_class_creation %>
+      </div>    
+    </div>
+    
+    <div class="control-group">
+	    <%= f.label :teacher_leader_id, "ФИО классного руководителя", 
+	        :class => "control-label" %>
+	        
+	    <div class="controls">
+        <%= f.select( :teacher_leader_id,                                                # Here we use 'select' instead of 'select_tag' because 'select' allows us to give builder ('tl.select' here).
+                        options_for_select( @leaders )) %>  	     
+	    </div>
+	  </div>
+    
+    <%= f.submit "Создать", :class => "btn btn-large btn-success" %>
+  <% end %>
+<% end %>  

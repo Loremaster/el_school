@@ -1,0 +1,24 @@
+<legend>Классы</legend>
+
+<table class="table table-bordered table-striped" name="teachers">
+  <thead>
+    <tr>
+      <th>Номер класса</th>      
+      <th>Классный руководитель</th>                          
+    </tr>
+  </thead>
+  <tbody>
+    <% if @class_exist and @teachers_leaders_exist and @teachers_exist %>
+      <% @classes.each do |c| %>
+        <tr>
+          <td><%= c.class_code %></td>
+          <td><%= "#{c.teacher_leader.teacher.teacher_last_name} " + 
+                  "#{c.teacher_leader.teacher.teacher_first_name} " +
+                  "#{c.teacher_leader.teacher.teacher_middle_name}"%></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Создать класс", new_school_class_path, :class => "btn btn-primary btn-large" %>
