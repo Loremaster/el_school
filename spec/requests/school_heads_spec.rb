@@ -282,15 +282,8 @@ describe "SchoolHeads" do
       describe "Update" do        
         describe "Success and Failure" do
           before(:each) do              
-            @teacher = Factory( :teacher )
-            @teacher.user.user_role = "teacher"
-            @teacher.save!
-             
-            @user = Factory( :user, :user_login => Factory.next(:user_login) )
-            @user.user_role = "class_head"
-            @user.save!
-             
-            @leader = @user.create_teacher_leader({ :user_id => @user.id, :teacher_id => @teacher.id })
+            @leader = teacher_leader = Factory( :teacher_leader,
+                                      :user => Factory( :user, :user_login => Factory.next( :user_login )) )
           end
           
           describe "Success" do
