@@ -7,6 +7,7 @@ class TeachersController < ApplicationController
     @teachers = Teacher.all
     @teachers_leaders = TeacherLeader.all
     @teachers_exist = Teacher.first ? true : false                                        # Teacher.first generates nil if there are no entrys.
+    # @teachers_leaders_exist = TeacherLeader.first ? true : false
   end
   
   def edit
