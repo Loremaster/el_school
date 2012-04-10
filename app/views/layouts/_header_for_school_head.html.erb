@@ -13,6 +13,12 @@
 </ul>
 
 <ul class="nav">
+   <li class=<%= active_toolbar?( school_classes_path ) %>>
+     <%= link_to "Классы", school_classes_path %>
+   </li>
+</ul>
+
+<ul class="nav">
    <li class=<%= active_toolbar?( subjects_path ) %>>
      <%= link_to "Предметы", subjects_path %>
    </li>
