@@ -16,10 +16,14 @@ require 'spec_helper'
 describe SchoolClass do
   before(:each) do
     @user = Factory( :user )
-    @teacher = Factory( :teacher, 
-                        :user => Factory( :user, :user_login => Factory.next( :user_login )))
-    @teacher_leader = @user.create_teacher_leader({ :user_id => @user.id, 
-                                                    :teacher_id => @teacher.id })
+    @teacher = Factory( 
+                        :teacher, 
+                        :user => Factory( :user, :user_login => Factory.next( :user_login ))
+                      )
+    @teacher_leader = @user.create_teacher_leader({ 
+                                                    :user_id => @user.id, 
+                                                    :teacher_id => @teacher.id 
+                                                  })
     
     @attr_school_class = {
       :class_code => "11k",
@@ -88,6 +92,13 @@ describe SchoolClass do
           @teacher_leader.build_school_class( wrong_attr ).should_not be_valid
         end
       end 
+      
+      it "should reject to create school classes with same teacher leader" do
+        @teacher_leader.create_school_class( @attr_school_class )     
+        expect do
+          @teacher_leader.create_school_class( @attr_school_class )
+        end.should_not change( SchoolClass, :count )       
+      end
     end
     
     describe "Acception" do

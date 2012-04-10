@@ -31,4 +31,7 @@ class SchoolClass < ActiveRecord::Base
                                 :in => ( Date.today - 1.year )..( Date.today + 1.year ),
                                 :message => "должна находиться в пределах одного года от текущей даты"
                              }
+  
+  validates :teacher_leader_id, 
+              :uniqueness => { :message => "уже является классным руководителем класса" }
 end

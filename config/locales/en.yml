@@ -28,4 +28,5 @@ en:
           school_class:
             class_code: "Номер класса"
             date_of_class_creation: "Год создания класса" 
+            teacher_leader_id: "Учитель"
                     
