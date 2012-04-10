@@ -353,5 +353,22 @@ describe "SchoolHeads" do
         end                      
       end
     end
+  
+    describe "School's class" do
+      describe "View" do
+        it "should have placeholders" do
+          click_link "Классы"
+          click_link "Создать класс"
+          
+          response.should have_selector('input', 
+                                        :name => "school_class[class_code]",
+                                        :placeholder => @everpresent_field_placeholder)
+          response.should have_selector('input',
+                                        :name => "school_class[date_of_class_creation]",
+                                        :placeholder => @everpresent_field_placeholder)                              
+            
+        end
+      end
+    end
   end
 end

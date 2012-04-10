@@ -10,6 +10,7 @@ class SchoolClassesController < ApplicationController
   end
   
   def new
+    @everpresent_field_placeholder = "Обязательное поле"
     @class = SchoolClass.new 
     @leaders = collect_teachers_leaders   
   end
