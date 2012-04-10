@@ -16,6 +16,8 @@ class TeacherLeader < ActiveRecord::Base
   
   has_one :school_class
   
+  # accepts_nested_attributes_for :school_class
+  
   validates :teacher_id, 
               :uniqueness => { :message => "уже является классным руководителем" }
 end
