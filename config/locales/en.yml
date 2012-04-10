@@ -24,4 +24,8 @@ en:
           subject:
             subject_name: "Предмет"
           teacher_leader:
-            teacher_id: "Учитель"      
+            teacher_id: "Учитель"
+          school_class:
+            class_code: "Номер класса"
+            date_of_class_creation: "Год создания класса" 
+                    
