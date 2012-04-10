@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   has_one :teacher_leader
 
   accepts_nested_attributes_for :teacher                                                  # Can save teacher data with user data now.
-  accepts_nested_attributes_for :teacher_leader
+  accepts_nested_attributes_for :teacher_leader                                           # Can save teacher leader.
 
   validates :user_login, 
               :presence   => { :message => "не может быть пустым" },     

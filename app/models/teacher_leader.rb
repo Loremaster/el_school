@@ -14,6 +14,8 @@ class TeacherLeader < ActiveRecord::Base
   belongs_to :user
   belongs_to :teacher
   
+  has_one :school_class
+  
   validates :teacher_id, 
               :uniqueness => { :message => "уже является классным руководителем" }
 end

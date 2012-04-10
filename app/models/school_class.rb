@@ -15,6 +15,8 @@ class SchoolClass < ActiveRecord::Base
   attr_accessible :class_code,
                   :date_of_class_creation
                   
+  belongs_to :teacher_leader
+                  
   validates :class_code,
               :presence   => { :message => "не может быть пустым" },            
               :length     => { 
