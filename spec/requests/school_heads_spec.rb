@@ -165,7 +165,21 @@ describe "SchoolHeads" do
       end
     end
   
-    describe "Teacher Leader" do      
+    describe "Teacher Leader" do
+      describe "Creation failure" do
+        # it "should show error message if there are no teachers" do
+        #   click_link "Учителя" 
+        #   click_link "Создать классного руководителя"
+        #   
+        #   # fill_in "Логин учетной записи",  :with => "My login"
+        #   # fill_in "Пароль учетной записи", :with => "My password"          
+        #   click_button "Создать"
+        #   
+        #   response.should have_selector('flash', 
+        #                                 :content => 'невозможно создать классного руководителя') 
+        # end
+      end
+            
       describe "Creation" do
         before(:each) do              
           @teacher = Factory( :teacher )
@@ -280,18 +294,28 @@ describe "SchoolHeads" do
                 end
               end                                       
             end
+          end          
+        end 
+        
+        describe "Failure" do
+          it "should not save same teacher leader" do
+            @teacher = Factory( :teacher )
+            @teacher.user.user_role = "teacher"
+            @teacher.save!
+             
+            @user = Factory( :user, :user_login => Factory.next(:user_login) )
+            @user.user_role = "class_head"
+            @user.save!
+             
+            @leader = @user.create_teacher_leader({ :user_id => @user.id, :teacher_id => @teacher.id })
+            
+            expect do
+              click_link "Учителя" 
+              visit edit_teacher_leader_path( :id => @leader.id )
+              click_button "Обновить"
+            end.should_not change( TeacherLeader, :count )
           end
-          
-          describe "Failure" do
-            it "should not save same teacher leader" do
-              expect do
-                click_link "Учителя" 
-                visit edit_teacher_leader_path( :id => @leader.id )
-                click_button "Обновить"
-              end.should_not change( TeacherLeader, :count )
-            end
-          end           
-        end     
+        end                      
       end
     end
   end

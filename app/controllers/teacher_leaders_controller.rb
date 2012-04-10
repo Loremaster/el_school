@@ -13,7 +13,7 @@ class TeacherLeadersController < ApplicationController
     @choosen_teacher = @teachers_collection.first.last unless @teachers_collection.empty? # First array, then last element in array. Get it ONLY if we've found teachers.
     
     # Saving values from params if we receives them
-    if ( params.has_key?( :user ) ) 
+    if params.has_key?( :user ) and params.has_key?( :teacher_leader_attributes )
       @login    = params[:user][:user_login]
       @password = params[:user][:password]
       @choosen_teacher = params[:user][:teacher_leader_attributes][:teacher_id]
@@ -57,7 +57,7 @@ class TeacherLeadersController < ApplicationController
     @teacher_leader = TeacherLeader.find( params[:id] )
     @choosen_teacher_id_by_user = params[:teacher_leader][:teacher_id].to_i
 
-    if not TeacherLeader.all.empty?
+    if not Teacher.all.empty?
       if ( @teacher_leader.teacher_id != @choosen_teacher_id_by_user )  and               # Is current teacher not already leader?
          ( @teacher_leader.update_attributes( params[:teacher_leader] ) )                 # Do we get valid data so we can update?
         redirect_to teachers_path

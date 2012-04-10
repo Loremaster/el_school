@@ -8,13 +8,15 @@
       <th>Отчество</th>                 
     </tr>
   </thead>
-  <tbody>        
-    <% @teachers.each do |t| %>          
-      <tr class="cross" onclick = "location.href='<%= edit_teacher_path( :id => t.id ) %>'">
-        <td><%= t.teacher_last_name %></td>
-        <td><%= t.teacher_first_name %></td>
-        <td><%= t.teacher_middle_name%></td>
-      </tr>
+  <tbody>
+    <% if @teachers_exist %>        
+      <% @teachers.each do |t| %>          
+        <tr class="cross" onclick = "location.href='<%= edit_teacher_path( :id => t.id ) %>'">
+          <td><%= t.teacher_last_name %></td>
+          <td><%= t.teacher_first_name %></td>
+          <td><%= t.teacher_middle_name%></td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
