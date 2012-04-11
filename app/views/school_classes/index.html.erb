@@ -4,7 +4,8 @@
   <thead>
     <tr>
       <th>Номер класса</th>      
-      <th>Классный руководитель</th>                          
+      <th>Классный руководитель</th>
+      <th>Дата создания класса</th>                          
     </tr>
   </thead>
   <tbody>
@@ -15,6 +16,7 @@
           <td><%= "#{c.teacher_leader.teacher.teacher_last_name} " + 
                   "#{c.teacher_leader.teacher.teacher_first_name} " +
                   "#{c.teacher_leader.teacher.teacher_middle_name}"%></td>
+          <td><%= c.date_of_class_creation.strftime('%d.%m.%Y') %></td>                   <%# Show date in format of dd.mm.yyyy%>
         </tr>
       <% end %>
     <% end %>

@@ -327,7 +327,7 @@ describe "SchoolHeads" do
         
         describe "Failure" do
           it "should not save same teacher leader" do
-            @leader = teacher_leader = Factory( :teacher_leader,
+            @leader = Factory( :teacher_leader,
                                       :user => Factory( :user, :user_login => Factory.next( :user_login )) )
             expect do
               click_link "Учителя" 
@@ -384,6 +384,45 @@ describe "SchoolHeads" do
                                        :selected => "selected",
                                        :value => "#{teacher_leader.id}" )                              
           end                                 
+        end
+      end
+    
+      describe "Create" do
+        before(:each) do
+          @t_leader =  Factory( :teacher_leader,
+                                :user => Factory( :user, :user_login => Factory.next( :user_login )) )
+          click_link "Классы"
+          click_link "Создать класс" 
+        end
+        
+        describe "Success" do
+          it "should create class with valid data" do
+            expect do
+              fill_in "Номер класса",  :with => "11a"
+              fill_in "Дата создания класса", :with => "#{Date.today}" 
+              select "#{@t_leader.teacher.teacher_last_name} "  +                         # Select option via name.
+                     "#{@t_leader.teacher.teacher_first_name} " + 
+                     "#{@t_leader.teacher.teacher_middle_name}", 
+                     :from => "school_class[teacher_leader_id]"
+            
+              click_button "Создать"
+            end.should change( SchoolClass, :count ).by( 1 )            
+          end
+        end
+      
+        describe "Failure" do
+          it "should reject to create class with invalid data" do
+            expect do
+              fill_in "Номер класса",  :with => "11a"
+              fill_in "Дата создания класса", :with => "#{Date.today - 2.years}" 
+              select "#{@t_leader.teacher.teacher_last_name} "  +                         # Select option via name.
+                     "#{@t_leader.teacher.teacher_first_name} " + 
+                     "#{@t_leader.teacher.teacher_middle_name}", 
+                     :from => "school_class[teacher_leader_id]"
+          
+              click_button "Создать"
+            end.should_not change( SchoolClass, :count )
+          end
         end
       end
     end
