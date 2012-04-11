@@ -11,7 +11,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120410130758) do
+ActiveRecord::Schema.define(:version => 20120411152927) do
+
+  create_table "pupils", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "school_class_id"
+    t.string   "pupil_last_name"
+    t.string   "pupil_first_name"
+    t.string   "pupil_middle_name"
+    t.date     "pupil_birthday"
+    t.string   "pupil_sex"
+    t.string   "pupil_nationality"
+    t.string   "pupil_address_of_registration"
+    t.string   "pupil_address_of_living"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
 
   create_table "qualifications", :force => true do |t|
     t.integer  "subject_id"

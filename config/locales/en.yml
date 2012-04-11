@@ -29,4 +29,12 @@ en:
             class_code: "Номер класса"
             date_of_class_creation: "Год создания класса" 
             teacher_leader_id: "Учитель"
+          pupil:
+            pupil_last_name: "Фамилия"
+            pupil_first_name: "Имя"
+            pupil_middle_name: "Отчество"
+            pupil_birthday: "Дата рождения ученика"
+            pupil_nationality: "Национальность"
+            pupil_address_of_registration: "Адрес регистрации"
+            pupil_address_of_living: "Адрес проживания"  
                     
