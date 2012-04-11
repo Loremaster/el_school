@@ -23,6 +23,9 @@ class Pupil < ActiveRecord::Base
   belongs_to :user
   belongs_to :school_class
   
+  validates :school_class_id,
+              :presence => true
+  
   validates :pupil_last_name,
               :presence   => { :message => "не может быть пустой" },
               :length     => { 
