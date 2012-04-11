@@ -124,7 +124,7 @@ describe Pupil do
       it "should reject wrong sex chars" do
         sex = %w(M W K F)
         sex.each do |sex|  
-          wrong_pupil = @user.build_pupil( @attr_pupil.merge(:pupil_sex => sex ) )
+          wrong_pupil = @user.build_pupil( @attr_pupil.merge( :pupil_sex => sex ) )
           wrong_pupil.should_not be_valid     
         end
       end
@@ -157,6 +157,66 @@ describe Pupil do
       it "should reject too long address of living" do
         wrong_attr = @attr_pupil.merge( :pupil_address_of_living => 'a' * 51 )
         @user.build_pupil( wrong_attr ).should_not be_valid
+      end
+    end
+  
+    describe "Acceptance" do
+      it "should accept last name if length is correct" do
+        (1..40).each do |i|
+          correct_attr = @attr_pupil.merge( :pupil_last_name => 'a' * i  ) 
+          @user.build_pupil( correct_attr ).should be_valid
+        end
+      end
+      
+      it "should accept first name if length is correct" do
+        (1..40).each do |i|
+          correct_attr = @attr_pupil.merge( :pupil_first_name => 'a' * i  ) 
+          @user.build_pupil( correct_attr ).should be_valid
+        end
+      end
+      
+      it "should accept middle name if length is correct" do
+        (1..40).each do |i|
+          correct_attr = @attr_pupil.merge( :pupil_middle_name => 'a' * i  ) 
+          @user.build_pupil( correct_attr ).should be_valid
+        end
+      end
+      
+      it "should accept birthdays of pupils if its correct" do
+        dates = ( Date.today - 19.year )..( Date.today - 5.year )
+        dates.each do |d| 
+          correct_attr = @attr_pupil.merge( :pupil_birthday => d )
+          @user.build_pupil( correct_attr ).should be_valid
+        end
+      end
+      
+      it "should reject correct sex chars" do
+        sex = %w(m w)
+        sex.each do |sex|  
+          correct_attr = @user.build_pupil( @attr_pupil.merge( :pupil_sex => sex ) )
+          correct_attr.should be_valid     
+        end
+      end
+      
+      it "should accept nationality if length is correct" do
+        (1..50).each do |i|
+          correct_attr = @attr_pupil.merge( :pupil_nationality => 'a' * i  ) 
+          @user.build_pupil( correct_attr ).should be_valid
+        end
+      end
+      
+      it "should accept address of registration if length is correct" do
+        (1..50).each do |i|
+          correct_attr = @attr_pupil.merge( :pupil_address_of_registration => 'a' * i  ) 
+          @user.build_pupil( correct_attr ).should be_valid
+        end
+      end
+      
+      it "should accept address of living if length is correct" do
+        (1..50).each do |i|
+          correct_attr = @attr_pupil.merge( :pupil_address_of_living => 'a' * i  ) 
+          @user.build_pupil( correct_attr ).should be_valid
+        end
       end
     end
   end
