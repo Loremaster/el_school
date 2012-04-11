@@ -72,4 +72,92 @@ describe Pupil do
       @pupil.school_class.should == @school_class
     end
   end
+  
+  describe "Validations" do
+    describe "Rejection" do
+      it "should reject blank last name" do
+        wrong_attr = @attr_pupil.merge( :pupil_last_name => "  " )
+        @user.build_pupil( wrong_attr ).should_not be_valid
+      end
+      
+      it "should reject too long last name" do
+        wrong_attr = @attr_pupil.merge( :pupil_last_name => 'a' * 41 )
+        @user.build_pupil( wrong_attr ).should_not be_valid
+      end
+      
+      it "should reject blank first name" do
+        wrong_attr = @attr_pupil.merge( :pupil_first_name => "  " )
+        @user.build_pupil( wrong_attr ).should_not be_valid
+      end
+      
+      it "should reject too long first name" do
+        wrong_attr = @attr_pupil.merge( :pupil_first_name => 'a' * 41 )
+        @user.build_pupil( wrong_attr ).should_not be_valid
+      end
+      
+      it "should reject blank middle name" do
+        wrong_attr = @attr_pupil.merge( :pupil_middle_name => "  " )
+        @user.build_pupil( wrong_attr ).should_not be_valid
+      end
+      
+      it "should reject too long middle name" do
+        wrong_attr = @attr_pupil.merge( :pupil_middle_name => 'a' * 41 )
+        @user.build_pupil( wrong_attr ).should_not be_valid
+      end
+      
+      it "should reject birthdays of pupils if they younger then 5 years old" do
+        dates = ( Date.today - 4.year )..( Date.today + 20.year)
+        dates.each do |d| 
+          wrong_attr = @attr_pupil.merge( :pupil_birthday => d )
+          @user.build_pupil( wrong_attr ).should_not be_valid
+        end
+      end
+      
+      it "should reject birthdays of pupils if they older then 19 years old" do
+        dates = ( Date.today - 30.year )..( Date.today - 20.year)
+        dates.each do |d| 
+          wrong_attr = @attr_pupil.merge( :pupil_birthday => d )
+          @user.build_pupil( wrong_attr ).should_not be_valid
+        end
+      end
+      
+      it "should reject wrong sex chars" do
+        sex = %w(M W K F)
+        sex.each do |sex|  
+          wrong_pupil = @user.build_pupil( @attr_pupil.merge(:pupil_sex => sex ) )
+          wrong_pupil.should_not be_valid     
+        end
+      end
+      
+      it "should reject blank nationality" do
+        wrong_attr = @attr_pupil.merge( :pupil_nationality => "  " )
+        @user.build_pupil( wrong_attr ).should_not be_valid
+      end
+      
+      it "should reject too long nationality" do
+        wrong_attr = @attr_pupil.merge( :pupil_nationality => 'a' * 51 )
+        @user.build_pupil( wrong_attr ).should_not be_valid
+      end
+      
+      it "should reject blank address of registration" do
+        wrong_attr = @attr_pupil.merge( :pupil_address_of_registration => "  " )
+        @user.build_pupil( wrong_attr ).should_not be_valid
+      end
+      
+      it "should reject too long address of registration" do
+        wrong_attr = @attr_pupil.merge( :pupil_address_of_registration => 'a' * 51 )
+        @user.build_pupil( wrong_attr ).should_not be_valid
+      end
+      
+      it "should reject blank address of living" do
+        wrong_attr = @attr_pupil.merge( :pupil_address_of_living => "  " )
+        @user.build_pupil( wrong_attr ).should_not be_valid
+      end
+      
+      it "should reject too long address of living" do
+        wrong_attr = @attr_pupil.merge( :pupil_address_of_living => 'a' * 51 )
+        @user.build_pupil( wrong_attr ).should_not be_valid
+      end
+    end
+  end
 end

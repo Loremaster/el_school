@@ -50,7 +50,7 @@ class Pupil < ActiveRecord::Base
    validates :pupil_birthday, 
                :inclusion => {
                                  :in => ( Date.today - 19.year )..( Date.today - 5.year ),
-                                 :message => "должна быть в пределах от 5 до 19 лет назад"
+                                 :message => "должна быть в пределах от 5 до 19 лет от текущего года"
                               } 
                               
    validates :pupil_sex,         
