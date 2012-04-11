@@ -145,7 +145,7 @@ describe Pupil do
       end
       
       it "should reject too long address of registration" do
-        wrong_attr = @attr_pupil.merge( :pupil_address_of_registration => 'a' * 51 )
+        wrong_attr = @attr_pupil.merge( :pupil_address_of_registration => 'a' * 251 )
         @user.build_pupil( wrong_attr ).should_not be_valid
       end
       
@@ -155,7 +155,7 @@ describe Pupil do
       end
       
       it "should reject too long address of living" do
-        wrong_attr = @attr_pupil.merge( :pupil_address_of_living => 'a' * 51 )
+        wrong_attr = @attr_pupil.merge( :pupil_address_of_living => 'a' * 251 )
         @user.build_pupil( wrong_attr ).should_not be_valid
       end
     end
@@ -206,14 +206,14 @@ describe Pupil do
       end
       
       it "should accept address of registration if length is correct" do
-        (1..50).each do |i|
+        (1..250).each do |i|
           correct_attr = @attr_pupil.merge( :pupil_address_of_registration => 'a' * i  ) 
           @user.build_pupil( correct_attr ).should be_valid
         end
       end
       
       it "should accept address of living if length is correct" do
-        (1..50).each do |i|
+        (1..250).each do |i|
           correct_attr = @attr_pupil.merge( :pupil_address_of_living => 'a' * i  ) 
           @user.build_pupil( correct_attr ).should be_valid
         end

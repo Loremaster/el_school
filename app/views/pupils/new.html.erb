@@ -1,0 +1,70 @@
+<legend>Создание ученика</legend>
+
+<%= form_for @pupil, :html => {:class => "form-horizontal"} do |f| %>
+  <%= field_set_tag do %>
+    <div class="control-group">
+      <%= f.label :pupil_last_name, "Фамилия", :class => "control-label" %>      
+      <div class="controls">
+        <%= f.text_field :pupil_last_name %>
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <%= f.label :pupil_first_name, "Имя", :class => "control-label" %>
+      <div class="controls">
+        <%= f.text_field :pupil_first_name %>
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <%= f.label :pupil_middle_name, "Отчество", :class => "control-label" %>
+      <div class="controls">
+        <%= f.text_field :pupil_middle_name %>
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <%= f.label :pupil_sex, "Пол", :class => "control-label" %>
+      <div class="controls">
+        <%= label_tag nil, nil, :class => "radio" do %>
+          <%= f.radio_button :pupil_sex, 'm' %>
+          Мужской
+        <% end %>
+      
+        <%= label_tag nil, nil, :class => "radio" do %>
+          <%= f.radio_button :pupil_sex, 'w', :checked => true %>
+          Женский
+        <% end %>
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <%= f.label :pupil_birthday, "Дата рождения", :class => "control-label" %>
+      <div class="controls">
+        <%= f.text_field :pupil_birthday %>
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <%= f.label :pupil_nationality, "Национальность", :class => "control-label" %>
+      <div class="controls">
+        <%= f.text_field :pupil_nationality %>
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <%= f.label :pupil_address_of_registration, "Адрес прописки", :class => "control-label" %>
+      <div class="controls">
+        <%= f.text_area :pupil_address_of_registration, :rows => 3 %>
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <%= f.label :pupil_address_of_living, "Адрес проживания", :class => "control-label" %>
+      <div class="controls">
+        <%= f.text_area :pupil_address_of_living, :rows => 3 %>
+      </div>
+    </div>
+    <%= f.submit "Создать", :class => "btn btn-large btn-success" %>
+  <% end %>  
+<% end %>  

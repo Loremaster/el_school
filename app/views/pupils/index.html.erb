@@ -1,1 +1,20 @@
 <legend>Ученики</legend>
+
+<table class="table table-bordered table-striped" name="teachers">
+  <thead>
+    <tr>
+      <th>ФИО ученика</th>                     
+    </tr>
+  </thead>
+  <tbody>
+    <% if @pupil_exist %>        
+      <% @pupils.each do |p| %>          
+        <tr>
+          <td><%= p.pupil_last_name %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Создать ученика", new_pupil_path, :class => "btn btn-primary btn-large" %>

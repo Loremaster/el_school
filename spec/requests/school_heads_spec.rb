@@ -363,7 +363,7 @@ describe "SchoolHeads" do
           
           fill_in "Номер класса",  :with => "11"
           fill_in "Дата создания класса", :with => "21"
-          select "#{teacher_leader.teacher.teacher_last_name} "  +                                 # Select option via name.
+          select "#{teacher_leader.teacher.teacher_last_name} "  +                        # Select option via name.
                  "#{teacher_leader.teacher.teacher_first_name} " + 
                  "#{teacher_leader.teacher.teacher_middle_name}", 
                  :from => "school_class[teacher_leader_id]"

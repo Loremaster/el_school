@@ -67,14 +67,14 @@ class Pupil < ActiveRecord::Base
    validates :pupil_address_of_registration,  
                :presence => { :message => "не может быть пустым" },
                :length   => { 
-                              :maximum => 50,
-                              :message => "должен содержать не более 50 символов" 
+                              :maximum => 250,
+                              :message => "должен содержать не более 250 символов" 
                             }
                             
    validates :pupil_address_of_living,
                :presence => { :message => "не может быть пустым" },
                :length   => { 
-                              :maximum => 50,
-                              :message => "должен содержать не более 50 символов" 
+                              :maximum => 250,
+                              :message => "должен содержать не более 250 символов" 
                             }                                                 
 end
