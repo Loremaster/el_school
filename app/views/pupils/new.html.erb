@@ -65,6 +65,19 @@
         <%= f.text_area :pupil_address_of_living, :rows => 3 %>
       </div>
     </div>
+        
+    <%= f.fields_for :user, @user do |builder| %>                                         <%# Adding @user allows us to send user_params for belongs_to model. %>
+      <%= render :partial => 'shared/user_fields_new', 
+          :locals => { :f => builder,
+                       :field_placeholder => "put",
+                       :login => "",
+                       :password => "",
+                       :login_field_id => "pupil_user_attributes_user_login",
+                       :password_field_id => "pupil_user_attributes_password" 
+                      }
+      %>
+    <% end %>
+
     <%= f.submit "Создать", :class => "btn btn-large btn-success" %>
   <% end %>  
 <% end %>  

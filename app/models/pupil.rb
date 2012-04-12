@@ -23,6 +23,8 @@ class Pupil < ActiveRecord::Base
   belongs_to :user
   belongs_to :school_class
   
+  accepts_nested_attributes_for :user
+  
   validates :school_class_id,
               :presence => true
   

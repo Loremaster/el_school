@@ -6,6 +6,16 @@
  * To change this template use File | Settings | File Templates.
  */
 
+function generate_login_with_id( id_of_element_to_insert ) {
+	var log = "schoolh_";
+	var randomstring = generate_random_string( 5 );		
+ 	document.getElementById( id_of_element_to_insert ).value = log + randomstring;
+}
+
+function generate_password_with_id( id_of_element_to_insert ) {
+	var randomstring = generate_random_string( 15 );		
+	document.getElementById( id_of_element_to_insert ).value = randomstring;
+}
 
 function generate_login() {
 	var log = "schoolh_";

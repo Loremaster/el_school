@@ -7,7 +7,8 @@ class PupilsController < ApplicationController
   end
   
   def new 
-    @pupil = Pupil.new   
+    @pupil = Pupil.new
+    @user = User.new   
   end
   
   def create
