@@ -7,7 +7,8 @@ class PupilsController < ApplicationController
     @pupils = Pupil.all 
   end
   
-  def new 
+  def new
+    @everpresent_field_placeholder = "Обязательное поле" 
     @pupil = Pupil.new
     @user = User.new   
   end
@@ -21,7 +22,7 @@ class PupilsController < ApplicationController
       redirect_to pupils_path
     else
       flash[:error] = pupil.errors.full_messages.to_sentence :last_word_connector => ", ",        
-                                                              :two_words_connector => ", "
+                                                             :two_words_connector => ", "
       redirect_to new_pupil_path                                                        
     end
   end
