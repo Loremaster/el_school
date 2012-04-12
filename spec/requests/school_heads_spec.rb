@@ -426,5 +426,42 @@ describe "SchoolHeads" do
         end
       end
     end
+  
+    describe "Pupils" do
+      describe "View" do
+        it "should have placeholders" do
+          click_link "Ученики"
+          click_link "Создать ученика"
+          
+          response.should have_selector('input', 
+                                        :name => "pupil[pupil_last_name]",
+                                        :placeholder => @everpresent_field_placeholder)                   
+          response.should have_selector('input', 
+                                        :name => "pupil[pupil_first_name]",
+                                        :placeholder => @everpresent_field_placeholder) 
+          response.should have_selector('input', 
+                                        :name => "pupil[pupil_middle_name]",
+                                        :placeholder => @everpresent_field_placeholder)  
+          response.should have_selector('input', 
+                                        :name => "pupil[pupil_birthday]",
+                                        :placeholder => @everpresent_field_placeholder)                   
+          response.should have_selector('input', 
+                                        :name => "pupil[pupil_nationality]",
+                                        :placeholder => @everpresent_field_placeholder) 
+          response.should have_selector('textarea', 
+                                        :name => "pupil[pupil_address_of_registration]",
+                                        :placeholder => @everpresent_field_placeholder)   
+          response.should have_selector('textarea', 
+                                        :name => "pupil[pupil_address_of_living]",
+                                        :placeholder => @everpresent_field_placeholder)                   
+          response.should have_selector('input', 
+                                        :name => "pupil[user_attributes][user_login]",
+                                        :placeholder => @everpresent_field_placeholder) 
+          response.should have_selector('input', 
+                                        :name => "pupil[user_attributes][password]",
+                                        :placeholder => @everpresent_field_placeholder)                                                         
+        end
+      end
+    end
   end
 end
