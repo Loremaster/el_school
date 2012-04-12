@@ -462,6 +462,55 @@ describe "SchoolHeads" do
                                         :placeholder => @everpresent_field_placeholder)                                                         
         end
       end
+    
+      describe "Create" do
+        before(:each) do
+          click_link "Ученики"
+          click_link "Создать ученика"
+        end
+        
+        describe "Success" do         
+          it "should create pupil with valid data" do
+            expect do
+              expect do
+                fill_in "Фамилия",  :with => "Перионов"
+                fill_in "Имя",      :with => "Петр"
+                fill_in "Отчество", :with => "Петрович"
+                choose "Мужской"
+                fill_in "Дата рождения",  :with => "#{Date.today - 10.years}"
+                fill_in "Национальность", :with => "Русский"
+                fill_in "Адрес прописки", :with => "Москва ..."
+                fill_in "Адрес проживания",      :with => "Москва ..."
+                fill_in "Логин учетной записи",  :with => "loooog"
+                fill_in "Пароль учетной записи", :with => "paaaaas"
+            
+                click_button "Создать"
+              end.should change( Pupil, :count ).by( 1 )
+            end.should change( User, :count).by( 1 )
+          end
+        end
+      
+        describe "Failure" do
+          it "should reject to create pupil if data is invalid" do
+            expect do
+              expect do
+                fill_in "Фамилия",  :with => "Перионов"
+                fill_in "Имя",      :with => ""
+                fill_in "Отчество", :with => "Петрович"
+                choose "Мужской"
+                fill_in "Дата рождения",  :with => "#{Date.today - 10.years}"
+                fill_in "Национальность", :with => "Русский"
+                fill_in "Адрес прописки", :with => "Москва ..."
+                fill_in "Адрес проживания",      :with => "Москва ..."
+                fill_in "Логин учетной записи",  :with => "loooog"
+                fill_in "Пароль учетной записи", :with => "paaaaas"
+            
+                click_button "Создать"
+              end.should_not change( Pupil, :count )
+            end.should_not change( User, :count)
+          end
+        end
+      end
     end
   end
 end
