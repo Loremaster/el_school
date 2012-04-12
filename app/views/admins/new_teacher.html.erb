@@ -132,11 +132,13 @@
 	
 	  <hr/>
 		  
-	  <%= render :partial => 'shared/user_fields', 
+	  <%= render :partial => 'shared/user_fields_new', 
 	             :locals => { :f => f,
 	                          :field_placeholder => @everpresent_field_placeholder,
                             :login => @user_login,
-                            :password => @user_password
+                            :password => @user_password,
+                            :login_field_id => "user_user_login",
+                            :password_field_id => "user_password"
 	                        }
 	  %>
 	<% end %>

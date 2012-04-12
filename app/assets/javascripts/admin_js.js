@@ -17,16 +17,16 @@ function generate_password_with_id( id_of_element_to_insert ) {
 	document.getElementById( id_of_element_to_insert ).value = randomstring;
 }
 
-function generate_login() {
-	var log = "schoolh_";
-	var randomstring = generate_random_string( 5 );		
- 	document.getElementById('user_user_login').value = log + randomstring;
-}
-
-function generate_password() {
-	var randomstring = generate_random_string( 15 );		
-	document.getElementById('user_password').value = randomstring;
-}
+// function generate_login() {
+// 	var log = "schoolh_";
+// 	var randomstring = generate_random_string( 5 );		
+//  	document.getElementById('user_user_login').value = log + randomstring;
+// }
+// 
+// function generate_password() {
+// 	var randomstring = generate_random_string( 15 );		
+// 	document.getElementById('user_password').value = randomstring;
+// }
 
 function generate_random_string( string_length ) {
 	var log = "schoolh_";
