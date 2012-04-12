@@ -24,10 +24,7 @@ class Pupil < ActiveRecord::Base
   belongs_to :school_class
   
   accepts_nested_attributes_for :user
-  
-  validates :school_class_id,
-              :presence => true
-  
+    
   validates :pupil_last_name,
               :presence   => { :message => "не может быть пустой" },
               :length     => { 

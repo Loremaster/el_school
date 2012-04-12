@@ -10,7 +10,7 @@
     <% if @pupil_exist %>        
       <% @pupils.each do |p| %>          
         <tr>
-          <td><%= p.pupil_last_name %></td>
+          <td><%= "#{p.pupil_last_name} #{p.pupil_first_name} #{p.pupil_middle_name}" %></td>
         </tr>
       <% end %>
     <% end %>
