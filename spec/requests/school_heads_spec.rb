@@ -355,8 +355,7 @@ describe "SchoolHeads" do
         end
         
         it "should keep values in forms" do
-          teacher_leader = Factory( :teacher_leader,
-                                    :user => Factory( :user, :user_login => Factory.next( :user_login )) )
+          teacher_leader = Factory( :teacher_leader )
           
           click_link "Классы"
           click_link "Создать класс"
@@ -429,10 +428,12 @@ describe "SchoolHeads" do
   
     describe "Pupils" do
       describe "View" do
-        it "should have placeholders" do
+        before(:each) do
           click_link "Ученики"
           click_link "Создать ученика"
-          
+        end
+        
+        it "should have placeholders" do
           response.should have_selector('input', 
                                         :name => "pupil[pupil_last_name]",
                                         :placeholder => @everpresent_field_placeholder)                   
@@ -460,6 +461,58 @@ describe "SchoolHeads" do
           response.should have_selector('input', 
                                         :name => "pupil[user_attributes][password]",
                                         :placeholder => @everpresent_field_placeholder)                                                         
+        end
+      
+        it "should keep values in forms" do
+          pupil = Factory( :pupil )
+          login = "l"; password = "p"
+          
+          fill_in "Фамилия",  :with => pupil.pupil_last_name
+          fill_in "Имя",      :with => pupil.pupil_first_name
+          fill_in "Отчество", :with => pupil.pupil_middle_name
+          choose "Женский"
+          fill_in "Дата рождения",  :with => pupil.pupil_birthday
+          fill_in "Национальность", :with => pupil.pupil_nationality
+          fill_in "Адрес прописки", :with => pupil.pupil_address_of_registration
+          fill_in "Адрес проживания",      :with => pupil.pupil_address_of_living
+          fill_in "Логин учетной записи",  :with => login
+          fill_in "Пароль учетной записи", :with => password
+          
+          click_button "Создать"
+          
+          response.should have_selector("form") do |form|
+            form.should have_selector( "input", 
+                                        :name => "pupil[pupil_last_name]",
+                                        :value => pupil.pupil_last_name )
+            form.should have_selector( "input", 
+                                        :name => "pupil[pupil_first_name]",
+                                        :value => pupil.pupil_first_name )                                       
+            form.should have_selector( "input", 
+                                        :name => "pupil[pupil_middle_name]",
+                                        :value => pupil.pupil_middle_name )                                        
+            form.should have_selector( "input", 
+                                        :name => "pupil[pupil_sex]",
+                                        :value => "w",            
+                                        :checked => "checked" )                                                    
+            form.should have_selector( "input", 
+                                        :name => "pupil[pupil_birthday]",
+                                        :value => "#{pupil.pupil_birthday}" )              
+            form.should have_selector( "input", 
+                                        :name => "pupil[pupil_nationality]",
+                                        :value => pupil.pupil_nationality )              
+            form.should have_selector( "textarea", 
+                                        :name => "pupil[pupil_address_of_registration]",
+                                        :content => pupil.pupil_address_of_registration )                           
+            form.should have_selector( "textarea",                                 
+                                        :name => "pupil[pupil_address_of_living]",                            
+                                        :content => pupil.pupil_address_of_living )                                          
+            form.should have_selector( "input",                                 
+                                        :name => "pupil[user_attributes][user_login]",
+                                        :value => login )                           
+            form.should have_selector( "input",                                                             
+                                        :name => "pupil[user_attributes][password]",                                                        
+                                        :value => password )                                                                                                
+          end
         end
       end
     

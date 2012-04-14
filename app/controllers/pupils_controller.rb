@@ -8,9 +8,29 @@ class PupilsController < ApplicationController
   end
   
   def new
-    @everpresent_field_placeholder = "Обязательное поле" 
+    @everpresent_field_placeholder = "Обязательное поле"; @login, @password = "", ""
+    @last_name, @first_name, @middle_name, @birthday, @nationality = "", "", "", "", ""
+    @registration, @living = "", ""; @pupil_sex_man, @pupil_sex_woman = true, false       # Values of radio buttons of sex by default are setting here.       
     @pupil = Pupil.new
-    @user = User.new   
+    @user = User.new 
+    
+    if params.has_key?( :pupil )                                                          # if we redirected back to this method from create (because of new errors).
+      @last_name   = params[:pupil][:pupil_last_name]
+      @first_name  = params[:pupil][:pupil_first_name]
+      @middle_name = params[:pupil][:pupil_middle_name]
+      sex          = params[:pupil][:pupil_sex]
+      @birthday    = params[:pupil][:pupil_birthday]
+      @nationality = params[:pupil][:pupil_nationality]
+      @registration= params[:pupil][:pupil_address_of_registration]
+      @living      = params[:pupil][:pupil_address_of_living]
+      @login       = params[:pupil][:user_attributes][:user_login]
+      @password    = params[:pupil][:user_attributes][:password]
+      
+      case sex
+        when 'm' then @pupil_sex_man, @pupil_sex_woman = true, false
+        when 'w' then @pupil_sex_man, @pupil_sex_woman = false, true
+      end
+    end 
   end
   
   def create
@@ -23,7 +43,7 @@ class PupilsController < ApplicationController
     else
       flash[:error] = pupil.errors.full_messages.to_sentence :last_word_connector => ", ",        
                                                              :two_words_connector => ", "
-      redirect_to new_pupil_path                                                        
+      redirect_to new_pupil_path( params )                                                        
     end
   end
 end

@@ -35,6 +35,19 @@ Factory.define :school_class do |c|
   c.teacher_leader
 end   
 
+Factory.define :pupil do |p|
+  p.pupil_last_name 'Kopov'
+  p.pupil_first_name 'Valeriy'
+  p.pupil_middle_name 'Olegovich'
+  p.pupil_birthday "#{Date.today - 10.years}"
+  p.pupil_sex 'm'
+  p.pupil_nationality 'Russian'
+  p.pupil_address_of_registration "Moscow"
+  p.pupil_address_of_living "Moscow"
+  p.user
+  p.school_class
+end
+
 # Factory.define :teacher_phone do |tp|
 #   tp.teacher_home_number '8-499-111-11-11'
 #   tp.teacher_mobile_number '8-999-555-44-33'

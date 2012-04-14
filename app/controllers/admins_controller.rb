@@ -47,7 +47,7 @@ class AdminsController < ApplicationController
     @teacher_birthday, @teacher_category, @user_login, @user_password = "", "", "", ""
     @teacher_university, @teacher_finish_univ, @teacher_graduation    = "", "", ""
     @teacher_specl, @teacher_mobile_num, @teacher_home_num            = "", "", ""
-    @user_sex_man, @user_sex_woman                                    = false, true       # Values of radio buttons of sex.
+    @user_sex_man, @user_sex_woman                                    = false, true       # Values of radio buttons of sex by default.
 
     if ( params.has_key?( :user ) )                                                       # This has such key only if user have wrong values in fields and we've redirected to this method.
       @teacher_last_name   = params[:user][:teacher_attributes][:teacher_last_name]     
