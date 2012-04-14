@@ -11,7 +11,7 @@
   <tbody>
     <% if @pupil_exist %>        
       <% @pupils.each do |p| %>          
-        <tr>
+        <tr class="cross" onclick = "location.href='<%= edit_pupil_path( :id => p.id ) %>'">
           <td><%= "#{p.pupil_last_name}" %></td>
           <td><%= "#{p.pupil_first_name}" %></td>
           <td><%= "#{p.pupil_middle_name}" %></td>
