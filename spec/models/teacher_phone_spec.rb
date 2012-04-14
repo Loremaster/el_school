@@ -58,7 +58,7 @@ describe TeacherPhone do
     end      
   end
   
-  describe "Validations of teacher phones" do
+  describe "Validations" do
     it "should not require a user id" do
       TeacherPhone.new( @attr_teacher_phones ).should be_valid
     end

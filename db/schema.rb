@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120411152927) do
+ActiveRecord::Schema.define(:version => 20120414111337) do
+
+  create_table "pupil_phones", :force => true do |t|
+    t.integer  "pupil_id"
+    t.string   "pupil_home_number"
+    t.string   "pupil_mobile_number"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
 
   create_table "pupils", :force => true do |t|
     t.integer  "user_id"

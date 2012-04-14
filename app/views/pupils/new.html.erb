@@ -49,6 +49,8 @@
       </div>
     </div>
     
+    <hr/>
+    
     <div class="control-group">
       <%= f.label :pupil_nationality, "Национальность", :class => "control-label" %>
       <div class="controls">
@@ -56,6 +58,8 @@
                          :value => @nationality %>
       </div>
     </div>
+    
+    <hr/>
     
     <div class="control-group">
       <%= f.label :pupil_address_of_registration, "Адрес прописки", :class => "control-label" %>
@@ -74,6 +78,8 @@
                         :value => @living %>
       </div>
     </div>
+    
+    <hr/>
         
     <%= f.fields_for :user, @user do |builder| %>                                         <%# Adding @user allows us to send user_params for belongs_to model. %>
       <%= render :partial => 'shared/user_fields_new', 

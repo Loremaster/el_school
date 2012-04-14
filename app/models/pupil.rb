@@ -23,6 +23,8 @@ class Pupil < ActiveRecord::Base
   belongs_to :user
   belongs_to :school_class
   
+  has_one :pupil_phone
+  
   accepts_nested_attributes_for :user
     
   validates :pupil_last_name,
