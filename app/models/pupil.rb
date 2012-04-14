@@ -26,6 +26,8 @@ class Pupil < ActiveRecord::Base
   has_one :pupil_phone
   
   accepts_nested_attributes_for :user
+  accepts_nested_attributes_for :pupil_phone
+  
     
   validates :pupil_last_name,
               :presence   => { :message => "не может быть пустой" },

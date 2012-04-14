@@ -10,9 +10,9 @@ class PupilsController < ApplicationController
   def new
     @everpresent_field_placeholder = "Обязательное поле"; @login, @password = "", ""
     @last_name, @first_name, @middle_name, @birthday, @nationality = "", "", "", "", ""
-    @registration, @living = "", ""; @pupil_sex_man, @pupil_sex_woman = true, false       # Values of radio buttons of sex by default are setting here.       
-    @pupil = Pupil.new
-    @user = User.new 
+    @registration, @living, @home_phone, @mobile_phone = "", "", "", "" 
+    @pupil_sex_man, @pupil_sex_woman = true, false                                        # Values of radio buttons of sex by default are setting here.       
+    @pupil = Pupil.new; @user = User.new; @pupil_phone = PupilPhone.new 
     
     if params.has_key?( :pupil )                                                          # if we redirected back to this method from create (because of new errors).
       @last_name   = params[:pupil][:pupil_last_name]
@@ -23,6 +23,8 @@ class PupilsController < ApplicationController
       @nationality = params[:pupil][:pupil_nationality]
       @registration= params[:pupil][:pupil_address_of_registration]
       @living      = params[:pupil][:pupil_address_of_living]
+      @home_phone  = params[:pupil][:pupil_phone_attributes][:pupil_home_number]
+      @mobile_phone= params[:pupil][:pupil_phone_attributes][:pupil_mobile_number]
       @login       = params[:pupil][:user_attributes][:user_login]
       @password    = params[:pupil][:user_attributes][:password]
       

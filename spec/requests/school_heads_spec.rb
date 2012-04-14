@@ -434,37 +434,44 @@ describe "SchoolHeads" do
         end
         
         it "should have placeholders" do
-          response.should have_selector('input', 
-                                        :name => "pupil[pupil_last_name]",
-                                        :placeholder => @everpresent_field_placeholder)                   
-          response.should have_selector('input', 
-                                        :name => "pupil[pupil_first_name]",
-                                        :placeholder => @everpresent_field_placeholder) 
-          response.should have_selector('input', 
-                                        :name => "pupil[pupil_middle_name]",
-                                        :placeholder => @everpresent_field_placeholder)  
-          response.should have_selector('input', 
-                                        :name => "pupil[pupil_birthday]",
-                                        :placeholder => @everpresent_field_placeholder)                   
-          response.should have_selector('input', 
-                                        :name => "pupil[pupil_nationality]",
-                                        :placeholder => @everpresent_field_placeholder) 
-          response.should have_selector('textarea', 
-                                        :name => "pupil[pupil_address_of_registration]",
-                                        :placeholder => @everpresent_field_placeholder)   
-          response.should have_selector('textarea', 
-                                        :name => "pupil[pupil_address_of_living]",
-                                        :placeholder => @everpresent_field_placeholder)                   
-          response.should have_selector('input', 
-                                        :name => "pupil[user_attributes][user_login]",
-                                        :placeholder => @everpresent_field_placeholder) 
-          response.should have_selector('input', 
-                                        :name => "pupil[user_attributes][password]",
-                                        :placeholder => @everpresent_field_placeholder)                                                         
+          response.should have_selector( 'input', 
+                                         :name => "pupil[pupil_last_name]",
+                                         :placeholder => @everpresent_field_placeholder )                   
+          response.should have_selector( 'input',                                       
+                                         :name => "pupil[pupil_first_name]",            
+                                         :placeholder => @everpresent_field_placeholder ) 
+          response.should have_selector( 'input',                                       
+                                         :name => "pupil[pupil_middle_name]",           
+                                         :placeholder => @everpresent_field_placeholder )  
+          response.should have_selector( 'input',                                       
+                                         :name => "pupil[pupil_birthday]",              
+                                         :placeholder => @everpresent_field_placeholder )                   
+          response.should have_selector( 'input',                                       
+                                         :name => "pupil[pupil_nationality]",           
+                                         :placeholder => @everpresent_field_placeholder ) 
+          response.should have_selector( 'textarea', 
+                                         :name => "pupil[pupil_address_of_registration]",
+                                         :placeholder => @everpresent_field_placeholder )   
+          response.should have_selector( 'textarea',                                    
+                                         :name => "pupil[pupil_address_of_living]",     
+                                         :placeholder => @everpresent_field_placeholder )
+          response.should have_selector( "input",                                                                                                 
+                                         :name => "pupil[pupil_phone_attributes][pupil_home_number]",                                                          
+                                         :placeholder => @everpresent_field_placeholder )                                                                                       
+          response.should have_selector( "input",                                                                                                                       
+                                         :name => "pupil[pupil_phone_attributes][pupil_mobile_number]",                                                                                                               
+                                         :placeholder => @everpresent_field_placeholder )                                                                            
+          response.should have_selector( 'input', 
+                                         :name => "pupil[user_attributes][user_login]",
+                                         :placeholder => @everpresent_field_placeholder ) 
+          response.should have_selector( 'input',                                       
+                                         :name => "pupil[user_attributes][password]",   
+                                         :placeholder => @everpresent_field_placeholder )                                                         
         end
       
         it "should keep values in forms" do
           pupil = Factory( :pupil )
+          pupil_phones = Factory( :pupil_phone )
           login = "l"; password = "p"
           
           fill_in "Фамилия",  :with => pupil.pupil_last_name
@@ -474,7 +481,9 @@ describe "SchoolHeads" do
           fill_in "Дата рождения",  :with => pupil.pupil_birthday
           fill_in "Национальность", :with => pupil.pupil_nationality
           fill_in "Адрес прописки", :with => pupil.pupil_address_of_registration
-          fill_in "Адрес проживания",      :with => pupil.pupil_address_of_living
+          fill_in "Адрес проживания",  :with => pupil.pupil_address_of_living
+          fill_in "Домашний телефон",  :with => pupil_phones.pupil_home_number                
+          fill_in "Мобильный телефон", :with => pupil_phones.pupil_mobile_number
           fill_in "Логин учетной записи",  :with => login
           fill_in "Пароль учетной записи", :with => password
           
@@ -505,7 +514,13 @@ describe "SchoolHeads" do
                                         :content => pupil.pupil_address_of_registration )                           
             form.should have_selector( "textarea",                                 
                                         :name => "pupil[pupil_address_of_living]",                            
-                                        :content => pupil.pupil_address_of_living )                                          
+                                        :content => pupil.pupil_address_of_living )             
+            form.should have_selector( "input",                                                                   
+                                        :name => "pupil[pupil_phone_attributes][pupil_home_number]",                            
+                                        :value => pupil_phones.pupil_home_number  )                                                         
+            form.should have_selector( "input",                                                                                         
+                                        :name => "pupil[pupil_phone_attributes][pupil_mobile_number]",                                                                                    
+                                        :value => pupil_phones.pupil_mobile_number )                                                                                                                                        
             form.should have_selector( "input",                                 
                                         :name => "pupil[user_attributes][user_login]",
                                         :value => login )                           
@@ -525,42 +540,50 @@ describe "SchoolHeads" do
         describe "Success" do         
           it "should create pupil with valid data" do
             expect do
-              expect do
-                fill_in "Фамилия",  :with => "Перионов"
-                fill_in "Имя",      :with => "Петр"
-                fill_in "Отчество", :with => "Петрович"
-                choose "Мужской"
-                fill_in "Дата рождения",  :with => "#{Date.today - 10.years}"
-                fill_in "Национальность", :with => "Русский"
-                fill_in "Адрес прописки", :with => "Москва ..."
-                fill_in "Адрес проживания",      :with => "Москва ..."
-                fill_in "Логин учетной записи",  :with => "loooog"
-                fill_in "Пароль учетной записи", :with => "paaaaas"
-            
-                click_button "Создать"
-              end.should change( Pupil, :count ).by( 1 )
+            expect do  
+            expect do                                                        
+              fill_in "Фамилия",  :with => "Перионов"                        
+              fill_in "Имя",      :with => "Петр"                            
+              fill_in "Отчество", :with => "Петрович"                        
+              choose "Мужской"                                               
+              fill_in "Дата рождения",  :with => "#{Date.today - 10.years}"  
+              fill_in "Национальность", :with => "Русский"                   
+              fill_in "Адрес прописки", :with => "Москва ..."                
+              fill_in "Адрес проживания",  :with => "Москва ..."             
+              fill_in "Домашний телефон",  :with => "111111"                 
+              fill_in "Мобильный телефон", :with => "222222"                 
+              fill_in "Логин учетной записи",  :with => "loooog"             
+              fill_in "Пароль учетной записи", :with => "paaaaas"            
+                                                                             
+              click_button "Создать"                                         
+            end.should change( Pupil, :count ).by( 1 )                       
             end.should change( User, :count).by( 1 )
+            end.should change( PupilPhone, :count).by( 1 )
           end
         end
       
         describe "Failure" do
           it "should reject to create pupil if data is invalid" do
             expect do
-              expect do
-                fill_in "Фамилия",  :with => "Перионов"
-                fill_in "Имя",      :with => ""
-                fill_in "Отчество", :with => "Петрович"
-                choose "Мужской"
-                fill_in "Дата рождения",  :with => "#{Date.today - 10.years}"
-                fill_in "Национальность", :with => "Русский"
-                fill_in "Адрес прописки", :with => "Москва ..."
-                fill_in "Адрес проживания",      :with => "Москва ..."
-                fill_in "Логин учетной записи",  :with => "loooog"
-                fill_in "Пароль учетной записи", :with => "paaaaas"
-            
-                click_button "Создать"
-              end.should_not change( Pupil, :count )
+            expect do                                                         
+            expect do                                                         
+              fill_in "Фамилия",  :with => "Перионов"                         
+              fill_in "Имя",      :with => ""                                 
+              fill_in "Отчество", :with => "Петрович"                         
+              choose "Мужской"                                                
+              fill_in "Дата рождения",  :with => "#{Date.today - 10.years}"   
+              fill_in "Национальность", :with => "Русский"                    
+              fill_in "Адрес прописки", :with => "Москва ..."                 
+              fill_in "Адрес проживания",  :with => "Москва ..."          
+              fill_in "Домашний телефон",  :with => "111111"                   
+              fill_in "Мобильный телефон", :with => "222222"                  
+              fill_in "Логин учетной записи",  :with => "loooog"              
+              fill_in "Пароль учетной записи", :with => "paaaaas"             
+                                                                              
+              click_button "Создать"                                          
+            end.should_not change( Pupil, :count )                            
             end.should_not change( User, :count)
+            end.should_not change( PupilPhone, :count)
           end
         end
       end

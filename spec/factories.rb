@@ -48,6 +48,11 @@ Factory.define :pupil do |p|
   p.school_class
 end
 
+Factory.define :pupil_phone do |pp|
+  pp.pupil_home_number   '123456'   
+  pp.pupil_mobile_number '65454343'
+  pp.pupil
+end
 # Factory.define :teacher_phone do |tp|
 #   tp.teacher_home_number '8-499-111-11-11'
 #   tp.teacher_mobile_number '8-999-555-44-33'
