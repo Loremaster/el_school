@@ -35,9 +35,9 @@
     <% if @teachers_exist %>
       <% @teachers_leaders.each do |t| %>
         <tr class="cross" onclick = "location.href='<%= edit_teacher_leader_path( :id => t.id ) %>'">
-          <td><%= t.teacher_last_name %></td>
-          <td><%= t.teacher_first_name %></td>
-          <td><%= t.teacher_middle_name %></td>
+          <td><%= t.teacher.teacher_last_name %></td>
+          <td><%= t.teacher.teacher_first_name %></td>
+          <td><%= t.teacher.teacher_middle_name %></td>
         </tr>
       <% end %>
     <% end %>
