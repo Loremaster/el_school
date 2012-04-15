@@ -19,6 +19,7 @@ describe SchoolClassesController do
                                                     :user_id => @user.id, 
                                                     :teacher_id => @teacher.id 
                                                   })
+    @school_class = FactoryGirl.create( :school_class )                                              
   end
   
   describe "GET 'index'" do
@@ -133,5 +134,87 @@ describe SchoolClassesController do
         end.should change(SchoolClass, :count).by( 1 )
       end
     end  
+  end
+
+  describe "GET 'edit'" do
+    describe "for non-signed users" do
+      it "should deny access to edit schol class" do
+        get :edit, :id => @school_class
+        response.should redirect_to( signin_path )
+        flash[:notice].should =~ /войдите в систему как завуч/i
+      end
+    end
+    
+    describe "for signed-in admins" do
+      before(:each) do
+        test_sign_in( @adm )
+      end
+      
+      it "should deny access to edit school class" do
+        get :edit, :id => @school_class
+        response.should redirect_to( pages_wrong_page_path )
+        flash[:error].should =~ /вы не можете увидеть эту страницу/i
+      end
+    end
+    
+    describe "for signed-in school-heads" do
+      before(:each) do
+        test_sign_in( @sh )
+      end
+      
+      it "should get page to edit pupil" do
+        get :edit, :id => @school_class
+        response.should be_success
+        flash[:error].should be_nil
+      end
+    end
+  end
+
+  describe "PUT 'update'" do
+    describe "for non-signed users" do
+      it "should deny access to update school class" do
+        class_code = "111"
+        put :update, :id => @school_class, 
+                     :school_class => @school_class.attributes.merge(:class_code => class_code) 
+        response.should redirect_to( signin_path )
+        flash[:notice].should =~ /войдите в систему как завуч/i             
+      end
+    end
+    
+    describe "for signed-in admins" do
+      before(:each) do
+        test_sign_in( @adm )
+      end
+      
+      it "should deny access to edit school class" do
+        class_code = "111"
+        put :update, :id => @school_class, 
+                     :school_class => @school_class.attributes.merge(:class_code => class_code)
+        response.should redirect_to( pages_wrong_page_path )
+        flash[:error].should =~ /вы не можете увидеть эту страницу/i
+      end
+    end
+    
+    describe "for signed-in school-heads" do
+      before(:each) do
+        test_sign_in( @sh )
+      end
+      
+      it "should update school class if params are correct" do
+        class_code = "111"
+        put :update, :id => @school_class, 
+                     :school_class => @school_class.attributes.merge(:class_code => class_code)
+        @school_class.reload
+        @school_class.class_code.should == class_code
+      end
+      
+      it "should reject to update school class if params aren't correct" do
+        class_code = "1111"
+        put :update, :id => @school_class, 
+                     :school_class => @school_class.attributes.merge(:class_code => class_code)
+        @school_class.reload
+        @school_class.class_code.should_not == class_code
+      end
+    end
   end
 end
