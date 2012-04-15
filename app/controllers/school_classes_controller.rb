@@ -6,7 +6,7 @@ class SchoolClassesController < ApplicationController
     @class_exist = SchoolClass.first ? true : false
     @teachers_leaders_exist = TeacherLeader.first ? true : false
     @teachers_exist = Teacher.first ? true : false
-    @classes = SchoolClass.find(:all, :order => 'class_code') 
+    @classes = SchoolClass.order('class_code')
   end
   
   def new
