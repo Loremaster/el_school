@@ -4,7 +4,7 @@ class SubjectsController < ApplicationController
                                                        :edit, :update ]
   
   def index  
-    @all_subjects = Subject.all  
+    @all_subjects = Subject.find(:all, :order => 'subject_name')   
   end
   
   def new

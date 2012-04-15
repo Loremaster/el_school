@@ -4,8 +4,8 @@ class TeachersController < ApplicationController
   
   #TODO test that teacher name appear here.
   def index
-    @teachers = Teacher.all
-    @teachers_leaders = TeacherLeader.all
+    @teachers = Teacher.find(:all, :order => 'teacher_last_name, teacher_first_name')
+    @teachers_leaders = Teacher.joins(:teacher_leader).uniq.order(:teacher_last_name, :teacher_first_name)     # Get all teachers who are teachers leaders and sort them.
     @teachers_exist = Teacher.first ? true : false                                        # Teacher.first generates nil if there are no entrys.
     # @teachers_leaders_exist = TeacherLeader.first ? true : false
   end

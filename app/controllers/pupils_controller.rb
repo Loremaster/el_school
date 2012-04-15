@@ -4,7 +4,7 @@ class PupilsController < ApplicationController
   
   def index  
     @pupil_exist = Pupil.first ? true : false 
-    @pupils = Pupil.all 
+    @pupils = Pupil.find(:all, :order => 'pupil_last_name, pupil_first_name') 
   end
   
   def new
