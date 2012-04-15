@@ -1,4 +1,4 @@
-<legend>Создание класса</legend>
+<legend>Редактирование класса</legend>
 
 <%= form_for @class, :html => {:class => "form-horizontal"} do |f| %>
   <%= field_set_tag do %>
@@ -8,7 +8,6 @@
       <div class="controls">
         <%= f.text_field :class_code, 
                          :class => "span2",
-                         :value => @class_code,
                          :placeholder => @everpresent_field_placeholder %>
       </div>
     </div>
@@ -20,7 +19,6 @@
       <div class="controls">
         <%= f.text_field :date_of_class_creation, 
                          :class => "span2",
-                         :value => @creation_class_date,
                          :placeholder => @everpresent_field_placeholder %>
       </div>    
     </div>
@@ -30,11 +28,11 @@
 	        :class => "control-label" %>
 	        
 	    <div class="controls">
-        <%= f.select( :teacher_leader_id,                                                 # Here we use 'select' instead of 'select_tag' because 'select' allows us to give builder ('tl.select' here).
+        <%= f.select( :teacher_leader_id,                                                # Here we use 'select' instead of 'select_tag' because 'select' allows us to give builder ('tl.select' here).
                       options_for_select( @leaders, @choosen_teacher )) %>  	     
 	    </div>
 	  </div>
     
-    <%= f.submit "Создать", :class => "btn btn-large btn-success" %>
+    <%= f.submit "Изменить", :class => "btn btn-large btn-warning" %>
   <% end %>
-<% end %>  
+<% end %>

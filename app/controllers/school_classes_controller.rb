@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class SchoolClassesController < ApplicationController
-  before_filter :authenticate_school_heads, :only => [ :index, :new, :create ]
+  before_filter :authenticate_school_heads, :only => [ :index, :new, :create, :edit, :update ]
   
   def index
     @class_exist = SchoolClass.first ? true : false
@@ -26,13 +26,33 @@ class SchoolClassesController < ApplicationController
   def create
     school_class = SchoolClass.new( params[:school_class] )
     if school_class.save
-      flash[:success] = "Класс успешно создан!"
       redirect_to school_classes_path
+      flash[:success] = "Класс успешно создан!"
     else
+      redirect_to new_school_class_path( params )
       flash[:error] = school_class.errors.full_messages.to_sentence :last_word_connector => ", ",        
                                                                     :two_words_connector => ", "
-      redirect_to new_school_class_path( params )
     end    
+  end
+  
+  def edit
+    @class = SchoolClass.find( params[:id] )
+    @leaders = collect_teachers_leaders
+    @choosen_teacher = @class.teacher_leader.id unless @class.nil? 
+    @everpresent_field_placeholder = "Обязательное поле"
+  end
+  
+  def update
+    school_class = SchoolClass.find( params[:id] )
+      
+    if school_class.update_attributes( params[:school_class] )
+      redirect_to school_classes_path
+      flash[:success] = "Класс успешно обновлен!"
+    else
+      redirect_to edit_school_class_path
+      flash[:error] = school_class.errors.full_messages.to_sentence :last_word_connector => ", ",        
+                                                                    :two_words_connector => ", "
+    end  
   end
   
   private   

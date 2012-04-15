@@ -11,7 +11,7 @@
   <tbody>
     <% if @class_exist and @teachers_leaders_exist and @teachers_exist %>
       <% @classes.each do |c| %>
-        <tr>
+        <tr class="cross" onclick="location.href='<%= edit_school_class_path( :id => c.id ) %>'">
           <td><%= c.class_code %></td>
           <td><%= "#{c.teacher_leader.teacher.teacher_last_name} " + 
                   "#{c.teacher_leader.teacher.teacher_first_name} " +
