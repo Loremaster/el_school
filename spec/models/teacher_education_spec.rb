@@ -18,7 +18,7 @@ require 'spec_helper'
 
 describe TeacherEducation do
   before(:each) do
-    @teacher = Factory(:teacher)
+    @teacher = FactoryGirl.create( :teacher )
     
     @attr_teacher_edu = {
       :teacher_education_university => "МГУ",

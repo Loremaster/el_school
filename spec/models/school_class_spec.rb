@@ -15,11 +15,9 @@ require 'spec_helper'
 
 describe SchoolClass do
   before(:each) do
-    @user = Factory( :user )
-    @teacher = Factory( 
-                        :teacher, 
-                        :user => Factory( :user, :user_login => Factory.next( :user_login ))
-                      )
+    @user = FactoryGirl.create( :user )
+    @teacher = FactoryGirl.create( :teacher )
+                      
     @teacher_leader = @user.create_teacher_leader({ 
                                                     :user_id => @user.id, 
                                                     :teacher_id => @teacher.id 

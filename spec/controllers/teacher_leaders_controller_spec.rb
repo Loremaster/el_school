@@ -5,19 +5,19 @@ describe TeacherLeadersController do
   render_views
 
   before(:each) do
-    @adm = Factory( :user, :user_login => Factory.next(:user_login)  )
+    @adm = FactoryGirl.create( :user )
     @adm.user_role = "admin"
     @adm.save!
     
-    @sh = Factory( :user, :user_login => Factory.next(:user_login)  )
+    @sh = FactoryGirl.create( :user )
     @sh.user_role = "school_head"
     @sh.save!
     
-    @teacher = Factory( :teacher )
+    @teacher = FactoryGirl.create( :teacher )
     @teacher.user.user_role = "teacher"
     @teacher.save!
       
-    @user = Factory( :user, :user_login => Factory.next(:user_login) )
+    @user = FactoryGirl.create( :user )
     @user.user_role = "class_head"
     @user.save!
         
@@ -145,11 +145,7 @@ describe TeacherLeadersController do
     before(:each) do
       @teacher_leader = @user.create_teacher_leader( @attr_teacher_leader )
       
-      @teacher2 = Factory( :teacher, 
-                           :user => Factory( :user, 
-                                             :user_login => Factory.next( :user_login )
-                                           ) 
-                         ) 
+      @teacher2 = FactoryGirl.create( :teacher ) 
       @teacher2.user.user_role = "teacher"
       @teacher2.save!
     end

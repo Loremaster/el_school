@@ -5,15 +5,15 @@ describe TeachersController do
   render_views
   
   before(:each) do
-    @adm = Factory( :user, :user_login => "usr" )
+    @adm = FactoryGirl.create( :user, :user_login => "usr" )
     @adm.user_role = "admin"
     @adm.save!
     
-    @sh = Factory( :user, :user_login => "shh" )
+    @sh = FactoryGirl.create( :user, :user_login => "shh" )
     @sh.user_role = "school_head"
     @sh.save!
     
-    @tch = Factory( :teacher )
+    @tch = FactoryGirl.create( :teacher )
     @tch.user.user_role = "teacher"
     @tch.save!
   end

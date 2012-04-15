@@ -5,16 +5,16 @@ describe PupilsController do
   render_views
   
   before(:each) do
-    @adm = Factory( :user, :user_login => "usr" )
+    @adm = FactoryGirl.create( :user, :user_login => "usr" )
     @adm.user_role = "admin"
     @adm.save!
     
-    @sh = Factory( :user, :user_login => "shh" )
+    @sh = FactoryGirl.create( :user, :user_login => "shh" )
     @sh.user_role = "school_head"
     @sh.save!
     
-    @user = Factory( :user )
-    @pupil = Factory( :pupil )
+    @user = FactoryGirl.create( :user )
+    @pupil = FactoryGirl.create( :pupil )
   end
   
   describe "GET 'index'" do

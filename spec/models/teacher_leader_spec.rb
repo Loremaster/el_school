@@ -15,8 +15,8 @@ require 'spec_helper'
 
 describe TeacherLeader do
   before(:each) do
-    @user = Factory( :user, :user_login => Factory.next(:user_login) )
-    @teacher = Factory(:teacher)
+    @user = FactoryGirl.create( :user )
+    @teacher = FactoryGirl.create( :teacher )
     
     @attr_teacher_leader = {
       :user_id => @user.id,

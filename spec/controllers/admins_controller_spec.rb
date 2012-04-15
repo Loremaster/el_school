@@ -19,7 +19,7 @@ describe AdminsController do
   
   describe "for signed-in as admin users" do
     before(:each) do
-      @user = Factory(:user)
+      @user = FactoryGirl.create(:user)
       test_sign_in( @user )
     end
               

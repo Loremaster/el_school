@@ -128,9 +128,9 @@ describe "SchoolHeads" do
   
     describe "Teacher-Subjects (Qualification) creation" do
       before(:each) do
-        @subj = Factory( :subject, :subject_name => "Physics" )
+        @subj = FactoryGirl.create( :subject, :subject_name => "Physics" )
         
-        @teacher = Factory( :teacher )
+        @teacher = FactoryGirl.create( :teacher )
         @teacher.user.user_role = "teacher"
         @teacher.save!
       end
@@ -193,7 +193,7 @@ describe "SchoolHeads" do
             
       describe "Creation" do
         before(:each) do              
-          @teacher = Factory( :teacher )
+          @teacher = FactoryGirl.create( :teacher )
           @teacher.user.user_role = "teacher"
           @teacher.save!
         end
@@ -282,17 +282,15 @@ describe "SchoolHeads" do
       describe "Update" do        
         describe "Success and Failure" do
           before(:each) do              
-            @leader = teacher_leader = Factory( :teacher_leader,
-                                      :user => Factory( :user, :user_login => Factory.next( :user_login )) )
+            @leader = FactoryGirl.create( :teacher_leader )
           end
           
           describe "Success" do
             before(:each) do
-              @teacher2 = Factory( :teacher, 
-                                   :teacher_last_name   => "B.", 
-                                   :teacher_first_name  => "B.",
-                                   :teacher_middle_name => "King",
-                                   :user => Factory( :user, :user_login => Factory.next( :user_login )))
+              @teacher2 = FactoryGirl.create( :teacher, 
+                                              :teacher_last_name   => "B.", 
+                                              :teacher_first_name  => "B.",
+                                              :teacher_middle_name => "King")
               @teacher2.user.user_role = "teacher"
               @teacher2.save!
               
@@ -327,8 +325,7 @@ describe "SchoolHeads" do
         
         describe "Failure" do
           it "should not save same teacher leader" do
-            @leader = Factory( :teacher_leader,
-                               :user => Factory( :user, :user_login => Factory.next( :user_login )) )
+            @leader = FactoryGirl.create( :teacher_leader )
             expect do
               click_link "Учителя" 
               visit edit_teacher_leader_path( :id => @leader.id )
@@ -355,7 +352,7 @@ describe "SchoolHeads" do
         end
         
         it "should keep values in forms" do
-          teacher_leader = Factory( :teacher_leader )
+          teacher_leader = FactoryGirl.create( :teacher_leader )
           
           click_link "Классы"
           click_link "Создать класс"
@@ -388,8 +385,7 @@ describe "SchoolHeads" do
     
       describe "Create" do
         before(:each) do
-          @t_leader =  Factory( :teacher_leader,
-                                :user => Factory( :user, :user_login => Factory.next( :user_login )) )
+          @t_leader =  FactoryGirl.create( :teacher_leader )
           click_link "Классы"
           click_link "Создать класс" 
         end
@@ -471,8 +467,8 @@ describe "SchoolHeads" do
           end
       
           it "should keep values in forms" do
-            pupil = Factory( :pupil )
-            pupil_phones = Factory( :pupil_phone )
+            pupil = FactoryGirl.create( :pupil )
+            pupil_phones = FactoryGirl.create( :pupil_phone )
             login, password = "l", "p"
           
             fill_in "Фамилия",  :with => pupil.pupil_last_name
@@ -593,7 +589,7 @@ describe "SchoolHeads" do
       describe "Updating" do
         describe "View" do
           before(:each) do
-            @ipupil = Factory( :pupil, :pupil_phone => Factory( :pupil_phone ))            
+            @ipupil = FactoryGirl.create( :pupil, :pupil_phone => FactoryGirl.create( :pupil_phone ))            
             visit edit_pupil_path( :id => @ipupil.id )
           end 
           
@@ -624,8 +620,8 @@ describe "SchoolHeads" do
               form.should have_selector( "textarea",                                                                 
                                           :name => "pupil[pupil_address_of_living]",                                                        
                                           :content => @ipupil.pupil_address_of_living )                                         
-              form.should have_selector( "input",                                                                                               
-                                          :name => "pupil[pupil_phone_attributes][pupil_home_number]")#,                                                        
+              # form.should have_selector( "input",                                                                                               
+              #                                           :name => "pupil[pupil_phone_attributes][pupil_home_number]")#,                                                        
                                           # :value => @ipupil.pupil_phone.pupil_home_number )                                                                                     
                                           # form.should have_selector( "input",                                                                                         
                                           #                                                                       :name => "pupil[pupil_phone_attributes][pupil_mobile_number]",                                                                                    

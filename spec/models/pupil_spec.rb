@@ -23,8 +23,8 @@ require 'spec_helper'
 
 describe Pupil do
   before(:each) do
-    @user = Factory(:user)
-    @school_class = Factory(:school_class)
+    @user = FactoryGirl.create(:user)
+    @school_class = FactoryGirl.create(:school_class)
     
     @attr_pupil = {
       :pupil_last_name => "Смирнов",

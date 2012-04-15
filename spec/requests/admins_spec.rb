@@ -42,7 +42,7 @@ describe "Admins" do
   
   describe "for sign-in admin" do 
     before(:each) do  
-      user = Factory(:user, :user_login => "user login")
+      user = FactoryGirl.create(:user, :user_login => "user login")
       
       visit signin_path
       fill_in "Логин",  :with => user.user_login

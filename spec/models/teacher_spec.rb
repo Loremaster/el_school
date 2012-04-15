@@ -20,7 +20,7 @@ require 'spec_helper'
 
 describe Teacher do
   before(:each) do
-    @user = Factory(:user)
+    @user = FactoryGirl.create( :user )
     @attr_teacher = {
         :teacher_last_name   => "Каров",
         :teacher_first_name  => "Петр",

@@ -5,19 +5,16 @@ describe SchoolClassesController do
   render_views
   
   before(:each) do
-    @adm = Factory( :user, :user_login => "usr" )
+    @adm = FactoryGirl.create( :user, :user_login => "usr" )
     @adm.user_role = "admin"
     @adm.save!
     
-    @sh = Factory( :user, :user_login => "shh" )
+    @sh = FactoryGirl.create( :user, :user_login => "shh" )
     @sh.user_role = "school_head"
     @sh.save!
     
-    @user = Factory( :user )
-    @teacher = Factory( 
-                        :teacher, 
-                        :user => Factory( :user, :user_login => Factory.next( :user_login ))
-                      )
+    @user = FactoryGirl.create( :user )
+    @teacher = FactoryGirl.create( :teacher )
     @teacher_leader = @user.create_teacher_leader({ 
                                                     :user_id => @user.id, 
                                                     :teacher_id => @teacher.id 

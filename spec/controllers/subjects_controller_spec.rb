@@ -5,15 +5,15 @@ describe SubjectsController do
   render_views
   
   before(:each) do
-    @adm = Factory( :user, :user_login => "usr" )
+    @adm = FactoryGirl.create( :user, :user_login => "usr" )
     @adm.user_role = "admin"
     @adm.save!
     
-    @sh = Factory( :user, :user_login => "shh" )
+    @sh = FactoryGirl.create( :user, :user_login => "shh" )
     @sh.user_role = "school_head"
     @sh.save!
     
-    @subj = Factory( :subject )
+    @subj = FactoryGirl.create( :subject )
     
     @attr = { :subject_name => "Psy"}
     @wrong_attr = { :subject_name => " " }

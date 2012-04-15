@@ -15,7 +15,7 @@ require 'spec_helper'
 
 describe PupilPhone do
   before(:each) do
-    @pupil = Factory( :pupil )
+    @pupil = FactoryGirl.create( :pupil )
     
     @attr_pupil_phones = {
       :pupil_home_number   =>  "8903111111",

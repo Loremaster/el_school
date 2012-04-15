@@ -16,7 +16,7 @@ require 'spec_helper'
 
 describe TeacherPhone do
   before(:each) do
-    @teacher = Factory(:teacher)
+    @teacher = FactoryGirl.create( :teacher )
     
     @attr_teacher_phones = {
       :teacher_mobile_number => "8903111111",
