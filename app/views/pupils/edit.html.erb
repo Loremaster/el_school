@@ -82,7 +82,7 @@
     
     <hr/>
     
-    <%= f.fields_for :pupil_phone, @pupil_phone do |pp| %>                                <%# This shows fields. @pupil_phone add _attributes as i understand. %>
+    <%= f.fields_for :pupil_phone do |pp| %>                                              <%# This shows fields. @pupil_phone add _attributes as i understand. %>
       <div class="control-group">
         <%= pp.label :pupil_home_number, "Домашний телефон", :class => "control-label" %> 
         
@@ -99,7 +99,8 @@
         </div>
       </div>   
     <% end %>
-            
+    
+           
     <%= f.submit "Изменить", :class => "btn btn-large btn-warning" %>
   <% end %>  
 <% end %>

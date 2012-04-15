@@ -328,7 +328,7 @@ describe "SchoolHeads" do
         describe "Failure" do
           it "should not save same teacher leader" do
             @leader = Factory( :teacher_leader,
-                                      :user => Factory( :user, :user_login => Factory.next( :user_login )) )
+                               :user => Factory( :user, :user_login => Factory.next( :user_login )) )
             expect do
               click_link "Учителя" 
               visit edit_teacher_leader_path( :id => @leader.id )
@@ -427,111 +427,112 @@ describe "SchoolHeads" do
     end
   
     describe "Pupils" do
-      describe "View" do
-        before(:each) do
-          click_link "Ученики"
-          click_link "Создать ученика"
-        end
+      describe "Creating" do
+        describe "View" do
+          before(:each) do
+            click_link "Ученики"
+            click_link "Создать ученика"
+          end
         
-        it "should have placeholders" do
-          response.should have_selector( 'input', 
-                                         :name => "pupil[pupil_last_name]",
-                                         :placeholder => @everpresent_field_placeholder )                   
-          response.should have_selector( 'input',                                       
-                                         :name => "pupil[pupil_first_name]",            
-                                         :placeholder => @everpresent_field_placeholder ) 
-          response.should have_selector( 'input',                                       
-                                         :name => "pupil[pupil_middle_name]",           
-                                         :placeholder => @everpresent_field_placeholder )  
-          response.should have_selector( 'input',                                       
-                                         :name => "pupil[pupil_birthday]",              
-                                         :placeholder => @everpresent_field_placeholder )                   
-          response.should have_selector( 'input',                                       
-                                         :name => "pupil[pupil_nationality]",           
-                                         :placeholder => @everpresent_field_placeholder ) 
-          response.should have_selector( 'textarea', 
-                                         :name => "pupil[pupil_address_of_registration]",
-                                         :placeholder => @everpresent_field_placeholder )   
-          response.should have_selector( 'textarea',                                    
-                                         :name => "pupil[pupil_address_of_living]",     
-                                         :placeholder => @everpresent_field_placeholder )
-          response.should have_selector( "input",                                                                                                 
-                                         :name => "pupil[pupil_phone_attributes][pupil_home_number]",                                                          
-                                         :placeholder => @everpresent_field_placeholder )                                                                                       
-          response.should have_selector( "input",                                                                                                                       
-                                         :name => "pupil[pupil_phone_attributes][pupil_mobile_number]",                                                                                                               
-                                         :placeholder => @everpresent_field_placeholder )                                                                            
-          response.should have_selector( 'input', 
-                                         :name => "pupil[user_attributes][user_login]",
-                                         :placeholder => @everpresent_field_placeholder ) 
-          response.should have_selector( 'input',                                       
-                                         :name => "pupil[user_attributes][password]",   
-                                         :placeholder => @everpresent_field_placeholder )                                                         
-        end
+          it "should have placeholders" do
+            response.should have_selector( 'input', 
+                                           :name => "pupil[pupil_last_name]",
+                                           :placeholder => @everpresent_field_placeholder )                   
+            response.should have_selector( 'input',                                       
+                                           :name => "pupil[pupil_first_name]",            
+                                           :placeholder => @everpresent_field_placeholder ) 
+            response.should have_selector( 'input',                                       
+                                           :name => "pupil[pupil_middle_name]",           
+                                           :placeholder => @everpresent_field_placeholder )  
+            response.should have_selector( 'input',                                       
+                                           :name => "pupil[pupil_birthday]",              
+                                           :placeholder => @everpresent_field_placeholder )                   
+            response.should have_selector( 'input',                                       
+                                           :name => "pupil[pupil_nationality]",           
+                                           :placeholder => @everpresent_field_placeholder ) 
+            response.should have_selector( 'textarea', 
+                                           :name => "pupil[pupil_address_of_registration]",
+                                           :placeholder => @everpresent_field_placeholder )   
+            response.should have_selector( 'textarea',                                    
+                                           :name => "pupil[pupil_address_of_living]",     
+                                           :placeholder => @everpresent_field_placeholder )
+            response.should have_selector( "input",                                                                                                 
+                                           :name => "pupil[pupil_phone_attributes][pupil_home_number]",                                                          
+                                           :placeholder => @everpresent_field_placeholder )                                                                                       
+            response.should have_selector( "input",                                                                                                                       
+                                           :name => "pupil[pupil_phone_attributes][pupil_mobile_number]",                                                                                                               
+                                           :placeholder => @everpresent_field_placeholder )                                                                            
+            response.should have_selector( 'input', 
+                                           :name => "pupil[user_attributes][user_login]",
+                                           :placeholder => @everpresent_field_placeholder ) 
+            response.should have_selector( 'input',                                       
+                                           :name => "pupil[user_attributes][password]",   
+                                           :placeholder => @everpresent_field_placeholder )                                                         
+          end
       
-        it "should keep values in forms" do
-          pupil = Factory( :pupil )
-          pupil_phones = Factory( :pupil_phone )
-          login = "l"; password = "p"
+          it "should keep values in forms" do
+            pupil = Factory( :pupil )
+            pupil_phones = Factory( :pupil_phone )
+            login, password = "l", "p"
           
-          fill_in "Фамилия",  :with => pupil.pupil_last_name
-          fill_in "Имя",      :with => pupil.pupil_first_name
-          fill_in "Отчество", :with => pupil.pupil_middle_name
-          choose "Женский"
-          fill_in "Дата рождения",  :with => pupil.pupil_birthday
-          fill_in "Национальность", :with => pupil.pupil_nationality
-          fill_in "Адрес прописки", :with => pupil.pupil_address_of_registration
-          fill_in "Адрес проживания",  :with => pupil.pupil_address_of_living
-          fill_in "Домашний телефон",  :with => pupil_phones.pupil_home_number                
-          fill_in "Мобильный телефон", :with => pupil_phones.pupil_mobile_number
-          fill_in "Логин учетной записи",  :with => login
-          fill_in "Пароль учетной записи", :with => password
+            fill_in "Фамилия",  :with => pupil.pupil_last_name
+            fill_in "Имя",      :with => pupil.pupil_first_name
+            fill_in "Отчество", :with => pupil.pupil_middle_name
+            choose "Женский"
+            fill_in "Дата рождения",  :with => pupil.pupil_birthday
+            fill_in "Национальность", :with => pupil.pupil_nationality
+            fill_in "Адрес прописки", :with => pupil.pupil_address_of_registration
+            fill_in "Адрес проживания",  :with => pupil.pupil_address_of_living
+            fill_in "Домашний телефон",  :with => pupil_phones.pupil_home_number                
+            fill_in "Мобильный телефон", :with => pupil_phones.pupil_mobile_number
+            fill_in "Логин учетной записи",  :with => login
+            fill_in "Пароль учетной записи", :with => password
           
-          click_button "Создать"
+            click_button "Создать"
           
-          response.should have_selector("form") do |form|
-            form.should have_selector( "input", 
-                                        :name => "pupil[pupil_last_name]",
-                                        :value => pupil.pupil_last_name )
-            form.should have_selector( "input", 
-                                        :name => "pupil[pupil_first_name]",
-                                        :value => pupil.pupil_first_name )                                       
-            form.should have_selector( "input", 
-                                        :name => "pupil[pupil_middle_name]",
-                                        :value => pupil.pupil_middle_name )                                        
-            form.should have_selector( "input", 
-                                        :name => "pupil[pupil_sex]",
-                                        :value => "w",            
-                                        :checked => "checked" )                                                    
-            form.should have_selector( "input", 
-                                        :name => "pupil[pupil_birthday]",
-                                        :value => "#{pupil.pupil_birthday}" )              
-            form.should have_selector( "input", 
-                                        :name => "pupil[pupil_nationality]",
-                                        :value => pupil.pupil_nationality )              
-            form.should have_selector( "textarea", 
-                                        :name => "pupil[pupil_address_of_registration]",
-                                        :content => pupil.pupil_address_of_registration )                           
-            form.should have_selector( "textarea",                                 
-                                        :name => "pupil[pupil_address_of_living]",                            
-                                        :content => pupil.pupil_address_of_living )             
-            form.should have_selector( "input",                                                                   
-                                        :name => "pupil[pupil_phone_attributes][pupil_home_number]",                            
-                                        :value => pupil_phones.pupil_home_number  )                                                         
-            form.should have_selector( "input",                                                                                         
-                                        :name => "pupil[pupil_phone_attributes][pupil_mobile_number]",                                                                                    
-                                        :value => pupil_phones.pupil_mobile_number )                                                                                                                                        
-            form.should have_selector( "input",                                 
-                                        :name => "pupil[user_attributes][user_login]",
-                                        :value => login )                           
-            form.should have_selector( "input",                                                             
-                                        :name => "pupil[user_attributes][password]",                                                        
-                                        :value => password )                                                                                                
+            response.should have_selector("form") do |form|
+              form.should have_selector( "input", 
+                                          :name => "pupil[pupil_last_name]",
+                                          :value => pupil.pupil_last_name )
+              form.should have_selector( "input", 
+                                          :name => "pupil[pupil_first_name]",
+                                          :value => pupil.pupil_first_name )                                       
+              form.should have_selector( "input", 
+                                          :name => "pupil[pupil_middle_name]",
+                                          :value => pupil.pupil_middle_name )                                        
+              form.should have_selector( "input", 
+                                          :name => "pupil[pupil_sex]",
+                                          :value => "w",            
+                                          :checked => "checked" )                                                    
+              form.should have_selector( "input", 
+                                          :name => "pupil[pupil_birthday]",
+                                          :value => "#{pupil.pupil_birthday}" )              
+              form.should have_selector( "input", 
+                                          :name => "pupil[pupil_nationality]",
+                                          :value => pupil.pupil_nationality )              
+              form.should have_selector( "textarea", 
+                                          :name => "pupil[pupil_address_of_registration]",
+                                          :content => pupil.pupil_address_of_registration )                           
+              form.should have_selector( "textarea",                                 
+                                          :name => "pupil[pupil_address_of_living]",                            
+                                          :content => pupil.pupil_address_of_living )             
+              form.should have_selector( "input",                                                                   
+                                          :name => "pupil[pupil_phone_attributes][pupil_home_number]",                            
+                                          :value => pupil_phones.pupil_home_number  )                                                         
+              form.should have_selector( "input",                                                                                         
+                                          :name => "pupil[pupil_phone_attributes][pupil_mobile_number]",                                                                                    
+                                          :value => pupil_phones.pupil_mobile_number )                                                                                                                                        
+              form.should have_selector( "input",                                 
+                                          :name => "pupil[user_attributes][user_login]",
+                                          :value => login )                           
+              form.should have_selector( "input",                                                             
+                                          :name => "pupil[user_attributes][password]",                                                        
+                                          :value => password )                                                                                                
+            end
           end
         end
-      end
     
-      describe "Create" do
+        describe "Create" do
         before(:each) do
           click_link "Ученики"
           click_link "Создать ученика"
@@ -584,6 +585,53 @@ describe "SchoolHeads" do
             end.should_not change( Pupil, :count )                            
             end.should_not change( User, :count)
             end.should_not change( PupilPhone, :count)
+          end
+        end
+      end
+      end
+    
+      describe "Updating" do
+        describe "View" do
+          before(:each) do
+            @ipupil = Factory( :pupil, :pupil_phone => Factory( :pupil_phone ))            
+            visit edit_pupil_path( :id => @ipupil.id )
+          end 
+          
+          it "should have values in forms" do     
+            response.should have_selector("form") do |form|
+              form.should have_selector( "input", 
+                                          :name => "pupil[pupil_last_name]",
+                                          :value => @ipupil.pupil_last_name )
+              form.should have_selector( "input",                                                         
+                                          :name => "pupil[pupil_first_name]",                             
+                                          :value => @ipupil.pupil_first_name )                                                                   
+              form.should have_selector( "input",                                                         
+                                          :name => "pupil[pupil_middle_name]",                            
+                                          :value => @ipupil.pupil_middle_name ) 
+              form.should have_selector( "input",                                                  
+                                          :name => "pupil[pupil_sex]",                             
+                                          :value => @ipupil.pupil_sex,                                           
+                                          :checked => "checked" )                                                                                                               
+              form.should have_selector( "input",                                                                         
+                                          :name => "pupil[pupil_birthday]",                                               
+                                          :value => "#{@ipupil.pupil_birthday}" )                                          
+              form.should have_selector( "input",                                                                         
+                                          :name => "pupil[pupil_nationality]",                                            
+                                          :value => @ipupil.pupil_nationality )                                           
+              form.should have_selector( "textarea",                                                                      
+                                          :name => "pupil[pupil_address_of_registration]",                                
+                                          :content => @ipupil.pupil_address_of_registration )
+              form.should have_selector( "textarea",                                                                 
+                                          :name => "pupil[pupil_address_of_living]",                                                        
+                                          :content => @ipupil.pupil_address_of_living )                                         
+              form.should have_selector( "input",                                                                                               
+                                          :name => "pupil[pupil_phone_attributes][pupil_home_number]")#,                                                        
+                                          # :value => @ipupil.pupil_phone.pupil_home_number )                                                                                     
+                                          # form.should have_selector( "input",                                                                                         
+                                          #                                                                       :name => "pupil[pupil_phone_attributes][pupil_mobile_number]",                                                                                    
+                                          #                                                                       :value => @ipupil.pupil_phone.pupil_mobile_number )                                                                                                                                        
+                                                                                                  
+            end
           end
         end
       end

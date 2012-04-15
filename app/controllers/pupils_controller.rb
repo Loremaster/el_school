@@ -50,7 +50,7 @@ class PupilsController < ApplicationController
   end
   
   def edit
-    @pupil = Pupil.find( params[:id] )    
+    @pupil = Pupil.find( params[:id] )
   end
   
   def update    
