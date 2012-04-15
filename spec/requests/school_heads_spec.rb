@@ -587,19 +587,19 @@ describe "SchoolHeads" do
       end
     
       describe "Updating" do
-        describe "View" do
-          before(:each) do
-            @ipupil = FactoryGirl.create( :pupil )
-            @attr_pupil_phones = {
-              :pupil_home_number   =>  "8903111111",
-              :pupil_mobile_number => "777-33-22"
-            }
-            @ipupil.create_pupil_phone( @attr_pupil_phones )
-            
-            visit edit_pupil_path( :id => @ipupil )
-          end 
+        before(:each) do
+          @ipupil = FactoryGirl.create( :pupil )
+          @attr_pupil_phones = {
+            :pupil_home_number   => "8903111111",
+            :pupil_mobile_number => "777-33-22"
+          }
+          @ipupil.create_pupil_phone( @attr_pupil_phones )
           
-          it "should have values in forms" do        
+          visit edit_pupil_path( :id => @ipupil )
+        end
+        
+        describe "View" do
+          it "should have values in forms" do
             response.should have_selector("form") do |form|
               form.should have_selector( "input", 
                                           :name => "pupil[pupil_last_name]",
@@ -634,7 +634,31 @@ describe "SchoolHeads" do
                                          :value => @ipupil.pupil_phone.pupil_mobile_number )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
             end
           end
+
         end
+      
+        # describe "Success" do
+        #   it "should change if attributes are correct" do
+        #     expect do
+        #       fill_in "Фамилия",  :with => "Some"
+        #       click_button "Изменить"
+        #       
+        #       @ipupil.reload
+        #       @ipupil.pupil_last_name.should == "Some"
+        #     end.should change( Pupil, :count )
+        #   end
+        # end
+        
+        describe "Failure" do
+          it "should reject to change if attributes are not correct" do
+            expect do
+              fill_in "Фамилия",  :with => "  "
+              click_button "Изменить"
+              
+              @ipupil.reload
+            end.should_not change( Pupil, :count )
+          end
+        end 
       end
     end
   end
