@@ -7,13 +7,9 @@ FactoryGirl.define do
     user.sequence(:user_login) { |n| "person=#{n}" }
   end
 
-
-
   sequence :user_login do |n|
     "person-#{n}"
   end
-
-
 
   factory :teacher do |teacher|
     teacher.teacher_last_name   'Bokov'
@@ -25,28 +21,20 @@ FactoryGirl.define do
     teacher.user                                                                            # That means that teacher belongs to user.
   end
 
-
-
   factory :subject do |subject|
     subject.subject_name 'Math'
   end 
-
-
 
   factory :teacher_leader do |tl|
     tl.user
     tl.teacher
   end
 
-
-
   factory :school_class do |c|
     c.date_of_class_creation "#{Date.today}"
     c.class_code '11v'
     c.teacher_leader
   end   
-
-
 
   factory :pupil do |p|
     p.pupil_last_name 'Kopov'
@@ -61,18 +49,11 @@ FactoryGirl.define do
     p.school_class
   end
 
-
-
   factory :pupil_phone do |pp|
     pp.pupil_home_number   '123456'   
     pp.pupil_mobile_number '65454343'
     pp.pupil
   end
 end
-# Factory.define :teacher_phone do |tp|
-#   tp.teacher_home_number '8-499-111-11-11'
-#   tp.teacher_mobile_number '8-999-555-44-33'
-#   tp.teacher
-# end
 
 

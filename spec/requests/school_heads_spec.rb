@@ -589,11 +589,17 @@ describe "SchoolHeads" do
       describe "Updating" do
         describe "View" do
           before(:each) do
-            @ipupil = FactoryGirl.create( :pupil, :pupil_phone => FactoryGirl.create( :pupil_phone ))            
-            visit edit_pupil_path( :id => @ipupil.id )
+            @ipupil = FactoryGirl.create( :pupil )
+            @attr_pupil_phones = {
+              :pupil_home_number   =>  "8903111111",
+              :pupil_mobile_number => "777-33-22"
+            }
+            @ipupil.create_pupil_phone( @attr_pupil_phones )
+            
+            visit edit_pupil_path( :id => @ipupil )
           end 
           
-          it "should have values in forms" do     
+          it "should have values in forms" do        
             response.should have_selector("form") do |form|
               form.should have_selector( "input", 
                                           :name => "pupil[pupil_last_name]",
@@ -620,13 +626,12 @@ describe "SchoolHeads" do
               form.should have_selector( "textarea",                                                                 
                                           :name => "pupil[pupil_address_of_living]",                                                        
                                           :content => @ipupil.pupil_address_of_living )                                         
-              # form.should have_selector( "input",                                                                                               
-              #                                           :name => "pupil[pupil_phone_attributes][pupil_home_number]")#,                                                        
-                                          # :value => @ipupil.pupil_phone.pupil_home_number )                                                                                     
-                                          # form.should have_selector( "input",                                                                                         
-                                          #                                                                       :name => "pupil[pupil_phone_attributes][pupil_mobile_number]",                                                                                    
-                                          #                                                                       :value => @ipupil.pupil_phone.pupil_mobile_number )                                                                                                                                        
-                                                                                                  
+              form.should have_selector( "input",                                                                                               
+                                         :name => "pupil[pupil_phone_attributes][pupil_home_number]",                                                        
+                                         :value => @ipupil.pupil_phone.pupil_home_number )                                                                                                                         
+              form.should have_selector( "input",                                                                                                                     
+                                         :name => "pupil[pupil_phone_attributes][pupil_mobile_number]",                                                                                                                                                                                                     
+                                         :value => @ipupil.pupil_phone.pupil_mobile_number )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
             end
           end
         end
