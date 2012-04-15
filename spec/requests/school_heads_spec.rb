@@ -420,6 +420,43 @@ describe "SchoolHeads" do
           end
         end
       end
+    
+      describe "Updating" do
+        before(:each) do
+          @t_leader =  FactoryGirl.create( :teacher_leader )
+          click_link "Классы"
+          click_link "Создать класс"
+          
+          fill_in "Номер класса",  :with => "11a"
+          fill_in "Дата создания класса", :with => "#{Date.today}" 
+          select "#{@t_leader.teacher.teacher_last_name} "  +                             # Select option via name.
+                 "#{@t_leader.teacher.teacher_first_name} " + 
+                 "#{@t_leader.teacher.teacher_middle_name}", 
+                 :from => "school_class[teacher_leader_id]"
+        
+          click_button "Создать"
+          
+          visit edit_school_class_path( :id => SchoolClass.first )
+        end
+        
+        describe "Success" do
+          it "should update with valid params" do
+            fill_in "Номер класса",  :with => "11c"
+            click_button "Изменить"
+            
+            flash[:success].should =~ /Класс успешно обновлен!/i
+          end
+        end
+        
+        describe "Failure" do
+          it "should reject to update with not valid params" do
+            fill_in "Номер класса",  :with => "  "
+            click_button "Изменить"
+            
+            flash[:error].should =~ /не может быть пустым/i
+          end
+        end
+      end
     end
   
     describe "Pupils" do
@@ -645,26 +682,21 @@ describe "SchoolHeads" do
 
         end
       
-        # describe "Success" do
-        #   it "should change if attributes are correct" do
-        #     expect do
-        #       fill_in "Фамилия",  :with => "Some"
-        #       click_button "Изменить"
-        #       
-        #       @ipupil.reload
-        #       @ipupil.pupil_last_name.should == "Some"
-        #     end.should change( Pupil, :count )
-        #   end
-        # end
+        describe "Success" do
+          it "should change if attributes are correct" do
+            fill_in "Фамилия",  :with => "Some"
+            click_button "Изменить"
+            
+            flash[:success].should =~ /Ученик успешно обновлен!/i
+          end
+        end
         
         describe "Failure" do
           it "should reject to change if attributes are not correct" do
-            expect do
-              fill_in "Фамилия",  :with => "  "
-              click_button "Изменить"
-              
-              @ipupil.reload
-            end.should_not change( Pupil, :count )
+            fill_in "Фамилия",  :with => "  "
+            click_button "Изменить"
+            
+            flash[:error].should =~ /не может быть пустой/i
           end
         end 
       end

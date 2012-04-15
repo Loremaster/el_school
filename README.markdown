@@ -4,9 +4,12 @@
 
 **School head**
 
-- He can switch between links in head.
-- He can create subjects.
-- He can choose subjects for teachers.
+- Switching between links in head.
+- Creating/editing subjects.
+- Choosing subjects for teachers.
+- Creating/editing pupils.
+- Creating/editing class heads.
+- Creating/editing classes (class code, date of creating, and class head for this class).
 
 ------------------------------------------------------------------------------
 
