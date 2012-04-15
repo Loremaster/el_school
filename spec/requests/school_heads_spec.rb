@@ -599,6 +599,14 @@ describe "SchoolHeads" do
         end
         
         describe "View" do
+          it "should have button to print" do
+            response.should have_selector("form") do |form|
+              form.should have_selector( "a",
+                                         :onclick => "javascript:window.print(); return false;",
+                                         :content => "Отправить на печать" )
+            end
+          end
+          
           it "should have values in forms" do
             response.should have_selector("form") do |form|
               form.should have_selector( "input", 

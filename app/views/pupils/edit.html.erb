@@ -101,5 +101,8 @@
     <% end %>
                
     <%= f.submit "Изменить", :class => "btn btn-large btn-warning" %>
+    
+    <%= link_to_function "Отправить на печать", "javascript:window.print()", 
+        :class => "btn btn-inverse" %>
   <% end %>  
 <% end %>
