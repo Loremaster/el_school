@@ -15,7 +15,8 @@
 class SchoolClass < ActiveRecord::Base
   attr_accessible :class_code,
                   :date_of_class_creation,
-                  :teacher_leader_id
+                  :teacher_leader_id,
+                  :pupil_ids
   
   has_many :pupils
                  

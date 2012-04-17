@@ -13,7 +13,7 @@ class SchoolClassesController < ApplicationController
     @everpresent_field_placeholder, @class_code = "Обязательное поле", ""
     @creation_class_date = ""
     @leaders = collect_teachers_leaders 
-    @choosen_teacher = @leaders.first.last unless @leaders.empty?                         # First - array, then last element in array. Get it ONLY if we've found data.    
+    @choosen_teacher = @leaders.first.last unless @leaders.empty?                         # First - array, then last element in array. So we get first teacher.    
     @class = SchoolClass.new 
     
     if params.has_key?( :school_class )
@@ -45,7 +45,7 @@ class SchoolClassesController < ApplicationController
   def update
     school_class = SchoolClass.find( params[:id] )
       
-    if school_class.update_attributes( params[:school_class] )
+    if school_class.update_attributes( params[:school_class] )      
       redirect_to school_classes_path
       flash[:success] = "Класс успешно обновлен!"
     else

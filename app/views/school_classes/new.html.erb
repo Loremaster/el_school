@@ -35,6 +35,18 @@
 	    </div>
 	  </div>
     
+    <div class="control-group">
+      <div class="controls">
+        <%#= f.select(:teacher_leader_id, @leaders,{ :prompt => "Please select"},                  
+                              { :multiple => true, :size => 5 }               
+                            ) %> 
+        <%# Pupil.all.each do |pupil| %>
+          <%#= check_box_tag "school_class[pupil_ids][]", pupil.id %>
+          <%#= "#{pupil.pupil_last_name} #{pupil.pupil_first_name} #{pupil.pupil_middle_name}"%><br>
+        <%# end %>                                                                 
+      </div>  
+    </div>
+        
     <%= f.submit "Создать", :class => "btn btn-large btn-success" %>
   <% end %>
 <% end %>  

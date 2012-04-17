@@ -8,7 +8,6 @@ class TeachersController < ApplicationController
     @teachers_leaders = TeacherLeader.joins(:teacher)
                                      .order("teacher_last_name, teacher_first_name")      # Sort teachers for teacher leader by last and first names.
     @teachers_exist = Teacher.first ? true : false                                        # Teacher.first generates nil if there are no entrys.
-    # @teachers_leaders_exist = TeacherLeader.first ? true : false
   end
   
   def edit
