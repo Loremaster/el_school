@@ -10,6 +10,8 @@
 - Creating/editing pupils.
 - Creating/editing class heads.
 - Creating/editing classes (class code, date of creating, and class head for this class).
+  - NOTICE! If you choose pupils for one class and these pupils were already in other class
+    then they'll be only in this class!
 
 ------------------------------------------------------------------------------
 
@@ -39,14 +41,9 @@ and contains russian words. For translation words i use locale, it set as :en (d
 
 ------------------------------------------------------------------------------
 
-**Database**
-
-- Switched to PostgreSQL.
-
-------------------------------------------------------------------------------
-
 **Other**
 
+- Switched to PostgreSQL.
 - Added password encryption/decryption in User table.
 - Updated to Rails 3.2
 - Libraries updated.

@@ -71,9 +71,14 @@ describe Pupil do
       @pupil.school_class_id.should == @school_class.id
       @pupil.school_class.should == @school_class
     end
+    
+    it "should not require school class id" do                                            # Otherwise it's to comlicate to create pupil.
+      @pupil.school_class_id = nil
+      @pupil.should be_valid
+    end
   end
   
-  describe "Validations" do
+  describe "Validation's" do
     describe "Rejection" do
       it "should reject blank last name" do
         wrong_attr = @attr_pupil.merge( :pupil_last_name => "  " )

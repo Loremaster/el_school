@@ -25,6 +25,7 @@ class SchoolClassesController < ApplicationController
   
   def create
     school_class = SchoolClass.new( params[:school_class] )
+    
     if school_class.save
       redirect_to school_classes_path
       flash[:success] = "Класс успешно создан!"

@@ -25,7 +25,7 @@
     
     <div class="control-group">
 	    <%= f.label :teacher_leader_id, "ФИО классного руководителя", 
-	        :class => "control-label" %>
+	                :class => "control-label" %>
 	        
 	    <div class="controls">
         <%= f.select( :teacher_leader_id,                                                # Here we use 'select' instead of 'select_tag' because 'select' allows us to give builder ('tl.select' here).
@@ -34,12 +34,20 @@
 	  </div>
     
     <div class="control-group">
-      <div class="controls">
+      <%= f.label :pupil_ids, "Ученики в классе", 
+                  :class => "control-label" %>
+                  
+      <div class="controls">        
         <%= hidden_field_tag "school_class[pupil_ids][]", nil %>
-        <% Pupil.all.each do |pupil| %>
-          <%= check_box_tag "school_class[pupil_ids][]", pupil.id,
-                            @class.pupil_ids.include?(pupil.id)%>
-          <%= "#{pupil.pupil_last_name} #{pupil.pupil_first_name} #{pupil.pupil_middle_name}"%><br>
+        <% Pupil.all.each do |pupil| %>          
+          <%= label_tag dom_id( pupil ), nil, :class => "checkbox" do %>
+            <%= check_box_tag "school_class[pupil_ids][]", 
+                              pupil.id,
+                              @class.pupil_ids.include?(pupil.id),
+                              id: dom_id( pupil ) %>
+                              
+            <%= "#{pupil.pupil_last_name} #{pupil.pupil_first_name} #{pupil.pupil_middle_name}"%>
+          <% end %>
         <% end %>                                                                 
       </div>  
     </div>
