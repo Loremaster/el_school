@@ -4,14 +4,14 @@
 
 **School head**
 
-- Switching between links in head.
+- Now he can filter users by class.
+- Creating/editing classes (class code, date of creating, and class head for this class).
+  - NOTICE! If you choose pupils for one class and these pupils were already in other class
+    then they'll be only in this class!
 - Creating/editing subjects.
 - Choosing subjects for teachers.
 - Creating/editing pupils.
 - Creating/editing class heads.
-- Creating/editing classes (class code, date of creating, and class head for this class).
-  - NOTICE! If you choose pupils for one class and these pupils were already in other class
-    then they'll be only in this class!
 
 ------------------------------------------------------------------------------
 

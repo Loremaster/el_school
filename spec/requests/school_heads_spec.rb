@@ -396,7 +396,7 @@ describe "SchoolHeads" do
           @class2 = FactoryGirl.create( :school_class, :class_code => "11d" )
         end
         
-        it "should choose pupils in class correctly" do
+        it "should choose already created pupils in class correctly" do
           # Choosing pupil for 1st class
           visit edit_school_class_path( :id => @class1 )
           check "#{@pupil.pupil_last_name} #{@pupil.pupil_first_name} #{@pupil.pupil_middle_name}"
@@ -423,6 +423,32 @@ describe "SchoolHeads" do
           visit edit_school_class_path( :id => @class1 ) 
           response.should_not have_selector( 'input', :value => "#{@pupil.id}", 
                                                       :checked => "checked" )                                                                          
+        end
+     
+        it "should save pupils in class when class is creating" do          
+          t_leader = FactoryGirl.create( :teacher_leader )
+          ipupil = FactoryGirl.create( :pupil )  
+          class2 = FactoryGirl.create( :school_class, :class_code => "11d" )
+          
+          click_link "Классы"
+          click_link "Создать класс"
+        
+          # Creating class and choosing pupil.
+          fill_in "Номер класса",  :with => "11a"
+          fill_in "Дата создания класса", :with => "#{Date.today}" 
+          select "#{t_leader.teacher.teacher_last_name} "  +                               # Select option via name.
+                 "#{t_leader.teacher.teacher_first_name} " + 
+                 "#{t_leader.teacher.teacher_middle_name}", 
+                 :from => "school_class[teacher_leader_id]"
+          
+          check "#{ipupil.pupil_last_name} #{ipupil.pupil_first_name} #{ipupil.pupil_middle_name}"
+         
+          click_button "Создать"
+          
+          # Visiting edit page of pupil and check that he is still checked.
+          visit edit_school_class_path( :id => ipupil.school_class_id )
+          response.should have_selector( 'input', :value => "#{ipupil.id}", 
+                                                  :checked => "checked" ) 
         end
       end
     

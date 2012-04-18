@@ -15,6 +15,7 @@ class SchoolClassesController < ApplicationController
     @leaders = collect_teachers_leaders 
     @choosen_teacher = @leaders.first.last unless @leaders.empty?                         # First - array, then last element in array. So we get first teacher.    
     @class = SchoolClass.new 
+    @pupils = Pupil.order('pupil_last_name, pupil_first_name, pupil_middle_name')
     
     if params.has_key?( :school_class )
       @class_code = params[:school_class][:class_code]
