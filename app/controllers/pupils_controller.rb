@@ -1,10 +1,19 @@
 # encoding: UTF-8
 class PupilsController < ApplicationController
-  before_filter :authenticate_school_heads, :only => [ :index, :new, :create, :edit, :update ]
+  before_filter :authenticate_school_heads, :only => [ :index, :new, :create, :edit, 
+                                                       :update ]
   
   def index  
     @pupil_exist = Pupil.first ? true : false 
-    @pupils = Pupil.order('pupil_last_name, pupil_first_name, pupil_middle_name') 
+    @pupils = Pupil.order( :pupil_last_name, :pupil_first_name, :pupil_middle_name ) 
+    @classes = SchoolClass.order( :class_code )
+
+    if params.has_key?( :class_code )
+      unsorted_pupils = SchoolClass.where( "class_code = ?", params[:class_code] )
+                                   .first.pupils
+      @pupils = unsorted_pupils.order(:pupil_last_name, :pupil_first_name, 
+                                      :pupil_middle_name)                              
+    end                             
   end
   
   def new

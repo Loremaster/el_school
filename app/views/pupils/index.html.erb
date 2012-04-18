@@ -1,5 +1,21 @@
 <legend>Ученики</legend>
 
+<div style="margin-top: 18px;" class="btn-toolbar">
+  <div class="btn-group">
+    <a href="#" data-toggle="dropdown" class="btn dropdown-toggle">
+      Показать класс
+      <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+			<li><%= link_to "Все ученики", pupils_path %></li>
+			
+			<% @classes.each do |c| %>
+			  <li><%= link_to c.class_code, pupils_path( :class_code => c.class_code ) %></li>			
+			<% end %>
+    </ul>
+  </div>
+</div>
+
 <table class="table table-bordered table-striped" name="teachers">
   <thead>
     <tr>
