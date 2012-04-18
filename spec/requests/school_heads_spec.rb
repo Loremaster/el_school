@@ -426,6 +426,73 @@ describe "SchoolHeads" do
         end
       end
     
+      describe "Showing pupils by class" do
+        before(:each) do
+          @pupil1 = FactoryGirl.create( :pupil )
+          @pupil2 = FactoryGirl.create( :pupil, :pupil_last_name => "Andropov",
+                                                :pupil_first_name => "Igor",
+                                                :pupil_middle_name => "kolima")
+          @pupil3 = FactoryGirl.create( :pupil, :pupil_last_name => "Andropov2",
+                                                :pupil_first_name => "Igor2",
+                                                :pupil_middle_name => "kolima2")
+                                                
+          @class1 = FactoryGirl.create( :school_class ) 
+          @class2 = FactoryGirl.create( :school_class, :class_code => "111")
+          
+          @pupil1.school_class_id = @class1.id 
+          @pupil3.school_class_id = @class2.id        
+        end
+        
+        it "should show all pupils by link in button" do
+          click_link "Ученики"
+          click_link "Отфильтровать по классу"
+          click_link "Все ученики"
+          
+          # Checking that names appear in table.
+          response.should have_selector('table', :name => "teachers") do |table|
+            table.should have_selector('tbody') do |tbody|
+              tbody.should have_selector('tr') do |td|
+                td.should contain( @pupil1.pupil_last_name )
+                td.should contain( @pupil1.pupil_first_name )
+                td.should contain( @pupil1.pupil_middle_name )
+                
+                td.should contain( @pupil2.pupil_last_name )
+                td.should contain( @pupil2.pupil_first_name )
+                td.should contain( @pupil2.pupil_middle_name )
+              end
+            end
+          end
+        end
+      
+        it "should show pupils in class" do
+          click_link "Ученики"
+          click_link "Отфильтровать по классу"
+          click_link "#{@class1.class_code}"
+          
+          # Checking that app shows pupils ONLY from their class if we choosen filter. 
+          # So it should not shou pupils who don't have their own class and it should not
+          # show pupils who are in other class.
+          response.should have_selector('table', :name => "teachers") do |table|
+            table.should have_selector('tbody') do |tbody|
+              tbody.should have_selector('tr') do |td|
+                td.should contain( @pupil1.pupil_last_name )
+                td.should contain( @pupil1.pupil_first_name )
+                td.should contain( @pupil1.pupil_middle_name )
+                
+                td.should_not contain( @pupil2.pupil_last_name )
+                td.should_not contain( @pupil2.pupil_first_name )
+                td.should_not contain( @pupil2.pupil_middle_name )
+                
+                td.should_not contain( @pupil3.pupil_last_name )
+                td.should_not contain( @pupil3.pupil_first_name )
+                td.should_not contain( @pupil3.pupil_middle_name )
+              end
+            end
+          end
+          
+        end
+      end
+    
       describe "Create" do
         before(:each) do
           @t_leader = FactoryGirl.create( :teacher_leader )
