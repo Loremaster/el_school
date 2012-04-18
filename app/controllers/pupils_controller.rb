@@ -4,7 +4,7 @@ class PupilsController < ApplicationController
   
   def index  
     @pupil_exist = Pupil.first ? true : false 
-    @pupils = Pupil.order('pupil_last_name, pupil_first_name') 
+    @pupils = Pupil.order('pupil_last_name, pupil_first_name, pupil_middle_name') 
   end
   
   def new

@@ -8,7 +8,7 @@
     </thead>
     <tbody>
       <%= hidden_field_tag "teacher[subject_ids][]", nil %>                               <%# We use hidden field because it doesn't submit unchecked fields. So, we pass nil and nothing will be submitted.%>
-      <% Subject.all.each do |subject| %>         
+      <% @subjects.each do |subject| %>         
         <tr>
           <td>
             <%= check_box_tag "teacher[subject_ids][]",                                   # [] brackets tells that this is array.
