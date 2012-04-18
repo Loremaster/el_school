@@ -28,7 +28,7 @@
 	                :class => "control-label" %>
 	        
 	    <div class="controls">
-        <%= f.select( :teacher_leader_id,                                                # Here we use 'select' instead of 'select_tag' because 'select' allows us to give builder ('tl.select' here).
+        <%= f.select( :teacher_leader_id,                                                 # Here we use 'select' instead of 'select_tag' because 'select' allows us to give builder ('tl.select' here).
                       options_for_select( @leaders, @choosen_teacher )) %>  	     
 	    </div>
 	  </div>
@@ -38,13 +38,13 @@
                   :class => "control-label" %>
                   
       <div class="controls">        
-        <%= hidden_field_tag "school_class[pupil_ids][]", nil %>
+        <%= hidden_field_tag "school_class[pupil_ids][]", nil %>                          
         <% Pupil.all.each do |pupil| %>          
-          <%= label_tag dom_id( pupil ), nil, :class => "checkbox" do %>
-            <%= check_box_tag "school_class[pupil_ids][]", 
-                              pupil.id,
-                              @class.pupil_ids.include?(pupil.id),
-                              id: dom_id( pupil ) %>
+          <%= label_tag dom_id( pupil ), nil, :class => "checkbox" do %>                  <%# Name, content_or_options = nil, options. %>
+            <%= check_box_tag "school_class[pupil_ids][]",                                # [] brackets tells that this is array.
+                              pupil.id,                                                   # Value of checkbox.
+                              @class.pupil_ids.include?(pupil.id),                        # Here we automatically check checkboxes.
+                              id: dom_id( pupil ) %>                                      <%# Give unique id for each value. 'dom_id' is Rails helper.%>
                               
             <%= "#{pupil.pupil_last_name} #{pupil.pupil_first_name} #{pupil.pupil_middle_name}"%>
           <% end %>

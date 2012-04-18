@@ -382,10 +382,53 @@ describe "SchoolHeads" do
           end                                 
         end
       end
+          
+      describe "Pupils in School class" do
+        before(:each) do
+          @attr_school_class = {
+            :class_code => "11k",
+            :date_of_class_creation => Date.today
+          }
+          
+          @pupil = FactoryGirl.create( :pupil )
+          @leader = FactoryGirl.create( :teacher_leader )
+          @class1 = FactoryGirl.create( :school_class )
+          @class2 = FactoryGirl.create( :school_class, :class_code => "11d" )
+        end
+        
+        it "should choose pupils in class correctly" do
+          # Choosing pupil for 1st class
+          visit edit_school_class_path( :id => @class1 )
+          check "#{@pupil.pupil_last_name} #{@pupil.pupil_first_name} #{@pupil.pupil_middle_name}"
+          click_button "Изменить"
+          
+          # Checking that pupil is checked for 1st class
+          visit edit_school_class_path( :id => @class1 )
+          response.should have_selector( 'input', :value => "#{@pupil.id}", 
+                                                  :checked => "checked" )
+                                                  
+          # Checking same pupil for 2nd class
+          visit edit_school_class_path( :id => @class2 ) 
+          response.should_not have_selector( 'input', :value => "#{@pupil.id}", 
+                                                      :checked => "checked" )
+          check "#{@pupil.pupil_last_name} #{@pupil.pupil_first_name} #{@pupil.pupil_middle_name}"
+          click_button "Изменить"  
+          
+          # Checking that pupil is checked for 2st class 
+          visit edit_school_class_path( :id => @class2 )
+          response.should have_selector( 'input', :value => "#{@pupil.id}", 
+                                                  :checked => "checked" )
+                                                  
+          # Checking that pupil is NOT checked for 1st class  
+          visit edit_school_class_path( :id => @class1 ) 
+          response.should_not have_selector( 'input', :value => "#{@pupil.id}", 
+                                                      :checked => "checked" )                                                                          
+        end
+      end
     
       describe "Create" do
         before(:each) do
-          @t_leader =  FactoryGirl.create( :teacher_leader )
+          @t_leader = FactoryGirl.create( :teacher_leader )
           click_link "Классы"
           click_link "Создать класс" 
         end
@@ -422,7 +465,7 @@ describe "SchoolHeads" do
       end
     
       describe "Updating" do
-        before(:each) do
+        before(:each) do                                                                  # Creating class and visiting it's edit page.
           @t_leader =  FactoryGirl.create( :teacher_leader )
           click_link "Классы"
           click_link "Создать класс"
