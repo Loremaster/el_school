@@ -30,6 +30,10 @@
 	    <div class="controls">
         <%= f.select( :teacher_leader_id,                                                 # Here we use 'select' instead of 'select_tag' because 'select' allows us to give builder ('tl.select' here).
                       options_for_select( @leaders, @choosen_teacher )) %>  	     
+	    
+	      <p class="help-block">
+	        Вы можете выбрать учителя, который еще не является классным руководителем.
+	      </p>
 	    </div>
 	  </div>
     

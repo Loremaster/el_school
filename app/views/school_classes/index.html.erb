@@ -1,6 +1,6 @@
 <legend>Классы</legend>
 
-<table class="table table-bordered table-striped" name="teachers">
+<table class="table table-bordered table-striped" name="school_classes">
   <thead>
     <tr>
       <th>Номер класса</th>      
@@ -24,3 +24,24 @@
 </table>
 
 <%= link_to "Создать класс", new_school_class_path, :class => "btn btn-primary btn-large" %>
+
+<br/> <br/> <br/>
+
+<legend>Учебная программа</legend>
+
+<table class="table table-bordered table-striped" name="curriculums">
+  <thead>
+    <tr>
+      <th>Номер класса</th>                               
+    </tr>
+  </thead>
+  <tbody>
+     <% if @class_exist %>
+       <% @classes.each do |c| %>
+       <tr>
+         <td><%= c.class_code %></td>
+       </tr>   
+       <% end %>
+     <% end %>
+  </tbody>
+</table>

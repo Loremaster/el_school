@@ -19,6 +19,7 @@ class SchoolClass < ActiveRecord::Base
                   :pupil_ids
   
   has_many :pupils
+  has_many :curriculums
                  
   belongs_to :teacher_leader
                   

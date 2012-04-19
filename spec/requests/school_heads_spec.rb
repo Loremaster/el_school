@@ -235,7 +235,7 @@ describe "SchoolHeads" do
             end.should_not change( TeacherLeader, :count )
           end
         
-          it "should not create teacher leader if he already exists" do                     # It should not create teacher leader because select already has same option.
+          it "should not create teacher leader if he already exists" do                   # It should not create teacher leader because select already has same option.
             fill_in "Логин учетной записи",  :with => "something"
             fill_in "Пароль учетной записи", :with => "another something"
         
@@ -264,7 +264,7 @@ describe "SchoolHeads" do
             
             fill_in "Логин учетной записи",  :with => "something"
             fill_in "Пароль учетной записи", :with => "ano"
-            # select "#{@teacher2.teacher_last_name} "  +                                   # Select option via name.
+            # select "#{@teacher2.teacher_last_name} "  +                                 # Select option via name.
             #        "#{@teacher2.teacher_first_name} " + 
             #        "#{@teacher2.teacher_middle_name}", 
             #        :from => "user_teacher_leader_attributes_teacher_id"
@@ -436,7 +436,7 @@ describe "SchoolHeads" do
           # Creating class and choosing pupil.
           fill_in "Номер класса",  :with => "11a"
           fill_in "Дата создания класса", :with => "#{Date.today}" 
-          select "#{t_leader.teacher.teacher_last_name} "  +                               # Select option via name.
+          select "#{t_leader.teacher.teacher_last_name} "  +                              # Select option via name.
                  "#{t_leader.teacher.teacher_first_name} " + 
                  "#{t_leader.teacher.teacher_middle_name}", 
                  :from => "school_class[teacher_leader_id]"
