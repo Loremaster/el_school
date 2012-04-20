@@ -13,9 +13,7 @@
       <% @classes.each do |c| %>
         <tr class="cross" onclick="location.href='<%= edit_school_class_path( :id => c.id ) %>'">
           <td><%= c.class_code %></td>
-          <td><%= "#{c.teacher_leader.teacher.teacher_last_name} " + 
-                  "#{c.teacher_leader.teacher.teacher_first_name} " +
-                  "#{c.teacher_leader.teacher.teacher_middle_name}"%></td>
+          <td><%= teacher_full_names( c.teacher_leader.teacher ) %></td>
           <td><%= c.date_of_class_creation.strftime('%d.%m.%Y') %></td>                   <%# Show date in format of dd.mm.yyyy%>
         </tr>
       <% end %>

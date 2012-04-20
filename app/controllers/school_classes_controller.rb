@@ -43,6 +43,7 @@ class SchoolClassesController < ApplicationController
     @choosen_teacher = @class.teacher_leader.id unless @class.nil? 
     @everpresent_field_placeholder = "Обязательное поле"
     @pupils = Pupil.order('pupil_last_name, pupil_first_name, pupil_middle_name') 
+    @teachers = Teacher.all
   end
   
   def update

@@ -22,5 +22,7 @@ class ApplicationController < ActionController::Base
     else
        return false
     end   
-  end 
+  end
+  
+ 
 end

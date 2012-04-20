@@ -49,14 +49,17 @@
                               @class.pupil_ids.include?( pupil.id ),                      # Here we automatically check checkboxes.
                               id: dom_id( pupil ) %>                                      <%# Give unique id for each value. 'dom_id' is Rails helper.%>
                               
-            <%= "#{pupil.pupil_last_name} #{pupil.pupil_first_name} #{pupil.pupil_middle_name}"%>
+            <%= "#{pupil.pupil_last_name} #{pupil.pupil_first_name} " + 
+                "#{pupil.pupil_middle_name}"%>
           <% end %>
         <% end %>                                                                 
       </div>  
     </div>
     
     <div class="control-group">
-      <%= f.label :qualification_ids, "Учебная программа", :class => "control-label" %>
+      <%= f.label :qualification_ids, "Учебная программа (выберите предметы, которые " + 
+                                      "учителя будут вести у данного класса)", 
+                  :class => "control-label" %>
       
       <div class="controls">  
         <table class="table table-bordered table-striped" name="curriculums">
@@ -69,20 +72,22 @@
           <tbody>
             <%= hidden_field_tag "school_class[qualification_ids][]", nil %>
             
-            <% Teacher.all.each do |t| %>
+            <% @teachers.each do |t| %>
               <tr>
-                <td><% t.qualifications.each do |q| %>                                                                   
+                <td>
+                  <% t.qualifications.each do |q| %>                                                                 
                     <%= label_tag dom_id( q ), nil, :class => "checkbox" do %>            <%# Name, content_or_options = nil, options. %>                                   
-                    <%= check_box_tag "school_class[qualification_ids][]",                # [] brackets tells that this is array.                               
-                                      q.id,                                               # Value of checkbox.                                                  
-                                      @class.qualification_ids.include?( q.id ),          # Automatically checking checkboxes.                                  
-                                      id: dom_id( q ) %>                                  <%# Give unique id for each value. 'dom_id' is Rails helper.%>        
-                    
-                    <%= "#{q.subject.subject_name}" %>                                    <%# Subject %>           
-                  <% end %>                                                                                          
-                <% end %></td>
-                <td><%= "#{t.teacher_last_name} #{t.teacher_first_name} " +
-                        "#{t.teacher_middle_name}" %>
+                      <%= check_box_tag "school_class[qualification_ids][]",              # [] brackets tells that this is array.                               
+                                        q.id,                                             # Value of checkbox.                                                  
+                                        @class.qualification_ids.include?( q.id ),        # Automatically checking checkboxes.                                  
+                                        id: dom_id( q ) %>                                <%# Give unique id for each value. 'dom_id' is Rails helper.%>        
+                      
+                      <%= "#{q.subject.subject_name}" %>                                  <%# Subject %>           
+                    <% end %>                                                                                        
+                  <% end %>
+                </td>
+                <td>
+                  <%= teacher_full_names( t ) %>
                 </td>
               </tr>
             <% end %>
