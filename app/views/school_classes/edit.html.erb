@@ -46,7 +46,7 @@
           <%= label_tag dom_id( pupil ), nil, :class => "checkbox" do %>                  <%# Name, content_or_options = nil, options. %>
             <%= check_box_tag "school_class[pupil_ids][]",                                # [] brackets tells that this is array.
                               pupil.id,                                                   # Value of checkbox.
-                              @class.pupil_ids.include?(pupil.id),                        # Here we automatically check checkboxes.
+                              @class.pupil_ids.include?( pupil.id ),                      # Here we automatically check checkboxes.
                               id: dom_id( pupil ) %>                                      <%# Give unique id for each value. 'dom_id' is Rails helper.%>
                               
             <%= "#{pupil.pupil_last_name} #{pupil.pupil_first_name} #{pupil.pupil_middle_name}"%>
@@ -54,27 +54,30 @@
         <% end %>                                                                 
       </div>  
     </div>
-   
-    <%#= f.fields_for :curriculum do |builder| %> 
-      <div class="control-group">
-        <div class="controls">
-          <% Teacher.all.each do |t| %>
-            <p><%= t.teacher_last_name %></p>
-            
-            <% t.subjects.each do |s| %>            
-              <p>___<%= s.subject_name %> <%= %> </p>
-            <% end %>
-          <% end %>
-          
-          <% Qualification.all.each do |q| %>
-            <%= check_box_tag "school_class[qualification_ids][]",
-                              q.id %>
-            <%= label_tag nil, "Препод:#{q.teacher.teacher_last_name} предмет:#{q.subject.subject_name}" %>                              
-          <% end %>
-        </div>
-      </div>
-    <%# end %>
     
+    <div class="control-group">                                                           
+      <%= f.label :qualification_ids, "Учебная программа", :class => "control-label" %>      
+                                                                                          
+      <div class="controls">                                                              
+        <%= hidden_field_tag "school_class[qualification_ids][]", nil %>                  
+                                                                                          
+        <% Teacher.all.each do |t| %>                                                                          
+          <p><%= t.teacher_last_name %></p>                                                                    
+                                                                                                             
+          <% t.qualifications.each do |q| %>                                                                   
+            <%= label_tag dom_id( q ), nil, :class => "checkbox" do %>                    <%# Name, content_or_options = nil, options. %>                             
+              <%= check_box_tag "school_class[qualification_ids][]",                      # [] brackets tells that this is array.
+                                q.id,                                                     # Value of checkbox.
+                                @class.qualification_ids.include?( q.id ),                # Automatically checking checkboxes.  
+                                id: dom_id( q ) %>                                        <%# Give unique id for each value. 'dom_id' is Rails helper.%>
+                                                                                                       
+              <%= "#{q.subject.subject_name}" %>                                               
+            <% end %>                                                                                          
+          <% end %>                                                                                            
+        <% end %>                                                                                                                                                                                                      
+      </div>                                                                                                   
+    </div>                                                                                
+                                                                                                   
     <%= f.submit "Изменить", :class => "btn btn-large btn-warning" %>
   <% end %>
 <% end %>
