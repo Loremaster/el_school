@@ -21,7 +21,8 @@
     <tr>
       <th>Фамилия</th>                     
       <th>Имя</th>                     
-      <th>Отчество</th>                     
+      <th>Отчество</th>
+      <th>Класс</th>                     
     </tr>
   </thead>
   <tbody>
@@ -31,6 +32,12 @@
           <td><%= "#{p.pupil_last_name}" %></td>
           <td><%= "#{p.pupil_first_name}" %></td>
           <td><%= "#{p.pupil_middle_name}" %></td>
+          <td> <% if not p.school_class.nil? %>
+                 <%= "#{p.school_class.class_code}" %>
+               <% else %>
+                 --                  
+               <% end %>   
+          </td>
         </tr>
       <% end %>
     <% end %>

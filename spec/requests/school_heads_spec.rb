@@ -451,6 +451,7 @@ describe "SchoolHeads" do
                                                   :checked => "checked" ) 
         end
       end
+      
     
       describe "Showing pupils by class" do
         before(:each) do
@@ -594,6 +595,12 @@ describe "SchoolHeads" do
         end
       end
     end
+  
+    # describe "Curriculum" do
+    #       before(:each) do
+    #         # @class = FactoryGirl.create( :school_class )
+    #       end
+    #     end
   
     describe "Pupils" do
       describe "Creating" do
