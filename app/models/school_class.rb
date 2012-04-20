@@ -17,7 +17,7 @@ class SchoolClass < ActiveRecord::Base
                   :date_of_class_creation,
                   :teacher_leader_id,
                   :pupil_ids,
-                  :qualification_ids
+                  :qualification_ids                                                      # We use this to save ids in Curriculum table.
   
   belongs_to :teacher_leader
   
@@ -25,7 +25,6 @@ class SchoolClass < ActiveRecord::Base
   has_many :curriculums
   has_many :qualifications, :through => :curriculums 
 
-  # accepts_nested_attributes_for :curriculums
                 
   validates :class_code,
               :presence   => { :message => "не может быть пустым" },            
