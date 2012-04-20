@@ -18,11 +18,13 @@ class SchoolClass < ActiveRecord::Base
                   :teacher_leader_id,
                   :pupil_ids
   
+  belongs_to :teacher_leader
+  
   has_many :pupils
   has_many :curriculums
-                 
-  belongs_to :teacher_leader
-                  
+  has_many :qualifications, :through => :curriculums 
+
+                
   validates :class_code,
               :presence   => { :message => "не может быть пустым" },            
               :length     => { 

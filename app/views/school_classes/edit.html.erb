@@ -38,8 +38,7 @@
 	  </div>
     
     <div class="control-group">
-      <%= f.label :pupil_ids, "Ученики в классе", 
-                  :class => "control-label" %>
+      <%= f.label :pupil_ids, "Ученики в классе", :class => "control-label" %>
                   
       <div class="controls">        
         <%= hidden_field_tag "school_class[pupil_ids][]", nil %>                          
@@ -55,6 +54,26 @@
         <% end %>                                                                 
       </div>  
     </div>
+   
+    <%#= f.fields_for :curriculum do |builder| %> 
+      <div class="control-group">
+        <div class="controls">
+          <% Teacher.all.each do |t| %>
+            <p><%= t.teacher_last_name %></p>
+            
+            <% t.subjects.each do |s| %>            
+              <p>___<%= s.subject_name %> <%= %> </p>
+            <% end %>
+          <% end %>
+          
+          <% Qualification.all.each do |q| %>
+            <%= check_box_tag "school_class[qualification_ids][]",
+                              q.id %>
+            <%= label_tag nil, "Препод:#{q.teacher.teacher_last_name} предмет:#{q.subject.subject_name}" %>                              
+          <% end %>
+        </div>
+      </div>
+    <%# end %>
     
     <%= f.submit "Изменить", :class => "btn btn-large btn-warning" %>
   <% end %>

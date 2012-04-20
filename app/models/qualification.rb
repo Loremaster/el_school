@@ -15,4 +15,5 @@ class Qualification < ActiveRecord::Base
   belongs_to :teacher
   
   has_many :curriculums
+  has_many :school_classes, :through => :curriculums
 end
