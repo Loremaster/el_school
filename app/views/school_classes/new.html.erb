@@ -49,7 +49,7 @@
           <%= label_tag dom_id( pupil ), nil, :class => "checkbox" do %>                  <%# Name, content_or_options = nil, options. %>
             <%= check_box_tag "school_class[pupil_ids][]",                                # [] brackets tells that this is array.
                               pupil.id,                                                   # Value of checkbox.
-                              @class.pupil_ids.include?(pupil.id),                        # Here we automatically check checkboxes.
+                              nil,                                                        # We didn't create class yet so checkboxes should be empty.
                               id: dom_id( pupil ) %>                                      <%# Give unique id for each value. 'dom_id' is Rails helper.%>
                               
             <%= "#{pupil.pupil_last_name} #{pupil.pupil_first_name} #{pupil.pupil_middle_name}"%>
