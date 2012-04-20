@@ -596,11 +596,44 @@ describe "SchoolHeads" do
       end
     end
   
-    # describe "Curriculum" do
-    #       before(:each) do
-    #         # @class = FactoryGirl.create( :school_class )
-    #       end
-    #     end
+    describe "Curriculum" do
+      before(:each) do
+        @class = FactoryGirl.create( :school_class )
+        @subj1 = FactoryGirl.create( :subject )
+        @subj2 = FactoryGirl.create( :subject, :subject_name => "Physics" )
+        @teacher = FactoryGirl.create( :teacher )
+        Qualification.create( :subject_id => @subj1.id, :teacher_id => @teacher.id )      # Teacher can teach subj1.
+        Qualification.create( :subject_id => @subj2.id, :teacher_id => @teacher.id )      # ...               subj2.        
+      end
+      
+      describe "Edit page" do      
+        it "should successful check curriculums on edit page" do
+          expect do
+            visit edit_school_class_path( :id => @class )
+                
+            check @subj1.subject_name 
+            click_button "Изменить"
+          end.should change( Curriculum, :count).by( 1 )
+        end
+        
+        it "should keep in form checking field" do
+          visit edit_school_class_path( :id => @class )
+              
+          check @subj1.subject_name 
+          click_button "Изменить"
+          
+          visit edit_school_class_path( :id => @class )
+          
+          response.should have_selector( 'label', :content => @subj1.subject_name ) do |label|
+            label.should have_selector( 'input', :checked => "checked")
+          end
+          response.should have_selector( 'label', :content => @subj2.subject_name ) do |label|
+            label.should_not have_selector( 'input', :checked => "checked")
+          end
+        end
+      end
+      
+    end
   
     describe "Pupils" do
       describe "Creating" do
