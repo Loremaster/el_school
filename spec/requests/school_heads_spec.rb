@@ -598,16 +598,42 @@ describe "SchoolHeads" do
   
     describe "Curriculum" do
       before(:each) do
-        @class = FactoryGirl.create( :school_class )
         @subj1 = FactoryGirl.create( :subject )
         @subj2 = FactoryGirl.create( :subject, :subject_name => "Physics" )
         @teacher = FactoryGirl.create( :teacher )
         Qualification.create( :subject_id => @subj1.id, :teacher_id => @teacher.id )      # Teacher can teach subj1.
-        Qualification.create( :subject_id => @subj2.id, :teacher_id => @teacher.id )      # ...               subj2.        
+        Qualification.create( :subject_id => @subj2.id, :teacher_id => @teacher.id )      # ...               subj2.
       end
       
-      describe "Edit page" do      
-        it "should successful check curriculums on edit page" do
+      describe "Create page" do
+        before(:each) do         
+          @t_leader = FactoryGirl.create( :teacher_leader )
+        
+          click_link "Классы"
+          click_link "Создать класс"
+        end
+        
+        it "should successful check curriculums and save it in DB" do
+          expect do 
+            fill_in "Номер класса",  :with => "11a"
+            fill_in "Дата создания класса", :with => "#{Date.today}" 
+            select "#{@t_leader.teacher.teacher_last_name} "  +                           # Select option via name.
+                   "#{@t_leader.teacher.teacher_first_name} " + 
+                   "#{@t_leader.teacher.teacher_middle_name}", 
+                   :from => "school_class[teacher_leader_id]"
+            check @subj1.subject_name
+            
+            click_button "Создать"
+          end.should change( Curriculum, :count).by( 1 )
+        end
+      end
+      
+      describe "Edit page" do
+        before(:each) do
+          @class = FactoryGirl.create( :school_class )     
+        end
+              
+        it "should successful check curriculums and save it in DB" do
           expect do
             visit edit_school_class_path( :id => @class )
                 
