@@ -57,6 +57,47 @@
         <% end %>                                                                 
       </div>  
     </div>
+    
+    <div class="control-group">
+      <%= f.label :qualification_ids, "Учебная программа (выберите предметы, которые " + 
+                                      "учителя будут вести у данного класса)", 
+                  :class => "control-label" %>
+      
+      <div class="controls">  
+        <table class="table table-bordered table-striped" name="curriculums">
+          <thead>
+            <tr>
+              <th>Предмет</th>
+              <th>Учитель</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= hidden_field_tag "school_class[qualification_ids][]", nil %>
+            
+            <% Teacher.all.each do |t| %>
+              <tr>
+                <td>
+                  <% t.qualifications.each do |q| %>                                                                 
+                    <%= label_tag dom_id( q ), nil, :class => "checkbox" do %>            <%# Name, content_or_options = nil, options. %>                                   
+                      <%= check_box_tag "school_class[qualification_ids][]",              # [] brackets tells that this is array.                               
+                                        q.id,                                             # Value of checkbox.                                                  
+                                        nil,                                              # Automatically checking checkboxes.                                  
+                                        id: dom_id( q ) %>                                <%# Give unique id for each value. 'dom_id' is Rails helper.%>        
+                      
+                      <%= "#{q.subject.subject_name}" %>                                  <%# Subject %>           
+                    <% end %>                                                                                        
+                  <% end %>
+                </td>
+                <td>
+                  <%= teacher_full_names( t ) %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
         
     <%= f.submit "Создать", :class => "btn btn-large btn-success" %>
   <% end %>
