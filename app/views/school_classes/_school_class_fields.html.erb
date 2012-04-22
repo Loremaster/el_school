@@ -1,0 +1,36 @@
+<div class="control-group">
+  <%= f.label :class_code, "Номер класса", :class => "control-label" %>
+  
+  <div class="controls">
+    <%= f.text_field :class_code, 
+                     :class => "span2",
+                     :value => class_code,
+                     :placeholder => field_placeholder %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :date_of_class_creation, "Дата создания класса", 
+              :class => "control-label" %>
+      
+  <div class="controls">
+    <%= f.text_field :date_of_class_creation, 
+                     :class => "span2",
+                     :value => creation_class_date,
+                     :placeholder => field_placeholder %>
+  </div>    
+</div>
+
+<div class="control-group">
+  <%= f.label :teacher_leader_id, "ФИО классного руководителя", 
+      :class => "control-label" %>
+      
+  <div class="controls">
+    <%= f.select( :teacher_leader_id,                                                     # Here we use 'select' instead of 'select_tag' because 'select' allows us to give builder ('tl.select' here).
+                  options_for_select( leaders, choosen_teacher )) %> 
+                  
+    <p class="help-block">
+      Вы можете выбрать учителя, который еще не является классным руководителем.
+    </p>               	     
+  </div>
+</div>

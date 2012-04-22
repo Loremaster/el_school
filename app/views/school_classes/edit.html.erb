@@ -2,41 +2,16 @@
 
 <%= form_for @class, :html => {:class => "form-horizontal"} do |f| %>
   <%= field_set_tag do %>
-    <div class="control-group">
-      <%= f.label :class_code, "Номер класса", :class => "control-label" %>
-      
-      <div class="controls">
-        <%= f.text_field :class_code, 
-                         :class => "span2",
-                         :placeholder => @everpresent_field_placeholder %>
-      </div>
-    </div>
-    
-    <div class="control-group">
-      <%= f.label :date_of_class_creation, "Дата создания класса", 
-                  :class => "control-label" %>
-          
-      <div class="controls">
-        <%= f.text_field :date_of_class_creation, 
-                         :class => "span2",
-                         :placeholder => @everpresent_field_placeholder %>
-      </div>    
-    </div>
-    
-    <div class="control-group">
-	    <%= f.label :teacher_leader_id, "ФИО классного руководителя", 
-	                :class => "control-label" %>
-	        
-	    <div class="controls">
-        <%= f.select( :teacher_leader_id,                                                 # Here we use 'select' instead of 'select_tag' because 'select' allows us to give builder ('tl.select' here).
-                      options_for_select( @leaders, @choosen_teacher )) %>  	     
-	    
-	      <p class="help-block">
-	        Вы можете выбрать учителя, который еще не является классным руководителем.
-	      </p>
-	    </div>
-	  </div>
-    
+    <%= render :partial => 'school_class_fields', 
+        :locals => { 
+                     :f => f,
+                     :field_placeholder => @everpresent_field_placeholder,
+                     :class_code => @class.class_code, 
+                     :creation_class_date => @class.date_of_class_creation,
+                     :leaders => @leaders, :choosen_teacher => @choosen_teacher
+                    }
+    %>
+        
     <div class="control-group">
       <%= f.label :pupil_ids, "Ученики в классе", :class => "control-label" %>
                   
