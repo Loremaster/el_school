@@ -17,10 +17,15 @@ namespace :db do
     make_subjects
   end
   
-  desc "Fill database with pupils and their phones"
-  task :populate_pupils => :environment do
+  desc "Fill database with pupil and jis phones"
+  task :populate_pupil => :environment do
     make_pupil
   end  
+  
+  desc "Fill database with teacher and his phones"
+  task :populate_teacher => :environment do
+    make_teacher
+  end
 end
 
 def make_admin
@@ -67,6 +72,15 @@ def make_teacher
   
   user_teacher = make_user( "teacher" )  
   teacher = user_teacher.create_teacher( attr_teacher )
+  make_teacher_phones( teacher )
+end
+
+def make_teacher_phones( teacher )
+  attr_teacher_phones = {
+                          :teacher_mobile_number => "8#{random_digit_str( 7 )}",
+                          :teacher_home_number => "#{random_digit_str( 7 )}"
+                        }
+  teacher.create_teacher_phone( attr_teacher_phones )
 end
 
 def make_subjects
@@ -92,7 +106,7 @@ end
 
 def make_pupil_phones( pupil )
   attr_pupil_phones = {
-                        :pupil_home_number   =>  "8#{random_digit_str( 7 )}",
+                        :pupil_home_number   => "8#{random_digit_str( 7 )}",
                         :pupil_mobile_number => "#{random_digit_str( 7 )}"
                       }
   pupil.create_pupil_phone( attr_pupil_phones )
