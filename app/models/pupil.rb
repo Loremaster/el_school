@@ -24,6 +24,7 @@ class Pupil < ActiveRecord::Base
   belongs_to :school_class
   
   has_one :pupil_phone
+  has_many :orders
   
   accepts_nested_attributes_for :user
   accepts_nested_attributes_for :pupil_phone

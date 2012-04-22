@@ -1,0 +1,19 @@
+# == Schema Information
+#
+# Table name: orders
+#
+#  id              :integer         not null, primary key
+#  pupil_id        :integer
+#  school_class_id :integer
+#  number_of_order :string(255)
+#  date_of_order   :date
+#  text_of_order   :string(255)
+#  created_at      :datetime        not null
+#  updated_at      :datetime        not null
+#
+
+require 'spec_helper'
+
+describe Order do
+  pending "add some examples to (or delete) #{__FILE__}"
+end
