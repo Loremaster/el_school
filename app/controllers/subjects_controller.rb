@@ -27,6 +27,7 @@ class SubjectsController < ApplicationController
   end
   
   def edit
+    @everpresent_field_placeholder = "Обязательное поле"
     @subject = Subject.find( params[:id] )
   end
   
