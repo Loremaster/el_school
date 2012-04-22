@@ -43,6 +43,7 @@ and contains russian words. For translation words i use locale, it set as :en (d
 
 **Other**
 
+- New rake:db tasks.
 - Switched to PostgreSQL.
 - Added password encryption/decryption in User table.
 - Updated to Rails 3.2
