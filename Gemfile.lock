@@ -151,20 +151,20 @@ PLATFORMS
 
 DEPENDENCIES
   annotate!
-  autotest
-  autotest-fsevent
-  autotest-growl
-  autotest-rails-pure
+  autotest (= 4.4.6)
+  autotest-fsevent (= 0.2.8)
+  autotest-growl (= 0.2.16)
+  autotest-rails-pure (= 4.1.2)
   coffee-rails
-  factory_girl_rails
-  faker
+  factory_girl_rails (= 3.1.0)
+  faker (= 1.0.1)
   jquery-rails
   pg
   rails (= 3.2)
-  rspec-rails
+  rspec-rails (= 2.9.0)
   sass-rails
-  spork
+  spork (= 0.9.0)
   therubyracer-heroku
   turn (~> 0.8.3)
   uglifier
-  webrat
+  webrat (= 0.7.3)
