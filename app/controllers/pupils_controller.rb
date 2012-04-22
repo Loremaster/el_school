@@ -59,7 +59,13 @@ class PupilsController < ApplicationController
   end
   
   def edit
+    @everpresent_field_placeholder = "Обязательное поле"
     @pupil = Pupil.find( params[:id] )
+     
+    case @pupil.pupil_sex
+      when 'm' then @pupil_sex_man, @pupil_sex_woman = true, false
+      when 'w' then @pupil_sex_man, @pupil_sex_woman = false, true
+    end  
   end
   
   def update    

@@ -1,103 +1,33 @@
 <legend>Просмотр и изменение ученика</legend>
 
 <%= form_for @pupil, :html => {:class => "form-horizontal"} do |f| %>
-  <%= field_set_tag do %>
-    <div class="control-group">
-      <%= f.label :pupil_last_name, "Фамилия", :class => "control-label" %>      
-      
-      <div class="controls">
-        <%= f.text_field :pupil_last_name, :placeholder => @everpresent_field_placeholder %>
-      </div>
-    </div>
-    
-    <div class="control-group">
-      <%= f.label :pupil_first_name, "Имя", :class => "control-label" %>
-      
-      <div class="controls">
-        <%= f.text_field :pupil_first_name, :placeholder => @everpresent_field_placeholder %>
-      </div>
-    </div>
-    
-    <div class="control-group">
-      <%= f.label :pupil_middle_name, "Отчество", :class => "control-label" %>
-      
-      <div class="controls">
-        <%= f.text_field :pupil_middle_name, :placeholder => @everpresent_field_placeholder %>
-      </div>
-    </div>
-        
-    <div class="control-group">
-      <%= f.label :pupil_sex, "Пол", :class => "control-label" %>
-      
-      <div class="controls">
-        <%= label_tag nil, nil, :class => "radio" do %>
-          <%= f.radio_button :pupil_sex, 'm' %>
-          Мужской
-        <% end %>
-      
-        <%= label_tag nil, nil, :class => "radio" do %>
-          <%= f.radio_button :pupil_sex, 'w' %>
-          Женский
-        <% end %>
-      </div>
-    </div>
-    
-    <div class="control-group">
-      <%= f.label :pupil_birthday, "Дата рождения", :class => "control-label" %>
-      
-      <div class="controls">
-        <%= f.text_field :pupil_birthday, :placeholder => @everpresent_field_placeholder %>
-      </div>
-    </div>
+  <%= field_set_tag do %>    
+    <%= render :partial => 'pupil_fields', 
+        :locals => { 
+                     :f => f,
+                     :field_placeholder => @everpresent_field_placeholder,
+                     :last_name => @pupil.pupil_last_name,  
+                     :first_name => @pupil.pupil_first_name,
+                     :middle_name => @pupil.pupil_middle_name, 
+                     :pupil_sex_man => @pupil_sex_man, :pupil_sex_woman => @pupil_sex_woman, 
+                     :birthday => @pupil.pupil_birthday,
+                     :nationality => @pupil.pupil_nationality, 
+                     :registration => @pupil.pupil_address_of_registration,
+                     :living => @pupil.pupil_address_of_living
+                    }
+    %>
     
     <hr/>
     
-    <div class="control-group">
-      <%= f.label :pupil_nationality, "Национальность", :class => "control-label" %>
-      
-      <div class="controls">
-        <%= f.text_field :pupil_nationality, :placeholder => @everpresent_field_placeholder %>
-      </div>
-    </div>
-    
-    <hr/>
-
-    <div class="control-group">
-      <%= f.label :pupil_address_of_registration, "Адрес прописки", :class => "control-label" %>
-      
-      <div class="controls">
-        <%= f.text_area :pupil_address_of_registration, :rows => 3, 
-                        :placeholder => @everpresent_field_placeholder %>
-      </div>
-    </div>
-    
-    <div class="control-group">
-      <%= f.label :pupil_address_of_living, "Адрес проживания", :class => "control-label" %>
-      
-      <div class="controls">
-        <%= f.text_area :pupil_address_of_living, :rows => 3, 
-                        :placeholder => @everpresent_field_placeholder %>
-      </div>
-    </div>
-    
-    <hr/>
-    
-    <%= f.fields_for :pupil_phone do |pp| %>                                              <%# This shows fields. @pupil_phone add _attributes as i understand. %>
-      <div class="control-group">
-        <%= pp.label :pupil_home_number, "Домашний телефон", :class => "control-label" %> 
-        
-        <div class="controls">
-          <%= pp.text_field :pupil_home_number, :placeholder => @everpresent_field_placeholder %>
-        </div>
-      </div>
-      
-      <div class="control-group">
-        <%= pp.label :pupil_mobile_number, "Мобильный телефон", :class => "control-label" %> 
-        
-        <div class="controls">
-          <%= pp.text_field :pupil_mobile_number, :placeholder => @everpresent_field_placeholder %>
-        </div>
-      </div>   
+    <%= f.fields_for :pupil_phone do |pp| %>                                              <%# This shows fields. @pupil_phone add _attributes as i understand. %>      
+      <%= render :partial => 'pupil_phones_fields', 
+          :locals => { 
+                       :pp => pp,
+                       :field_placeholder => @everpresent_field_placeholder,
+                       :home_phone => @pupil.pupil_phone.pupil_home_number, 
+                       :mobile_phone => @pupil.pupil_phone.pupil_mobile_number
+                      }
+      %>  
     <% end %>
                
     <%= f.submit "Изменить", :class => "btn btn-large btn-warning" %>

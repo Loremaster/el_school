@@ -7,17 +7,17 @@ namespace :db do
     make_school_head
   end
   
-  desc "Fill database with generated teacher leader"
+  desc "Fill database with teacher leader"
   task :populate_teacher_leader => :environment do
     make_teacher_leader
   end
   
-  desc "Fill database with subjects"
+  desc "Fill database with few subjects"
   task :populate_subjects => :environment do
     make_subjects
   end
   
-  desc "Fill database with subjects"
+  desc "Fill database with pupils and their phones"
   task :populate_pupils => :environment do
     make_pupil
   end  
@@ -86,7 +86,16 @@ def make_pupil
     :pupil_address_of_registration => "Москва, ул. Ленина, д. 1",
     :pupil_address_of_living => "Москва, ул. Ленина, д. 1"
   }
-  user.create_pupil( attr_pupil )
+  pupil = user.create_pupil( attr_pupil )  
+  make_pupil_phones( pupil )
+end
+
+def make_pupil_phones( pupil )
+  attr_pupil_phones = {
+                        :pupil_home_number   =>  "8#{random_digit_str( 7 )}",
+                        :pupil_mobile_number => "#{random_digit_str( 7 )}"
+                      }
+  pupil.create_pupil_phone( attr_pupil_phones )
 end
 
 private
