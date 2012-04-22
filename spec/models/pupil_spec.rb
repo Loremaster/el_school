@@ -78,7 +78,7 @@ describe Pupil do
     end
   end
   
-  describe "Validation's" do
+  describe "Validations" do
     describe "Rejection" do
       it "should reject blank last name" do
         wrong_attr = @attr_pupil.merge( :pupil_last_name => "  " )

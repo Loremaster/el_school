@@ -5,7 +5,7 @@ class CreateOrders < ActiveRecord::Migration
       t.integer  :school_class_id
       t.string   :number_of_order
       t.date     :date_of_order
-      t.string   :text_of_order      
+      t.text     :text_of_order, :limit => nil      
       t.timestamps
     end
   end

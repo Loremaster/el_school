@@ -39,4 +39,8 @@ en:
             pupil_address_of_living: "Адрес проживания"
           pupil_phone:
             pupil_home_number:   "Домашний телефон"
-            pupil_mobile_number: "Мобильный телефон"     
+            pupil_mobile_number: "Мобильный телефон"  
+          order:
+            number_of_order: "Номер приказа"
+            date_of_order: "Год издания приказа"
+            text_of_order: "Текст приказа"   

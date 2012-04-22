@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(:version => 20120422175538) do
     t.integer  "school_class_id"
     t.string   "number_of_order"
     t.date     "date_of_order"
-    t.string   "text_of_order"
+    t.text     "text_of_order"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
