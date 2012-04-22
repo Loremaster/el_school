@@ -84,6 +84,13 @@ describe "SchoolHeads" do
       response.body.should have_selector( "li.active") do
         have_selector('a', :content => 'Классы')
       end
+      
+      click_link "Приказы"
+      
+      response.should be_success
+      response.body.should have_selector( "li.active") do
+        have_selector('a', :content => 'Приказы')
+      end
     end
   
     describe "Subject creation" do

@@ -1,7 +1,7 @@
 # encoding: UTF-8
 class SubjectsController < ApplicationController
-  before_filter :authenticate_school_heads, :only => [ :index, :new, :create, 
-                                                       :edit, :update ]
+  before_filter :authenticate_school_heads, :only => [ :index, :new, :create, :edit, 
+                                                       :update ]
   
   def index  
     @all_subjects = Subject.order('subject_name')  

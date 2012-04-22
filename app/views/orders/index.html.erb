@@ -1,0 +1,26 @@
+<legend>Список приказов</legend>
+
+<table class="table table-bordered table-striped" name="teachers">
+  <thead>
+    <tr>
+      <th>Номер приказа</th>                     
+      <th>Текст</th>                     
+      <th>Дата создания</th>                     
+    </tr>
+  </thead>
+  <tbody>
+    <% if @orders_exist %>        
+      <% @orders.each do |o| %>          
+        <tr>
+          <td><%= o.number_of_order %></td>
+          <td><%= o.date_of_order %></td>
+          <td><%= o.text_of_order %></td>
+          
+          <%#= o.school_class.class_code %>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Создать", new_order_path, :class => "btn btn-primary btn-large" %>

@@ -1,0 +1,36 @@
+<legend>Создание приказа</legend>
+
+<%= form_for @order, :html => {:class => "form-horizontal"} do |f| %>
+  <%= field_set_tag do %>    
+    <div class="control-group">
+      <%= f.label :number_of_order, "Номер приказа", :class => "control-label" %>
+
+      <div class="controls">
+        <%= f.text_field :number_of_order, 
+                         :class => "span2",                         
+                         :placeholder => @everpresent_field_placeholder %>
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <%= f.label :date_of_order, "Дата создания приказа", :class => "control-label" %>
+
+      <div class="controls">
+        <%= f.text_field :date_of_order, 
+                         :class => "span2",                         
+                         :placeholder => @everpresent_field_placeholder %>
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <%= f.label :text_of_order, "Текст приказа", :class => "control-label" %>
+
+      <div class="controls">
+        <%= f.text_area :text_of_order, :rows => 7, 
+                        :placeholder => @everpresent_field_placeholder %>
+      </div>
+    </div>
+    
+    <%= f.submit "Создать", :class => "btn btn-large btn-success" %>
+  <% end %>
+<% end %>
