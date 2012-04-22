@@ -16,13 +16,11 @@ require 'spec_helper'
 describe SchoolClass do
   before(:each) do
     @user = FactoryGirl.create( :user )
-    @teacher = FactoryGirl.create( :teacher )
-                      
+    @teacher = FactoryGirl.create( :teacher )                     
     @teacher_leader = @user.create_teacher_leader({ 
                                                     :user_id => @user.id, 
                                                     :teacher_id => @teacher.id 
-                                                  })
-    
+                                                  })    
     @attr_school_class = {
       :class_code => "11k",
       :date_of_class_creation => Date.today
