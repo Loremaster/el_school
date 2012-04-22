@@ -6,6 +6,8 @@
       <th>Номер приказа</th>                     
       <th>Текст</th>                     
       <th>Дата создания</th>                     
+      <th>Класс</th>                     
+      <th>Ученик</th>                     
     </tr>
   </thead>
   <tbody>
@@ -14,9 +16,21 @@
         <tr>
           <td><%= o.number_of_order %></td>
           <td><%= o.date_of_order %></td>
-          <td><%= o.text_of_order %></td>
-          
-          <%#= o.school_class.class_code %>
+          <td><%= o.text_of_order %></td>          
+          <td>
+            <% if o.school_class.nil? %>
+              --
+            <% else %>  
+              <%= o.school_class.class_code %>
+            <% end %>
+          </td>
+          <td>
+            <% if o.pupil.nil? %>
+             --
+            <% else %>
+              <%= pupil_full_names( o.pupil ) %>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     <% end %>
