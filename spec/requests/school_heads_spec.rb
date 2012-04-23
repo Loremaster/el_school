@@ -963,9 +963,48 @@ describe "SchoolHeads" do
           end
         end
       
-        # describe "Create" do
-        #   
-        # end
+        describe "Create" do
+          before(:each) do
+            @school_class = FactoryGirl.create( :school_class )
+            @pupil = FactoryGirl.create( :pupil )
+            click_link "Приказы"
+            click_link "Создать"
+          end
+          
+          describe "Success" do
+            it "should create order with valid data" do
+              expect do
+                pupil_full_name = "#{@pupil.pupil_last_name} #{@pupil.pupil_first_name} " +
+                                  "#{@pupil.pupil_middle_name}"
+            
+                fill_in "Номер приказа",  :with => "134"
+                fill_in "Дата создания приказа", :with => "#{Date.today}"
+                fill_in "Текст приказа",  :with => "bla-bla"
+                select "#{@school_class.class_code}", :from => "order[school_class_id]"
+                select pupil_full_name, :from => "order[pupil_id]"
+                   
+                click_button "Создать"
+              end.should change( Order, :count ).by( 1 )
+            end
+          end
+        
+          describe "Failure" do
+            it "should not create order with invalid data" do
+              expect do
+                pupil_full_name = "#{@pupil.pupil_last_name} #{@pupil.pupil_first_name} " +
+                                  "#{@pupil.pupil_middle_name}"
+            
+                fill_in "Номер приказа",  :with => "134"
+                fill_in "Дата создания приказа", :with => " "
+                fill_in "Текст приказа",  :with => "bla-bla"
+                select "#{@school_class.class_code}", :from => "order[school_class_id]"
+                select pupil_full_name, :from => "order[pupil_id]"
+                   
+                click_button "Создать"
+              end.should_not change( Order, :count )
+            end
+          end
+        end
       end
     end
   end
