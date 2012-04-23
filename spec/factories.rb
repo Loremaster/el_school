@@ -54,6 +54,14 @@ FactoryGirl.define do
     pp.pupil_mobile_number '65454343'
     pp.pupil
   end
+  
+  factory :order do |o|
+    o.number_of_order '1234'
+    o.date_of_order "#{Date.today}"
+    o.text_of_order 'Some text here.'
+    o.pupil
+    o.school_class
+  end
 end
 
 

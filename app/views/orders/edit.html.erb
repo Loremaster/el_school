@@ -1,0 +1,58 @@
+<legend>Редактирование приказа</legend>
+
+<%= form_for @order, :html => {:class => "form-horizontal"} do |f| %>
+  <%= field_set_tag do %>    
+    <div class="control-group">
+      <%= f.label :number_of_order, "Номер приказа", :class => "control-label" %>
+
+      <div class="controls">
+        <%= f.text_field :number_of_order, 
+                         :class => "span2",                         
+                         :placeholder => @everpresent_field_placeholder %>
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <%= f.label :date_of_order, "Дата создания приказа", :class => "control-label" %>
+
+      <div class="controls">
+        <%= f.text_field :date_of_order, 
+                         :class => "span2",                         
+                         :placeholder => @everpresent_field_placeholder %>
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <%= f.label :text_of_order, "Текст приказа", :class => "control-label" %>
+
+      <div class="controls">
+        <%= f.text_area :text_of_order, :rows => 7, 
+                        :placeholder => @everpresent_field_placeholder %>
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <%= f.label :school_class_id, "Номер класса", :class => "control-label" %>
+
+      <div class="controls">
+        <%= f.select( :school_class_id,                                                   # Here we use 'select' instead of 'select_tag' because 'select' allows us to give builder ('tl.select' here).
+                      options_for_select( SchoolClass.all.collect {|s| [ s.class_code, s.id ] },
+                                          @order.school_class_id ),
+                      { :include_blank => true }) %>
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <%= f.label :pupil_id, "Ученик", :class => "control-label" %>
+
+      <div class="controls">
+        <%= f.select( :pupil_id,                                                          # Here we use 'select' instead of 'select_tag' because 'select' allows us to give builder ('tl.select' here).
+                      options_for_select( Pupil.all.collect {|p| [ pupil_full_names( p ), p.id ] },
+                                          @order.pupil_id ),
+                      { :include_blank => true }) %>
+      </div>
+    </div>
+    
+    <%= f.submit "Изменить", :class => "btn btn-large btn-warning" %>
+  <% end %>
+<% end %>

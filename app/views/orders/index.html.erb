@@ -13,7 +13,7 @@
   <tbody>
     <% if @orders_exist %>        
       <% @orders.each do |o| %>          
-        <tr>
+        <tr class="cross" onclick = "location.href='<%= edit_order_path( :id => o.id ) %>'">
           <td><%= o.number_of_order %></td>
           <td><%= o.date_of_order %></td>
           <td><%= o.text_of_order %></td>          
