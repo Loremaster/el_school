@@ -23,6 +23,4 @@ class ApplicationController < ActionController::Base
        return false
     end   
   end
-  
- 
 end

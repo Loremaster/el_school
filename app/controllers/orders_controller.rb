@@ -14,6 +14,8 @@ class OrdersController < ApplicationController
   
   def create
     @everpresent_field_placeholder = "Обязательное поле"
+    @choosen_class = params[:order][:school_class_id]                                     # After submit if get errors we use this method and render template for this.
+    @choosen_pupil = params[:order][:pupil_id]                                            # We save this param because rails doesn't auomatically select from selectors.
     @order = Order.new( params[:order] )
     
     if @order.save
@@ -22,7 +24,7 @@ class OrdersController < ApplicationController
     else
       flash[:error] = @order.errors.full_messages.to_sentence :last_word_connector => ", ",        
                                                               :two_words_connector => ", "
-      render 'new'                                                                        # It should be placed AFTER flash message or you will have to click button twice.
+      render 'new'                                                                        # It should be placed after flash message or you will have to click button twice.
     end
   end
 end

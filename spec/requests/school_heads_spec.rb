@@ -677,39 +677,28 @@ describe "SchoolHeads" do
           end
         
           it "should have placeholders" do
-            response.should have_selector( 'input', 
-                                           :name => "pupil[pupil_last_name]",
-                                           :placeholder => @everpresent_field_placeholder )                   
-            response.should have_selector( 'input',                                       
-                                           :name => "pupil[pupil_first_name]",            
-                                           :placeholder => @everpresent_field_placeholder ) 
-            response.should have_selector( 'input',                                       
-                                           :name => "pupil[pupil_middle_name]",           
-                                           :placeholder => @everpresent_field_placeholder )  
-            response.should have_selector( 'input',                                       
-                                           :name => "pupil[pupil_birthday]",              
-                                           :placeholder => @everpresent_field_placeholder )                   
-            response.should have_selector( 'input',                                       
-                                           :name => "pupil[pupil_nationality]",           
-                                           :placeholder => @everpresent_field_placeholder ) 
-            response.should have_selector( 'textarea', 
-                                           :name => "pupil[pupil_address_of_registration]",
-                                           :placeholder => @everpresent_field_placeholder )   
-            response.should have_selector( 'textarea',                                    
-                                           :name => "pupil[pupil_address_of_living]",     
-                                           :placeholder => @everpresent_field_placeholder )
-            response.should have_selector( "input",                                                                                                 
-                                           :name => "pupil[pupil_phone_attributes][pupil_home_number]",                                                          
-                                           :placeholder => @everpresent_field_placeholder )                                                                                       
-            response.should have_selector( "input",                                                                                                                       
-                                           :name => "pupil[pupil_phone_attributes][pupil_mobile_number]",                                                                                                               
-                                           :placeholder => @everpresent_field_placeholder )                                                                            
-            response.should have_selector( 'input', 
-                                           :name => "pupil[user_attributes][user_login]",
-                                           :placeholder => @everpresent_field_placeholder ) 
-            response.should have_selector( 'input',                                       
-                                           :name => "pupil[user_attributes][password]",   
-                                           :placeholder => @everpresent_field_placeholder )                                                         
+            inputs = [ 
+                       "pupil[pupil_last_name]",   "pupil[pupil_first_name]",
+                       "pupil[pupil_middle_name]", "pupil[pupil_birthday]",
+                       "pupil[pupil_nationality]", 
+                       "pupil[pupil_phone_attributes][pupil_home_number]",
+                       "pupil[pupil_phone_attributes][pupil_mobile_number]",
+                       "pupil[user_attributes][user_login]", 
+                       "pupil[user_attributes][password]" ]
+            inputs_textarea = [ 
+                                "pupil[pupil_address_of_registration]",
+                                "pupil[pupil_address_of_living]" ]         
+            inputs.each do |name|
+              response.should have_selector( 'input', 
+                                             :name => name,
+                                             :placeholder => @everpresent_field_placeholder ) 
+            end
+            
+            inputs_textarea.each do |name|
+              response.should have_selector( 'textarea', 
+                                             :name => name,
+                                             :placeholder => @everpresent_field_placeholder ) 
+            end                                                                                                                                                                                                                   
           end
       
           it "should keep values in forms" do
@@ -732,7 +721,7 @@ describe "SchoolHeads" do
           
             click_button "Создать"
           
-            response.should have_selector("form") do |form|
+            response.should have_selector("form") do |form|                                                                            
               form.should have_selector( "input", 
                                           :name => "pupil[pupil_last_name]",
                                           :value => pupil.pupil_last_name )
@@ -775,61 +764,61 @@ describe "SchoolHeads" do
         end
     
         describe "Create" do
-        before(:each) do
-          click_link "Ученики"
-          click_link "Создать ученика"
-        end
+          before(:each) do
+            click_link "Ученики"
+            click_link "Создать ученика"
+          end
         
-        describe "Success" do         
-          it "should create pupil with valid data" do
-            expect do
-            expect do  
-            expect do                                                        
-              fill_in "Фамилия",  :with => "Перионов"                        
-              fill_in "Имя",      :with => "Петр"                            
-              fill_in "Отчество", :with => "Петрович"                        
-              choose "Мужской"                                               
-              fill_in "Дата рождения",  :with => "#{Date.today - 10.years}"  
-              fill_in "Национальность", :with => "Русский"                   
-              fill_in "Адрес прописки", :with => "Москва ..."                
-              fill_in "Адрес проживания",  :with => "Москва ..."             
-              fill_in "Домашний телефон",  :with => "111111"                 
-              fill_in "Мобильный телефон", :with => "222222"                 
-              fill_in "Логин учетной записи",  :with => "loooog"             
-              fill_in "Пароль учетной записи", :with => "paaaaas"            
+          describe "Success" do         
+            it "should create pupil with valid data" do
+              expect do
+              expect do  
+              expect do                                                        
+                fill_in "Фамилия",  :with => "Перионов"                        
+                fill_in "Имя",      :with => "Петр"                            
+                fill_in "Отчество", :with => "Петрович"                        
+                choose "Мужской"                                               
+                fill_in "Дата рождения",  :with => "#{Date.today - 10.years}"  
+                fill_in "Национальность", :with => "Русский"                   
+                fill_in "Адрес прописки", :with => "Москва ..."                
+                fill_in "Адрес проживания",  :with => "Москва ..."             
+                fill_in "Домашний телефон",  :with => "111111"                 
+                fill_in "Мобильный телефон", :with => "222222"                 
+                fill_in "Логин учетной записи",  :with => "loooog"             
+                fill_in "Пароль учетной записи", :with => "paaaaas"            
                                                                              
-              click_button "Создать"                                         
-            end.should change( Pupil, :count ).by( 1 )                       
-            end.should change( User, :count).by( 1 )
-            end.should change( PupilPhone, :count).by( 1 )
+                click_button "Создать"                                         
+              end.should change( Pupil, :count ).by( 1 )                       
+              end.should change( User, :count).by( 1 )
+              end.should change( PupilPhone, :count).by( 1 )
+            end
           end
-        end
       
-        describe "Failure" do
-          it "should reject to create pupil if data is invalid" do
-            expect do
-            expect do                                                         
-            expect do                                                         
-              fill_in "Фамилия",  :with => "Перионов"                         
-              fill_in "Имя",      :with => ""                                 
-              fill_in "Отчество", :with => "Петрович"                         
-              choose "Мужской"                                                
-              fill_in "Дата рождения",  :with => "#{Date.today - 10.years}"   
-              fill_in "Национальность", :with => "Русский"                    
-              fill_in "Адрес прописки", :with => "Москва ..."                 
-              fill_in "Адрес проживания",  :with => "Москва ..."          
-              fill_in "Домашний телефон",  :with => "111111"                   
-              fill_in "Мобильный телефон", :with => "222222"                  
-              fill_in "Логин учетной записи",  :with => "loooog"              
-              fill_in "Пароль учетной записи", :with => "paaaaas"             
+          describe "Failure" do
+            it "should reject to create pupil if data is invalid" do
+              expect do
+              expect do                                                         
+              expect do                                                         
+                fill_in "Фамилия",  :with => "Перионов"                         
+                fill_in "Имя",      :with => ""                                 
+                fill_in "Отчество", :with => "Петрович"                         
+                choose "Мужской"                                                
+                fill_in "Дата рождения",  :with => "#{Date.today - 10.years}"   
+                fill_in "Национальность", :with => "Русский"                    
+                fill_in "Адрес прописки", :with => "Москва ..."                 
+                fill_in "Адрес проживания",  :with => "Москва ..."          
+                fill_in "Домашний телефон",  :with => "111111"                   
+                fill_in "Мобильный телефон", :with => "222222"                  
+                fill_in "Логин учетной записи",  :with => "loooog"              
+                fill_in "Пароль учетной записи", :with => "paaaaas"             
                                                                               
-              click_button "Создать"                                          
-            end.should_not change( Pupil, :count )                            
-            end.should_not change( User, :count)
-            end.should_not change( PupilPhone, :count)
+                click_button "Создать"                                          
+              end.should_not change( Pupil, :count )                            
+              end.should_not change( User, :count)
+              end.should_not change( PupilPhone, :count)
+            end
           end
         end
-      end
       end
     
       describe "Updating" do
@@ -908,6 +897,75 @@ describe "SchoolHeads" do
             flash[:error].should =~ /не может быть пустой/i
           end
         end 
+      end
+    end
+  
+    describe "Orders" do
+      describe "Creating" do
+        describe "View" do
+          before(:each) do
+            @school_class = FactoryGirl.create( :school_class )
+            @pupil = FactoryGirl.create( :pupil )
+            click_link "Приказы"
+            click_link "Создать"
+          end
+          
+          it "should have placeholders" do
+            inputs = [ "order[number_of_order]", "order[date_of_order]" ]
+            inputs.each do |inp|
+              response.should have_selector( 'input', 
+                                             :name => inp,
+                                             :placeholder => @everpresent_field_placeholder ) 
+            end
+                                            
+            response.should have_selector( 'textarea',                                                                                                        
+                                           :name => "order[text_of_order]",                                                                              
+                                           :placeholder => @everpresent_field_placeholder )                                                                
+          end
+        
+          it "should keep values in forms" do
+            order_num, order_date, order_text = "144", "1", "bla"
+            pupil_full_name = "#{@pupil.pupil_last_name} #{@pupil.pupil_first_name} " +
+                              "#{@pupil.pupil_middle_name}"
+            
+            fill_in "Номер приказа",  :with => order_num
+            fill_in "Дата создания приказа", :with => order_date
+            fill_in "Текст приказа",  :with => order_text
+            select "#{@school_class.class_code}", :from => "order[school_class_id]"
+            select pupil_full_name, :from => "order[pupil_id]"
+                   
+            click_button "Создать" 
+            
+            response.should have_selector("form") do |form|                                                                            
+              form.should have_selector( "input", 
+                                          :name => "order[number_of_order]",
+                                          :value => order_num )
+              form.should have_selector( "input",                                                       
+                                          :name => "order[date_of_order]",                            
+                                          :value => order_date )
+              form.should have_selector( "textarea",                                                                                             
+                                          :name => "order[text_of_order]",                                                                  
+                                          :content => order_text )
+                                          
+              form.should have_selector( "select", 
+                                          :name => "order[school_class_id]") do |select|
+                select.should have_selector( "option",
+                                              :content => "#{@school_class.class_code}",
+                                              :selected => "selected")
+              end                                                                     
+              form.should have_selector( "select", 
+                                          :name => "order[pupil_id]") do |select|
+                select.should have_selector( "option",
+                                              :content => pupil_full_name,
+                                              :selected => "selected")
+              end                                                                         
+            end                                    
+          end
+        end
+      
+        # describe "Create" do
+        #   
+        # end
       end
     end
   end

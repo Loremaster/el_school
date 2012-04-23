@@ -36,7 +36,8 @@
 
       <div class="controls">
         <%= f.select( :school_class_id,                                                   # Here we use 'select' instead of 'select_tag' because 'select' allows us to give builder ('tl.select' here).
-                      options_for_select( SchoolClass.all.collect {|s| [ s.class_code, s.id ] } ),
+                      options_for_select( SchoolClass.all.collect {|s| [ s.class_code, s.id ] },
+                                          @choosen_class ),
                       { :include_blank => true }) %>
       </div>
     </div>
@@ -46,7 +47,8 @@
 
       <div class="controls">
         <%= f.select( :pupil_id,                                                          # Here we use 'select' instead of 'select_tag' because 'select' allows us to give builder ('tl.select' here).
-                      options_for_select( Pupil.all.collect {|p| [ pupil_full_names( p ), p.id ] } ),
+                      options_for_select( Pupil.all.collect {|p| [ pupil_full_names( p ), p.id ] },
+                                          @choosen_pupil ),
                       { :include_blank => true }) %>
       </div>
     </div>
