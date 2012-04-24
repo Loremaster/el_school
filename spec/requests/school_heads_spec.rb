@@ -1005,6 +1005,42 @@ describe "SchoolHeads" do
             end
           end
         end
+      
+        describe "Update" do
+          before(:each) do
+            @order = FactoryGirl.create( :order )
+            @school_class = FactoryGirl.create( :school_class )
+            @pupil = FactoryGirl.create( :pupil )
+            @pupil_full_name = "#{@pupil.pupil_last_name} #{@pupil.pupil_first_name} " +
+                               "#{@pupil.pupil_middle_name}"
+                               
+            visit edit_order_path( :id => @order )                   
+          end
+          
+          describe "Success" do            
+            it "should update order with valid data" do
+              fill_in "Номер приказа",  :with => "134"
+              fill_in "Дата создания приказа", :with => "#{Date.today}"
+              fill_in "Текст приказа",  :with => "bla-bla"
+              select "#{@school_class.class_code}", :from => "order[school_class_id]"
+              select @pupil_full_name, :from => "order[pupil_id]"
+              
+              click_button "Изменить"
+              
+              flash[:success].should =~ /Приказ успешно обновлен!/i
+            end
+          end
+        
+          describe "Failure" do
+            it "should not update order with invalid data" do
+              fill_in "Номер приказа",  :with => "  "
+              
+              click_button "Изменить"
+              
+              flash[:error].should =~ /не может быть пустым/i
+            end
+          end
+        end
       end
     end
   end
