@@ -1,3 +1,4 @@
+# encoding: UTF-8
 module ApplicationHelper
 
   # Use this to highlight active page's (toolbar).
@@ -16,5 +17,11 @@ module ApplicationHelper
   
   def pupil_full_names( pupil )
     "#{pupil.pupil_last_name} #{pupil.pupil_first_name} #{pupil.pupil_middle_name}"
+  end
+  
+  def translate_user_role( role )
+    roles = { :admin => "Администратор", :teacher => "Учитель", :pupil => "Ученик",
+               :class_head => "Классный руководитель", :school_head => "Завуч"}
+    roles[ role.to_sym ]           
   end
 end

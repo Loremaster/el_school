@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   
   # List of all users in system.
   def index
-    @all_users = User.all
+    @users = User.all
   end
   
   # Editing user with forms.

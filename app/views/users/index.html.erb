@@ -3,14 +3,16 @@
 <table class="table table-bordered table-striped">
   <thead>
     <tr>
-      <th>Категория</th>
+      <th>Категория пользователя</th>
+      <th>Категория в Базе Данных</th>      
       <th>Логин</th>
       <th>Пароль</th>
     </tr>
   </thead>
   <tbody>        
-    <% @all_users.each do |user| %>          
+    <% @users.each do |user| %>          
       <tr class="cross" onclick = "location.href='<%= edit_user_path( :id => user.id ) %>'"> <%# Go to edit page of user we want to edit. %>
+        <td><%= translate_user_role( user.user_role ) %></td>
         <td><%= user.user_role %></td>
         <td><%= user.user_login %></td>
         <% if user.encrypted_password.blank? %>
