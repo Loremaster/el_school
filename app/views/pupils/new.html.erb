@@ -6,11 +6,7 @@
         :locals => { 
                      :f => f,
                      :field_placeholder => @everpresent_field_placeholder,
-                     :last_name => @last_name,     :first_name => @first_name,
-                     :middle_name => @middle_name, :pupil_sex_man => @pupil_sex_man,
-                     :pupil_sex_woman => @pupil_sex_woman, :birthday => @birthday,
-                     :nationality => @nationality, :registration => @registration,
-                     :living => @living
+                     :pupil_sex_man => @pupil_sex_man, :pupil_sex_woman => @pupil_sex_woman
                     }
     %>
     
@@ -20,8 +16,7 @@
       <%= render :partial => 'pupil_phones_fields', 
           :locals => { 
                        :pp => pp,
-                       :field_placeholder => @everpresent_field_placeholder,
-                       :home_phone => @home_phone, :mobile_phone => @mobile_phone
+                       :field_placeholder => @everpresent_field_placeholder
                       }
       %>
     <% end %>

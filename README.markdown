@@ -4,6 +4,7 @@
 
 **School head**
 
+- Creating/editing orders.
 - Now he can filter users by class.
 - Creating/editing classes (class code, date of creating, and class head for this class).
   - NOTICE! If you choose pupils for one class and these pupils were already in other class

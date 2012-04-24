@@ -1,41 +1,38 @@
 <div class="control-group">
   <%= f.label :pupil_last_name, "Фамилия", :class => "control-label" %>      
-  
+
   <div class="controls">
-    <%= f.text_field :pupil_last_name, :placeholder => field_placeholder,
-                     :value => last_name %>
+    <%= f.text_field :pupil_last_name, :placeholder =>  field_placeholder %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :pupil_first_name, "Имя", :class => "control-label" %>
-  
+
   <div class="controls">
-    <%= f.text_field :pupil_first_name, :placeholder => field_placeholder,
-                     :value => first_name %>
+    <%= f.text_field :pupil_first_name, :placeholder =>  field_placeholder %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :pupil_middle_name, "Отчество", :class => "control-label" %>
-  
+
   <div class="controls">
-    <%= f.text_field :pupil_middle_name, :placeholder => field_placeholder,
-                     :value => middle_name %>
+    <%= f.text_field :pupil_middle_name, :placeholder => field_placeholder %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :pupil_sex, "Пол", :class => "control-label" %>
-  
+
   <div class="controls">
     <%= label_tag nil, nil, :class => "radio" do %>
-      <%= f.radio_button :pupil_sex, 'm', :checked => pupil_sex_man %>
+      <%= f.radio_button :pupil_sex, 'm', :checked => @pupil_sex_man %>
       Мужской
     <% end %>
-  
+
     <%= label_tag nil, nil, :class => "radio" do %>
-      <%= f.radio_button :pupil_sex, 'w', :checked => pupil_sex_woman %>
+      <%= f.radio_button :pupil_sex, 'w', :checked => @pupil_sex_woman %>
       Женский
     <% end %>
   </div>
@@ -43,10 +40,9 @@
 
 <div class="control-group">
   <%= f.label :pupil_birthday, "Дата рождения", :class => "control-label" %>
-  
+
   <div class="controls">
-    <%= f.text_field :pupil_birthday, :placeholder => field_placeholder,
-                     :value => birthday %>
+    <%= f.text_field :pupil_birthday, :placeholder => field_placeholder %>
   </div>
 </div>
 
@@ -54,10 +50,9 @@
 
 <div class="control-group">
   <%= f.label :pupil_nationality, "Национальность", :class => "control-label" %>
-  
+
   <div class="controls">
-    <%= f.text_field :pupil_nationality, :placeholder => field_placeholder,
-                     :value => nationality %>
+    <%= f.text_field :pupil_nationality, :placeholder => field_placeholder %>
   </div>
 </div>
 
@@ -65,18 +60,18 @@
 
 <div class="control-group">
   <%= f.label :pupil_address_of_registration, "Адрес прописки", :class => "control-label" %>
-  
+
   <div class="controls">
     <%= f.text_area :pupil_address_of_registration, :rows => 3, 
-                    :placeholder => field_placeholder, :value => registration %>
+                    :placeholder => field_placeholder %>
   </div>
 </div>
 
 <div class="control-group">
   <%= f.label :pupil_address_of_living, "Адрес проживания", :class => "control-label" %>
-  
+
   <div class="controls">
     <%= f.text_area :pupil_address_of_living, :rows => 3, 
-                    :placeholder => field_placeholder, :value => living %>
+                    :placeholder =>  field_placeholder %>
   </div>
 </div>
