@@ -13,7 +13,7 @@ class TeacherLeadersController < ApplicationController
     if params.has_key?( :user )
       @login    = params[:user][:user_login]
       @password = params[:user][:password]
-      @choosen_teacher = params[:user][:teacher_leader_attributes][:teacher_id]
+      @choosen_teacher = params[:user][:teacher_leader_attributes][:teacher_id] if params[:user].has_key?( :teacher_leader_attributes )
     end
   end
    
@@ -46,7 +46,6 @@ class TeacherLeadersController < ApplicationController
   def edit
     @teacher_leader = TeacherLeader.find( params[:id] )    
     @teachers_collection = collect_teachers
-    # @teachers_collection = []
     @choosen_teacher = @teacher_leader.teacher_id
   end
   
