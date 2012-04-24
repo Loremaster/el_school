@@ -40,5 +40,6 @@ class SchoolClass < ActiveRecord::Base
                              }
   
   validates :teacher_leader_id, 
-              :uniqueness => { :message => "уже является классным руководителем класса" }
+              :uniqueness => { :message => "уже является классным руководителем класса" },
+              :presence   => { :message => "должен иметь выбранного классного руководителя" }
 end

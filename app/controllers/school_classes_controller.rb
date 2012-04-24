@@ -21,7 +21,7 @@ class SchoolClassesController < ApplicationController
     @everpresent_field_placeholder = "Обязательное поле"
     @class = SchoolClass.new( params[:school_class] )
     @leaders = collect_teachers_leaders
-    @choosen_teacher = @class.teacher_leader.id unless @class.nil?
+    @choosen_teacher = @class.teacher_leader.id unless @leaders.empty?
     
     if @class.save
       redirect_to school_classes_path
