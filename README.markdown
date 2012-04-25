@@ -49,3 +49,9 @@ and contains russian words. For translation words i use locale, it set as :en (d
 - Added password encryption/decryption in User table.
 - Updated to Rails 3.2
 - Libraries updated.
+
+------------------------------------------------------------------------------
+
+**Bugs**
+
+- When admin chooses user to edit buttons which genereate login and password don't work.
