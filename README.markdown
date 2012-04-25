@@ -54,4 +54,8 @@ and contains russian words. For translation words i use locale, it set as :en (d
 
 **Bugs**
 
-- When admin chooses user to edit buttons which genereate login and password don't work.
+------------------------------------------------------------------------------
+
+**TODO**
+
+- Rewrite admin controller.

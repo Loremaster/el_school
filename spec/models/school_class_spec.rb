@@ -22,9 +22,9 @@ describe SchoolClass do
                                                     :teacher_id => @teacher.id 
                                                   })    
     @attr_school_class = {
-      :class_code => "11k",
-      :date_of_class_creation => Date.today
-    }
+                            :class_code => "11k",
+                            :date_of_class_creation => Date.today
+                         }
   end
   
   describe "TeacherLeader-SchoolClass creation" do
@@ -59,8 +59,8 @@ describe SchoolClass do
   
   describe "Validations" do
     describe "Rejection" do
-      it "should not require a teacher leader id" do
-        SchoolClass.new( @attr_school_class ).should be_valid
+      it "should require a teacher leader id" do
+        SchoolClass.new( @attr_school_class ).should_not be_valid
       end  
 
       it "should reject blank class code" do
@@ -90,9 +90,10 @@ describe SchoolClass do
       end 
       
       it "should reject to create school classes with same teacher leader" do
-        @teacher_leader.create_school_class( @attr_school_class )     
+        @teacher_leader.build_school_class( @attr_school_class )     
+        
         expect do
-          @teacher_leader.create_school_class( @attr_school_class )
+          @teacher_leader.build_school_class( @attr_school_class )
         end.should_not change( SchoolClass, :count )       
       end
     end

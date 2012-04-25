@@ -83,8 +83,10 @@ describe UsersController do
       end
       
       it "should not change with wrong attributes" do
-        put :update, :id => @adm, :user => @attr
-        response.should_not be_success
+        expect do
+          put :update, :id => @adm, :user => @attr
+          # response.should_not be_success
+        end.should_not change( User, :count )
       end
       
       it "should not cnahge user attributes" do
