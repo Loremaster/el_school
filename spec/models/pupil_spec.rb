@@ -23,8 +23,8 @@ require 'spec_helper'
 
 describe Pupil do
   before(:each) do
-    @user = FactoryGirl.create(:user)
-    @school_class = FactoryGirl.create(:school_class)
+    @user = FactoryGirl.create( :user )
+    @school_class = FactoryGirl.create( :school_class )
     
     @attr_pupil = {
       :pupil_last_name => "Смирнов",
@@ -195,7 +195,7 @@ describe Pupil do
         end
       end
       
-      it "should reject correct sex chars" do
+      it "should accept correct sex chars" do
         sex = %w(m w)
         sex.each do |sex|  
           correct_attr = @user.build_pupil( @attr_pupil.merge( :pupil_sex => sex ) )

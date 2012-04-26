@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
   has_one :teacher
   has_one :teacher_leader
   has_one :pupil
+  has_one :parent
 
   accepts_nested_attributes_for :teacher                                                  # Can save teacher data with user data now.
   accepts_nested_attributes_for :teacher_leader                                           # Can save teacher leader.

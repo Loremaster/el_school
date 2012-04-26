@@ -43,4 +43,9 @@ en:
           order:
             number_of_order: "Номер приказа"
             date_of_order: "Год издания приказа"
-            text_of_order: "Текст приказа"   
+            text_of_order: "Текст приказа" 
+          parent:
+            parent_last_name: "Фамилия"
+            parent_first_name: "Имя"
+            parent_middle_name: "Отчество"
+            parent_birthday: "Дата рождения"        
