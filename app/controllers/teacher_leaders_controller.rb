@@ -22,15 +22,15 @@ class TeacherLeadersController < ApplicationController
     teachers_existance = params[:user][:teacher_leader_attributes]
     
     if not teachers_existance.nil?                                                        # If we have teachers.
-      user = User.new( params[:user] )
-      user.user_role = "class_head"
+      @user = User.new( params[:user] )
+      @user.user_role = "class_head"
     
-      if user.save
+      if @user.save
         flash[:success] = "Классный руководитель успешно создан!"
         redirect_to teachers_path
       else
-        errors = user.errors.full_messages.to_sentence :last_word_connector => ", ",        
-                                                       :two_words_connector => ", "
+        errors = @user.errors.full_messages.to_sentence :last_word_connector => ", ",        
+                                                        :two_words_connector => ", "
       end
     else
       errors = "К сожалению, невозможно создать классного руководителя. " +

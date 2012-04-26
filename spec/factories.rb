@@ -19,6 +19,8 @@ FactoryGirl.define do
     teacher.teacher_category    'First category'
     teacher.teacher_sex         'm'
     teacher.user                                                                            # That means that teacher belongs to user.
+    teacher.teacher_phone
+    teacher.teacher_education
   end
 
   factory :subject do |subject|
@@ -53,6 +55,18 @@ FactoryGirl.define do
     pp.pupil_home_number   '123456'   
     pp.pupil_mobile_number '65454343'
     pp.pupil
+  end
+  
+  factory :teacher_phone do |tp|
+    tp.teacher_home_number '13575432'
+    tp.teacher_mobile_number '23456778'
+  end
+  
+  factory :teacher_education do |te|
+    te.teacher_education_university 'MIT'
+    te.teacher_education_year "#{Date.today - 10.years}"
+    te.teacher_education_graduation 'Programmer'
+    te.teacher_education_speciality 'Math programmer'
   end
   
   factory :order do |o|
