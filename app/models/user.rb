@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
 
   validates :user_role,                                                                   # User role is giving automatically.
               :presence  => true,
-              :inclusion => { :in => %w(admin teacher pupil class_head school_head) }
+              :inclusion => { :in => %w(admin teacher pupil parent class_head school_head) }
 
   validates :password, 
               :presence  => { :message => "не может быть пустым" },

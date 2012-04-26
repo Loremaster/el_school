@@ -48,7 +48,7 @@ describe User do
   end
 
   it "should accept valid names of roles" do
-    role = %w(admin teacher pupil class_head school_head)
+    role = %w(admin teacher pupil parent class_head school_head)
     role.each do |one_role| 
       valid_email_user = User.new( @attr )
       valid_email_user.user_role = one_role
@@ -57,7 +57,7 @@ describe User do
   end
 
   it "should reject invalid names of roles" do
-    role = %w(admin1 teacher1 pupil1 class_head1 school_head1)
+    role = %w(admin1 teacher1 pupil1 parent1 class_head1 school_head1)
     role.each do |one_role|
       invalid_email_user = User.new( @attr )
       invalid_email_user.user_role = one_role

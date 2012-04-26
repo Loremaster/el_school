@@ -18,6 +18,9 @@
 class Parent < ActiveRecord::Base
   belongs_to :user
   
+  accepts_nested_attributes_for :user
+  
+  
   validates :parent_last_name,
               :presence   => { :message => "не может быть пустой" },
               :length     => { 
