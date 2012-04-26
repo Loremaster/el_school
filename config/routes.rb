@@ -8,6 +8,7 @@ ElSchool::Application.routes.draw do
   resources :teacher_leaders, :only => [ :new, :create, :edit, :update ]  
   resources :school_classes,  :only => [ :index, :new, :create, :edit, :update ]
   resources :orders,          :only => [ :index, :new, :create, :edit, :update ]
+  resources :parents,         :only => [ :index ]
                                     
   get "sessions/new"
 

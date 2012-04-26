@@ -1,0 +1,18 @@
+<legend>Родители</legend>
+
+<table class="table table-bordered table-striped" name="teachers">
+  <thead>
+    <tr>
+      <th>Фамилия</th>                                         
+    </tr>
+  </thead>
+  <tbody>
+    <% if @parent_exist %>        
+      <% @parents.each do |p| %>          
+        <tr>
+          <td><%= "#{p.parent_last_name}" %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

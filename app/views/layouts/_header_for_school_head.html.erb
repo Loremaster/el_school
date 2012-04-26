@@ -7,6 +7,12 @@
 </ul>
 
 <ul class="nav">
+   <li class=<%= active_toolbar?( parents_path ) %>>
+     <%= link_to "Родители", parents_path %>
+   </li>
+</ul>
+
+<ul class="nav">
    <li class=<%= active_toolbar?( teachers_path ) %>>
      <%= link_to "Учителя", teachers_path %>
    </li>
