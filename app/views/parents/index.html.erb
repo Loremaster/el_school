@@ -4,6 +4,8 @@
   <thead>
     <tr>
       <th>Фамилия</th>                                         
+      <th>Имя</th>                                         
+      <th>Отчество</th>                                         
     </tr>
   </thead>
   <tbody>
@@ -11,6 +13,8 @@
       <% @parents.each do |p| %>          
         <tr>
           <td><%= "#{p.parent_last_name}" %></td>
+          <td><%= "#{p.parent_first_name}" %></td>
+          <td><%= "#{p.parent_middle_name}" %></td>
         </tr>
       <% end %>
     <% end %>

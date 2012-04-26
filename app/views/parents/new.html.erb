@@ -49,7 +49,7 @@
     </div>
   </div>
   
-  <%= f.fields_for :user, @user do |builder| %>                                         <%# Adding @user allows us to send user_params for belongs_to model. %>
+  <%= f.fields_for :user, @user do |builder| %>                                           <%# Adding @user allows us to send user_params for belongs_to model. %>
     <%= render :partial => 'shared/user_fields', 
         :locals => { :f => builder,
                      :field_placeholder => @everpresent_field_placeholder,

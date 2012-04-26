@@ -4,7 +4,7 @@ class ParentsController < ApplicationController
 
   def index
     @parent_exist = Parent.first ? true : false 
-    @parents = Parent.all
+    @parents = Parent.order( :parent_last_name, :parent_first_name, :parent_middle_name )
   end
   
   def new
