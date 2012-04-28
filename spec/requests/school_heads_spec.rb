@@ -1093,5 +1093,65 @@ describe "SchoolHeads" do
         end
       end
     end
+  
+    describe "Parent" do
+      describe "Creating" do
+        describe "View" do
+          before(:each) do
+            visit new_parent_path
+          end
+          
+          it "should have placeholders" do
+            inputs = [ "parent[parent_last_name]", "parent[parent_first_name]",
+                       "parent[parent_middle_name]", "parent[parent_birthday]",
+                       "parent[user_attributes][user_login]", 
+                       "parent[user_attributes][password]" 
+                     ]
+            inputs.each do |inp|                                                                      
+              response.should have_selector( 'input',                                                 
+                                             :name => inp,                                            
+                                             :placeholder => @everpresent_field_placeholder )          
+            end                                                                                       
+          end
+        
+          it "should keep values in forms" do
+            fill_in "Фамилия", :with => "1"
+            fill_in "Имя",     :with => "2"
+            fill_in "Отчество", :with => "3"
+            choose  "Мужской"
+            fill_in "Дата рождения",         :with => "4"
+            fill_in "Логин учетной записи",  :with => "5"
+            fill_in "Пароль учетной записи", :with => "6"
+            
+            click_button "Создать"
+            
+            response.should have_selector("form") do |form|
+              form.should have_selector( "input", 
+                                          :name => "parent[parent_last_name]",
+                                          :value => "1" )
+              form.should have_selector( "input",                                                         
+                                          :name => "parent[parent_first_name]",                             
+                                          :value => "2" )                                                                   
+              form.should have_selector( "input",                                                         
+                                          :name => "parent[parent_middle_name]",                            
+                                          :value => "3" )                                          
+              form.should have_selector( "input",                                                                              
+                                          :name => "parent[parent_sex]",                                                         
+                                          :value => "m",                                                                       
+                                          :checked => "checked" )                                                                                                 
+              form.should have_selector( "input",                                                  
+                                          :name => "parent[parent_birthday]",                             
+                                          :value => "4" )                                                                                                               
+              form.should have_selector( "input",                                                                         
+                                          :name => "parent[user_attributes][user_login]",                                               
+                                          :value => "5" )                                          
+              form.should have_selector( "input",                                                                         
+                                          :name => "parent[user_attributes][password]",                                            
+                                          :value => "6" )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+            end
+          end
+        end
+      end
+    end
   end
 end

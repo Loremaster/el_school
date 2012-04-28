@@ -48,4 +48,5 @@ en:
             parent_last_name: "Фамилия"
             parent_first_name: "Имя"
             parent_middle_name: "Отчество"
-            parent_birthday: "Дата рождения"        
+            parent_birthday: "Дата рождения"
+            parent_sex: "Пол"        

@@ -49,6 +49,6 @@ class Parent < ActiveRecord::Base
                             }                                                                                                  
 
   validates :parent_sex,                                                  
-              :presence  => true,                                        
-              :inclusion => { :in => %w(m w) }                                                    
+              :presence  => { :message => "не может быть пустым" },                                        
+              :inclusion => { :in => %w(m w), :message => "должен быть указан" }                                                    
 end
