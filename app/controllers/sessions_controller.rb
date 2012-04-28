@@ -6,10 +6,10 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.authenticate(params[:session][:user_login],
-                             params[:session][:password])
+    user = User.authenticate( params[:session][:user_login], params[:session][:password] )
+    
     if user.nil?
-      flash.now[:error] = "Не удается войти. Пожалуйста, проверьте правильность написания логина и пароля. "\
+      flash.now[:error] = "!Не удается войти. Пожалуйста, проверьте правильность написания логина и пароля. "\
                           "Проверьте, не нажата ли клавиша CAPS-lock."
       render 'new'
     else
