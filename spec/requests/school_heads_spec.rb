@@ -407,7 +407,7 @@ describe "SchoolHeads" do
           # Choosing pupil for 1st class
           visit edit_school_class_path( :id => @class1 )
           check "#{@pupil.pupil_last_name} #{@pupil.pupil_first_name} #{@pupil.pupil_middle_name}"
-          click_button "Изменить"
+          click_button "Обновить"
           
           # Checking that pupil is checked for 1st class
           visit edit_school_class_path( :id => @class1 )
@@ -419,7 +419,7 @@ describe "SchoolHeads" do
           response.should_not have_selector( 'input', :value => "#{@pupil.id}", 
                                                       :checked => "checked" )
           check "#{@pupil.pupil_last_name} #{@pupil.pupil_first_name} #{@pupil.pupil_middle_name}"
-          click_button "Изменить"  
+          click_button "Обновить"  
           
           # Checking that pupil is checked for 2st class 
           visit edit_school_class_path( :id => @class2 )
@@ -586,7 +586,8 @@ describe "SchoolHeads" do
         describe "Success" do
           it "should update with valid params" do
             fill_in "Номер класса",  :with => "11c"
-            click_button "Изменить"
+            
+            click_button "Обновить"
             
             flash[:success].should =~ /Класс успешно обновлен!/i
           end
@@ -595,7 +596,8 @@ describe "SchoolHeads" do
         describe "Failure" do
           it "should reject to update with not valid params" do
             fill_in "Номер класса",  :with => "  "
-            click_button "Изменить"
+            
+            click_button "Обновить"
             
             flash[:error].should =~ /не может быть пустым/i
           end
@@ -645,7 +647,7 @@ describe "SchoolHeads" do
             visit edit_school_class_path( :id => @class )
                 
             check @subj1.subject_name 
-            click_button "Изменить"
+            click_button "Обновить"
           end.should change( Curriculum, :count).by( 1 )
         end
         
@@ -653,7 +655,7 @@ describe "SchoolHeads" do
           visit edit_school_class_path( :id => @class )
               
           check @subj1.subject_name 
-          click_button "Изменить"
+          click_button "Обновить"
           
           visit edit_school_class_path( :id => @class )
           
@@ -883,7 +885,8 @@ describe "SchoolHeads" do
         describe "Success" do
           it "should change if attributes are correct" do
             fill_in "Фамилия",  :with => "Some"
-            click_button "Изменить"
+            
+            click_button "Обновить"
             
             flash[:success].should =~ /Ученик успешно обновлен!/i
           end
@@ -892,7 +895,8 @@ describe "SchoolHeads" do
         describe "Failure" do
           it "should reject to change if attributes are not correct" do
             fill_in "Фамилия",  :with => "  "
-            click_button "Изменить"
+            
+            click_button "Обновить"
             
             flash[:error].should =~ /не может быть пустой/i
           end
@@ -1025,7 +1029,7 @@ describe "SchoolHeads" do
               select "#{@school_class.class_code}", :from => "order[school_class_id]"
               select @pupil_full_name, :from => "order[pupil_id]"
               
-              click_button "Изменить"
+              click_button "Обновить"
               
               flash[:success].should =~ /Приказ успешно обновлен!/i
             end
@@ -1035,7 +1039,7 @@ describe "SchoolHeads" do
             it "should not update order with invalid data" do
               fill_in "Номер приказа",  :with => "  "
               
-              click_button "Изменить"
+              click_button "Обновить"
               
               flash[:error].should =~ /не может быть пустым/i
             end
@@ -1210,7 +1214,7 @@ describe "SchoolHeads" do
               choose  "Мужской"
               fill_in "Дата рождения",  :with => "#{Date.today - 20.years}"
               
-              click_button "Изменить"
+              click_button "Обновить"
               
               flash[:success].should =~ /Родитель успешно обновлен!/i
             end
@@ -1224,7 +1228,7 @@ describe "SchoolHeads" do
               choose  "Мужской"
               fill_in "Дата рождения",  :with => ""
               
-              click_button "Изменить"
+              click_button "Обновить"
               
               flash[:error].should =~ /не может быть/i
             end
