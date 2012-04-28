@@ -64,7 +64,7 @@ FactoryGirl.define do
   
   factory :teacher_education do |te|
     te.teacher_education_university 'MIT'
-    te.teacher_education_year "#{Date.today - 10.years}"
+    te.teacher_education_year       "#{Date.today - 10.years}"
     te.teacher_education_graduation 'Programmer'
     te.teacher_education_speciality 'Math programmer'
   end
@@ -75,6 +75,15 @@ FactoryGirl.define do
     o.text_of_order 'Some text here.'
     o.pupil
     o.school_class
+  end
+  
+  factory :parent do |p|
+    p.parent_last_name   'Skobkin'
+    p.parent_first_name  'Serj'
+    p.parent_middle_name 'Kopun'
+    p.parent_birthday    "#{Date.today - 20.years}"
+    p.parent_sex         'm'
+    p.user
   end
 end
 

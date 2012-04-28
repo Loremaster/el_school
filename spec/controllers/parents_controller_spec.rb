@@ -12,6 +12,10 @@ describe ParentsController do
     @sh = FactoryGirl.create( :user, :user_login => "shh" )
     @sh.user_role = "school_head"
     @sh.save!
+    
+    @parent = FactoryGirl.create( :parent )
+    @parent.user.user_role = "parent"
+    @parent.save!
   end
   
   describe "GET 'index'" do
@@ -82,4 +86,17 @@ describe ParentsController do
     end
   end
   
+  # describe "POST 'create'" do
+  #     describe "for signed-in school-heads" do
+  #       before(:each) do
+  #         test_sign_in( @sh )
+  #       end
+  #       
+  #       it "should create parent" do
+  #         expect do
+  #           post :create, :parent => FactoryGirl.create( :parent ).attributes.merge(:parent_last_name => "dfghj")
+  #         end.should change( Parent, :count ).by( 1 )
+  #       end
+  #     end
+  #   end 
 end

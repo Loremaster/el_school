@@ -24,7 +24,8 @@ module ApplicationHelper
   def translate_user_role( role )
     roles = { 
               :admin => "Администратор", :teacher => "Учитель", :pupil => "Ученик",
-              :class_head => "Классный руководитель", :school_head => "Завуч" 
+              :class_head => "Классный руководитель", :school_head => "Завуч",
+              :parent => "Родитель" 
             }
     roles[ role.to_sym ]           
   end
