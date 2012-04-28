@@ -39,7 +39,7 @@ class ParentsController < ApplicationController
     
     if @parent.update_attributes( params[:parent] )
       redirect_to parents_path
-      flash[:success] = "Приказ успешно обновлен!"
+      flash[:success] = "Родитель успешно обновлен!"
     else
       flash[:error] = @parent.errors.full_messages.to_sentence :last_word_connector => ", ",        
                                                                :two_words_connector => ", "

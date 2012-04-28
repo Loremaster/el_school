@@ -1151,6 +1151,85 @@ describe "SchoolHeads" do
             end
           end
         end
+      
+        describe "Create" do
+          before(:each) do
+            click_link "Родители"
+            click_link "Создать родителя"
+          end
+          
+          describe "Success" do
+            it "should create parent with valid data" do
+              expect do
+              expect do
+                fill_in "Фамилия", :with => "Mokov"
+                fill_in "Имя",     :with => "Igot"
+                fill_in "Отчество", :with => "Pokov"
+                choose  "Мужской"
+                fill_in "Дата рождения",         :with => "#{Date.today - 20.years}"
+                fill_in "Логин учетной записи",  :with => "looogin"
+                fill_in "Пароль учетной записи", :with => "passsword"
+              
+                click_button "Создать"
+              end.should change( User, :count ).by( 1 )   
+              end.should change( Parent, :count ).by( 1 )   
+            end
+          end
+        
+          describe "Failure" do
+            it "should reject to create parent with invalid data" do
+              expect do
+              expect do
+                fill_in "Фамилия", :with => ""
+                fill_in "Имя",     :with => ""
+                fill_in "Отчество", :with => ""
+                choose  "Мужской"
+                fill_in "Дата рождения",         :with => ""
+                fill_in "Логин учетной записи",  :with => ""
+                fill_in "Пароль учетной записи", :with => ""
+              
+                click_button "Создать"
+              end.should_not change( User, :count )  
+              end.should_not change( Parent, :count )   
+            end
+          end
+        end
+      
+        describe "Update" do
+          before(:each) do
+            @parent = FactoryGirl.create( :parent )
+            
+            visit edit_parent_path( :id => @parent ) 
+          end
+          
+          describe "Success" do
+            it "should update parent with valid data" do
+              fill_in "Фамилия", :with => "Mokov2"
+              fill_in "Имя",     :with => "Igot2"
+              fill_in "Отчество", :with => "Pokov2"
+              choose  "Мужской"
+              fill_in "Дата рождения",  :with => "#{Date.today - 20.years}"
+              
+              click_button "Изменить"
+              
+              flash[:success].should =~ /Родитель успешно обновлен!/i
+            end
+          end
+        
+          describe "Failure" do
+            it "should reject to update parent with invalid data" do
+              fill_in "Фамилия", :with => ""
+              fill_in "Имя",     :with => ""
+              fill_in "Отчество", :with => ""
+              choose  "Мужской"
+              fill_in "Дата рождения",  :with => ""
+              
+              click_button "Изменить"
+              
+              flash[:error].should =~ /не может быть/i
+            end
+          end
+        end
       end
     end
   end
