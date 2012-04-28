@@ -8,9 +8,9 @@ gem 'rails', '3.2'                                                              
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails'                                                                        #,   '~> 3.1.5'
-  gem 'coffee-rails'                                                                      #, '~> 3.1.1'
-  gem 'uglifier'                                                                          #, '>= 1.0.3'
+  gem 'sass-rails'                                                                        
+  gem 'coffee-rails'                                                                      
+  gem 'uglifier'                                                                          
 end
 
 gem 'jquery-rails'
@@ -18,9 +18,10 @@ gem 'jquery-rails'
 group :development do
   gem 'rspec-rails', '2.9.0'
   gem 'therubyracer-heroku'
-  gem 'pg'                                                                                #For postgreSQL  
-  gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'                    #It is patched version from github. This one works.
-  gem 'faker', '1.0.1'                                                                    #automating filling db by test data.
+  gem 'pg'                                                                                # For postgreSQL.  
+  gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'                    # It is patched version from github. This one works.
+  gem 'faker', '1.0.1'                                                                    # Automatically filling db by test data.
+  gem 'capistrano'
 end
 
 group :test do
@@ -36,7 +37,7 @@ group :test do
 end
 
 group :production do  
-  gem 'pg'                                                                                #For postgreSQL 
+  gem 'pg'                                                                                # For postgreSQL. 
 end
 
 # To use ActiveModel has_secure_password
