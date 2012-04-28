@@ -4,6 +4,7 @@
 
 **School head**
 
+- Creating/editing parents.
 - Creating/editing orders.
 - Now he can filter users by class.
 - Creating/editing classes (class code, date of creating, and class head for this class).
@@ -59,3 +60,4 @@ and contains russian words. For translation words i use locale, it set as :en (d
 **TODO**
 
 - Rewrite admin controller.
+- Remove choosing sex by default for all controller which use that.

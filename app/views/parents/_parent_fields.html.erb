@@ -1,0 +1,47 @@
+<div class="control-group">
+  <%= f.label :parent_last_name, "Фамилия", :class => "control-label" %>      
+
+  <div class="controls">
+    <%= f.text_field :parent_last_name, :placeholder => field_placeholder %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :parent_first_name, "Имя", :class => "control-label" %>
+
+  <div class="controls">
+    <%= f.text_field :parent_first_name, :placeholder => field_placeholder %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :parent_middle_name, "Отчество", :class => "control-label" %>
+
+  <div class="controls">
+    <%= f.text_field :parent_middle_name, :placeholder => field_placeholder %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :parent_sex, "Пол", :class => "control-label" %>
+
+  <div class="controls">
+    <%= label_tag nil, nil, :class => "radio" do %>
+      <%= f.radio_button :parent_sex, 'm' %>
+      Мужской
+    <% end %>
+
+    <%= label_tag nil, nil, :class => "radio" do %>
+      <%= f.radio_button :parent_sex, 'w' %>
+      Женский
+    <% end %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :parent_birthday, "Дата рождения", :class => "control-label" %>
+
+  <div class="controls">
+    <%= f.text_field :parent_birthday, :placeholder => field_placeholder %>
+  </div>
+</div>

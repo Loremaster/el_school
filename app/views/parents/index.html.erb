@@ -11,7 +11,7 @@
   <tbody>
     <% if @parent_exist %>        
       <% @parents.each do |p| %>          
-        <tr>
+        <tr class="cross" onclick = "location.href='<%= edit_parent_path( :id => p.id ) %>'">
           <td><%= "#{p.parent_last_name}" %></td>
           <td><%= "#{p.parent_first_name}" %></td>
           <td><%= "#{p.parent_middle_name}" %></td>
