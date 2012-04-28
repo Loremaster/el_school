@@ -1102,6 +1102,8 @@ describe "SchoolHeads" do
       describe "Creating" do
         describe "View" do
           before(:each) do
+            @pp = FactoryGirl.create( :parent_pupil )
+            
             visit new_parent_path
           end
           
@@ -1126,6 +1128,8 @@ describe "SchoolHeads" do
             fill_in "Дата рождения",         :with => "4"
             fill_in "Логин учетной записи",  :with => "5"
             fill_in "Пароль учетной записи", :with => "6"
+            check "#{@pp.pupil.pupil_last_name} #{@pp.pupil.pupil_first_name} " + 
+                  "#{@pp.pupil.pupil_middle_name}"
             
             click_button "Создать"
             
@@ -1151,19 +1155,24 @@ describe "SchoolHeads" do
                                           :value => "5" )                                          
               form.should have_selector( "input",                                                                         
                                           :name => "parent[user_attributes][password]",                                            
-                                          :value => "6" )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+                                          :value => "6" )                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+              form.should have_selector( "input", :id => "pupil_#{@pp.pupil.id}", 
+                                         :checked => "checked" )            
             end
           end
         end
       
         describe "Create" do
           before(:each) do
+            @pp = FactoryGirl.create( :parent_pupil )
+            
             click_link "Родители"
             click_link "Создать родителя"
           end
           
           describe "Success" do
             it "should create parent with valid data" do
+              expect do
               expect do
               expect do
                 fill_in "Фамилия", :with => "Mokov"
@@ -1173,15 +1182,19 @@ describe "SchoolHeads" do
                 fill_in "Дата рождения",         :with => "#{Date.today - 20.years}"
                 fill_in "Логин учетной записи",  :with => "looogin"
                 fill_in "Пароль учетной записи", :with => "passsword"
+                check "#{@pp.pupil.pupil_last_name} #{@pp.pupil.pupil_first_name} " + 
+                      "#{@pp.pupil.pupil_middle_name}"
               
                 click_button "Создать"
               end.should change( User, :count ).by( 1 )   
               end.should change( Parent, :count ).by( 1 )   
+              end.should change( ParentPupil, :count ).by( 1 )   
             end
           end
         
           describe "Failure" do
             it "should reject to create parent with invalid data" do
+              expect do
               expect do
               expect do
                 fill_in "Фамилия", :with => ""
@@ -1195,6 +1208,7 @@ describe "SchoolHeads" do
                 click_button "Создать"
               end.should_not change( User, :count )  
               end.should_not change( Parent, :count )   
+              end.should_not change( ParentPupil, :count )   
             end
           end
         end

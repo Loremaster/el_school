@@ -85,6 +85,11 @@ FactoryGirl.define do
     p.parent_sex         'm'
     p.user
   end
+  
+  factory :parent_pupil do |pp|
+    pp.parent
+    pp.pupil
+  end
 end
 
 
