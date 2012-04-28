@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# Created by 'bundle exec annotate --position before'
 # == Schema Information
 #
 # Table name: teacher_leaders

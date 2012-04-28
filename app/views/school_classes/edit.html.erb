@@ -14,7 +14,8 @@
       <%= f.label :pupil_ids, "Ученики в классе", :class => "control-label" %>
                   
       <div class="controls">        
-        <%= hidden_field_tag "school_class[pupil_ids][]", nil %>                          
+        <%= hidden_field_tag "school_class[pupil_ids][]", nil %>   
+                               
         <% Pupil.all.each do |pupil| %>          
           <%= label_tag dom_id( pupil ), nil, :class => "checkbox" do %>                  <%# Name, content_or_options = nil, options. %>
             <%= check_box_tag "school_class[pupil_ids][]",                                # [] brackets tells that this is array.
@@ -22,8 +23,7 @@
                               @class.pupil_ids.include?( pupil.id ),                      # Here we automatically check checkboxes.
                               id: dom_id( pupil ) %>                                      <%# Give unique id for each value. 'dom_id' is Rails helper.%>
                               
-            <%= "#{pupil.pupil_last_name} #{pupil.pupil_first_name} " + 
-                "#{pupil.pupil_middle_name}"%>
+            <%= pupil_full_names( pupil ) %>                                              <%# Use helper from helpers/application_helper %>
           <% end %>
         <% end %>                                                                 
       </div>  

@@ -18,6 +18,9 @@
 class Parent < ActiveRecord::Base
   belongs_to :user
   
+  has_many :parent_pupils
+  has_many :pupils, :through => :parent_pupils
+  
   accepts_nested_attributes_for :user
   
   

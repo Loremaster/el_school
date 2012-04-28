@@ -45,3 +45,22 @@
     <%= f.text_field :parent_birthday, :placeholder => field_placeholder %>
   </div>
 </div>
+
+<div class="control-group"> 
+  <%= f.label :pupil_ids, "Дети", :class => "control-label" %>               
+ 
+  <div class="controls">
+    <%= hidden_field_tag "parent[pupil_ids][]", nil %>
+    
+    <% Pupil.all.each do |p| %>
+      <%= label_tag dom_id( p ), nil, :class => "checkbox" do %>     
+        <%= check_box_tag "parent[pupil_ids][]",                                          # [] brackets tells that this is array.
+                          p.id,                                                           # Value of checkbox.
+                          @parent.pupil_ids.include?( p.id ),                             # Here we automatically check checkboxes.
+                          id: dom_id( p ) %>                                              <%# Give unique id for each value. 'dom_id' is Rails helper. %>
+      
+        <%= pupil_full_names( p ) %>                                                      <%# Use helper from helpers/application_helper %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
