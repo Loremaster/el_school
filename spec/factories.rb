@@ -90,6 +90,14 @@ FactoryGirl.define do
     pp.parent
     pp.pupil
   end
+  
+  factory :meeting do |m|
+    m.meeting_theme 'Some theme!'
+    m.meeting_date  "#{Date.today}"
+    m.meeting_time  '21:01'
+    m.meeting_room  '123'
+    m.school_class
+  end
 end
 
 
