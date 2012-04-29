@@ -38,7 +38,7 @@ describe Parent do
     it "should reject to create parent via user with wrong attributes" do
       expect do
         @user.create_parent( @attr_parent.merge(:parent_sex => '11') ).should_not be_valid  
-      end.should_not change( Parent, :count ).by( 1 )
+      end.should_not change( Parent, :count )
     end
   end
   

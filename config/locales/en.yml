@@ -49,4 +49,10 @@ en:
             parent_first_name: "Имя"
             parent_middle_name: "Отчество"
             parent_birthday: "Дата рождения"
-            parent_sex: "Пол"        
+            parent_sex: "Пол"
+          meeting:
+            school_class_id: "Номер класса"
+            meeting_theme: "Тема собрания"
+            meeting_date: "Дата"
+            meeting_time: "Время"
+            meeting_room: "Номер кабинета"          

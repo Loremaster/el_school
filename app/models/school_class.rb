@@ -25,6 +25,7 @@ class SchoolClass < ActiveRecord::Base
   has_many :curriculums
   has_many :qualifications, :through => :curriculums 
   has_many :orders
+  has_many :meetings
                 
   validates :class_code,
               :presence   => { :message => "не может быть пустым" },            
