@@ -1257,5 +1257,65 @@ describe "SchoolHeads" do
         end
       end
     end
+  
+    describe "Meeting" do
+      describe "Creating" do
+        describe "View" do
+          before(:each) do
+            click_link "Родительские собрания"
+            click_link "Создать собрание"
+          end
+        
+        
+          it "should have placeholders" do
+             inputs = [ "meeting[meeting_date]", "meeting[meeting_room]" ]
+             inputs.each do |inp|                                                                     
+               response.should have_selector( 'input',                                                
+                                              :name => inp,                                           
+                                              :placeholder => @everpresent_field_placeholder )         
+             end 
+           
+             response.should have_selector( 'textarea',                                                                                                        
+                                            :name => "meeting[meeting_theme]",                                                                              
+                                            :placeholder => @everpresent_field_placeholder )                                                                                     
+          end
+       
+       
+        end
+      
+        describe "Create" do
+          before(:each) do
+            @class = FactoryGirl.create( :school_class )
+            
+            click_link "Родительские собрания"
+            click_link "Создать собрание"
+          end
+          
+          describe "Success" do
+            it "should create meeting with valid data" do
+              expect do
+                fill_in "Тема собрания", :with => "Yeeeeeeee!"
+                fill_in "Дата", :with => "#{Date.today}"
+                fill_in "Номер кабинета", :with => "123"
+                          
+                click_button "Создать"
+              end.should change( Meeting, :count ).by( 1 ) 
+            end
+          end
+        
+          describe "Failure" do
+            it "should reject to create meeting with invalid data" do
+              expect do
+                fill_in "Тема собрания", :with => ""
+                fill_in "Дата", :with => ""
+                fill_in "Номер кабинета", :with => ""
+                          
+                click_button "Создать"
+              end.should_not change( Meeting, :count )
+            end
+          end
+        end
+      end
+    end
   end
 end

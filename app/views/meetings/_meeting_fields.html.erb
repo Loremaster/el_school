@@ -1,0 +1,52 @@
+<div class="control-group">
+  <%= f.label :meeting_theme, "Тема собрания", :class => "control-label" %>
+
+  <div class="controls">
+    <%= f.text_area :meeting_theme, :rows => 3, 
+                    :placeholder => field_placeholder %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :meeting_date, "Дата", :class => "control-label" %>
+
+  <div class="controls">
+    <%= f.text_field :meeting_date, 
+                     :class => "span2",                         
+                     :placeholder => field_placeholder,
+                     :maxlength => 10 %>
+    <p class="help-block">Желаемый формат - дд.мм.гггг</p>                 
+  </div>
+</div> 
+
+<div class="control-group">
+  <%= f.label :meeting_time, "Время", :class => "control-label" %>
+
+  <div class="controls">
+    <%= f.time_select :meeting_time, {}, { :class => "span1" } %>              
+  </div>
+</div>   
+
+<div class="control-group">
+  <%= f.label :meeting_room, "Номер кабинета", :class => "control-label" %>
+
+  <div class="controls">
+    <%= f.text_field :meeting_room, 
+                     :class => "span2",                         
+                     :placeholder => field_placeholder %>
+  </div>
+</div>  
+
+<div class="control-group">
+  <%= f.label :school_class_id, "Номер класса", 
+      :class => "control-label" %>
+
+  <div class="controls">
+    <%= f.select( :school_class_id,                                                       # Here we use 'select' instead of 'select_tag' because 'select' allows us to give builder ('tl.select' here).
+                  options_for_select( 
+                        SchoolClass.all.collect { |s| [ s.class_code, s.id ] } ),
+                  {},
+                  { :class => "span1" }        
+                ) %>            	     
+  </div>
+</div>

@@ -5,11 +5,11 @@ describe ParentsController do
   render_views
   
   before(:each) do
-    @adm = FactoryGirl.create( :user, :user_login => "usr" )
+    @adm = FactoryGirl.create( :user )
     @adm.user_role = "admin"
     @adm.save!
     
-    @sh = FactoryGirl.create( :user, :user_login => "shh" )
+    @sh = FactoryGirl.create( :user )
     @sh.user_role = "school_head"
     @sh.save!
     

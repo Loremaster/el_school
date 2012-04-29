@@ -5,11 +5,11 @@ describe UsersController do
   render_views
   
   before(:each) do
-    @adm = FactoryGirl.create(:user, :user_login => "iadmin")
-    @adm.user_role = "admin"
-    @adm.save!
-    
-    @user = FactoryGirl.create(:user, :user_login => "bla-bla")
+    @adm = FactoryGirl.create( :user )
+    @adm.user_role = "admin"        
+    @adm.save!                      
+                                    
+    @user = FactoryGirl.create( :user )
     @user.user_role = "teacher"
     @user.save
   end
