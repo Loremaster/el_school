@@ -1,0 +1,13 @@
+<legend>Редактирование родительского собрания</legend>
+
+<%= form_for @meeting, :html => {:class => "form-horizontal"} do |f| %>
+  <%= field_set_tag do %> 
+    <%= render :partial => 'meeting_fields', 
+        :locals => { 
+                     :f => f,
+                     :field_placeholder => @everpresent_field_placeholder
+                    } %>
+           
+    <%= f.submit "Обновить", :class => "btn btn-large btn-warning" %>
+  <% end %>
+<% end %>

@@ -15,6 +15,7 @@
                      :class => "span2",                         
                      :placeholder => field_placeholder,
                      :maxlength => 10 %>
+                     
     <p class="help-block">Желаемый формат - дд.мм.гггг</p>                 
   </div>
 </div> 
@@ -46,7 +47,6 @@
                   options_for_select( 
                         SchoolClass.all.collect { |s| [ s.class_code, s.id ] } ),
                   {},
-                  { :class => "span1" }        
-                ) %>            	     
+                  { :class => "span1" } ) %>            	     
   </div>
 </div>

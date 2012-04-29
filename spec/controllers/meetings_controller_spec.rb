@@ -103,4 +103,84 @@ describe MeetingsController do
       end
     end
   end
+  
+  describe "GET 'edit'" do
+    describe "for non-signed users" do
+      it "should deny access" do
+        get :edit, :id => @meeting
+        response.should redirect_to( signin_path )
+        flash[:notice].should =~ /войдите в систему как завуч/i
+      end
+    end
+    
+    describe "for signin-in admins" do
+      before(:each) do
+        test_sign_in( @adm )
+      end
+      
+      it "should deny access" do
+        get :edit, :id => @meeting
+        response.should redirect_to( pages_wrong_page_path )
+        flash[:error].should =~ /вы не можете увидеть эту страницу/i
+      end
+    end
+    
+    describe "for sign-in school-heads" do
+      before(:each) do
+        test_sign_in( @sh )
+      end
+      
+      it "should allow to edit meetings" do
+        get :edit, :id => @meeting
+        response.should be_success
+        flash[:error].should be_nil
+      end
+    end
+  end
+  
+  describe "PUT 'update" do
+    describe "for non-signed users" do
+      it "should deny access" do
+        put :update, :id => @meeting, 
+                      :meeting => @meeting.attributes.merge( :meeting_theme => "some" )
+        response.should redirect_to( signin_path )
+        flash[:notice].should =~ /войдите в систему как завуч/i
+      end
+    end
+    
+    describe "for signed-in admins" do
+      before(:each) do
+        test_sign_in( @adm )
+      end
+      
+      it "should deny access" do
+        put :update, :id => @meeting, 
+                     :meeting => @meeting.attributes.merge( :meeting_theme => "some" )
+        response.should redirect_to( pages_wrong_page_path )
+        flash[:error].should =~ /вы не можете увидеть эту страницу/i
+      end
+    end
+    
+    describe "for signed-in school-heads" do
+      before(:each) do
+        test_sign_in( @sh )
+      end
+      
+      it "should update meeting with correct attributes" do
+         text = "last"
+         put :update, :id => @meeting, 
+                      :meeting => @meeting.attributes.merge( :meeting_theme => text )
+         @meeting.reload
+         @meeting.meeting_theme.should == text
+      end
+      
+      it "should  reject update meeting with invalid attributes" do
+         text = "  "
+         put :update, :id => @meeting, 
+                      :meeting => @meeting.attributes.merge( :meeting_theme => text )
+         @meeting.reload
+         @meeting.meeting_theme.should_not == text
+      end
+    end
+  end
 end

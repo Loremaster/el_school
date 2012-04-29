@@ -4,8 +4,8 @@
   <thead>
     <tr>
       <th>Номер приказа</th>                     
-      <th>Текст</th>                     
       <th>Дата создания</th>                     
+      <th>Текст</th>                     
       <th>Класс</th>                     
       <th>Ученик</th>                     
     </tr>
@@ -15,7 +15,7 @@
       <% @orders.each do |o| %>          
         <tr class="cross" onclick = "location.href='<%= edit_order_path( :id => o.id ) %>'">
           <td><%= o.number_of_order %></td>
-          <td><%= o.date_of_order %></td>
+          <td><%= o.date_of_order.strftime("%d.%m.%Y") %></td>
           <td><%= o.text_of_order %></td>          
           <td>
             <% if o.school_class.nil? %>
