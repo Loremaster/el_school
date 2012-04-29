@@ -1,6 +1,12 @@
 <%= link_to "E-school", pupils_path, :class => "brand" %>
 
 <ul class="nav">
+   <li class=<%= active_toolbar?( meetings_path ) %>>
+     <%= link_to "Родительские собрания", meetings_path %>
+   </li>
+</ul>
+
+<ul class="nav">
    <li class=<%= active_toolbar?( pupils_path ) %>>
      <%= link_to "Ученики", pupils_path %>
    </li>

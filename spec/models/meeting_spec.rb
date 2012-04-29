@@ -116,7 +116,7 @@ describe Meeting do
       end
       
       it "should accept correct meetings's time" do
-        correct_attr = @attr_meeting.merge( :meeting_time => "#{Time.now.strftime("%H:%M")}" ) 
+        correct_attr = @attr_meeting.merge(:meeting_time =>"#{Time.now.strftime("%H:%M")}") 
         @class.meetings.build( correct_attr ).should be_valid
       end
       
