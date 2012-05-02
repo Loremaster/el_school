@@ -5,7 +5,12 @@ class MeetingsController < ApplicationController
   
   def index
     @meetings = Meeting.all
-    @meeting_exist = Meeting.first ? true : false 
+    @meeting_exist = Meeting.first ? true : false
+    @classes = SchoolClass.order( :class_code ) 
+    
+    if params.has_key?( :class_code )
+      @meetings = SchoolClass.where( "class_code = ?", params[:class_code] ).first.meetings      
+    end
   end
   
   def new
