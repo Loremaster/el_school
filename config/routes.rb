@@ -10,7 +10,8 @@ ElSchool::Application.routes.draw do
   resources :orders,          :only => [ :index, :new, :create, :edit, :update ]
   resources :parents,         :only => [ :index, :new, :create, :edit, :update ]
   resources :meetings,        :only => [ :index, :new, :create, :edit, :update ]
-                                    
+  resources :timetables,      :only => [ :index ]
+                                      
   get "sessions/new"
 
   match 'pages/wrong_page', :to => 'pages#wrong_page'
