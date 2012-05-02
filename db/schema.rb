@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120429094312) do
+ActiveRecord::Schema.define(:version => 20120502155751) do
 
   create_table "curriculums", :force => true do |t|
     t.integer  "school_class_id"
@@ -141,6 +141,16 @@ ActiveRecord::Schema.define(:version => 20120429094312) do
     t.date     "teacher_birthday"
     t.string   "teacher_sex"
     t.string   "teacher_category"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
+  create_table "timetables", :force => true do |t|
+    t.integer  "curriculum_id"
+    t.string   "tt_day_of_week"
+    t.integer  "tt_number_of_lesson"
+    t.string   "tt_room"
+    t.string   "tt_type"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
   end

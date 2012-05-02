@@ -14,4 +14,6 @@
 class Curriculum < ActiveRecord::Base
   belongs_to :school_class
   belongs_to :qualification
+  
+  has_many :timetables
 end

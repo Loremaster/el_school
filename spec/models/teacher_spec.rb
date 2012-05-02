@@ -40,7 +40,7 @@ describe Teacher do
     }
   end
 
-  describe "User creation" do
+  describe "Teacher creation" do
     it "should create valid teacher via user" do
       expect do
         @user.create_teacher( @attr_teacher )

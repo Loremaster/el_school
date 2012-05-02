@@ -55,4 +55,9 @@ en:
             meeting_theme: "Тема собрания"
             meeting_date: "Дата"
             meeting_time: "Время"
-            meeting_room: "Номер кабинета"          
+            meeting_room: "Номер кабинета" 
+          timetable:
+            tt_day_of_week: "День недели"
+            tt_number_of_lesson: "Номер урока"    
+            tt_room: "Кабинет"
+            tt_type: "Тип предмета"           

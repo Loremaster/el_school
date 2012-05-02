@@ -98,6 +98,16 @@ FactoryGirl.define do
     m.meeting_room  '123'
     m.school_class
   end
+  
+  factory :qualification do |q|
+    q.teacher
+    q.subject
+  end
+  
+  factory :curriculum do |c|
+    c.qualification
+    c.school_class
+  end
 end
 
 
