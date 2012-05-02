@@ -1,3 +1,5 @@
+<legend>Редактирование родителя</legend>
+
 <%= form_for @parent, :html => {:class => "form-horizontal"} do |f| %>
   <%= render :partial => 'parent_fields', 
       :locals => { :f => f, :field_placeholder => @everpresent_field_placeholder }

@@ -22,8 +22,9 @@ class ParentsController < ApplicationController
       redirect_to parents_path
       flash[:success] = "Родитель успешно создан!"
     else
-      flash[:error] = @parent.errors.full_messages.to_sentence :last_word_connector => ", ",        
-                                                               :two_words_connector => ", "
+      flash.now[:error] = @parent.errors.full_messages
+                                        .to_sentence :last_word_connector => ", ",        
+                                                     :two_words_connector => ", "
       render "new"                                                          
     end
   end
@@ -41,8 +42,9 @@ class ParentsController < ApplicationController
       redirect_to parents_path
       flash[:success] = "Родитель успешно обновлен!"
     else
-      flash[:error] = @parent.errors.full_messages.to_sentence :last_word_connector => ", ",        
-                                                               :two_words_connector => ", "
+      flash.now[:error] = @parent.errors.full_messages
+                                        .to_sentence :last_word_connector => ", ",        
+                                                     :two_words_connector => ", "
       render 'edit'                                                                       # After calling this we get all from params. That means that fields are not autocomplete if user edited them.
     end
   end

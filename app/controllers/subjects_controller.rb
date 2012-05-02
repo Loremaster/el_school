@@ -20,8 +20,9 @@ class SubjectsController < ApplicationController
       redirect_to subjects_path
       flash[:success] = "Предмет успешно создан!"
     else                                               
-      flash[:error] = @subject.errors.full_messages.to_sentence :last_word_connector => ", ",        
-                                                                :two_words_connector => ", "
+      flash.now[:error] = @subject.errors.full_messages
+                                         .to_sentence :last_word_connector => ", ",        
+                                                      :two_words_connector => ", "
       render 'new'                                                                        # Rendering new template via Create method.
     end
   end
@@ -39,8 +40,9 @@ class SubjectsController < ApplicationController
       redirect_to subjects_path
       flash[:success] = "Предмет успешно обновлен!"
     else
-      flash[:error] = @subject.errors.full_messages.to_sentence :last_word_connector => ", ",        
-                                                                :two_words_connector => ", "
+      flash.now[:error] = @subject.errors.full_messages
+                                         .to_sentence :last_word_connector => ", ",        
+                                                      :two_words_connector => ", "
       render 'edit'                                                                       # Rendering edit template via Update method.
     end
   end

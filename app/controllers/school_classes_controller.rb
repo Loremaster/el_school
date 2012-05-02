@@ -27,8 +27,9 @@ class SchoolClassesController < ApplicationController
       redirect_to school_classes_path
       flash[:success] = "Класс успешно создан!"
     else
-      flash[:error] = @class.errors.full_messages.to_sentence :last_word_connector => ", ",        
-                                                              :two_words_connector => ", "
+      flash.now[:error] = @class.errors.full_messages
+                                       .to_sentence :last_word_connector => ", ",        
+                                                    :two_words_connector => ", "
       render 'new'
     end    
   end
@@ -52,8 +53,9 @@ class SchoolClassesController < ApplicationController
       redirect_to school_classes_path
       flash[:success] = "Класс успешно обновлен!"
     else
-      flash[:error] = @class.errors.full_messages.to_sentence :last_word_connector => ", ",        
-                                                              :two_words_connector => ", "
+      flash.now[:error] = @class.errors.full_messages
+                                       .to_sentence :last_word_connector => ", ",        
+                                                    :two_words_connector => ", "
       render "edit"
     end  
   end

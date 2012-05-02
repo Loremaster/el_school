@@ -28,8 +28,9 @@ class TeachersController < ApplicationController
       redirect_to teachers_path
       flash[:success] = "Учитель успешно обновлен!"
     else
-      flash[:error] = @teacher.errors.full_messages.to_sentence :last_word_connector => ", ",        
-                                                                :two_words_connector => ", "
+      flash.now[:error] = @teacher.errors.full_messages
+                                         .to_sentence :last_word_connector => ", ",        
+                                                      :two_words_connector => ", "
       render "edit"
     end
   end

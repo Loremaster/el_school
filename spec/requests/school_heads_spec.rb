@@ -486,7 +486,7 @@ describe "SchoolHeads" do
         
         it "should show all pupils by link in button" do
           click_link "Ученики"
-          click_link "Отфильтровать по классу"
+          click_link "Отфильтровать"
           click_link "Все ученики"
           
           # Checking that names appear in table.
@@ -507,7 +507,7 @@ describe "SchoolHeads" do
       
         it "should show pupils in class" do
           click_link "Ученики"
-          click_link "Отфильтровать по классу"
+          click_link "Отфильтровать"
           click_link "#{@class1.class_code}"
           
           # Checking that app shows pupils ONLY from their class if we choosen filter. 

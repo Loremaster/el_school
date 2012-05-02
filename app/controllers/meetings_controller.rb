@@ -26,8 +26,9 @@ class MeetingsController < ApplicationController
       redirect_to meetings_path
       flash[:success] = "Собрание успешно создано!"
     else
-      flash[:error] = @meeting.errors.full_messages.to_sentence :last_word_connector => ", ",        
-                                                                :two_words_connector => ", "
+      flash.now[:error] = @meeting.errors.full_messages
+                                         .to_sentence :last_word_connector => ", ",        
+                                                      :two_words_connector => ", "
       render 'new'
     end
   end
@@ -45,8 +46,9 @@ class MeetingsController < ApplicationController
       redirect_to meetings_path
       flash[:success] = "Собрание успешно обновлено!"
     else
-      flash[:error] = @meeting.errors.full_messages.to_sentence :last_word_connector => ", ",        
-                                                                :two_words_connector => ", "
+      flash.now[:error] = @meeting.errors.full_messages
+                                         .to_sentence :last_word_connector => ", ",        
+                                                      :two_words_connector => ", "
       render 'edit'
     end
   end

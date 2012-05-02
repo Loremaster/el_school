@@ -22,8 +22,9 @@ class UsersController < ApplicationController
        redirect_to users_path
        flash[:success] = "Пользователь успешно обновлен!"
     else
-       flash[:error] = @user.errors.full_messages.to_sentence :last_word_connector => ", ",
-                                                              :two_words_connector => ", "
+       flash.now[:error] = @user.errors.full_messages
+                                       .to_sentence :last_word_connector => ", ",
+                                                    :two_words_connector => ", "
        render "edit"                                                       
     end
   end
