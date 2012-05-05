@@ -16,7 +16,7 @@
 
 class Timetable < ActiveRecord::Base
   belongs_to :curriculum
-                
+                  
   validates :tt_day_of_week,
               :presence  => true,
               :inclusion => { :in => %w(Mon Tue Wed Thu Fri) }
@@ -37,5 +37,5 @@ class Timetable < ActiveRecord::Base
 
   validates :tt_type,
               :inclusion => { :in => ["Primary lesson", "Extra"] },
-              :allow_nil => true
+              :allow_blank => true
 end

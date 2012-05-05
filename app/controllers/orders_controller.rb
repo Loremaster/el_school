@@ -24,8 +24,8 @@ class OrdersController < ApplicationController
       flash[:success] = "Приказ успешно создан!" 
     else
       flash.now[:error] = @order.errors.full_messages
-                                      .to_sentence :last_word_connector => ", ",        
-                                                   :two_words_connector => ", "
+                                       .to_sentence :last_word_connector => ", ",        
+                                                    :two_words_connector => ", "
       render 'new'                                                                        # It should be placed after flash message or you will have to click button twice.
     end
   end

@@ -1,0 +1,29 @@
+<legend>Создание расписания занятий для <%= @class.class_code %> класса</legend>
+
+<%= form_for @tt, :html => {:class => "form-horizontal"} do |f| %>
+  <%= field_set_tag do %> 
+    <table class="table table-bordered table-striped" name="teachers">
+      <thead>
+        <tr>
+          <th>Время</th>      
+          <th>Предмет</th>      
+          <th>Номер кабинета</th>      
+          <th>Тип занятия</th>      
+        </tr>
+        <tr>
+          <th>Понедельник</th>      
+        </tr>
+      </thead>
+      <tbody>
+        <% 1.upto(8) do |i| %>
+          <tr> 
+              <%= render :partial => 'timetable_fields', 
+                  :locals => { :f => f, :i => i, :day_of_week => 'Mon' } %>  
+          </tr>
+        <% end %>
+      </tbody>
+    </table> 
+                     
+    <%= f.submit "Создать", :class => "btn btn-large btn-success" %>
+  <% end %>
+<% end %>

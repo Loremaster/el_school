@@ -78,7 +78,7 @@ class TeacherLeadersController < ApplicationController
     # Collect array of ["teacher names", teacher.id] which are options of select in view.
     def collect_teachers
       Teacher.all.collect do |t| 
-       [ "#{t.teacher_last_name} #{t.teacher_first_name} #{t.teacher_middle_name}", t.id ] 
+        [ "#{t.teacher_last_name} #{t.teacher_first_name} #{t.teacher_middle_name}", t.id ] 
       end
     end
 end
