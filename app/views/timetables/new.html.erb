@@ -3,17 +3,9 @@
 <%= form_for @tt, :html => {:class => "form-horizontal"} do |f| %>
   <%= field_set_tag do %> 
     <table class="table-bordered table-striped" name="teachers">
-      <thead>
-        <tr>
-          <th>Время</th>      
-          <th>Предмет</th>      
-          <th>Номер кабинета</th>      
-          <th>Тип занятия</th>      
-        </tr>
-        <tr>
-          <th>Понедельник</th>   
-        </tr>
-      </thead>
+
+      <%= render :partial => 'theads', :locals => { :day => 'Понедельник' } %>
+
       <tbody>
         <% 1.upto(8) do |i| %>                                                            <%# i is key for timetable part. Should be unique. %>
           <tr> 

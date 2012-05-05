@@ -6,6 +6,7 @@
       Создать расписание для класса
       <span class="caret"></span>
     </a>
+    
     <ul class="dropdown-menu">			
       <% @classes.each do |c| %>
 			  <li><%= link_to c.class_code, new_timetable_path( :class_code => c.class_code ) %></li>			
