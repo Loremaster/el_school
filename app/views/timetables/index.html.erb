@@ -2,6 +2,47 @@
 
 <div style="margin-top: 18px;" class="btn-toolbar">
   <div class="btn-group">
+    <a href="#" data-toggle="dropdown" class="btn dropdown-toggle">
+      Показать расписание для класса
+      <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+			
+      <% @classes.each do |c| %>
+			  <li>
+			    <%= link_to c.class_code, timetables_path( :class_code => c.class_code ) %>
+			  </li>			
+			<% end %>
+    </ul>
+  </div>
+</div>
+
+<table class="table table-bordered table-striped" name="teachers">
+  <thead>
+    <tr>
+      <th>Понедельник</th>      
+    </tr>
+    <tr>
+      <th>Номер урока</th>      
+      <th>Предмет</th>      
+      <th>Номер кабинета</th>      
+      <th>Тип занятия</th>                                      
+    </tr>
+  </thead>
+  <tbody>        
+      <% @tt_monday.each do |t| %>         
+        <tr>
+          <td><%= t.tt_number_of_lesson %></td>
+          <td><%= t.curriculum.qualification.subject.subject_name %></td>
+          <td><%= t.tt_room %></td>
+          <td><%= t.tt_type %></td>
+        </tr>
+      <% end %>
+  </tbody>
+</table>
+
+<div style="margin-top: 18px;" class="btn-toolbar">
+  <div class="btn-group">
     <a href="#" data-toggle="dropdown" class="btn btn-primary btn-large dropdown-toggle">
       Создать расписание для класса
       <span class="caret"></span>
@@ -9,7 +50,9 @@
     
     <ul class="dropdown-menu">			
       <% @classes.each do |c| %>
-			  <li><%= link_to c.class_code, new_timetable_path( :class_code => c.class_code ) %></li>			
+			  <li>
+			    <%= link_to c.class_code, new_timetable_path( :class_code => c.class_code ) %>
+			  </li>			
 			<% end %>
     </ul>
   </div>

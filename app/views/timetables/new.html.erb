@@ -2,10 +2,9 @@
 
 <%= form_for @tt, :html => {:class => "form-horizontal"} do |f| %>
   <%= field_set_tag do %> 
-    <table class="table-bordered table-striped" name="teachers">
+    <table class="table-bordered table-striped" name="timetable">
 
       <%= render :partial => 'theads', :locals => { :day => 'Понедельник' } %>
-
       <tbody>
         <% 1.upto(8) do |i| %>                                                            <%# i is key for timetable part. Should be unique. %>
           <tr> 
@@ -17,8 +16,7 @@
       </tbody>
       
             
-      <%= render :partial => 'theads', :locals => { :day => 'Вторник' } %>
-      
+      <%= render :partial => 'theads', :locals => { :day => 'Вторник' } %>      
       <tbody>
         <% 9.upto(16) do |i| %>
           <tr> 
@@ -29,9 +27,8 @@
         <% end %>
       </tbody>
       
-            
+                  
       <%= render :partial => 'theads', :locals => { :day => 'Среда' } %>
-
       <tbody>
         <% 17.upto(24) do |i| %>
           <tr> 
@@ -43,8 +40,7 @@
       </tbody>
       
       
-      <%= render :partial => 'theads', :locals => { :day => 'Четверг' } %>
-      
+      <%= render :partial => 'theads', :locals => { :day => 'Четверг' } %>  
       <tbody>
         <% 25.upto(32) do |i| %>
           <tr> 
@@ -56,8 +52,7 @@
       </tbody>
       
 
-      <%= render :partial => 'theads', :locals => { :day => 'Пятница' } %>
-      
+      <%= render :partial => 'theads', :locals => { :day => 'Пятница' } %>      
       <tbody>
         <% 33.upto(40) do |i| %>
           <tr> 
@@ -68,7 +63,9 @@
         <% end %>
       </tbody> 
     </table> 
-                     
+    
+    <br/>  
+                   
     <%= f.submit "Создать", :class => "btn btn-large btn-success" %>
   <% end %>
 <% end %>

@@ -4,6 +4,13 @@ class TimetablesController < ApplicationController
 
   def index
     @classes = SchoolClass.order( :class_code ) 
+    @tts = []
+    
+    if params.has_key?( :class_code )
+      school_class = SchoolClass.where( "class_code = ?", params[:class_code] ).first 
+      @tts = timetable_for_class( school_class )
+      @tt_monday = @tts.select{|t| t.tt_day_of_week == "Mon"}                             # Timetable for monday.
+    end
   end
   
   def new
@@ -47,5 +54,17 @@ class TimetablesController < ApplicationController
       subjects = school_class.curriculums.collect do |c| 
         [ c.qualification.subject.subject_name, c.id  ] 
       end          
+    end
+    
+    def timetable_for_class( school_class )
+      timetable = []
+      school_class.curriculums.each { |c| c.timetables.each{ |t| timetable << t } }
+      timetable
+    end
+    
+    def subjects_of_class( school_class )
+      subjects = school_class.curriculums.collect do |c| 
+        c.qualification.subject.subject_name 
+      end
     end
 end
