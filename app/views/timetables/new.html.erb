@@ -2,7 +2,7 @@
 
 <%= form_for @tt, :html => {:class => "form-horizontal"} do |f| %>
   <%= field_set_tag do %> 
-    <table class="table table-bordered table-striped" name="teachers">
+    <table class="table-bordered table-striped" name="teachers">
       <thead>
         <tr>
           <th>Время</th>      
@@ -11,17 +11,82 @@
           <th>Тип занятия</th>      
         </tr>
         <tr>
-          <th>Понедельник</th>      
+          <th>Понедельник</th>   
         </tr>
       </thead>
       <tbody>
-        <% 1.upto(8) do |i| %>
+        <% 1.upto(8) do |i| %>                                                            <%# i is key for timetable part. Should be unique. %>
           <tr> 
               <%= render :partial => 'timetable_fields', 
-                  :locals => { :f => f, :i => i, :day_of_week => 'Mon' } %>  
+                  :locals => { :f => f, :i => i, :day_of_week => 'Mon',
+                               :number_of_lesson => i } %>                                <%# number_of_lesson should be > 0 and < 10 %>
           </tr>
         <% end %>
       </tbody>
+      
+      <thead>
+        <tr>
+          <th>Вторник</th>      
+        </tr>
+      </thead>
+      
+      <tbody>
+        <% 9.upto(16) do |i| %>
+          <tr> 
+              <%= render :partial => 'timetable_fields', 
+                  :locals => { :f => f, :i => i, :day_of_week => 'Tue',
+                               :number_of_lesson => i-8 } %>  
+          </tr>
+        <% end %>
+      </tbody>
+      
+      <thead>
+        <tr>
+          <th>Среда</th>      
+        </tr>
+      </thead>
+
+      <tbody>
+        <% 17.upto(24) do |i| %>
+          <tr> 
+              <%= render :partial => 'timetable_fields', 
+                  :locals => { :f => f, :i => i, :day_of_week => 'Wed',
+                               :number_of_lesson => i - 8*2 } %>  
+          </tr>
+        <% end %>
+      </tbody>
+      
+      <thead>
+        <tr>
+          <th>Четверг</th>      
+        </tr>
+      </thead>
+      
+      <tbody>
+        <% 25.upto(32) do |i| %>
+          <tr> 
+              <%= render :partial => 'timetable_fields', 
+                  :locals => { :f => f, :i => i, :day_of_week => 'Thu',
+                               :number_of_lesson => i - 8*3 } %>  
+          </tr>
+        <% end %>
+      </tbody>
+      
+      <thead>
+        <tr>
+          <th>Пятница</th>      
+        </tr>
+      </thead>
+
+      <tbody>
+        <% 33.upto(40) do |i| %>
+          <tr> 
+              <%= render :partial => 'timetable_fields', 
+                  :locals => { :f => f, :i => i, :day_of_week => 'Fri',
+                               :number_of_lesson => i - 8*4 } %>  
+          </tr>
+        <% end %>
+      </tbody> 
     </table> 
                      
     <%= f.submit "Создать", :class => "btn btn-large btn-success" %>

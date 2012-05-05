@@ -1,7 +1,7 @@
-<%= f.hidden_field "[#{i}][tt_number_of_lesson]", :value => i %>
+<%= f.hidden_field "[#{i}][tt_number_of_lesson]", :value => number_of_lesson %>
 <%= f.hidden_field "[#{i}][tt_day_of_week]", :value => day_of_week %>
              
-<td><%= i %></td>
+<td><%= number_of_lesson %></td>
 <td>
   <%= select_tag( "timetable[#{i}][curriculum_id]",                                                
                   options_for_select( @subjects ),
