@@ -24,27 +24,21 @@
         <% end %>
       </tbody>
       
-      <thead>
-        <tr>
-          <th>Вторник</th>      
-        </tr>
-      </thead>
+            
+      <%= render :partial => 'theads', :locals => { :day => 'Вторник' } %>
       
       <tbody>
         <% 9.upto(16) do |i| %>
           <tr> 
               <%= render :partial => 'timetable_fields', 
                   :locals => { :f => f, :i => i, :day_of_week => 'Tue',
-                               :number_of_lesson => i-8 } %>  
+                               :number_of_lesson => i - 8 } %>  
           </tr>
         <% end %>
       </tbody>
       
-      <thead>
-        <tr>
-          <th>Среда</th>      
-        </tr>
-      </thead>
+            
+      <%= render :partial => 'theads', :locals => { :day => 'Среда' } %>
 
       <tbody>
         <% 17.upto(24) do |i| %>
@@ -56,11 +50,8 @@
         <% end %>
       </tbody>
       
-      <thead>
-        <tr>
-          <th>Четверг</th>      
-        </tr>
-      </thead>
+      
+      <%= render :partial => 'theads', :locals => { :day => 'Четверг' } %>
       
       <tbody>
         <% 25.upto(32) do |i| %>
@@ -72,12 +63,9 @@
         <% end %>
       </tbody>
       
-      <thead>
-        <tr>
-          <th>Пятница</th>      
-        </tr>
-      </thead>
 
+      <%= render :partial => 'theads', :locals => { :day => 'Пятница' } %>
+      
       <tbody>
         <% 33.upto(40) do |i| %>
           <tr> 
