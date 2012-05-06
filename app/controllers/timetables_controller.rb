@@ -5,10 +5,11 @@ class TimetablesController < ApplicationController
 
   def index
     @classes = SchoolClass.order( :class_code ) 
-    @tts = []
+    @tts = []; @class_code = nil
     
     if params.has_key?( :class_code )
       school_class = SchoolClass.where( "class_code = ?", params[:class_code] ).first 
+      @class_code = school_class.class_code
       tts = timetable_for_class( school_class )                                           # Here we get timetable for class only if subject has been choosed.
       @tt_monday = sorted_timetable_for_day( tts, "Mon" )                                 # Timetable for monday.
       @tt_tuesday = sorted_timetable_for_day( tts, "Tue" )                                # Timetable for tuesday.
@@ -79,11 +80,8 @@ class TimetablesController < ApplicationController
     end
     
     # Return for school class it's timetable.
-    # Output is array.
     def timetable_for_class( school_class )
-      timetable = []
-      school_class.curriculums.each{ |c| c.timetables.each{ |t| timetable << t } }
-      timetable
+      Timetable.select{|t| t.school_class.class_code == school_class.class_code }.to_a
     end
     
     def subjects_of_class( school_class )
