@@ -60,4 +60,5 @@ en:
             tt_day_of_week: "День недели"
             tt_number_of_lesson: "Номер урока"    
             tt_room: "Кабинет"
-            tt_type: "Тип предмета"           
+            tt_type: "Тип предмета" 
+            school_class_id: "Идентификатор класса"          

@@ -1,0 +1,63 @@
+<legend>Редактирование <%= @tt.school_class.class_code %> класса</legend>
+
+<%= form_for @tt, :html => {:class => "form-horizontal"} do |f| %>
+  <%= field_set_tag do %>
+  
+    <%= f.hidden_field :tt_number_of_lesson %>
+    <%= f.hidden_field :tt_day_of_week %>
+    <%= f.hidden_field :school_class_id %>
+        
+    <div class="control-group">
+       <%= f.label :tt_day_of_week, "День недели", :class => "control-label" %>  
+                                                                                 
+       <div class="controls">                                                    
+         <%= content_tag( :span, @tt.tt_day_of_week,                             
+                          :class =>"input-xlarge uneditable-input span1" ) %>    
+       </div>                                                                    
+    </div>
+    
+    <div class="control-group">
+       <%= f.label :tt_number_of_lesson, "Номер урока", :class => "control-label" %>  
+                                                                                 
+       <div class="controls">                                                    
+         <%= content_tag( :span, @tt.tt_number_of_lesson,                             
+                          :class =>"input-xlarge uneditable-input span1" ) %>    
+       </div>                                                                    
+    </div>
+            
+    <hr/>
+    
+    <div class="control-group">
+      <%= f.label :curriculum_id, "Тип предмета", :class => "control-label" %>
+
+      <div class="controls">
+        <%= f.select( :curriculum_id,                                                           # Here we use 'select' instead of 'select_tag' because 'select' allows us to give builder ('tl.select' here).
+                      options_for_select( @subjects_with_curriculums,
+                                          @tt.curriculum_id ),
+                      { :include_blank => true }) %>
+      </div>
+    </div>
+  
+    <div class="control-group">
+      <%= f.label :tt_room, "Номер кабинета", :class => "control-label" %>
+
+      <div class="controls">
+        <%= f.text_field :tt_room, :class => "span2", :maxlength => 3 %>
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <%= f.label :tt_type, "Тип занятия", :class => "control-label" %>
+
+      <div class="controls">
+        <%= f.select( :tt_type,                                                           # Here we use 'select' instead of 'select_tag' because 'select' allows us to give builder ('tl.select' here).
+                      options_for_select( [ ["Primary lesson", "Primary lesson"],
+                                          ["Extra", "Extra"] ],
+                                          @tt.tt_type ),
+                      { :include_blank => true }) %>
+      </div>
+    </div>
+        
+    <%= f.submit "Обновить", :class => "btn btn-large btn-warning" %>
+  <% end %>
+<% end %>  

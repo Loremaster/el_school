@@ -1,6 +1,8 @@
 <tbody>
   <% timetables_for_day.each do |t| %>         
-    <tr>
+    <tr class="cross" onclick = "location.href='<%= edit_timetable_path( :id => t.id, 
+                                :class_code => t.curriculum.school_class.class_code ) %>'">
+                               
       <td><%= t.tt_number_of_lesson %></td>
       <td><%= t.curriculum.qualification.subject.subject_name %></td>
       <td><%= t.tt_room %></td>

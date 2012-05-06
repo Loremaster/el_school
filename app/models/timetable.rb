@@ -6,6 +6,7 @@
 #
 #  id                  :integer         not null, primary key
 #  curriculum_id       :integer
+#  school_class_id     :integer
 #  tt_day_of_week      :string(255)
 #  tt_number_of_lesson :integer
 #  tt_room             :string(255)
@@ -16,6 +17,9 @@
 
 class Timetable < ActiveRecord::Base
   belongs_to :curriculum
+  belongs_to :school_class
+  
+  validates :school_class_id, :presence => { :message => "должен быть указан" }
                   
   validates :tt_day_of_week,
               :presence  => true,

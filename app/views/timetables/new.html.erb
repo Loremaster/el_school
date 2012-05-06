@@ -10,7 +10,7 @@
           <tr> 
               <%= render :partial => 'timetable_fields', 
                   :locals => { :f => f, :i => i, :day_of_week => 'Mon',
-                               :number_of_lesson => i } %>                                <%# number_of_lesson should be > 0 and < 10 %>
+                               :number_of_lesson => i, :school_class_id => @class.id } %> <%# number_of_lesson should be > 0 and < 10 %>
           </tr>
         <% end %>
       </tbody>
@@ -22,7 +22,7 @@
           <tr> 
               <%= render :partial => 'timetable_fields', 
                   :locals => { :f => f, :i => i, :day_of_week => 'Tue',
-                               :number_of_lesson => i - 8 } %>  
+                               :number_of_lesson => i - 8, :school_class_id => @class.id } %>  
           </tr>
         <% end %>
       </tbody>
@@ -34,7 +34,7 @@
           <tr> 
               <%= render :partial => 'timetable_fields', 
                   :locals => { :f => f, :i => i, :day_of_week => 'Wed',
-                               :number_of_lesson => i - 8*2 } %>  
+                               :number_of_lesson => i - 8*2, :school_class_id => @class.id } %>  
           </tr>
         <% end %>
       </tbody>
@@ -46,7 +46,7 @@
           <tr> 
               <%= render :partial => 'timetable_fields', 
                   :locals => { :f => f, :i => i, :day_of_week => 'Thu',
-                               :number_of_lesson => i - 8*3 } %>  
+                               :number_of_lesson => i - 8*3, :school_class_id => @class.id } %>  
           </tr>
         <% end %>
       </tbody>
@@ -58,7 +58,7 @@
           <tr> 
               <%= render :partial => 'timetable_fields', 
                   :locals => { :f => f, :i => i, :day_of_week => 'Fri',
-                               :number_of_lesson => i - 8*4 } %>  
+                               :number_of_lesson => i - 8*4, :school_class_id => @class.id } %>  
           </tr>
         <% end %>
       </tbody> 

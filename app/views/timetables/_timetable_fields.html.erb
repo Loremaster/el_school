@@ -1,5 +1,6 @@
 <%= f.hidden_field "[#{i}][tt_number_of_lesson]", :value => number_of_lesson %>
 <%= f.hidden_field "[#{i}][tt_day_of_week]", :value => day_of_week %>
+<%= f.hidden_field "[#{i}][school_class_id]", :value => school_class_id %>
              
 <td><%= number_of_lesson %></td>
 <td>
@@ -8,7 +9,7 @@
                   { :include_blank => true }) %>
 </td>
 <td>
-  <%= text_field_tag "timetable[#{i}][tt_room]",'', :class => "span1", :maxlength => 3 %>
+  <%= text_field_tag "timetable[#{i}][tt_room]", '', :class => "span1", :maxlength => 3 %>
 </td>
 <td>
   <%= select_tag( "timetable[#{i}][tt_type]",                                                

@@ -1,5 +1,7 @@
 <legend>Расписание</legend>
 
+<%# Button to show timetable for class. %>
+
 <div style="margin-top: 18px;" class="btn-toolbar">
   <div class="btn-group">
     <a href="#" data-toggle="dropdown" class="btn dropdown-toggle">
@@ -16,6 +18,8 @@
     </ul>
   </div>
 </div>
+
+<%# Timetable for class. %>
 
 <% if params.has_key?( :class_code ) %>
   <table class="table table-bordered table-striped" name="timetable_for_school_class">
@@ -35,6 +39,8 @@
     <%= render :partial => 'tbody_day', :locals => { :timetables_for_day => @tt_friday } %>      
   </table>
 <% end %>
+
+<%# Button to create timetable for class. %>
 
 <div style="margin-top: 18px;" class="btn-toolbar">
   <div class="btn-group">

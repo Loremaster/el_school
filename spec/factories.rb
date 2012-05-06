@@ -109,13 +109,14 @@ FactoryGirl.define do
     c.school_class
   end
   
-  factory :timetable do |t|
-    t.curriculum
-    t.tt_day_of_week 'Mon'
-    t.tt_number_of_lesson '1'
-    t.tt_room '123'
-    t.tt_type 'Primary lesson'
-  end
+  # factory :timetable do |t|
+  #   t.curriculum
+  #   t.school_class
+  #   t.tt_day_of_week 'Mon'
+  #   t.tt_number_of_lesson '1'
+  #   t.tt_room '123'
+  #   t.tt_type 'Primary lesson'
+  # end
 end
 
 

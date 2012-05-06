@@ -6,6 +6,7 @@
 #
 #  id                  :integer         not null, primary key
 #  curriculum_id       :integer
+#  school_class_id     :integer
 #  tt_day_of_week      :string(255)
 #  tt_number_of_lesson :integer
 #  tt_room             :string(255)
@@ -19,8 +20,10 @@ require 'spec_helper'
 describe Timetable do
   before(:each) do
     @curriculum = FactoryGirl.create( :curriculum )
+    @school_class = FactoryGirl.create( :school_class )
     
     @attr_timetable = {
+      :school_class_id => @school_class.id,
       :curriculum_id => @curriculum.id,
       :tt_day_of_week => "Mon",
       :tt_number_of_lesson => 1,
@@ -29,6 +32,7 @@ describe Timetable do
     }
     
     @attr_invalid_timetable = {
+      :school_class_id => nil,
       :curriculum_id => @curriculum.id,
       :tt_day_of_week => "",
       :tt_number_of_lesson => 0,

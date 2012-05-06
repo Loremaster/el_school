@@ -1,6 +1,7 @@
 # encoding: UTF-8
 class TimetablesController < ApplicationController
-  before_filter :authenticate_school_heads, :only => [ :index, :new, :create ]
+  before_filter :authenticate_school_heads, :only => [ :index, :new, :create, :edit, 
+                                                       :update ]
 
   def index
     @classes = SchoolClass.order( :class_code ) 
@@ -8,12 +9,12 @@ class TimetablesController < ApplicationController
     
     if params.has_key?( :class_code )
       school_class = SchoolClass.where( "class_code = ?", params[:class_code] ).first 
-      @tts = timetable_for_class( school_class )                                          # Here we get timetable for class only if subject has been choosed.
-      @tt_monday = sorted_timetable_for_day( @tts, "Mon" )                                # Timetable for monday.
-      @tt_tuesday = sorted_timetable_for_day( @tts, "Tue" )                               # Timetable for tuesday.
-      @tt_wednesday = sorted_timetable_for_day( @tts, "Wed" )                             # Timetable for wednesday.      
-      @tt_thursday = sorted_timetable_for_day( @tts, "Thu")                               # Timetable for thursday.
-      @tt_friday = sorted_timetable_for_day( @tts, "Fri")                                 # Timetable for friday.
+      tts = timetable_for_class( school_class )                                           # Here we get timetable for class only if subject has been choosed.
+      @tt_monday = sorted_timetable_for_day( tts, "Mon" )                                 # Timetable for monday.
+      @tt_tuesday = sorted_timetable_for_day( tts, "Tue" )                                # Timetable for tuesday.
+      @tt_wednesday = sorted_timetable_for_day( tts, "Wed" )                              # Timetable for wednesday.      
+      @tt_thursday = sorted_timetable_for_day( tts, "Thu")                                # Timetable for thursday.
+      @tt_friday = sorted_timetable_for_day( tts, "Fri")                                  # Timetable for friday.
     end
   end
   
@@ -51,8 +52,25 @@ class TimetablesController < ApplicationController
     end   
   end
   
-  private
+  def edit    
+    @tt = Timetable.find( params[:id] ) 
+    @subjects_with_curriculums = collect_subjects_with_curriculums( @tt.school_class ) 
+  end
+  
+  def update
+    @tt = Timetable.find( params[:id] )
     
+    if @tt.update_attributes( params[:timetable] )
+      flash[:success] = "Расписание успешно обновлено!"
+      redirect_to timetables_path
+    else
+      flash.now[:error] = @tt.errors.full_messages.to_sentence :last_word_connector => ", ",        
+                                                               :two_words_connector => ", "
+      render 'edit'
+    end
+  end
+  
+  private    
     # Collecting subjects names for school class and curriculum_id for each subject.   
     def collect_subjects_with_curriculums( school_class )
       subjects = school_class.curriculums.collect do |c| 

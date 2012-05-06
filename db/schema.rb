@@ -147,6 +147,7 @@ ActiveRecord::Schema.define(:version => 20120502155751) do
 
   create_table "timetables", :force => true do |t|
     t.integer  "curriculum_id"
+    t.integer  "school_class_id"
     t.string   "tt_day_of_week"
     t.integer  "tt_number_of_lesson"
     t.string   "tt_room"
