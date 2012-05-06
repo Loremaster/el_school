@@ -10,6 +10,9 @@ class TimetablesController < ApplicationController
       school_class = SchoolClass.where( "class_code = ?", params[:class_code] ).first 
       @tts = timetable_for_class( school_class )
       @tt_monday = @tts.select{|t| t.tt_day_of_week == "Mon"}                             # Timetable for monday.
+      @tt_tuesday = @tts.select{|t| t.tt_day_of_week == "Tue"}                            # Timetable for tuesday.
+      
+      # flash[:notice] = "#{@tts}"
     end
   end
   

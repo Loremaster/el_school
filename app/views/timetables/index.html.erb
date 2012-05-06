@@ -17,19 +17,20 @@
   </div>
 </div>
 
-<table class="table table-bordered table-striped" name="teachers">
-  <thead>
-    <tr>
-      <th>Понедельник</th>      
-    </tr>
-    <tr>
-      <th>Номер урока</th>      
-      <th>Предмет</th>      
-      <th>Номер кабинета</th>      
-      <th>Тип занятия</th>                                      
-    </tr>
-  </thead>
-  <tbody>        
+<% if params.has_key?( :class_code ) %>
+  <table class="table table-bordered table-striped" name="teachers">
+    <thead>
+      <tr>
+        <th>Понедельник</th>      
+      </tr>
+      <tr>
+        <th>Номер урока</th>      
+        <th>Предмет</th>      
+        <th>Номер кабинета</th>      
+        <th>Тип занятия</th>                                      
+      </tr>
+    </thead>
+    <tbody>        
       <% @tt_monday.each do |t| %>         
         <tr>
           <td><%= t.tt_number_of_lesson %></td>
@@ -38,8 +39,9 @@
           <td><%= t.tt_type %></td>
         </tr>
       <% end %>
-  </tbody>
-</table>
+    </tbody>  
+  </table>
+<% end %>
 
 <div style="margin-top: 18px;" class="btn-toolbar">
   <div class="btn-group">
