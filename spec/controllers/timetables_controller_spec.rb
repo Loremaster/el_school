@@ -15,14 +15,12 @@ describe TimetablesController do
         
     @school_class = FactoryGirl.create( :school_class )
     @curriculum = FactoryGirl.create( :curriculum )
-    @attr_timetable = {
-      :school_class_id => @school_class.id,
-      :curriculum_id => @curriculum.id,
-      :tt_day_of_week => "Mon",
-      :tt_number_of_lesson => 1,
-      :tt_room => '123',
-      :tt_type => 'Primary lesson'
-    }
+    @attr_timetable = { :school_class_id => @school_class.id,
+                        :curriculum_id => @curriculum.id,
+                        :tt_day_of_week => "Mon",
+                        :tt_number_of_lesson => 1,
+                        :tt_room => '123',
+                        :tt_type => 'Primary lesson' }
     @timetable = Timetable.create( @attr_timetable )
   end
   
