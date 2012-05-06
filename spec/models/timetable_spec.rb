@@ -83,7 +83,7 @@ describe Timetable do
       end
       
       it "should reject incorrect type of lesson" do
-        incorrect_types = ["", " ", "a", "aa", "aaa"]
+        incorrect_types = ["a", "aa", "aaa"]
         incorrect_types.each do |t| 
           wrong_attr = @attr_timetable.merge( :tt_type => t )
           Timetable.new( wrong_attr ).should_not be_valid 
@@ -122,8 +122,8 @@ describe Timetable do
         Timetable.new( correct_attr ).should be_valid
       end
       
-      it "should accept room number with correct size" do
-        rooms = %w(1 11 111)
+      it "should accept correct room number" do
+        rooms = [nil, "","1", "11", "111"]
         rooms.each do |r|
           correct_attr = @attr_timetable.merge( :tt_room => r )
           Timetable.new( correct_attr ).should be_valid 
@@ -131,7 +131,7 @@ describe Timetable do
       end
       
       it "should accept correct type of lesson" do
-        types = ["Primary lesson", "Extra"]
+        types = ["Primary lesson", "Extra", "", nil]
         types.each do |t|
           correct_attr = @attr_timetable.merge( :tt_type => t )
           Timetable.new( correct_attr ).should be_valid 

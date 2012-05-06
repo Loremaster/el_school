@@ -18,28 +18,21 @@
 </div>
 
 <% if params.has_key?( :class_code ) %>
-  <table class="table table-bordered table-striped" name="teachers">
-    <thead>
-      <tr>
-        <th>Понедельник</th>      
-      </tr>
-      <tr>
-        <th>Номер урока</th>      
-        <th>Предмет</th>      
-        <th>Номер кабинета</th>      
-        <th>Тип занятия</th>                                      
-      </tr>
-    </thead>
-    <tbody>        
-      <% @tt_monday.each do |t| %>         
-        <tr>
-          <td><%= t.tt_number_of_lesson %></td>
-          <td><%= t.curriculum.qualification.subject.subject_name %></td>
-          <td><%= t.tt_room %></td>
-          <td><%= t.tt_type %></td>
-        </tr>
-      <% end %>
-    </tbody>  
+  <table class="table table-bordered table-striped" name="timetable_for_school_class">
+    <%= render :partial => 'theads', :locals => { :day => 'Понедельник' } %>
+    <%= render :partial => 'tbody_day', :locals => { :timetables_for_day => @tt_monday } %>
+
+    <%= render :partial => 'theads', :locals => { :day => 'Вторник' } %>
+    <%= render :partial => 'tbody_day', :locals => { :timetables_for_day => @tt_tuesday } %>
+              
+    <%= render :partial => 'theads', :locals => { :day => 'Среда' } %>
+    <%= render :partial => 'tbody_day', :locals => { :timetables_for_day => @tt_wednesday } %>      
+    
+    <%= render :partial => 'theads', :locals => { :day => 'Четверг' } %>
+    <%= render :partial => 'tbody_day', :locals => { :timetables_for_day => @tt_thursday } %>      
+    
+    <%= render :partial => 'theads', :locals => { :day => 'Пятница' } %>
+    <%= render :partial => 'tbody_day', :locals => { :timetables_for_day => @tt_friday } %>      
   </table>
 <% end %>
 

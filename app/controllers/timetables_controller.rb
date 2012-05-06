@@ -8,11 +8,12 @@ class TimetablesController < ApplicationController
     
     if params.has_key?( :class_code )
       school_class = SchoolClass.where( "class_code = ?", params[:class_code] ).first 
-      @tts = timetable_for_class( school_class )
-      @tt_monday = @tts.select{|t| t.tt_day_of_week == "Mon"}                             # Timetable for monday.
-      @tt_tuesday = @tts.select{|t| t.tt_day_of_week == "Tue"}                            # Timetable for tuesday.
-      
-      # flash[:notice] = "#{@tts}"
+      @tts = timetable_for_class( school_class )                                          # Here we get timetable for class only if subject has been choosed.
+      @tt_monday = sorted_timetable_for_day( @tts, "Mon" )                                # Timetable for monday.
+      @tt_tuesday = sorted_timetable_for_day( @tts, "Tue" )                               # Timetable for tuesday.
+      @tt_wednesday = sorted_timetable_for_day( @tts, "Wed" )                             # Timetable for wednesday.      
+      @tt_thursday = sorted_timetable_for_day( @tts, "Thu")                               # Timetable for thursday.
+      @tt_friday = sorted_timetable_for_day( @tts, "Fri")                                 # Timetable for friday.
     end
   end
   
@@ -59,9 +60,11 @@ class TimetablesController < ApplicationController
       end          
     end
     
+    # Return for school class it's timetable.
+    # Output is array.
     def timetable_for_class( school_class )
       timetable = []
-      school_class.curriculums.each { |c| c.timetables.each{ |t| timetable << t } }
+      school_class.curriculums.each{ |c| c.timetables.each{ |t| timetable << t } }
       timetable
     end
     
@@ -69,5 +72,11 @@ class TimetablesController < ApplicationController
       subjects = school_class.curriculums.collect do |c| 
         c.qualification.subject.subject_name 
       end
+    end
+    
+    # Return sorted by number of lesson tometable for one day.
+    def sorted_timetable_for_day( timetable, day )
+      timetable.select{ |t| t.tt_day_of_week == day }
+               .sort_by{ |e| e[:tt_number_of_lesson] }
     end
 end

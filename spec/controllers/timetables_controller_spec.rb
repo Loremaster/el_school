@@ -14,6 +14,7 @@ describe TimetablesController do
     @sh.save!
     
     @timetable = FactoryGirl.create( :timetable )
+    @school_class = FactoryGirl.create( :school_class )
   end
   
   describe "GET 'index'" do
@@ -42,8 +43,14 @@ describe TimetablesController do
         test_sign_in( @sh )
       end
       
-      it "should show timetables" do
+      it "should show timetables page" do
         get :index
+        response.should be_success
+        flash[:error].should be_nil
+      end
+      
+      it "should should timetable for school class" do
+        get :index, { :class_code => @school_class.class_code }
         response.should be_success
         flash[:error].should be_nil
       end
@@ -53,7 +60,7 @@ describe TimetablesController do
   describe "GET 'new'" do
     describe "for non-signed users" do
       it "should deny access to show creating timetable's page" do
-        get :new
+        get :new, { :class_code => @school_class.class_code }
         response.should redirect_to( signin_path )
         flash[:notice].should =~ /войдите в систему как завуч/i
       end
@@ -65,7 +72,7 @@ describe TimetablesController do
       end
       
       it "should deny access to show creating timetable's page" do
-        get :new
+        get :new, { :class_code => @school_class.class_code }
         response.should redirect_to( pages_wrong_page_path )
         flash[:error].should =~ /вы не можете увидеть эту страницу/i
       end
@@ -77,7 +84,7 @@ describe TimetablesController do
       end
       
       it "should show timetables" do
-        get :new
+        get :new, { :class_code => @school_class.class_code }
         response.should be_success
         flash[:error].should be_nil
       end
