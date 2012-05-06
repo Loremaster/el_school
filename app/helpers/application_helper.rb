@@ -22,11 +22,22 @@ module ApplicationHelper
   
   # User role to russian word.
   def translate_user_role( role )
-    roles = { 
-              :admin => "Администратор", :teacher => "Учитель", :pupil => "Ученик",
+    roles = { :admin => "Администратор", :teacher => "Учитель", :pupil => "Ученик",
               :class_head => "Классный руководитель", :school_head => "Завуч",
-              :parent => "Родитель" 
-            }
+              :parent => "Родитель" }
     roles[ role.to_sym ]           
+  end
+  
+  # Day of week to russian word.
+  def translate_day_of_week( day )
+    days = { :Mon => "Понедельник", :Tue => "Вторник", :Wed => "Среда", :Thu => "Четверг",
+             :Fri => "Пятница" }
+    days[ day.to_sym ]                      
+  end
+  
+  # Type of lessong to russian word.
+  def translate_type_of_lesson( lesson )
+    lessons = { "Primary lesson" => "Обязательное занятие", "Extra" => "Электив" }
+    lessons[ lesson ]
   end
 end

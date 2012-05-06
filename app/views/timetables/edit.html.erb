@@ -11,8 +11,8 @@
        <%= f.label :tt_day_of_week, "День недели", :class => "control-label" %>  
                                                                                  
        <div class="controls">                                                    
-         <%= content_tag( :span, @tt.tt_day_of_week,                             
-                          :class =>"input-xlarge uneditable-input span1" ) %>    
+         <%= content_tag( :span, translate_day_of_week( @tt.tt_day_of_week ),                             
+                          :class =>"input-xlarge uneditable-input span2" ) %>    
        </div>                                                                    
     </div>
     
@@ -51,8 +51,7 @@
 
       <div class="controls">
         <%= f.select( :tt_type,                                                           # Here we use 'select' instead of 'select_tag' because 'select' allows us to give builder ('tl.select' here).
-                      options_for_select( [ ["Primary lesson", "Primary lesson"],
-                                          ["Extra", "Extra"] ],
+                      options_for_select( @types_of_lesson,
                                           @tt.tt_type ),
                       { :include_blank => true }) %>
       </div>

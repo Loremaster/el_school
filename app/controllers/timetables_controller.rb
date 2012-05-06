@@ -4,7 +4,7 @@ class TimetablesController < ApplicationController
                                                        :update ]
 
   def index
-    @classes = SchoolClass.order( :class_code ) 
+    @classes = SchoolClass.order( :class_code )                                           # List of classes, use this in buttons to create/filter.
     @tts = []; @class_code = nil
     
     if params.has_key?( :class_code )
@@ -20,6 +20,8 @@ class TimetablesController < ApplicationController
   end
   
   def new
+    @types_of_lesson = collect_types_of_lesson 
+    
     if ( params.has_key?( :class_code ) )                                                 # If it's first time (no errors appeared)
       @class = SchoolClass.where( "class_code = ?", params[:class_code] ).first
       $global_class = @class                                                              # Here we global var because after redirect we loose our school class.
@@ -53,7 +55,8 @@ class TimetablesController < ApplicationController
     end   
   end
   
-  def edit    
+  def edit
+    @types_of_lesson = collect_types_of_lesson    
     @tt = Timetable.find( params[:id] ) 
     @subjects_with_curriculums = collect_subjects_with_curriculums( @tt.school_class ) 
   end
@@ -94,5 +97,9 @@ class TimetablesController < ApplicationController
     def sorted_timetable_for_day( timetable, day )
       timetable.select{ |t| t.tt_day_of_week == day }
                .sort_by{ |e| e[:tt_number_of_lesson] }
+    end
+    
+    def collect_types_of_lesson
+      [ ["Обязательное занятие", "Primary lesson"], ["Электив", "Extra"] ]
     end
 end

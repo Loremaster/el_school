@@ -13,7 +13,6 @@
 </td>
 <td>
   <%= select_tag( "timetable[#{i}][tt_type]",                                                
-                  options_for_select( [ ["Primary lesson", "Primary lesson"],
-                                      ["Extra", "Extra"] ]  ),
+                  options_for_select( @types_of_lesson ),
                   { :include_blank => true }) %>
 </td>
