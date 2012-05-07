@@ -11,9 +11,13 @@
              <% end %>
              
              <% if signed_in? and current_user_school_head? %>
-                <%= render 'layouts/header_for_school_head'%>
+                <%= render 'layouts/header_for_school_head' %>
              <% end %>
 
+             <% if signed_in? and current_user_class_head? %>
+                <%= render 'layouts/header_for_class_head' %>
+             <% end %>
+              
              <ul class="nav pull-right">
                 <li class="divider-vertical"/></li>
                <% if signed_in? %>

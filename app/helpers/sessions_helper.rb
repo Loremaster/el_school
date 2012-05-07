@@ -10,6 +10,9 @@ module SessionsHelper
       if signed_in? and current_user_school_head?
         redirect_back_or pupils_path
       end
+      if signed_in? and current_user_class_head?
+        redirect_back_or events_path
+      end
     end
   end
   
@@ -43,12 +46,20 @@ module SessionsHelper
     current_user.user_role == "school_head"
   end
 
+  def current_user_class_head?
+    current_user.user_role == "class_head"
+  end
+
   def authenticate_admins
     deny_access_except_admins unless ( signed_in? and current_user_admin? )
   end
   
   def authenticate_school_heads
     deny_access_except_school_heads unless ( signed_in? and current_user_school_head? )
+  end
+  
+  def authenticate_class_heads
+    deny_access_except_class_heads unless ( signed_in? and current_user_class_head? )
   end
 
   def deny_access
@@ -76,6 +87,17 @@ module SessionsHelper
     else
       redirect_to signin_path, 
                   :notice => "Пожалуйста, войдите в систему как Завуч, чтобы увидеть эту страницу." 
+    end
+  end
+  
+  def deny_access_except_class_heads
+    store_location
+    if signed_in?
+      redirect_to pages_wrong_page_path, 
+                  :flash => { :error => "К сожалению, вы не можете увидеть эту страницу." }
+    else
+      redirect_to signin_path, 
+                  :notice => "Пожалуйста, войдите в систему как Классный руководитель, чтобы увидеть эту страницу." 
     end
   end
 
