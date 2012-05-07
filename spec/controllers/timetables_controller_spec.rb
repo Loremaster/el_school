@@ -90,10 +90,16 @@ describe TimetablesController do
         test_sign_in( @sh )
       end
       
-      it "should show timetables" do
+      it "should not show timetable if it's already exists" do
         get :new, { :class_code => @school_class.class_code }
-        response.should be_success
-        flash[:error].should be_nil
+        response.should_not be_success
+        flash[:notice].should_not be_nil
+      end
+      
+      it "should show timetable if it's has not been created" do
+        school_class2 = FactoryGirl.create( :school_class, :class_code => '231' )
+        get :new, { :class_code => school_class2.class_code }
+        flash[:notice].should be_nil
       end
     end
   end  
