@@ -11,13 +11,27 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120502155751) do
+ActiveRecord::Schema.define(:version => 20120507143230) do
 
   create_table "curriculums", :force => true do |t|
     t.integer  "school_class_id"
     t.integer  "qualification_id"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+  end
+
+  create_table "events", :force => true do |t|
+    t.integer  "school_class_id"
+    t.integer  "teacher_id"
+    t.string   "event_place"
+    t.string   "event_place_of_start"
+    t.date     "event_begin_date"
+    t.date     "event_end_date"
+    t.time     "event_begin_time"
+    t.time     "event_end_time"
+    t.integer  "event_cost"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
   end
 
   create_table "meetings", :force => true do |t|

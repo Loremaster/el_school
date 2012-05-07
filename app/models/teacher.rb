@@ -35,6 +35,7 @@ class Teacher < ActiveRecord::Base
   
   has_many :qualifications
   has_many :subjects, :through => :qualifications
+  has_many :events
      
   accepts_nested_attributes_for :teacher_education
   accepts_nested_attributes_for :teacher_phone

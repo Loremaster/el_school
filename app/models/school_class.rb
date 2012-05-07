@@ -27,6 +27,7 @@ class SchoolClass < ActiveRecord::Base
   has_many :orders
   has_many :meetings
   has_many :timetables
+  has_many :events
                 
   validates :class_code,
               :presence   => { :message => "не может быть пустым" },            

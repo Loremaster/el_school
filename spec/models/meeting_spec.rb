@@ -1,3 +1,4 @@
+# Created by 'bundle exec annotate --position before'
 # == Schema Information
 #
 # Table name: meetings
