@@ -22,15 +22,23 @@ class TimetablesController < ApplicationController
   def new
     @types_of_lesson = collect_types_of_lesson 
     
-    if ( params.has_key?( :class_code ) )                                                 # If it's first time (no errors appeared)
+    if ( params.has_key?( :class_code ) )                                                 # If you pushed button to create class and you choosed class.
       @class = SchoolClass.where( "class_code = ?", params[:class_code] ).first
-      $global_class = @class                                                              # Here we global var because after redirect we loose our school class.
+      $global_class = @class                                                              # Here we use global var because after redirect we loose our school class.
     else
       @class = $global_class  
     end
     
-    @tt = Timetable.new   
-    @subjects = collect_subjects_with_curriculums( @class )
+    # Check if timetable for this class already has been created and then redirect or
+    # allowing to create it.
+    unless timetable_exists?( $global_class )
+      @tt = Timetable.new   
+      @subjects = collect_subjects_with_curriculums( @class )
+    else
+      flash[:notice] = "Расписание для класса #{$global_class.class_code} уже было " +
+                       "создано! Пожалуйста, редактируйте уже имеющееся расписание!"
+      redirect_to timetables_path( :class_code => $global_class.class_code )              # Show created timetable for class.  
+    end    
   end
   
   def create
@@ -99,7 +107,13 @@ class TimetablesController < ApplicationController
                .sort_by{ |e| e[:tt_number_of_lesson] }
     end
     
+    # Return russian name for type of lesson.
     def collect_types_of_lesson
       [ ["Обязательное занятие", "Primary lesson"], ["Электив", "Extra"] ]
+    end
+    
+    # Check if timetable already has been created for school class.
+    def timetable_exists?( school_class )
+      not timetable_for_class( school_class ).empty?
     end
 end
