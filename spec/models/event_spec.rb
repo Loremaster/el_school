@@ -232,5 +232,52 @@ describe Event do
         Event.new( wrong_attr ).should_not be_valid                
       end                                                         
     end
+    
+    describe "Acceptance" do
+      it "should accept event's place with correct length" do
+        (1..200).each do |i|
+          correct_attr = @attr_event.merge( :event_place => 'a' * i  ) 
+          Event.new( correct_attr ).should be_valid
+        end
+      end
+      
+      it "should accept event's of start with correct length" do
+        (1..200).each do |i|
+          correct_attr = @attr_event.merge( :event_place_of_start => 'a' * i  ) 
+          Event.new( correct_attr ).should be_valid
+        end
+      end
+      
+      it "should accept event's begin date if 1 <= date <= 1 years from now" do
+        dates = ( Date.today - 1.year )..( Date.today + 1.year )
+        dates.each do |d| 
+          correct_attr = @attr_event.merge( :event_begin_date => d, 
+                                            :event_end_date => "#{Date.today + 1.year}" ) # We set here maximum possible end date, bacause begin date should <= end date.
+          Event.new( correct_attr ).should be_valid
+        end
+      end
+      
+      it "should accept event's end date if 1 <= date <= 1 years from now" do
+        dates = ( Date.today - 1.year )..( Date.today + 1.year )
+        dates.each do |d| 
+          correct_attr = @attr_event.merge( :event_end_date => d,
+                                            :event_begin_date => "#{Date.today - 1.year}" ) # We set here minimum possible begin date, bacause begin date should <= end date.
+          Event.new( correct_attr ).should be_valid
+        end
+      end
+      
+      it "should accept times if begin time <= end time" do
+        correct_attr = @attr_event.merge( :event_begin_time => "#{Time.now}",
+                                          :event_end_time => "#{Time.now + 1.hour}"  )
+        Event.new( correct_attr ).should be_valid                                  
+      end
+      
+      it "should accept cost >= 0" do
+        (0..50).each do |i|
+          correct_attr = @attr_event.merge( :event_cost => i  ) 
+          Event.new( correct_attr ).should be_valid
+        end
+      end
+    end
   end
 end
