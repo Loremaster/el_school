@@ -138,19 +138,69 @@ describe Event do
         end
       end
       
+      it "should reject nil date of begining" do
+        wrong_attr = @attr_event.merge( :event_begin_date => nil )
+        Event.new( wrong_attr ).should_not be_valid
+      end
+      
+      it "should reject nil date of end" do
+        wrong_attr = @attr_event.merge( :event_end_date => nil )
+        Event.new( wrong_attr ).should_not be_valid
+      end
+      
+      it "should reject empty date of begining" do
+        wrong_attr = @attr_event.merge( :event_begin_date => "" )
+        Event.new( wrong_attr ).should_not be_valid
+      end
+      
+      it "should reject empty date of end" do
+        wrong_attr = @attr_event.merge( :event_end_date => "" )
+        Event.new( wrong_attr ).should_not be_valid
+      end
+      
+      it "should reject nil date of begining and end" do
+        wrong_attr = @attr_event.merge( :event_begin_date => nil, :event_end_date => nil )
+        Event.new( wrong_attr ).should_not be_valid
+      end
+      
+      it "should reject empty date of begining and end" do
+        wrong_attr = @attr_event.merge( :event_begin_date => "", :event_end_date => "" )
+        Event.new( wrong_attr ).should_not be_valid
+      end
+      
       it "should reject if end date < begin date" do
         wrong_attr = @attr_event.merge( :event_begin_date => "#{Date.today}", 
                                         :event_end_date => "#{Date.today - 1.year}" )
         Event.new( wrong_attr ).should_not be_valid
       end
       
-      it "should reject blank time of begining" do
+      it "should reject nil time of begining" do
         wrong_attr = @attr_event.merge( :event_begin_time => "" )
         Event.new( wrong_attr ).should_not be_valid
       end
       
       it "should reject blank time of end" do
         wrong_attr = @attr_event.merge( :event_end_time => "" )
+        Event.new( wrong_attr ).should_not be_valid
+      end
+      
+      it "should reject nil time of end" do
+        wrong_attr = @attr_event.merge( :event_end_time => nil )
+        Event.new( wrong_attr ).should_not be_valid
+      end
+      
+      it "should reject blank time of begining" do
+        wrong_attr = @attr_event.merge( :event_begin_time => nil )
+        Event.new( wrong_attr ).should_not be_valid
+      end
+      
+      it "should reject nil time of begining and end" do
+        wrong_attr = @attr_event.merge( :event_begin_time => "", :event_end_time => "" )
+        Event.new( wrong_attr ).should_not be_valid
+      end
+
+      it "should reject nil time of end and begining" do
+        wrong_attr = @attr_event.merge( :event_end_time => nil, :event_begin_time => nil )
         Event.new( wrong_attr ).should_not be_valid
       end
       
@@ -161,6 +211,26 @@ describe Event do
                                         :event_end_time => end_time )
         Event.new( wrong_attr ).should_not be_valid
       end
+      
+      it "should reject blank cost" do
+        wrong_attr = @attr_event.merge( :event_cost => "" )
+        Event.new( wrong_attr ).should_not be_valid
+      end
+      
+      it "should reject all symbols except numbers" do
+        wrong_attr = @attr_event.merge( :event_cost => "432a" )
+        Event.new( wrong_attr ).should_not be_valid
+      end
+      
+      it "should reject float numbers" do            
+        wrong_attr = @attr_event.merge( :event_cost => "432.1" )    
+        Event.new( wrong_attr ).should_not be_valid                
+      end 
+      
+      it "should reject numbers < 0" do            
+        wrong_attr = @attr_event.merge( :event_cost => "-1" )    
+        Event.new( wrong_attr ).should_not be_valid                
+      end                                                         
     end
   end
 end

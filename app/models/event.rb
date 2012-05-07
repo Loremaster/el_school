@@ -27,48 +27,47 @@ class Event < ActiveRecord::Base
   
   validates :event_place,
               :presence   => { :message => "не может быть пустым" },            
-              :length     => { 
-                                :maximum => 200,
-                                :message => "должно содержать не более 200 символов" 
+              :length     => { :maximum => 200,
+                               :message => "должно содержать не более 200 символов" 
                              }
                              
   validates :event_place_of_start,                                                   
               :presence   => { :message => "не может быть пустым" },                 
-              :length     => {                                                       
-                                :maximum => 200,                                     
-                                :message => "должно содержать не более 200 символов"  
+              :length     => { :maximum => 200,                                     
+                               :message => "должно содержать не более 200 символов"  
                              }
                           
   validates :event_begin_date,
-              :inclusion => {                                                                           
-                               :in => ( Date.today - 1.year )..( Date.today + 1.year ),                
-                               :message => "должна находиться в пределах одного года от текущей даты"  
+              :inclusion => { :in => ( Date.today - 1.year )..( Date.today + 1.year ),                
+                              :message => "должна находиться в пределах одного года от текущей даты"  
                             }
 
   validates :event_end_date,                                                                                                   
-              :inclusion => {                                                                                                     
-                               :in => ( Date.today - 1.year )..( Date.today + 1.year ),                                          
-                               :message => "должна находиться в пределах одного года от текущей даты"                            
+              :inclusion => { :in => ( Date.today - 1.year )..( Date.today + 1.year ),                                          
+                              :message => "должна находиться в пределах одного года от текущей даты"                            
                             }                                                                                                  
 
   validates :event_begin_time, :presence => { :message => "не может быть пустым" }                                                                    
 
   validates :event_end_time, :presence => { :message => "не может быть пустым" }                                                                 
                            
-  validates :event_cost,
-              :presence => { :message => "не может быть пустой" }
+  validates :event_cost, 
+              :presence => { :message => "не может быть пустой" },
+              :numericality => { :only_integer => { :message => "должна быть целым числом" },
+                                 :greater_than_or_equal_to => 0, :message => "должна быть не меньше 0"                                  
+                               }
               
-  validate :start_must_be_before_end_date
-  validate :start_must_be_before_end_time
+  validate :start_must_be_before_or_eq_end_date
+  validate :start_must_be_before_or_eq_end_time
   
-  def start_must_be_before_end_date
+  def start_must_be_before_or_eq_end_date
     if not self.event_begin_date.nil? and not self.event_end_date.nil?
       errors.add(:event_begin_date, "должна быть меньше либо равной дате окончания") unless
         self.event_begin_date <= self.event_end_date
     end   
   end 
   
-  def start_must_be_before_end_time
+  def start_must_be_before_or_eq_end_time
     if not self.event_begin_time.nil? and not self.event_end_time.nil?
       errors.add(:event_begin_time, "должно быть меньше либо равно дате окончания") unless
         self.event_begin_time <= self.event_end_time
