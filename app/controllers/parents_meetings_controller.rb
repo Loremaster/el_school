@@ -2,6 +2,7 @@
 class ParentsMeetingsController < ApplicationController
   before_filter :authenticate_class_heads, :only => [ :edit, :update ]
   
+  #TODO: test edit/update methods.
   def edit
     @class_code = get_class_code( current_user )
     @meeting = Meeting.find( params[:id] )
