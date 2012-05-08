@@ -8,10 +8,14 @@ describe EventsController do
     @adm = FactoryGirl.create( :user )
     @adm.user_role = "admin"
     @adm.save!
-    
-    @ch = FactoryGirl.create( :user )
+        
+    # In event controller we get school class code for teacher_leader.
+    # So here we do a trick. We create teacher leader via school class and make it's
+    # user's role class_head.    
+    school_class = FactoryGirl.create( :school_class )    
+    @ch = school_class.teacher_leader.user
     @ch.user_role = "class_head"
-    @ch.save!
+    @ch.save
   end
   
   describe "GET 'index'" do

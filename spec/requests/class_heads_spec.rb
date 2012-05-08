@@ -2,15 +2,15 @@
 require 'spec_helper'
 
 describe "ClassHeads" do
-  before(:each) do
-    @attr = {
-              :user_login => "iSchool_head",
-              :password => "foobar"
-            }
-    
-    @ch = User.new( @attr )
+  before(:each) do 
+           
+    # In event controller we get school class code for teacher_leader.
+    # So here we do a trick. We create teacher leader via school class and make it's
+    # user's role class_head.
+    school_class = FactoryGirl.create( :school_class )    
+    @ch = school_class.teacher_leader.user
     @ch.user_role = "class_head"
-    @ch.save!
+    @ch.save
     
     @everpresent_field_placeholder = "Обязательное поле"
   end
@@ -24,15 +24,16 @@ describe "ClassHeads" do
         click_button "Войти"
          
         response.should have_selector("div.alert.alert-error", 
-          :content => "Не удается войти. Пожалуйста, проверьте правильность написания логина и пароля. Проверьте, не нажата ли клавиша CAPS-lock.")
+          :content => "Не удается войти. Пожалуйста, проверьте правильность написания " + 
+                      "логина и пароля. Проверьте, не нажата ли клавиша CAPS-lock.")
       end
     end
     
     describe "success" do
       it "should sign a user in and out" do        
         visit signin_path
-        fill_in "Логин",  :with => @attr[:user_login]
-        fill_in "Пароль", :with => @attr[:password]
+        fill_in "Логин",  :with => @ch.user_login
+        fill_in "Пароль", :with => "foobar"
         click_button "Войти"
         
         controller.should be_signed_in       
@@ -45,12 +46,12 @@ describe "ClassHeads" do
   describe "for sign-in class heads" do
     before(:each) do        
       visit signin_path
-      fill_in "Логин",  :with => @attr[:user_login]
-      fill_in "Пароль", :with => @attr[:password]
+      fill_in "Логин",  :with => @ch.user_login
+      fill_in "Пароль", :with => "foobar"
       click_button "Войти"
     end
     
-    it "should have correct links in toolbar with active states" do
+    it "should have correct links in toolbar with active states" do      
       # State of button when user log-in 
       response.should be_success
       response.body.should have_selector( "li.active") do
