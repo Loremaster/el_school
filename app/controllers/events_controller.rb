@@ -1,6 +1,7 @@
 # encoding: UTF-8
 class EventsController < ApplicationController
-  before_filter :authenticate_class_heads, :only => [ :index, :new, :create ]
+  before_filter :authenticate_class_heads, :only => [ :index, :new, :create, :edit, 
+                                                      :update ]
   
   def index
     @class_code = get_class_code( current_user )
@@ -32,6 +33,33 @@ class EventsController < ApplicationController
                                 .to_sentence :last_word_connector => ", ",        
                                              :two_words_connector => ", "
       render "new"
+    end
+  end
+  
+  def edit
+    @class_code = get_class_code( current_user )
+    @everpresent_field_placeholder = "Обязательное поле"
+    @event = Event.find( params[:id] )
+    @teachers = collect_teachers   
+    @choosen_teacher = @event.teacher.id unless @teachers.empty?
+  end
+  
+  def update
+    @class_code = get_class_code( current_user )
+    @everpresent_field_placeholder = "Обязательное поле"
+    @event = Event.find( params[:id] )
+    @teachers = collect_teachers   
+    @choosen_teacher = @event.teacher.id unless @teachers.empty?
+    
+    if @event.update_attributes( params[:event] )
+      flash[:success] = "Мероприятие успешно обновлено!"
+      redirect_to events_path
+    else
+      flash.now[:error] = @event.errors
+                                .full_messages
+                                .to_sentence :last_word_connector => ", ",        
+                                             :two_words_connector => ", "
+      render "edit"
     end
   end
   

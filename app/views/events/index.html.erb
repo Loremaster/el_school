@@ -16,7 +16,7 @@
   <tbody>
     <% if @event_exist %>
       <% @events.each do |e| %>
-        <tr>
+        <tr class="cross" onclick = "location.href='<%= edit_event_path( :id => e.id ) %>'">
           <td><%= e.event_place %></td>
           <td><%= e.event_place_of_start %></td>
           <td><%= e.event_begin_date.strftime("%d.%m.%Y") %></td>
