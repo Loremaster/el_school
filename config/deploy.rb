@@ -55,7 +55,7 @@ desc "Fix permission"
 task :fix_permissions, :roles => [ :app, :db, :web ] do
   run "#{try_sudo} chmod 777 -R #{current_path}/tmp"
   run "#{try_sudo} chmod 777 -R #{current_path}/log"
-  run "#{try_sudo} chmod 777 -R #{current_path}/cache"
+  run "#{try_sudo} chmod 777 -R #{current_path}/tmp/cache"
 end
 
 desc "Migrate database"
