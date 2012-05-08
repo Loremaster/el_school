@@ -17,6 +17,9 @@
 class Meeting < ActiveRecord::Base
   belongs_to :school_class
   
+  has_many :parent_meetings
+  has_many :parents, :through => :parent_meetings
+  
   validates :school_class_id, 
               :presence => { :message => "должен быть указан" }
   

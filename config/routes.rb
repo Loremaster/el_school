@@ -12,6 +12,8 @@ ElSchool::Application.routes.draw do
   resources :meetings,        :only => [ :index, :new, :create, :edit, :update ]
   resources :timetables,      :only => [ :index, :new, :create, :edit, :update ]
   resources :events,          :only => [ :index, :new, :create, :edit, :update ]
+  resources :reports,         :only => [ :index ]
+  resources :parents_meetings, :only => [ :edit, :update ]
                                       
   get "sessions/new"
 

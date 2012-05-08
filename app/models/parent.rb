@@ -20,6 +20,8 @@ class Parent < ActiveRecord::Base
   
   has_many :parent_pupils
   has_many :pupils, :through => :parent_pupils
+  has_many :parent_meetings
+  has_many :meetings, :through => :parent_meetings
   
   accepts_nested_attributes_for :user
   

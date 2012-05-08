@@ -20,6 +20,10 @@ module ApplicationHelper
     "#{pupil.pupil_last_name} #{pupil.pupil_first_name} #{pupil.pupil_middle_name}"
   end
   
+  def parent_full_names( parent  )
+    "#{parent.parent_last_name} #{parent.parent_first_name} #{parent.parent_middle_name}"
+  end
+  
   # User role to russian word.
   def translate_user_role( role )
     roles = { :admin => "Администратор", :teacher => "Учитель", :pupil => "Ученик",

@@ -65,6 +65,13 @@ describe "ClassHeads" do
         response.body.should have_selector( "li.active") do
           have_selector('a', :content => 'Мероприятия')
         end
+        
+        click_link "Отчеты" 
+           
+        response.should be_success
+        response.body.should have_selector( "li.active") do
+          have_selector('a', :content => 'Отчеты')
+        end
       end
     end
   

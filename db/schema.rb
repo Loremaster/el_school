@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120507143230) do
+ActiveRecord::Schema.define(:version => 20120508163933) do
 
   create_table "curriculums", :force => true do |t|
     t.integer  "school_class_id"
@@ -53,6 +53,16 @@ ActiveRecord::Schema.define(:version => 20120507143230) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
+
+  create_table "parent_meetings", :force => true do |t|
+    t.integer  "parent_id"
+    t.integer  "meeting_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "parent_meetings", ["meeting_id"], :name => "index_parent_meetings_on_meeting_id"
+  add_index "parent_meetings", ["parent_id"], :name => "index_parent_meetings_on_parent_id"
 
   create_table "parent_pupils", :force => true do |t|
     t.integer  "pupil_id"

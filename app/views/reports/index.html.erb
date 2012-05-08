@@ -1,0 +1,29 @@
+<legend>Отчеты <%= @class_code %> класса</legend>
+
+<h3>Родительские собрания</h3>
+<br/>
+
+<table class="table table-bordered table-striped" name="meetings">
+  <thead>
+    <tr>
+      <th>Тема</th>                     
+      <th>Дата</th>                     
+      <th>Время</th>                     
+      <th>Класс</th>                     
+      <th>Кабинет</th>                                        
+    </tr>
+  </thead>
+  <tbody>
+    <% if @meeting_exist %>        
+      <% @meetings.each do |m| %>          
+        <tr class="cross" onclick = "location.href='<%= edit_parents_meeting_path( :id => m.id ) %>'">
+          <td><%= m.meeting_theme %></td>
+          <td><%= m.meeting_date.strftime("%d.%m.%Y") %></td>
+          <td><%= m.meeting_time.strftime("%H:%M") %></td>
+          <td><%= m.school_class.class_code %></td>
+          <td><%= m.meeting_room %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
