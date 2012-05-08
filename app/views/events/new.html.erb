@@ -1,1 +1,104 @@
 <legend>Редактирование мероприятия <%= @class_code %> класса</legend>
+
+<%= form_for @event, :html => {:class => "form-horizontal"} do |f| %>
+  <%= field_set_tag do %>
+    <%= f.hidden_field :school_class_id, :value => @class_code %>                         <%# Set here code of the class. %>
+   
+    <div class="control-group">
+      <%= f.label :event_place, "Место проведения мероприятия", :class => "control-label" %>
+
+      <div class="controls">
+        <%= f.text_area  :event_place, :rows => 3, :class => "span3",                         
+                         :placeholder => @everpresent_field_placeholder %>
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <%= f.label :event_place_of_start, "Место сбора на мероприятие", 
+                  :class => "control-label" %>
+
+      <div class="controls">
+        <%= f.text_area  :event_place_of_start, :rows => 3, :class => "span3",                         
+                         :placeholder => @everpresent_field_placeholder %>
+      </div>
+    </div>
+    
+    <hr/>
+    
+    <div class="control-group">
+      <%= f.label :event_begin_date, "Дата начала мероприятия", 
+                  :class => "control-label" %>
+
+      <div class="controls">
+        <%= f.text_field  :event_begin_date, :class => "span3",                         
+                          :placeholder => @everpresent_field_placeholder, 
+                          :maxlength => 10 %>
+                          
+        <p class="help-block">Желаемый формат - дд.мм.гггг</p>                   
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <%= f.label :event_begin_time, "Время начала мероприятия", 
+                  :class => "control-label" %>
+
+      <div class="controls">
+        <%= f.time_select :event_begin_time, {}, { :class => "span1" } %>              
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <%= f.label :event_end_date, "Дата окончания мероприятия", 
+                  :class => "control-label" %>
+
+      <div class="controls">
+        <%= f.text_field  :event_end_date, :class => "span3",                         
+                          :placeholder => @everpresent_field_placeholder, 
+                          :maxlength => 10 %>
+                          
+        <p class="help-block">Желаемый формат - дд.мм.гггг</p>                   
+      </div>
+    </div>
+    
+    <div class="control-group">
+      <%= f.label :event_end_time, "Время окончания мероприятия", 
+                  :class => "control-label" %>
+
+      <div class="controls">
+        <%= f.time_select :event_end_time, {}, { :class => "span1" } %>              
+      </div>
+    </div>
+    
+    <hr/>
+         
+    <div class="control-group">
+      <%= f.label :event_cost, "Стоимость мероприятия", 
+                  :class => "control-label" %>
+
+                        
+
+      <div class="controls">
+        <div class="input-append">
+          <%= f.text_field  :event_cost, :class => "span2",                         
+                            :placeholder => @everpresent_field_placeholder, 
+                            :maxlength => 6 %>
+                            
+          <span class="add-on">.00</span>
+          <span class="help-inline">Рублей</span>  
+        </div>                               
+      </div>
+    </div>  
+    
+    <hr/>
+    
+    <div class="control-group">
+      <%= f.label :teacher_id, "Ответственный учитель", :class => "control-label" %>
+
+      <div class="controls">
+        <%= f.select( :teacher_id, options_for_select( @teachers, @choosen_teacher ) ) %>            
+      </div>
+    </div>   
+                 
+    <%= f.submit "Создать", :class => "btn btn-large btn-success" %>
+  <% end %>
+<% end %>
