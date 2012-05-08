@@ -6,7 +6,7 @@ class EventsController < ApplicationController
   def index
     @class_code = get_class_code( current_user )
     @event_exist = Event.first ? true : false
-    @events = Event.order( :event_begin_date )
+    @events = Event.order( :event_begin_date, :event_begin_time )
   end
   
   def new

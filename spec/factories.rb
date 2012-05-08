@@ -109,6 +109,18 @@ FactoryGirl.define do
     c.school_class
   end
   
+  factory :event do |e|
+    e.school_class
+    e.teacher
+    e.event_place  "Piter"
+    e.event_place_of_start  "Moscow"
+    e.event_begin_date  "#{Date.today}"
+    e.event_end_date  "#{Date.today}"
+    e.event_begin_time  Time.now.strftime("%H:%M")
+    e.event_end_time  Time.now.strftime("%H:%M")
+    e.event_cost  "500"
+  end
+  
   # factory :timetable do |t|
   #   t.curriculum
   #   t.school_class
