@@ -12,7 +12,7 @@ set :user, "root"                                                               
 set :rails_env, "production"
 
 set :application, "el_school"
-set :deploy_to, "/vol/www/apps/#{application}"
+set :deploy_to, "/vol/www/apps/new/#{application}"
 set :keep_releases, 3                                                                     # Keep only 3 last releases.
 
 set :scm, :git
