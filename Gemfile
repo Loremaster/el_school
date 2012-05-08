@@ -37,7 +37,7 @@ group :test do
 end
 
 group :development, :test do
-  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i                       # Installing this gem only if we use darwin platform (e.g Mac OS X).
+  gem 'rb-fsevent'#, :require => false if RUBY_PLATFORM =~ /darwin/i                       # Installing this gem only if we use darwin platform (e.g Mac OS X).
   gem 'guard-rspec'                                                                       # Rspec for guard.
   gem 'ruby_gntp'                                                                         # Show notifications from guard by growl.
   gem 'guard-livereload'                                                                  # This gem allows guard automatically refresh page in browser if we changed something in files. Works ok only with Safari, also you need to install extension.
