@@ -30,8 +30,8 @@ describe Event do
       :event_place_of_start => "Moscow",
       :event_begin_date => "#{Date.today}",
       :event_end_date => "#{Date.today}",
-      :event_begin_time => "#{Time.now.strftime("%H:%M")}",
-      :event_end_time => "#{Time.now.strftime("%H:%M")}",
+      :event_begin_time => Time.now.strftime("%H:%M"),
+      :event_end_time => Time.now.strftime("%H:%M"),
       :event_cost => "500"
     }
   end
@@ -205,10 +205,8 @@ describe Event do
       end
       
       it "should reject if end time < begin time" do
-        begin_time = "#{Time.now.strftime("%H:%M")}"
-        end_time = "#{(Time.now - 1.hour).strftime("%H:%M")}" 
-        wrong_attr = @attr_event.merge( :event_begin_time => begin_time, 
-                                        :event_end_time => end_time )
+        wrong_attr = @attr_event.merge( :event_begin_time => Time.now, 
+                                        :event_end_time => Time.now - 2.hours  )
         Event.new( wrong_attr ).should_not be_valid
       end
       
@@ -267,8 +265,8 @@ describe Event do
       end
       
       it "should accept times if begin time <= end time" do
-        correct_attr = @attr_event.merge( :event_begin_time => "#{Time.now}",
-                                          :event_end_time => "#{Time.now + 1.hour}"  )
+        correct_attr = @attr_event.merge( :event_begin_time => Time.now,
+                                          :event_end_time => Time.now + 1.hour  )
         Event.new( correct_attr ).should be_valid                                  
       end
       

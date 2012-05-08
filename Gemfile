@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2'                                                                        #'3.1.3'
+gem 'rails', '3.2'                                                                        
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
@@ -18,26 +18,33 @@ gem 'jquery-rails'
 group :development do
   gem 'rspec-rails', '2.9.0'
   gem 'therubyracer-heroku'
-  gem 'pg'                                                                                # For postgreSQL.  
+  gem 'pg'                                                                                # Connect to postgreSQL.  
   gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'                    # It is patched version from github. This one works.
   gem 'faker', '1.0.1'                                                                    # Automatically filling db by test data.
   gem 'capistrano'
 end
 
 group :test do
-  gem 'turn', '~> 0.8.3', :require => false                                               # Pretty printed test output
+  gem 'turn', '~> 0.8.3', :require => false                                               # Pretty printed test output.
   gem 'rspec-rails', '2.9.0'                                                           
   gem 'webrat', '0.7.3'                                                                
-  gem 'spork', '0.9.0'
-  gem 'autotest', '4.4.6'                                                                                                              
-  gem 'autotest-rails-pure', '4.1.2'                                                                                                   
-  gem 'autotest-fsevent', '0.2.8'                                                                                                      
-  gem 'autotest-growl', '0.2.16'                                                                                                          
-  gem 'factory_girl_rails', '3.1.0'
+  gem 'spork', '0.9.0'                                                                    # DRB server.
+  gem 'autotest'                                                                                                              
+  gem 'autotest-rails-pure'                                                                                                  
+  gem 'autotest-fsevent'                                                                                                     
+  gem 'autotest-growl'                                                                                                         
+  gem 'factory_girl_rails', '3.1.0'                                                       # Gem to quickly create objects of models.
+end
+
+group :development, :test do
+  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i                       # Installing this gem only if we use darwin platform (e.g Mac OS X).
+  gem 'guard-rspec'                                                                       # Rspec for guard.
+  gem 'ruby_gntp'                                                                         # Show notifications from guard by growl.
+  gem 'guard-livereload'                                                                  # This gem allows guard automatically refresh page in browser if we changed something in files. Works ok only with Safari, also you need to install extension.
 end
 
 group :production do  
-  gem 'pg'                                                                                # For postgreSQL. 
+  gem 'pg'                                                                                # Connect to postgreSQL. 
 end
 
 # To use ActiveModel has_secure_password
