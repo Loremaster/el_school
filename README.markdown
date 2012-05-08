@@ -2,8 +2,15 @@
 
 ------------------------------------------------------------------------------
 
+**Class head**
+
+- Creating events for class_head's class.
+
+------------------------------------------------------------------------------
+
 **School head**
 
+- Creating/editing timetables.
 - Creating/editing parents.
 - Creating/editing orders.
 - Now he can filter users by class.

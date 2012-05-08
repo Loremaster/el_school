@@ -4,6 +4,8 @@ class EventsController < ApplicationController
   
   def index
     @class_code = get_class_code( current_user )
+    @event_exist = Event.first ? true : false
+    @events = Event.order( :event_begin_date )
   end
   
   def new
@@ -34,6 +36,7 @@ class EventsController < ApplicationController
   end
   
   private
+    # Get class code for current class head.
     def get_class_code( current_user )
       current_user.teacher_leader.school_class.class_code
     end
