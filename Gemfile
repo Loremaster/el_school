@@ -21,7 +21,7 @@ group :development do
   gem 'pg'                                                                                # Connect to postgreSQL.  
   gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'                    # It is patched version from github. This one works.
   gem 'faker', '1.0.1'                                                                    # Automatically filling db by test data.
-  gem 'capistrano'
+  gem 'capistrano', '2.12.0'                                                              # Deploying to server. Be carefull with changing version!!
 end
 
 group :test do
