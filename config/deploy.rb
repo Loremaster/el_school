@@ -12,7 +12,7 @@ set :user, "root"                                                               
 set :rails_env, "production"
 
 set :application, "el_school"
-set :deploy_to, "/vol/www/apps/new/#{application}"
+set :deploy_to, "/vol/www/apps/#{application}"
 set :keep_releases, 3                                                                     # Keep only 3 last releases.
 
 set :scm, :git
@@ -55,7 +55,6 @@ desc "Fix permission"
 task :fix_permissions, :roles => [ :app, :db, :web ] do
   run "#{try_sudo} chmod 777 -R #{current_path}/tmp"
   run "#{try_sudo} chmod 777 -R #{current_path}/log"
-  # run "#{try_sudo} chmod 777 -R #{current_path}/tmp/cache"
 end
 
 desc "Migrate database"
