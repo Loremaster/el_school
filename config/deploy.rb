@@ -71,6 +71,6 @@ end
     
 after "deploy:update_code", :prepare_system
 after "deploy", "deploy:cleanup"                                                          # Clean old releases after new deploy except number from :keep_releases.
-after "deploy:symlink", :fix_permissions                                                  # On a side note: deploy:symlink will soon change to deploy:create_symlink, keep that in mind if this breaks after upgrading capistrano to 2.10 or higher.
-after "deploy:symlink", :migrate_db
+after "deploy:create_symlink", :fix_permissions                                                  # On a side note: deploy:symlink will soon change to deploy:create_symlink, keep that in mind if this breaks after upgrading capistrano to 2.10 or higher.
+after "deploy:create_symlink", :migrate_db
 # after "deploy:symlink", "deploy:update_crontab"
