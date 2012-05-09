@@ -30,10 +30,16 @@ class ApplicationController < ActionController::Base
   end
   
   # Get parent for class via class code.
+  # => [] if there were no parents.
   def get_parents_for_class( class_code )
     parents = []                                                                          # Output.
     pupils = Pupil.select{|p| p.school_class.class_code == class_code }                   # Get pupils for class via class_code of class.
     pupils.each{ |p| parents << p.parents }                                               # Get parents for each pupil.
-    parents.flatten!.uniq!                                                                # Turn multy-dimension array into one dimension array (each parent for pupil got their array). And then keep only unique parents.
+    
+    if parents.empty?
+      parents
+    else
+      parents.flatten!.uniq!                                                              # Turn multy-dimension array into one dimension array (each parent for pupil got their array). And then keep only unique parents.
+    end
   end
 end

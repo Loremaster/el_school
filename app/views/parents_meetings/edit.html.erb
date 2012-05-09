@@ -9,20 +9,22 @@
       <div class="controls">
         <%= hidden_field_tag "meeting[parent_ids][]", nil %>                              <%# We use hidden field because it doesn't submit unchecked fields. So, we pass nil and nothing will be submitted.%>
         
-        <% @parents.each do |p| %>
-          <%= label_tag dom_id( p ), nil, :class => "checkbox" do %>                      <%# Name, content_or_options = nil, options. %>
-            <%= check_box_tag "meeting[parent_ids][]",                                    # [] brackets tells that this is array.
-                            p.id,                                                         # Value of checkbox.
-                            @meeting.parent_ids.include?( p.id ),                         # Here we automatically check checkboxes.
-                            id: dom_id( p ) %>                                            <%# Give unique id for each value. 'dom_id' is Rails helper. We will have ids like: 'subject_1', 'subject_2' and etc. %>
-          
-            <%= parent_full_names( p ) %>                                                 <%# Put names of parent. %>
+        <% unless @parents.empty? %>
+          <% @parents.each do |p| %>
+            <%= label_tag dom_id( p ), nil, :class => "checkbox" do %>                    <%# Name, content_or_options = nil, options. %>
+              <%= check_box_tag "meeting[parent_ids][]",                                  # [] brackets tells that this is array.
+                              p.id,                                                       # Value of checkbox.
+                              @meeting.parent_ids.include?( p.id ),                       # Here we automatically check checkboxes.
+                              id: dom_id( p ) %>                                          <%# Give unique id for each value. 'dom_id' is Rails helper. We will have ids like: 'subject_1', 'subject_2' and etc. %>
+                                                                                          
+              <%= parent_full_names( p ) %>                                               <%# Put names of parent. %>
+            <% end %>
           <% end %>
         <% end %>
         
         <p class="help-block">
           <strong>На заметку:</strong>
-          В списке отображаются все родители данного класса.
+          В списке отображаются все родители учеников данного класса.
         </p>
       </div> 
     </div>
