@@ -7,8 +7,8 @@ describe "ClassHeads" do
     # In event controller we get school class code for teacher_leader.
     # So here we do a trick. We create teacher leader via school class and make it's
     # user's role class_head.
-    school_class = FactoryGirl.create( :school_class )    
-    @ch = school_class.teacher_leader.user
+    @school_class = FactoryGirl.create( :school_class )    
+    @ch = @school_class.teacher_leader.user
     @ch.user_role = "class_head"
     @ch.save
     
@@ -170,6 +170,35 @@ describe "ClassHeads" do
         end
       end
     end
+  
+    # describe "ParentMeeting" do
+    #       before(:each) do
+    #         # Crate meeting for school class.
+    #         @meeting = FactoryGirl.create( :meeting )
+    #         @meeting.school_class = @school_class
+    #         @meeting.save
+    #         
+    #         # Create pupil and save school_class for him.
+    #         @pupil = FactoryGirl.create( :pupil )
+    #         @pupil.school_class = @school_class
+    #         @pupil.save
+    # 
+    #         # Create parent and save created pupil for him.
+    #         @parent = FactoryGirl.create( :parent )
+    #         @parent.pupil_ids = @pupil.id
+    #         @parent.save
+    #       end
+    #       
+    #       describe "Choosing parent for scholl  class" do
+    #         it "should choose and save parent" do
+    #             # visit edit_parents_meeting_path( :id => @meeting )
+    #           click_link "Отчеты"
+    #           visit edit_parents_meeting_path( :id => @meeting )
+    #           puts response.body
+    #         end
+    #       end
+    #     end
+    #   
   end
 
 end
