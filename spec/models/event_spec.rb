@@ -215,19 +215,26 @@ describe Event do
         Event.new( wrong_attr ).should_not be_valid
       end
       
-      it "should reject all symbols except numbers" do
+      it "should reject all symbols except numbers in cost" do
         wrong_attr = @attr_event.merge( :event_cost => "432a" )
         Event.new( wrong_attr ).should_not be_valid
       end
       
-      it "should reject float numbers" do            
+      it "should reject float cost" do            
         wrong_attr = @attr_event.merge( :event_cost => "432.1" )    
         Event.new( wrong_attr ).should_not be_valid                
       end 
       
-      it "should reject numbers < 0" do            
+      it "should reject cost < 0" do            
         wrong_attr = @attr_event.merge( :event_cost => "-1" )    
         Event.new( wrong_attr ).should_not be_valid                
+      end
+      
+      it "should reject cost >= 100000" do       
+        (100000..100010).each do |v|      
+          wrong_attr = @attr_event.merge( :event_cost => v )    
+          Event.new( wrong_attr ).should_not be_valid
+        end                
       end                                                         
     end
     

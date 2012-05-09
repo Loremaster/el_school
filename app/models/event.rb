@@ -28,13 +28,13 @@ class Event < ActiveRecord::Base
   validates :event_place,
               :presence   => { :message => "не может быть пустым" },            
               :length     => { :maximum => 200,
-                               :message => "должно содержать не более 200 символов" 
+                               :message => "должно содержать не более %{count} символов" 
                              }
                              
   validates :event_place_of_start,                                                   
               :presence   => { :message => "не может быть пустым" },                 
               :length     => { :maximum => 200,                                     
-                               :message => "должно содержать не более 200 символов"  
+                               :message => "должно содержать не более %{count} символов"  
                              }
                           
   validates :event_begin_date,
@@ -50,12 +50,18 @@ class Event < ActiveRecord::Base
   validates :event_begin_time, :presence => { :message => "не может быть пустым" }                                                                    
 
   validates :event_end_time, :presence => { :message => "не может быть пустым" }                                                                 
-                           
-  validates :event_cost, 
+                                         
+  validates :event_cost,
               :presence => { :message => "не может быть пустой" },
-              :numericality => { :only_integer => { :message => "должна быть целым числом" },
-                                 :greater_than_or_equal_to => 0, :message => "должна быть не меньше 0"                                  
-                               }
+              :numericality => { :message => "должна являться целым числом",
+                                 :only_integer => true }            
+ 
+  # I use diffirents validations for one field because then it shows messages correctly.
+  validates :event_cost,  
+              :numericality => {  :greater_than_or_equal_to => 0, :message => "должна быть не меньше 0" }
+                               
+  validates :event_cost,                                                                                                      
+              :numericality => { :less_than => 100000, :message => "должна быть меньше 100000" }                                                                
               
   validate :start_must_be_before_or_eq_end_date
   validate :start_must_be_before_or_eq_end_time
