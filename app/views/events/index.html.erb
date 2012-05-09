@@ -1,30 +1,12 @@
 <legend>Мероприятия <%= @class_code %> класса</legend>
 
 <table class="table table-bordered table-striped" name="teachers">
-  <thead>
-    <tr>
-      <th>Место проведения</th>                     
-      <th>Место сбора</th>                     
-      <th>Дата начала</th>                     
-      <th>Время начала</th>                     
-      <th>Дата окончания</th>
-      <th>Время окончания</th>                     
-      <th>ФИО ответственного учителя</th>                     
-      <th>Стоимость</th>                     
-    </tr>
-  </thead>
+  <%= render :partial => 'theads' %>  
   <tbody>
     <% if @event_exist %>
       <% @events.each do |e| %>
         <tr class="cross" onclick = "location.href='<%= edit_event_path( :id => e.id ) %>'">
-          <td><%= e.event_place %></td>
-          <td><%= e.event_place_of_start %></td>
-          <td><%= e.event_begin_date.strftime("%d.%m.%Y") %></td>
-          <td><%= e.event_begin_time.strftime("%H:%M") %></td>
-          <td><%= e.event_end_date.strftime("%d.%m.%Y") %></td>
-          <td><%= e.event_end_time.strftime("%H:%M") %></td>
-          <td><%= teacher_full_names( e.teacher ) %></td>
-          <td><%= e.event_cost %></td>
+          <%= render :partial => 'tds', :locals => { :e => e } %>
         </tr>
       <% end %>
     <% end %>

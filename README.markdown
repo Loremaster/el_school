@@ -1,5 +1,6 @@
 **E-school** project.
 
+
 ------------------------------------------------------------------------------
 
 **Class head**
@@ -66,5 +67,6 @@ and contains russian words. For translation words i use locale, it set as :en (d
 
 **TODO**
 
+- Test events on school head page.
 - Rewrite admin controller.
 - Remove choosing sex by default for all controller which use that.
