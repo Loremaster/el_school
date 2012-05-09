@@ -35,6 +35,8 @@ ElSchool::Application.routes.draw do
   
   match '/admins/create_teacher' => 'admins#create_teacher',
                                     :as => :create_teacher
+                                    
+  match '/events/show', :controller => 'events', :action => 'index_school_head'                                  
                             
   root :to => 'sessions#new'                                                              # Home
 

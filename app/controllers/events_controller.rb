@@ -3,14 +3,29 @@ class EventsController < ApplicationController
   before_filter :authenticate_class_heads, :only => [ :index, :new, :create, :edit, 
                                                       :update ]
   
+  before_filter :authenticate_school_heads, :only => [ :index_school_head ]
+  
+  def index_school_head
+    @classes = SchoolClass.order( :class_code ) 
+    
+    if params.has_key?( :class_code )
+      school_class = SchoolClass.where( "class_code = ?", params[:class_code] ).first
+      @class_code = school_class.class_code
+      @events = events_for( @class_code )       
+      @event_exist = @events.first ? true : false             
+    end  
+  end
+  
   def index
-    @class_code = get_class_code( current_user )
+    school_class = get_class( current_user )
+    @class_code = school_class.class_code
     @event_exist = Event.first ? true : false
-    @events = Event.order( :event_begin_date, :event_begin_time )
+    @events = events_for( @class_code )
   end
   
   def new
-    @class_code = get_class_code( current_user )
+    @school_class = get_class( current_user )
+    @class_code = @school_class.class_code
     @everpresent_field_placeholder = "Обязательное поле"
     @event = Event.new
     @teachers = collect_teachers
@@ -18,7 +33,8 @@ class EventsController < ApplicationController
   end
   
   def create
-    @class_code = get_class_code( current_user )
+    @school_class = get_class( current_user )
+    @class_code = @school_class.class_code
     @everpresent_field_placeholder = "Обязательное поле"
     @event = Event.new( params[:event] )
     @teachers = collect_teachers   
@@ -37,7 +53,8 @@ class EventsController < ApplicationController
   end
   
   def edit
-    @class_code = get_class_code( current_user )
+    @school_class = get_class( current_user )
+    @class_code = @school_class.class_code
     @everpresent_field_placeholder = "Обязательное поле"
     @event = Event.find( params[:id] )
     @teachers = collect_teachers   
@@ -45,7 +62,8 @@ class EventsController < ApplicationController
   end
   
   def update
-    @class_code = get_class_code( current_user )
+    @school_class = get_class( current_user )
+    @class_code = @school_class.class_code
     @everpresent_field_placeholder = "Обязательное поле"
     @event = Event.find( params[:id] )
     @teachers = collect_teachers   
@@ -69,5 +87,11 @@ class EventsController < ApplicationController
       Teacher.all.collect do |t| 
         [ "#{t.teacher_last_name} #{t.teacher_first_name} #{t.teacher_middle_name}", t.id ] 
       end
+    end
+    
+    def events_for( class_code )
+      Event.select{|e| e.school_class.class_code == class_code }
+                     .sort_by{ |e| e[:event_begin_date] }
+                     .sort_by{ |e| e[:event_begin_time] }
     end
 end

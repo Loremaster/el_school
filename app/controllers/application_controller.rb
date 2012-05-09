@@ -24,9 +24,13 @@ class ApplicationController < ActionController::Base
     end   
   end
   
-  # Get class code for current class head.
   def get_class_code( current_user )
     current_user.teacher_leader.school_class.class_code
+  end
+  
+  # Get class code for current class head.
+  def get_class( current_user )
+    current_user.teacher_leader.school_class
   end
   
   # Get parent for class via class code.

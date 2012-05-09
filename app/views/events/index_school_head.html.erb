@@ -1,0 +1,22 @@
+<legend>Список мероприятий <%= @class_code %> класса</legend>
+
+<%# Button to show events for classes. %>
+
+<div style="margin-top: 18px;" class="btn-toolbar">
+  <div class="btn-group">
+    <a href="#" data-toggle="dropdown" class="btn dropdown-toggle">
+      Показать мероприятия для класса
+      <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+			
+      <% @classes.each do |c| %>
+			  <li>
+			    <%= link_to c.class_code, events_show_path( :class_code => c.class_code ) %>
+			  </li>			
+			<% end %>
+    </ul>
+  </div>
+</div>
+
+<%= render :partial => 'event_index_table', :locals => {  } %>
