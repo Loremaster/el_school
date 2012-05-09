@@ -91,7 +91,7 @@ class EventsController < ApplicationController
     
     def events_for( class_code )
       Event.select{|e| e.school_class.class_code == class_code }
-                     .sort_by{ |e| e[:event_begin_date] }
-                     .sort_by{ |e| e[:event_begin_time] }
+           .sort_by{ |e| e[:event_begin_date] }
+           .sort_by{ |e| e[:event_begin_time] }
     end
 end
