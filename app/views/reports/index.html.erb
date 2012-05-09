@@ -1,7 +1,6 @@
 <legend>Отчеты <%= @class_code %> класса</legend>
 
-<h3>Родительские собрания</h3>
-<br/>
+<h2>Родительские собрания</h2>
 
 <table class="table table-bordered table-striped" name="meetings">
   <thead>
@@ -16,7 +15,8 @@
   <tbody>
     <% if @meeting_exist %>        
       <% @meetings.each do |m| %>          
-        <tr class="cross" onclick = "location.href='<%= edit_parents_meeting_path( :id => m.id ) %>'">
+        <tr class="cross" 
+            onclick="location.href='<%= edit_parents_meeting_path( :id => m.id ) %>'">
           <td><%= m.meeting_theme %></td>
           <td><%= m.meeting_date.strftime("%d.%m.%Y") %></td>
           <td><%= m.meeting_time.strftime("%H:%M") %></td>

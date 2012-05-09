@@ -41,7 +41,7 @@ describe EventsController do
       end
     end
     
-    describe "for signed-in school-heads" do
+    describe "for signed-in class-heads" do
       before(:each) do
         test_sign_in( @ch )
       end
@@ -75,7 +75,7 @@ describe EventsController do
       end
     end
   
-    describe "for signed-in school-heads" do
+    describe "for signed-in class-heads" do
       before(:each) do
         test_sign_in( @ch )
       end
@@ -121,7 +121,7 @@ describe EventsController do
       end
     end
     
-    describe "for signed-in school-heads" do
+    describe "for signed-in class-heads" do
       before(:each) do
         test_sign_in( @ch )
       end
@@ -161,7 +161,7 @@ describe EventsController do
       end
     end
     
-    describe "for sign-in school-heads" do
+    describe "for sign-in class-heads" do
       before(:each) do
         test_sign_in( @ch )
       end
@@ -197,7 +197,7 @@ describe EventsController do
       end
     end
     
-    describe "for signed-in school-heads" do
+    describe "for signed-in class-heads" do
       before(:each) do
         test_sign_in( @ch )
       end

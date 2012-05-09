@@ -6,7 +6,7 @@ class ParentsMeetingsController < ApplicationController
   def edit
     @class_code = get_class_code( current_user )
     @meeting = Meeting.find( params[:id] )
-    @parents = Parent.all
+    @parents = get_parents_for_class( @class_code )                                       # This method stores in application_controller.
   end
   
   def update

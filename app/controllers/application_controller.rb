@@ -28,4 +28,12 @@ class ApplicationController < ActionController::Base
   def get_class_code( current_user )
     current_user.teacher_leader.school_class.class_code
   end
+  
+  # Get parent for class via class code.
+  def get_parents_for_class( class_code )
+    parents = []                                                                          # Output.
+    pupils = Pupil.select{|p| p.school_class.class_code == class_code }                   # Get pupils for class via class_code of class.
+    pupils.each{ |p| parents << p.parents }                                               # Get parents for each pupil.
+    parents.flatten!.uniq!                                                                # Turn multy-dimension array into one dimension array (each parent for pupil got their array). And then keep only unique parents.
+  end
 end
