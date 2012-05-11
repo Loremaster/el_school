@@ -13,9 +13,12 @@ module SessionsHelper
       if signed_in? and current_user_class_head?
         redirect_back_or events_path
       end
+      if signed_in? and current_user_teacher?
+        redirect_back_or journals_path
+      end
     end
   end
-  
+
   def sign_in( user )
     cookies.permanent.signed[:remember_token] = [user.id, user.salt]                      # Creating secure remember token associated with the User model to be used in place of the user id.
     @current_user = user
@@ -50,54 +53,73 @@ module SessionsHelper
     current_user.user_role == "class_head"
   end
 
+  def current_user_teacher?
+    current_user.user_role == "teacher"
+  end
+
   def authenticate_admins
     deny_access_except_admins unless ( signed_in? and current_user_admin? )
   end
-  
+
   def authenticate_school_heads
     deny_access_except_school_heads unless ( signed_in? and current_user_school_head? )
   end
-  
+
   def authenticate_class_heads
     deny_access_except_class_heads unless ( signed_in? and current_user_class_head? )
   end
 
+  def authenticate_teachers
+    deny_access_except_teachers unless ( signed_in? and current_user_teacher?  )
+  end
+
   def deny_access
     store_location
-    redirect_to signin_path, 
+    redirect_to signin_path,
                 :notice => "Пожалуйста, войдите в систему, чтобы увидеть эту страницу."   # Here :notice is "flash[:notice]".
   end
 
   def deny_access_except_admins
     store_location
     if signed_in?
-      redirect_to pages_wrong_page_path, 
+      redirect_to pages_wrong_page_path,
                   :flash => { :error => "К сожалению, вы не можете увидеть эту страницу." }
     else
-      redirect_to signin_path, 
-                  :notice => "Пожалуйста, войдите в систему как администратор, чтобы увидеть эту страницу." 
+      redirect_to signin_path,
+                  :notice => "Пожалуйста, войдите в систему как администратор, чтобы увидеть эту страницу."
     end
   end
 
   def deny_access_except_school_heads
     store_location
     if signed_in?
-      redirect_to pages_wrong_page_path, 
+      redirect_to pages_wrong_page_path,
                   :flash => { :error => "К сожалению, вы не можете увидеть эту страницу." }
     else
-      redirect_to signin_path, 
-                  :notice => "Пожалуйста, войдите в систему как Завуч, чтобы увидеть эту страницу." 
+      redirect_to signin_path,
+                  :notice => "Пожалуйста, войдите в систему как Завуч, чтобы увидеть эту страницу."
     end
   end
-  
+
   def deny_access_except_class_heads
     store_location
     if signed_in?
-      redirect_to pages_wrong_page_path, 
+      redirect_to pages_wrong_page_path,
                   :flash => { :error => "К сожалению, вы не можете увидеть эту страницу." }
     else
-      redirect_to signin_path, 
-                  :notice => "Пожалуйста, войдите в систему как Классный руководитель, чтобы увидеть эту страницу." 
+      redirect_to signin_path,
+                  :notice => "Пожалуйста, войдите в систему как Классный руководитель, чтобы увидеть эту страницу."
+    end
+  end
+
+  def deny_access_except_teachers
+    store_location
+    if signed_in?
+      redirect_to pages_wrong_page_path,
+                  :flash => { :error => "К сожалению, вы не можете увидеть эту страницу." }
+    else
+      redirect_to signin_path,
+                  :notice => "Пожалуйста, войдите в систему как Учитель, чтобы увидеть эту страницу."
     end
   end
 
