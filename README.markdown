@@ -40,7 +40,7 @@
 - Date validation - format dd.mm.yyyy and date existance. Checking via method of controller (i didn't find good method for that).
 - Keep data in forms even if user did some mistakes. Added for that some tests.
 - Added russian error messages for creation of User. All errors in schoolhead popup as flash message.
-and contains russian words. For translation words i use locale, it set as :en (default). 
+and contains russian words. For translation words i use locale, it set as :en (default).
 - Added password and login generation (for class head). Plus some tests for that.
 - Redirect admin from root of site to his list of users.
 - Redirect admin after signing-in to his page.
@@ -67,6 +67,5 @@ and contains russian words. For translation words i use locale, it set as :en (d
 
 **TODO**
 
-- Test events on school head page.
 - Rewrite admin controller.
 - Remove choosing sex by default for all controller which use that.
