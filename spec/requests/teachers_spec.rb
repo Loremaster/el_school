@@ -3,12 +3,11 @@ require 'spec_helper'
 
 describe "Teachers" do
   before(:each) do
-    @attr = {
-              :user_login => "t",
-              :password => "foobar"
-            }
 
-    @t = User.new( @attr )
+    # Here we use trick. First of all we create qualification with teacher first and
+    # only then we edit it's user to be correct. I found that only this works.
+    qualification = FactoryGirl.create( :qualification )
+    @t = qualification.teacher.user
     @t.user_role = "teacher"
     @t.save!
 
@@ -34,7 +33,7 @@ describe "Teachers" do
     describe "success" do
       it "should sign a user in and out" do
         visit signin_path
-        fill_in "Логин",  :with => @attr[:user_login]
+        fill_in "Логин",  :with => @t.user_login
         fill_in "Пароль", :with => "foobar"
         click_button "Войти"
 
@@ -48,7 +47,7 @@ describe "Teachers" do
   describe "for sign-in class heads" do
     before(:each) do
       visit signin_path
-      fill_in "Логин",  :with => @attr[:user_login]
+      fill_in "Логин",  :with => @t.user_login
       fill_in "Пароль", :with => "foobar"
       click_button "Войти"
     end
@@ -62,6 +61,7 @@ describe "Teachers" do
         end
 
         click_link "Журнал"
+        click_link @t.teacher.subjects.first.subject_name
 
         response.should be_success
         response.body.should have_selector( "li.active") do
@@ -69,6 +69,5 @@ describe "Teachers" do
         end
       end
     end
-
   end
 end

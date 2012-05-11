@@ -1,7 +1,27 @@
 <%= link_to "E-school", journals_path, :class => "brand" %>
 
-<ul class="nav">
-   <li class=<%= active_toolbar?( journals_path ) %>>
-     <%= link_to "Журнал", journals_path %>
-   </li>
+<ul class="nav nav-pills">
+  <li class="dropdown <%= active_toolbar?( journals_path ) %>" id="menu1">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
+      Журнал
+      <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+
+      <%# Show in dropdown list of all subjects and it's link. %>
+      <% @teacher_subjects.each do |s|%>
+        <li>
+          <%= link_to s.subject_name, journals_path( :class_code => s.subject_name ) %>
+        </li>
+      <% end %>
+
+      <% if @teacher_subjects.empty? %>
+        <li>
+            Для того, чтобы просматривать журнал, необходимо, чтобы Завуч отметил
+            предметы, которые вы ведете.
+        </li>
+      <% end %>
+    </ul>
+  </li>
 </ul>
+
