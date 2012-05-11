@@ -1,16 +1,18 @@
-<div style="margin-top: 18px;" class="btn-toolbar">
-  <div class="btn-group">
-    <a href="#" data-toggle="dropdown" class="btn dropdown-toggle">
-      Выбрать класс
-      <span class="caret"></span>
-    </a>
-    <ul class="dropdown-menu">
-			<% @classes.each do |c| %>
-			  <li>
-			    <%= link_to c.class_code, journals_path( :class_code => c.class_code,
-			                                             :subject_name => params[:subject_name]) %>
-			  </li>
-			<% end %>
-    </ul>
+<% unless @subject.empty? %>
+  <div style="margin-top: 18px;" class="btn-toolbar">
+    <div class="btn-group">
+      <a href="#" data-toggle="dropdown" class="btn dropdown-toggle">
+        Выбрать класс
+        <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+  			<% @classes.each do |c| %>
+  			  <li>
+  			    <%= link_to c.class_code, journals_path( :class_code => c.class_code,
+  			                                             :subject_name => params[:subject_name]) %>
+  			  </li>
+  			<% end %>
+      </ul>
+    </div>
   </div>
-</div>
+<% end %>
