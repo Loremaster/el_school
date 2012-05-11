@@ -11,7 +11,7 @@
       <%# Show in dropdown list of all subjects and it's link. %>
       <% @teacher_subjects.each do |s|%>
         <li>
-          <%= link_to s.subject_name, journals_path( :class_code => s.subject_name ) %>
+          <%= link_to s.subject_name, journals_path( :subject_name => s.subject_name ) %>
         </li>
       <% end %>
 

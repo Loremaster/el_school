@@ -3,6 +3,8 @@ class JournalsController < ApplicationController
 
   def index
     @teacher_subjects = current_user.teacher.subjects
-    flash[:notice] = "#{@teacher_subjects.inspect}"
+    subject = Subject.where( "subject_name = ?", params[:subject_name] )                  # This we get when user choose subject from toolbar.
+    @classes = SchoolClass.all
+    # flash.now[:notice] = "#{subject.inspect}"
   end
 end
