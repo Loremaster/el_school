@@ -1,11 +1,11 @@
 ElSchool::Application.routes.draw do
 
-  resources :users,           :only => [ :index, :edit, :update ]                   
-  resources :sessions,        :only => [ :new, :create, :destroy ]                  
-  resources :pupils,          :only => [ :index, :new, :create, :edit, :update ]                                   
-  resources :subjects,        :only => [ :index, :new, :create, :edit, :update ]    
-  resources :teachers,        :only => [ :index, :edit, :update ]   
-  resources :teacher_leaders, :only => [ :new, :create, :edit, :update ]  
+  resources :users,           :only => [ :index, :edit, :update ]
+  resources :sessions,        :only => [ :new, :create, :destroy ]
+  resources :pupils,          :only => [ :index, :new, :create, :edit, :update ]
+  resources :subjects,        :only => [ :index, :new, :create, :edit, :update ]
+  resources :teachers,        :only => [ :index, :edit, :update ]
+  resources :teacher_leaders, :only => [ :new, :create, :edit, :update ]
   resources :school_classes,  :only => [ :index, :new, :create, :edit, :update ]
   resources :orders,          :only => [ :index, :new, :create, :edit, :update ]
   resources :parents,         :only => [ :index, :new, :create, :edit, :update ]
@@ -14,7 +14,9 @@ ElSchool::Application.routes.draw do
   resources :events,          :only => [ :index, :new, :create, :edit, :update ]
   resources :reports,         :only => [ :index ]
   resources :parents_meetings, :only => [ :edit, :update ]
-                                      
+  resources :journals, :only => [ :index ]
+
+
   get "sessions/new"
 
   match 'pages/wrong_page', :to => 'pages#wrong_page'
@@ -23,21 +25,21 @@ ElSchool::Application.routes.draw do
 
   match '/admins/backups', :controller => 'admins',
                            :action     => 'backups'
-    
+
   match '/admins/new_school_head', :controller => 'admins',
                                    :action => 'new_school_head'
-  
+
   match '/admins/new_teacher', :controller => 'admins',
                                :action => 'new_teacher'
-  
+
   match '/admins/create_school_head' => 'admins#create_school_head',
                                          :as => :create_school_head                       # named route
-  
+
   match '/admins/create_teacher' => 'admins#create_teacher',
                                     :as => :create_teacher
-                                    
-  match '/events/show', :controller => 'events', :action => 'index_school_head'                                  
-                            
+
+  match '/events/show', :controller => 'events', :action => 'index_school_head'
+
   root :to => 'sessions#new'                                                              # Home
 
   # The priority is based upon order of creation:
