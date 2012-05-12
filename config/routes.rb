@@ -1,20 +1,22 @@
 ElSchool::Application.routes.draw do
 
-  resources :users,           :only => [ :index, :edit, :update ]
-  resources :sessions,        :only => [ :new, :create, :destroy ]
-  resources :pupils,          :only => [ :index, :new, :create, :edit, :update ]
-  resources :subjects,        :only => [ :index, :new, :create, :edit, :update ]
-  resources :teachers,        :only => [ :index, :edit, :update ]
-  resources :teacher_leaders, :only => [ :new, :create, :edit, :update ]
-  resources :school_classes,  :only => [ :index, :new, :create, :edit, :update ]
-  resources :orders,          :only => [ :index, :new, :create, :edit, :update ]
-  resources :parents,         :only => [ :index, :new, :create, :edit, :update ]
-  resources :meetings,        :only => [ :index, :new, :create, :edit, :update ]
-  resources :timetables,      :only => [ :index, :new, :create, :edit, :update ]
-  resources :events,          :only => [ :index, :new, :create, :edit, :update ]
-  resources :reports,         :only => [ :index ]
+  resources :users,            :only => [ :index, :edit, :update ]
+  resources :sessions,         :only => [ :new, :create, :destroy ]
+  resources :pupils,           :only => [ :index, :new, :create, :edit, :update ]
+  resources :subjects,         :only => [ :index, :new, :create, :edit, :update ]
+  resources :teachers,         :only => [ :index, :edit, :update ]
+  resources :teacher_leaders,  :only => [ :new, :create, :edit, :update ]
+  resources :school_classes,   :only => [ :index, :new, :create, :edit, :update ]
+  resources :orders,           :only => [ :index, :new, :create, :edit, :update ]
+  resources :parents,          :only => [ :index, :new, :create, :edit, :update ]
+  resources :meetings,         :only => [ :index, :new, :create, :edit, :update ]
+  resources :timetables,       :only => [ :index, :new, :create, :edit, :update ]
+  resources :events,           :only => [ :index, :new, :create, :edit, :update ]
+  resources :reports,          :only => [ :index ]
   resources :parents_meetings, :only => [ :edit, :update ]
-  resources :journals, :only => [ :index ]
+  resources :journals,         :only => [ :index ]
+  resources :lessons,          :only => [ :new, :create ]
+
 
 
   get "sessions/new"
