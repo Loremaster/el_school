@@ -5,9 +5,10 @@ class LessonsController < ApplicationController
   def new
     @teacher_subjects = current_user.teacher.subjects
     subject = Subject.where( "subject_name = ?", params[:subject_name] ).first
-    school_class = SchoolClass.where( "class_code = ?", params[:class_code] )
+    school_class = SchoolClass.where( "class_code = ?", params[:class_code] ).first
     timetables = timetables_for_teacher_with_subject( current_user.teacher,
-                                                      subject.subject_name )
+                                                      subject.subject_name,
+                                                      school_class )
     @timetables_collection = timetables_for_select_list( timetables )
 
     @lesson = Lesson.new
@@ -18,8 +19,10 @@ class LessonsController < ApplicationController
     @teacher_subjects = current_user.teacher.subjects
     @everpresent_field_placeholder = "Обязательное поле"
     subject = Subject.where( "subject_name = ?", params[:subject_name] ).first
+    school_class = SchoolClass.where( "class_code = ?", params[:class_code] ).first
     timetables = timetables_for_teacher_with_subject( current_user.teacher,
-                                                      subject.subject_name )
+                                                      subject.subject_name,
+                                                      school_class )
     @timetables_collection = timetables_for_select_list( timetables )
 
     @lesson = Lesson.new( params[:lesson] )
@@ -37,17 +40,6 @@ class LessonsController < ApplicationController
   end
 
   private
-
-    # Get ALL timetables for teacher
-    # => Array
-    def timetables_for_teacher_with_subject( teacher, subject_name )
-      tt = []                                                                             # Output timetables
-      subject = teacher.subjects.where(:subject_name => subject_name).first               # Get subject for teacher.
-      subject_qualification = teacher.qualifications.where(:subject_id => subject.id).first # Qualification for subject.
-      curriculums = subject_qualification.curriculums                                     # Get all curriculums
-      curriculums.each { |c| tt << c.timetables  }                                        # Collecting all timetables.
-      tt.flatten!                                                                         # To 1 dimension array (because of many-to-one).
-    end
 
     # Retutn all timetables for timetable.
     # Input timetable should be array!

@@ -53,4 +53,16 @@ class ApplicationController < ActionController::Base
              :Fri => "Пятница" }
     days[ day.to_sym ]
   end
+
+  # Get ALL timetables for teacher
+  # => Array
+  def timetables_for_teacher_with_subject( teacher, subject_name, school_class )
+    tt = []                                                                               # Output timetables
+    subject = teacher.subjects.where(:subject_name => subject_name).first                 # Get subject for teacher.
+    subject_qualification = teacher.qualifications.where(:subject_id => subject.id).first # Qualification for subject.
+    curriculums = subject_qualification.curriculums                                       # Get all curriculums
+    curriculums.each { |c| tt << c.timetables  }                                          # Collecting all timetables.
+    tt.flatten!                                                                           # To 1 dimension array (because of many-to-one).
+    tt.select{|t| t.school_class.class_code == school_class.class_code }                  # Finding all timetables for 1 SCHOOL CLASS.
+  end
 end
