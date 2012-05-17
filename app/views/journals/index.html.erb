@@ -31,6 +31,13 @@
         <% end %>
       </tr>
     </thead>
+      <% if @pupils_exist %>
+        <% @pupils.each do |p| %>
+          <tr>
+            <td><%= pupil_full_names( p ) %></td>
+          </tr>
+        <% end %>
+      <% end %>
     <tbody>
     </tbody>
   </table>

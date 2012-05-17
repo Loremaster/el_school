@@ -3,12 +3,16 @@ class JournalsController < ApplicationController
 
   def index
     @subject = []
-    @teacher_subjects = current_user.teacher.subjects
-    @subject = Subject.where( "subject_name = ?", params[:subject_name] ).first           # This we get when user choose subject from toolbar.
+    @teacher_subjects = current_user.teacher.subjects                                     # This we get when user choose subject from toolbar.
+    @subject = Subject.where( "subject_name = ?", params[:subject_name] ).first
     @classes = SchoolClass.all
     school_class = SchoolClass.where( "class_code = ?", params[:class_code] ).first
+
     @lessons = teacher_lessons_dates( current_user.teacher, @subject, school_class )
     @lessons_exist = @lessons.first ? true : false
+
+    @pupils = Pupil.select{|p| p.school_class.class_code == school_class.class_code }
+    @pupils_exist = @pupils.first ? true : false
   end
 
   private
