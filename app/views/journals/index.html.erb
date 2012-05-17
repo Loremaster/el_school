@@ -20,6 +20,11 @@
     <thead>
       <tr>
         <th>Ученик\Дата</th>
+        <% if @lessons_exist %>
+          <% @lessons.each do |l| %>
+            <th><%= l.lesson_date.strftime("%d.%m.%Y") %></th>
+          <% end %>
+        <% end %>
       </tr>
     </thead>
     <tbody>
