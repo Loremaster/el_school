@@ -8,10 +8,10 @@ class JournalsController < ApplicationController
     @classes = SchoolClass.all
     school_class = SchoolClass.where( "class_code = ?", params[:class_code] ).first
 
-    @lessons = teacher_lessons_dates( current_user.teacher, @subject, school_class )
+    @lessons = teacher_lessons_dates( current_user.teacher, @subject, school_class )      # Lessons of teacher.
     @lessons_exist = @lessons.first ? true : false
 
-    @pupils = Pupil.select{|p| p.school_class.class_code == school_class.class_code } unless school_class.nil?
+    @pupils = Pupil.select{|p| p.school_class.class_code == school_class.class_code } unless school_class.nil? # Pupils in the class.
     @pupils_exist = @pupils.first ? true : false
   end
 
