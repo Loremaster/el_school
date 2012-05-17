@@ -1,4 +1,4 @@
-<% unless @subject.empty? %>
+<% unless @subject.nil? %>
   <div style="margin-top: 18px;" class="btn-toolbar">
     <div class="btn-group">
       <a href="#" data-toggle="dropdown" class="btn dropdown-toggle">
@@ -15,6 +15,16 @@
       </ul>
     </div>
   </div>
+
+  <table class="table table-bordered table-striped" name="journals">
+    <thead>
+      <tr>
+        <th>Ученик\Дата</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
 
   <div style="margin-top: 18px;" class="btn-toolbar">
     <div class="btn-group">
