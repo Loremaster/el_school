@@ -11,8 +11,6 @@ class LessonsController < ApplicationController
 
     @lesson = Lesson.new
     @everpresent_field_placeholder = "Обязательное поле"
-
-    flash[:notice] = "#{@timetables_collection}"
   end
 
   def create
