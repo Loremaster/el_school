@@ -6,7 +6,8 @@ class LessonsController < ApplicationController
     @teacher_subjects = current_user.teacher.subjects
     subject = Subject.where( "subject_name = ?", params[:subject_name] ).first
     school_class = SchoolClass.where( "class_code = ?", params[:class_code] )
-    timetables = timetables_for_teacher_with_subject( current_user.teacher, subject.subject_name )
+    timetables = timetables_for_teacher_with_subject( current_user.teacher,
+                                                      subject.subject_name )
     @timetables_collection = timetables_for_select_list( timetables )
 
     @lesson = Lesson.new
@@ -17,7 +18,8 @@ class LessonsController < ApplicationController
     @teacher_subjects = current_user.teacher.subjects
     @everpresent_field_placeholder = "Обязательное поле"
     subject = Subject.where( "subject_name = ?", params[:subject_name] ).first
-    timetables = timetables_for_teacher_with_subject( current_user.teacher, subject.subject_name )
+    timetables = timetables_for_teacher_with_subject( current_user.teacher,
+                                                      subject.subject_name )
     @timetables_collection = timetables_for_select_list( timetables )
 
     @lesson = Lesson.new( params[:lesson] )
@@ -54,7 +56,8 @@ class LessonsController < ApplicationController
       raise TypeError, "Input timetables should be Array!" unless timetables.kind_of?(Array) # It is REALLY important to be array.
 
       timetables.collect do |tt|
-        ["#{translate_day_of_week(tt.tt_day_of_week)} - #{tt.tt_number_of_lesson}й урок", tt.id]
+        [ "#{translate_day_of_week(tt.tt_day_of_week)} - #{tt.tt_number_of_lesson}й урок",
+          tt.id]
       end
     end
 end
