@@ -2,7 +2,7 @@ class JournalsController < ApplicationController
   before_filter :authenticate_teachers, :only => [ :index ]
 
   def index
-    @subject = []
+    @subject = []; @pupils = []
     @teacher_subjects = current_user.teacher.subjects                                     # This we get when user choose subject from toolbar.
     @subject = Subject.where( "subject_name = ?", params[:subject_name] ).first
     @classes = SchoolClass.all
@@ -11,7 +11,7 @@ class JournalsController < ApplicationController
     @lessons = teacher_lessons_dates( current_user.teacher, @subject, school_class )
     @lessons_exist = @lessons.first ? true : false
 
-    @pupils = Pupil.select{|p| p.school_class.class_code == school_class.class_code }
+    @pupils = Pupil.select{|p| p.school_class.class_code == school_class.class_code } unless school_class.nil?
     @pupils_exist = @pupils.first ? true : false
   end
 
