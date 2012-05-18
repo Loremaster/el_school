@@ -68,6 +68,8 @@ class ApplicationController < ActionController::Base
 
   # Return subject name and class code from params.
   # params - hash
+  # :subject_name - char
+  # :class_code - char
   # => subject, school_class
   def extract_class_code_and_subj_name( params, subject_name, class_code )
     subject = Subject.where( "subject_name = ?", params[:subject_name] ).first
