@@ -4,9 +4,8 @@ class JournalsController < ApplicationController
   def index
     @subject = []; @pupils = []
     @teacher_subjects = current_user.teacher.subjects                                     # This we get when user choose subject from toolbar.
-    @subject = Subject.where( "subject_name = ?", params[:subject_name] ).first
     @classes = SchoolClass.all
-    school_class = SchoolClass.where( "class_code = ?", params[:class_code] ).first
+    @subject, school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
 
     @lessons = teacher_lessons_dates( current_user.teacher, @subject, school_class )      # Lessons of teacher.
     @lessons_exist = @lessons.first ? true : false
