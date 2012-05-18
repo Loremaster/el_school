@@ -65,4 +65,13 @@ class ApplicationController < ActionController::Base
     tt.flatten!                                                                           # To 1 dimension array (because of many-to-one).
     tt.select{|t| t.school_class.class_code == school_class.class_code }                  # Finding all timetables for 1 SCHOOL CLASS.
   end
+
+  # Return subject name and class code from params.
+  # params - hash
+  # => subject, school_class
+  def extract_class_code_and_subj_name( params, subject_name, class_code )
+    subject = Subject.where( "subject_name = ?", params[:subject_name] ).first
+    school_class = SchoolClass.where( "class_code = ?", params[:class_code] ).first
+    return subject, school_class
+  end
 end
