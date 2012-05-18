@@ -24,11 +24,11 @@ class Pupil < ActiveRecord::Base
   belongs_to :school_class
 
   has_one  :pupil_phone
+  has_one :attendance
 
   has_many :orders
   has_many :parent_pupils
   has_many :parents, :through => :parent_pupils
-  has_many :attendances
 
   accepts_nested_attributes_for :user
   accepts_nested_attributes_for :pupil_phone
