@@ -3,6 +3,7 @@ class CreateAttendances < ActiveRecord::Migration
     create_table :attendances do |t|
       t.integer :pupil_id
       t.integer :lesson_id
+      t.boolean :visited
       t.timestamps
     end
 

@@ -7,6 +7,7 @@
 #  id         :integer         not null, primary key
 #  pupil_id   :integer
 #  lesson_id  :integer
+#  visited    :boolean
 #  created_at :datetime        not null
 #  updated_at :datetime        not null
 #

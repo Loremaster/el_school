@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(:version => 20120518194937) do
   create_table "attendances", :force => true do |t|
     t.integer  "pupil_id"
     t.integer  "lesson_id"
+    t.boolean  "visited"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
