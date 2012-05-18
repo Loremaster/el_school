@@ -75,3 +75,6 @@ en:
           lesson:
             timetable_id: "Урок"
             lesson_date: "Дата"
+          attendance:
+            pupil_id: "Ученик"
+            lesson_id: "Урок"
