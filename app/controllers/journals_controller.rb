@@ -27,7 +27,6 @@ class JournalsController < ApplicationController
                                                                 subject.subject_name,
                                                                 school_class )
       teacher_timetables.each { |t| lessons << t.lessons }                                # Collecting lessons.
-      lessons.flatten!                                                                    # To 1 dimension array (because of many-to-one).
-      lessons.sort_by{ |e| e[:lesson_date] }                                              # Sorting lessons by date.
+      lessons.flatten!.sort_by{ |e| e[:lesson_date] }                                     # To 1 dimension array (because of many-to-one). Then sorting by date.
     end
 end
