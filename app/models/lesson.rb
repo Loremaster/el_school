@@ -14,6 +14,8 @@
 class Lesson < ActiveRecord::Base
   belongs_to :timetable
 
+  has_one :attendance
+
   validates :timetable_id, :presence => { :message => "должен быть указан" }
 
   validates :lesson_date,

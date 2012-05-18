@@ -22,66 +22,67 @@
 class Pupil < ActiveRecord::Base
   belongs_to :user
   belongs_to :school_class
-  
+
   has_one  :pupil_phone
-  
+
   has_many :orders
   has_many :parent_pupils
   has_many :parents, :through => :parent_pupils
-  
+  has_many :attendances
+
   accepts_nested_attributes_for :user
   accepts_nested_attributes_for :pupil_phone
-  
-    
+
+
   validates :pupil_last_name,
               :presence   => { :message => "не может быть пустой" },
-              :length     => { 
+              :length     => {
                                :maximum => 40,
-                               :message => "должна содержать не более 40 символов" 
+                               :message => "должна содержать не более 40 символов"
                              }
-                             
+
   validates :pupil_first_name,
               :presence   => { :message => "не может быть пустым" },
-              :length     => { 
+              :length     => {
                                :maximum => 40,
-                               :message => "должно содержать не более 40 символов" 
+                               :message => "должно содержать не более 40 символов"
                              }
-  
+
   validates :pupil_middle_name,
               :presence   => { :message => "не может быть пустым" },
-              :length     => { 
+              :length     => {
                                :maximum => 40,
-                               :message => "должно содержать не более 40 символов" 
+                               :message => "должно содержать не более 40 символов"
                              }
-                             
-   validates :pupil_birthday, 
+
+   validates :pupil_birthday,
               :inclusion => {
                               :in => ( Date.today - 19.year )..( Date.today - 5.year ),
                               :message => "должна быть в пределах от 5 до 19 лет от текущего года"
-                            } 
-                              
-   validates :pupil_sex,         
+                            }
+
+   validates :pupil_sex,
                :presence  => true,
-               :inclusion => { :in => %w(m w) } 
-               
+               :inclusion => { :in => %w(m w) }
+
    validates :pupil_nationality,
                :presence => { :message => "не может быть пустой" },
-               :length   => { 
+               :length   => {
                               :maximum => 50,
-                              :message => "должна содержать не более 50 символов" 
+                              :message => "должна содержать не более 50 символов"
                             }
-                            
-   validates :pupil_address_of_registration,  
+
+   validates :pupil_address_of_registration,
                :presence => { :message => "не может быть пустым" },
-               :length   => { 
+               :length   => {
                               :maximum => 250,
-                              :message => "должен содержать не более 250 символов" 
+                              :message => "должен содержать не более 250 символов"
                             }
-                            
+
    validates :pupil_address_of_living,
                :presence => { :message => "не может быть пустым" },
-               :length   => { 
+               :length   => {
                               :maximum => 250,
-                              :message => "должен содержать не более 250 символов" 
-                            }                                                 
+                              :message => "должен содержать не более 250 символов"
+                            }
 end

@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120511193924) do
+ActiveRecord::Schema.define(:version => 20120518194937) do
+
+  create_table "attendances", :force => true do |t|
+    t.integer  "pupil_id"
+    t.integer  "lesson_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "attendances", ["lesson_id"], :name => "index_attendances_on_lesson_id"
+  add_index "attendances", ["pupil_id"], :name => "index_attendances_on_pupil_id"
 
   create_table "curriculums", :force => true do |t|
     t.integer  "school_class_id"
