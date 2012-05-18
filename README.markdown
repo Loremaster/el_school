@@ -28,6 +28,7 @@
 **Teacher**
 
 - Can log-in.
+- Can create/update and see dates of lessons.
 
 ------------------------------------------------------------------------------
 
