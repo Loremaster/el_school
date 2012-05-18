@@ -32,10 +32,22 @@
       </tr>
     </thead>
     <tbody>
-      <% if @pupils_exist %>
+      <% if @pupils_exist and @lessons_exist %>
         <% @pupils.each do |p| %>
           <tr>
             <td><%= pupil_full_names( p ) %></td>
+
+            <% @lessons.each do |l| %>
+              <% if l.attendance.nil? %>                                                  <%# If nobody created attendance. %>
+                <td class="cross"
+                    onclick = "location.href='<%= new_attendance_path(
+                                             :class_code => params[:class_code],
+                                             :subject_name => params[:subject_name]) %>'">
+                </td>
+              <% else %>                                                                  <%# If attendance exists. %>
+                <td></td>
+              <% end %>
+            <% end %>
           </tr>
         <% end %>
       <% end %>
