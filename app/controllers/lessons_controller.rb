@@ -4,8 +4,7 @@ class LessonsController < ApplicationController
 
   def new
     @teacher_subjects = current_user.teacher.subjects
-    subject = Subject.where( "subject_name = ?", params[:subject_name] ).first
-    school_class = SchoolClass.where( "class_code = ?", params[:class_code] ).first
+    subject, school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
     timetables = timetables_for_teacher_with_subject( current_user.teacher,
                                                       subject.subject_name,
                                                       school_class )
@@ -18,8 +17,7 @@ class LessonsController < ApplicationController
   def create
     @teacher_subjects = current_user.teacher.subjects
     @everpresent_field_placeholder = "Обязательное поле"
-    subject = Subject.where( "subject_name = ?", params[:subject_name] ).first
-    school_class = SchoolClass.where( "class_code = ?", params[:class_code] ).first
+    subject, school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
     timetables = timetables_for_teacher_with_subject( current_user.teacher,
                                                       subject.subject_name,
                                                       school_class )
@@ -42,8 +40,7 @@ class LessonsController < ApplicationController
   def edit
     @teacher_subjects = current_user.teacher.subjects
     @everpresent_field_placeholder = "Обязательное поле"
-    subject = Subject.where( "subject_name = ?", params[:subject_name] ).first
-    school_class = SchoolClass.where( "class_code = ?", params[:class_code] ).first
+    subject, school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
     @lesson = Lesson.find( params[:id] )
 
     timetables = timetables_for_teacher_with_subject( current_user.teacher,
@@ -55,8 +52,7 @@ class LessonsController < ApplicationController
   def update
     @teacher_subjects = current_user.teacher.subjects
     @everpresent_field_placeholder = "Обязательное поле"
-    subject = Subject.where( "subject_name = ?", params[:subject_name] ).first
-    school_class = SchoolClass.where( "class_code = ?", params[:class_code] ).first
+    subject, school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
     @lesson = Lesson.find( params[:id] )
 
     timetables = timetables_for_teacher_with_subject( current_user.teacher,
