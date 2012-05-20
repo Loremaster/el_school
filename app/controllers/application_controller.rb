@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
     if parents.empty?
       parents
     else
-      parents.flatten!.uniq!                                                              # Turn multy-dimension array into one dimension array (each parent for pupil got their array). And then keep only unique parents.
+      parents.flatten.uniq!                                                               # Turn multy-dimension array into one dimension array (each parent for pupil got their array). And then keep only unique parents.
     end
   end
 
@@ -62,8 +62,7 @@ class ApplicationController < ActionController::Base
     subject_qualification = teacher.qualifications.where(:subject_id => subject.id).first # Qualification for subject.
     curriculums = subject_qualification.curriculums                                       # Get all curriculums
     curriculums.each { |c| tt << c.timetables  }                                          # Collecting all timetables.
-    tt.flatten!                                                                           # To 1 dimension array (because of many-to-one).
-    tt.select{|t| t.school_class.class_code == school_class.class_code }                  # Finding all timetables for 1 SCHOOL CLASS.
+    tt.flatten.select{|t| t.school_class.class_code == school_class.class_code }          # To 1 dimension array (because of many-to-one). Then finding all timetables for 1 SCHOOL CLASS.
   end
 
   # Return subject name and class code from params.
