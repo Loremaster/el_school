@@ -40,7 +40,7 @@
             <td><%= pupil_full_names( p ) %></td>
 
             <% @lessons.each do |l| %>
-              <% if attendance_of_lesson_for_pupil_exists?( p.id, l.id ) %>               <%# If nobody created attendance. %>
+              <% if not attendance_of_lesson_for_pupil_exists?( p.id, l.id ) %>           <%# If nobody created attendance. %>
                 <td class="cross selectt"
                     onclick = "location.href='<%= new_attendance_path(
                                              :class_code => params[:class_code],
@@ -49,8 +49,13 @@
                                              :lesson_id => l.id ) %>'">
                 </td>
               <% else %>                                                                  <%# If attendance exists. %>
-                <td class="cross selectt">
-
+                <td class="cross selectt"
+                    onclick = "location.href='<%= edit_attendance_path(
+                                             :id => attendance_id_of_lesson_for_pupil( p.id, l.id ),
+                                             :class_code => params[:class_code],
+                                             :subject_name => params[:subject_name],
+                                             :p_id => p.id,                               # p_id is pupil_id
+                                             :lesson_id => l.id ) %>'">
                 </td>
               <% end %>
             <% end %>
