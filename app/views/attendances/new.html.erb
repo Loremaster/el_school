@@ -5,23 +5,13 @@
     <%= hidden_field_tag :class_code, params[:class_code] %>
     <%= hidden_field_tag :subject_name, params[:subject_name] %>
 
-    <%= f.hidden_field :pupil_id, :value => @pupil.id %>                                  <%# Passing pupil id inside as one of the param of attendance. %>
-    <%= f.hidden_field :lesson_id, :value => @lesson.id %>                                <%# Passing lesson id inside as one of the param of attendance. %>
-
-    <div class="control-group">
-      <%= f.label :visited, "Присутствие на уроке", :class => "control-label" %>
-      <div class="controls">
-        <%= label_tag nil, nil, :class => "radio" do %>
-          <%= f.radio_button :visited, true %>
-          Был
-        <% end %>
-
-        <%= label_tag nil, nil, :class => "radio" do %>
-          <%= f.radio_button :visited, false %>
-          Не был
-        <% end %>
-      </div>
-    </div>
+    <%= render :partial => 'attendance_fields',
+        :locals => {
+                     :f => f,
+                     :pupil => @pupil,
+                     :lesson => @lesson
+                    }
+    %>
 
     <%= f.submit "Отметить", :class => "btn btn-large btn-success" %>
   <% end %>
