@@ -44,7 +44,8 @@
                 <td class="cross selectt"
                     onclick = "location.href='<%= new_attendance_path(
                                              :class_code => params[:class_code],
-                                             :subject_name => params[:subject_name]) %>'">
+                                             :subject_name => params[:subject_name],
+                                             :p_id => p.id) %>'">                         <%# p_id is pupil_id %>
                 </td>
               <% else %>                                                                  <%# If attendance exists. %>
                 <td></td>
