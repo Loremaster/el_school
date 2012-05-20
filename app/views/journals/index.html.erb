@@ -26,7 +26,7 @@
           <% @lessons.each do |l| %>
             <th>
               <%= link_to l.lesson_date.strftime("%d.%m.%Y"),
-                  edit_lesson_path( :id => l.id,:class_code => params[:class_code],
+                  edit_lesson_path( :id => l.id, :class_code => params[:class_code],
                                     :subject_name => params[:subject_name]) %>
             </th>
           <% end %>
@@ -40,7 +40,7 @@
             <td><%= pupil_full_names( p ) %></td>
 
             <% @lessons.each do |l| %>
-              <% if l.attendance.nil? %>                                                  <%# If nobody created attendance. %>
+              <% if attendance_of_lesson_for_pupil_exists?( p.id, l.id ) %>               <%# If nobody created attendance. %>
                 <td class="cross selectt"
                     onclick = "location.href='<%= new_attendance_path(
                                              :class_code => params[:class_code],
@@ -49,7 +49,9 @@
                                              :lesson_id => l.id ) %>'">
                 </td>
               <% else %>                                                                  <%# If attendance exists. %>
-                <td></td>
+                <td class="cross selectt">
+
+                </td>
               <% end %>
             <% end %>
           </tr>
