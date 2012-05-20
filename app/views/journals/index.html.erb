@@ -18,7 +18,7 @@
     </div>
   </div>
 
-  <table class="tablee table-bordered table-striped" name="journals">
+  <table class="tablee table-bordered" name="journals">
     <thead>
       <tr>
         <th>Ученик\Дата</th>
@@ -49,13 +49,13 @@
                                              :lesson_id => l.id ) %>'">
                 </td>
               <% else %>                                                                  <%# If attendance exists. %>
-                <td class="cross selectt"
+                <td class="cross selectt <%= color_of_attendance( p.id, l.id )  %>"
                     onclick = "location.href='<%= edit_attendance_path(
-                                             :id => attendance_id_of_lesson_for_pupil( p.id, l.id ),
-                                             :class_code => params[:class_code],
-                                             :subject_name => params[:subject_name],
-                                             :p_id => p.id,                               # p_id is pupil_id
-                                             :lesson_id => l.id ) %>'">
+                                   :id => attendance_id_of_lesson_for_pupil( p.id, l.id ),
+                                   :class_code => params[:class_code],
+                                   :subject_name => params[:subject_name],
+                                   :p_id => p.id,                                         # p_id is pupil_id
+                                   :lesson_id => l.id ) %>'">
                 </td>
               <% end %>
             <% end %>
