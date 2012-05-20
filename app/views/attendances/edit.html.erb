@@ -1,4 +1,6 @@
-<legend>Посещение урока</legend>
+<legend>
+  Посещение урока ученика <%= pupil_full_names( @pupil ) %> по предмету <%=  @subject.subject_name %>
+</legend>
 
 <%= form_for @attendance, :html => {:class => "form-horizontal"} do |f| %>
   <%= field_set_tag do %>

@@ -4,7 +4,7 @@ class AttendancesController < ApplicationController
 
   def new
     @teacher_subjects = current_user.teacher.subjects
-    subject, school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
+    @subject, school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
     pupil = get_pupil_from_params( params ); $pupil = pupil
     lesson = get_lesson_from_params( params ); $lesson = lesson
     @pupil = $pupil; @lesson = $lesson                                                    # Using global value to save object from params.
@@ -13,7 +13,7 @@ class AttendancesController < ApplicationController
 
   def create
     @teacher_subjects = current_user.teacher.subjects
-    subject, school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
+    @subject, school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
     @pupil = $pupil; @lesson = $lesson
     @attendance = Attendance.new( params[:attendance] )
 
@@ -31,7 +31,7 @@ class AttendancesController < ApplicationController
 
   def edit
     @teacher_subjects = current_user.teacher.subjects
-    subject, school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
+    @subject, school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
     pupil = get_pupil_from_params( params ); $pupil = pupil
     lesson = get_lesson_from_params( params ); $lesson = lesson
     @pupil = $pupil; @lesson = $lesson
@@ -41,7 +41,7 @@ class AttendancesController < ApplicationController
 
   def update
     @teacher_subjects = current_user.teacher.subjects
-    subject, school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
+    @subject, school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
     @pupil = $pupil; @lesson = $lesson
     @attendance = Attendance.find( params[:id] )
 
