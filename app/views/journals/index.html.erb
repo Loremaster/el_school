@@ -18,7 +18,7 @@
     </div>
   </div>
 
-  <table class="table table-bordered table-striped" name="journals">
+  <table class="tablee table-bordered table-striped" name="journals">
     <thead>
       <tr>
         <th>Ученик\Дата</th>
@@ -41,7 +41,7 @@
 
             <% @lessons.each do |l| %>
               <% if l.attendance.nil? %>                                                  <%# If nobody created attendance. %>
-                <td class="cross"
+                <td class="cross selectt"
                     onclick = "location.href='<%= new_attendance_path(
                                              :class_code => params[:class_code],
                                              :subject_name => params[:subject_name]) %>'">
