@@ -105,6 +105,52 @@ describe "Teachers" do
               click_button "Создать"
             end.should change( Lesson, :count ).by( 1 )
           end
+
+          it "should not save new lesson with invalid params" do
+            expect do
+              click_link "Создать дату"
+              click_link @teacher_class.class_code
+              visit new_lesson_path( :class_code => @teacher_class.class_code,            # Visit manually because in app we use javascript.
+                                     :subject_name => @subject_name )
+
+              fill_in "Дата", :with => ""
+              click_button "Создать"
+            end.should_not change( Lesson, :count )
+          end
+        end
+
+        describe "Update" do
+          before(:each) do
+            # Creating lesson.
+            visit new_lesson_path( :class_code => @teacher_class.class_code,              # Visit manually because in app we use javascript.
+                                   :subject_name => @subject_name )
+            fill_in "Дата", :with => "#{Date.today}"
+            click_button "Создать"
+          end
+
+          it "should update with valid params" do
+            click_link "Выбрать класс"
+            click_link @teacher_class.class_code
+            click_link @t.teacher.qualifications.first.curriculums.first.timetables.first.lessons.first.lesson_date.strftime("%d.%m.%Y")
+
+            fill_in "Дата", :with => "#{Date.today}"
+
+            click_button "Обновить"
+
+            flash[:success].should =~ /Урок успешно обновлен!/i
+          end
+
+          it "should not update with invalid params" do
+            click_link "Выбрать класс"
+            click_link @teacher_class.class_code
+            click_link @t.teacher.qualifications.first.curriculums.first.timetables.first.lessons.first.lesson_date.strftime("%d.%m.%Y")
+
+            fill_in "Дата", :with => ""
+
+            click_button "Обновить"
+
+            flash[:error].should_not be_nil
+          end
         end
       end
     end
