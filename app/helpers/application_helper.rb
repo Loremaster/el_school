@@ -44,8 +44,4 @@ module ApplicationHelper
     lessons = { "Primary lesson" => "Обязательное занятие", "Extra" => "Электив" }
     lessons[ lesson ]
   end
-
-  def attendance_of_lesson_for_pupil_exists?( pupil_id, lesson_id )
-    not Attendance.where("pupil_id = ? AND lesson_id = ?",pupil_id, lesson_id).first.nil?
-  end
 end
