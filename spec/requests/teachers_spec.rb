@@ -4,10 +4,10 @@ require 'spec_helper'
 describe "Teachers" do
   before(:each) do
 
-    # Here we use trick. First of all we create qualification with teacher first and
+    # Here we use trick. First of all we create timetable with teacher first and
     # only then we edit it's user to be correct. I found that only this works.
-    curriculum = FactoryGirl.create( :curriculum )
-    @t = curriculum.qualification.teacher.user
+    timetable = FactoryGirl.create( :timetable )
+    @t = timetable.curriculum.qualification.teacher.user
     @t.user_role = "teacher"
     @t.save!
 
@@ -75,12 +75,12 @@ describe "Teachers" do
 
     describe "Lesson" do
       describe "Creating" do
-        describe "View" do
-          before(:each) do
-            click_link "Журнал"
-            click_link @subject_name
-          end
+        before(:each) do
+          click_link "Журнал"
+          click_link @subject_name
+        end
 
+        describe "View" do
           it "should have placeholders" do
             click_link "Создать дату"
             click_link @teacher_class.class_code
@@ -90,6 +90,20 @@ describe "Teachers" do
             response.should have_selector( 'input',
                                            :name => "lesson[lesson_date]",
                                            :placeholder => @everpresent_field_placeholder )
+          end
+        end
+
+        describe "Create" do
+          it "should save new lesson with valid params" do
+            expect do
+              click_link "Создать дату"
+              click_link @teacher_class.class_code
+              visit new_lesson_path( :class_code => @teacher_class.class_code,            # Visit manually because in app we use javascript.
+                                     :subject_name => @subject_name )
+
+              fill_in "Дата", :with => "#{Date.today}"
+              click_button "Создать"
+            end.should change( Lesson, :count ).by( 1 )
           end
         end
       end
