@@ -40,24 +40,24 @@ class LessonsController < ApplicationController
   def edit
     @teacher_subjects = current_user.teacher.subjects
     @everpresent_field_placeholder = "Обязательное поле"
-    subject, school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
+    @subject, @school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
     @lesson = Lesson.find( params[:id] )
 
     timetables = timetables_for_teacher_with_subject( current_user.teacher,
-                                                      subject.subject_name,
-                                                      school_class )
+                                                      @subject.subject_name,
+                                                      @school_class )
     @timetables_collection = timetables_for_select_list( timetables )
   end
 
   def update
     @teacher_subjects = current_user.teacher.subjects
     @everpresent_field_placeholder = "Обязательное поле"
-    subject, school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
+    @subject, @school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
     @lesson = Lesson.find( params[:id] )
 
     timetables = timetables_for_teacher_with_subject( current_user.teacher,
-                                                      subject.subject_name,
-                                                      school_class )
+                                                      @subject.subject_name,
+                                                      @school_class )
     @timetables_collection = timetables_for_select_list( timetables )
 
     if @lesson.update_attributes( params[:lesson] )
