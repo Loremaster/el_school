@@ -78,3 +78,4 @@ en:
           attendance:
             pupil_id: "Ученик"
             lesson_id: "Урок"
+            visited: "Посещение урока"

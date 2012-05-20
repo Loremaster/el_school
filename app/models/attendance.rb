@@ -20,5 +20,8 @@ class Attendance < ActiveRecord::Base
 
   validates :lesson_id, :presence => { :message => "должен быть указан" }
 
-  validates :visited, :inclusion => {:in => [true, false]}
+  validates :visited,
+              :inclusion => { :in => [true, false],
+                              :message => "должно быть выбрано"
+                            }
 end
