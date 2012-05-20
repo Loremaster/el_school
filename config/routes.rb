@@ -16,7 +16,7 @@ ElSchool::Application.routes.draw do
   resources :parents_meetings, :only => [ :edit, :update ]
   resources :journals,         :only => [ :index ]
   resources :lessons,          :only => [ :new, :create, :edit, :update ]
-  resources :attendances,      :only => [ :new, :create ]
+  resources :attendances,      :only => [ :new, :create, :edit, :update ]
 
 
 

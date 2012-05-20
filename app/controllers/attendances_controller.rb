@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class AttendancesController < ApplicationController
-  before_filter :authenticate_teachers, :only => [ :new, :create ]
+  before_filter :authenticate_teachers, :only => [ :new, :create, :edit, :update ]
 
   def new
     @teacher_subjects = current_user.teacher.subjects
@@ -23,9 +23,37 @@ class AttendancesController < ApplicationController
       flash[:success] = "Данные успешно созданы!"
     else
       flash.now[:error] = @attendance.errors.full_messages
-                                      .to_sentence :last_word_connector => ", ",
-                                                   :two_words_connector => ", "
+                                     .to_sentence :last_word_connector => ", ",
+                                                  :two_words_connector => ", "
       render 'new'
+    end
+  end
+
+  def edit
+    @teacher_subjects = current_user.teacher.subjects
+    subject, school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
+    pupil = get_pupil_from_params( params ); $pupil = pupil
+    lesson = get_lesson_from_params( params ); $lesson = lesson
+    @pupil = $pupil; @lesson = $lesson
+
+    @attendance = Attendance.find( params[:id] )
+  end
+
+  def update
+    @teacher_subjects = current_user.teacher.subjects
+    subject, school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
+    @pupil = $pupil; @lesson = $lesson
+    @attendance = Attendance.find( params[:id] )
+
+    if @attendance.update_attributes( params[:attendance] )
+      redirect_to journals_path( :class_code => params[:class_code],
+	                               :subject_name => params[:subject_name] )
+      flash[:success] = "Данные успешно обновлены!"
+    else
+      flash.now[:error] = @attendance.errors.full_messages
+                                     .to_sentence :last_word_connector => ", ",
+                                                  :two_words_connector => ", "
+      render 'edit'
     end
   end
 
