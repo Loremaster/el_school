@@ -25,7 +25,7 @@ class LessonsController < ApplicationController
 
     @lesson = Lesson.new( params[:lesson] )
 
-    if @lesson.update_attributes( params[:lesson] )
+    if @lesson.save
       redirect_to journals_path( :class_code => params[:class_code],
 	                               :subject_name => params[:subject_name] )
       flash[:success] = "Дата успешно создана!"
