@@ -6,10 +6,13 @@ describe "Teachers" do
 
     # Here we use trick. First of all we create qualification with teacher first and
     # only then we edit it's user to be correct. I found that only this works.
-    qualification = FactoryGirl.create( :qualification )
-    @t = qualification.teacher.user
+    curriculum = FactoryGirl.create( :curriculum )
+    @t = curriculum.qualification.teacher.user
     @t.user_role = "teacher"
     @t.save!
+
+    @subject_name = @t.teacher.subjects.first.subject_name
+    @teacher_class = @t.teacher.qualifications.first.curriculums.first.school_class
 
     @everpresent_field_placeholder = "Обязательное поле"
   end
@@ -66,6 +69,28 @@ describe "Teachers" do
         response.should be_success
         response.body.should have_selector( "li.active") do
           have_selector('a', :content => 'Журнал')
+        end
+      end
+    end
+
+    describe "Lesson" do
+      describe "Creating" do
+        describe "View" do
+          before(:each) do
+            click_link "Журнал"
+            click_link @subject_name
+          end
+
+          it "should have placeholders" do
+            click_link "Создать дату"
+            click_link @teacher_class.class_code
+            visit new_lesson_path( :class_code => @teacher_class.class_code,              # Visit manually because in app we use javascript.
+                                   :subject_name => @subject_name )
+
+            response.should have_selector( 'input',
+                                           :name => "lesson[lesson_date]",
+                                           :placeholder => @everpresent_field_placeholder )
+          end
         end
       end
     end
