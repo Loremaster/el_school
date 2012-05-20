@@ -4,10 +4,10 @@ class LessonsController < ApplicationController
 
   def new
     @teacher_subjects = current_user.teacher.subjects
-    subject, school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
+    @subject, @school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
     timetables = timetables_for_teacher_with_subject( current_user.teacher,
-                                                      subject.subject_name,
-                                                      school_class )
+                                                      @subject.subject_name,
+                                                      @school_class )
     @timetables_collection = timetables_for_select_list( timetables )
 
     @lesson = Lesson.new
@@ -17,10 +17,10 @@ class LessonsController < ApplicationController
   def create
     @teacher_subjects = current_user.teacher.subjects
     @everpresent_field_placeholder = "Обязательное поле"
-    subject, school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
+    @subject, @school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
     timetables = timetables_for_teacher_with_subject( current_user.teacher,
-                                                      subject.subject_name,
-                                                      school_class )
+                                                      @subject.subject_name,
+                                                      @school_class )
     @timetables_collection = timetables_for_select_list( timetables )
 
     @lesson = Lesson.new( params[:lesson] )
