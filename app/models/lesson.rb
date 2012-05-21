@@ -16,6 +16,8 @@ class Lesson < ActiveRecord::Base
 
   has_one :attendance
 
+  has_many :reportings
+
   validates :timetable_id, :presence => { :message => "должен быть указан" }
 
   validates :lesson_date,
