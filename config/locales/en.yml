@@ -79,3 +79,8 @@ en:
             pupil_id: "Ученик"
             lesson_id: "Урок"
             visited: "Присутствие"
+          reportings:
+            lesson_id: "Урок"
+            report_type: "Вид отчетности"
+            report_topic: "Тема"
+
