@@ -8,20 +8,8 @@
     <%= hidden_field_tag :subject_name, params[:subject_name] %>
 
     <%= render :partial => 'attendance_fields',
-        :locals => {
-                     :f => f,
-                     :pupil => @pupil,
-                     :lesson => @lesson
-                    }
+        :locals => { :f => f, :pupil => @pupil, :lesson => @lesson }
     %>
-
-    <hr/>
-
-    <%= fields_for :reporting do |builder| %>
-      <%= render :partial => 'reporting_fields',
-          :locals => { :f => builder, :lesson => @lesson, :report_types => @report_types }
-      %>
-    <% end %>
 
     <%= f.submit "Отметить", :class => "btn btn-large btn-success" %>
   <% end %>

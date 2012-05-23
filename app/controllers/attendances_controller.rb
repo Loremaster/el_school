@@ -18,28 +18,40 @@ class AttendancesController < ApplicationController
     @subject, school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
     @pupil = $pupil; @lesson = $lesson
     @attendance = Attendance.new( params[:attendance] )
-    @reporting = Reporting.new( params[:reporting] )
-    @report_types = collect_report_types
 
-    # Adding errors to array of errors for each object that we want to save.
-    unless @attendance.valid?
-      errors_messages << @attendance.errors.full_messages.to_sentence
-    end
-
-    unless @reporting.valid?
-      errors_messages << @reporting.errors.full_messages.to_sentence
-    end
-
-    # Save objects if no errors founded.
-    if errors_messages.empty?
-        @attendance.save; @reporting.save
-        redirect_to journals_path( :class_code => params[:class_code],
-                                   :subject_name => params[:subject_name] )
-        flash[:success] = "Данные успешно созданы!"
+    if @attendance.update_attributes( params[:attendance] )
+      redirect_to journals_path( :class_code => params[:class_code],
+                                 :subject_name => params[:subject_name] )
+      flash[:success] = "Данные успешно обновлены!"
     else
-      flash.now[:error] = get_clear_error_message( errors_messages )
-      render 'new'
+      flash.now[:error] = @attendance.errors.full_messages
+                                     .to_sentence :last_word_connector => ", ",
+                                                  :two_words_connector => ", "
+      render 'edit'
     end
+
+    # @reporting = Reporting.new( params[:reporting] )
+    # @report_types = collect_report_types
+    #
+    # # Adding errors to array of errors for each object that we want to save.
+    # unless @attendance.valid?
+    #   errors_messages << @attendance.errors.full_messages.to_sentence
+    # end
+    #
+    # unless @reporting.valid?
+    #   errors_messages << @reporting.errors.full_messages.to_sentence
+    # end
+    #
+    # # Save objects if no errors founded.
+    # if errors_messages.empty?
+    #     @attendance.save; @reporting.save
+    #     redirect_to journals_path( :class_code => params[:class_code],
+    #                                :subject_name => params[:subject_name] )
+    #     flash[:success] = "Данные успешно созданы!"
+    # else
+    #   flash.now[:error] = get_clear_error_message( errors_messages )
+    #   render 'new'
+    # end
   end
 
   def edit
@@ -48,7 +60,6 @@ class AttendancesController < ApplicationController
     pupil = get_pupil_from_params( params ); $pupil = pupil
     lesson = get_lesson_from_params( params ); $lesson = lesson
     @pupil = $pupil; @lesson = $lesson
-
     @attendance = Attendance.find( params[:id] )
   end
 
