@@ -15,6 +15,32 @@
                     }
     %>
 
+    <hr/>
+
+    <%# TODO COMPLETE THIS ONE (validations and other stuff.)!%>
+    <%= fields_for :reporting do |builder| %>
+      <%= builder.hidden_field :lesson_id, :value => @lesson.id %>                        <%# Passing lesson id. %>
+
+      <div class="control-group">
+         <%= builder.label :report_topic, "Тема", :class => "control-label" %>
+
+         <div class="controls">
+           <%= builder.text_field :report_topic, :class => "span2",
+                            :placeholder => @everpresent_field_placeholder %>
+         </div>
+      </div>
+
+      <div class="control-group">
+         <%= builder.label :report_type, "Вид отчетности", :class => "control-label" %>
+
+         <div class="controls">
+           <%= builder.select( :report_type, options_for_select( @report_types )) %>
+         </div>
+      </div>
+    <% end %>
+
+
+
     <%= f.submit "Отметить", :class => "btn btn-large btn-success" %>
   <% end %>
 <% end %>

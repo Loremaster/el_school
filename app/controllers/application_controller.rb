@@ -75,4 +75,10 @@ class ApplicationController < ActionController::Base
     school_class = SchoolClass.where( "class_code = ?", params[:class_code] ).first
     return subject, school_class
   end
+
+  # Collecting report types and translations for them.
+  def collect_report_types()
+    [["Домашняя работа", "homework"], ["Работа в класса", "classwork"],
+     ["Лабораторная работа", "labwork"], ["Контрольная работа", "checkpoint"]]
+  end
 end
