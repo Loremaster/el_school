@@ -4,14 +4,15 @@ class LessonsController < ApplicationController
 
   def new
     @teacher_subjects = current_user.teacher.subjects
+    @everpresent_field_placeholder = "Обязательное поле"
     @subject, @school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
     timetables = timetables_for_teacher_with_subject( current_user.teacher,
                                                       @subject.subject_name,
                                                       @school_class )
     @timetables_collection = timetables_for_select_list( timetables )
-
     @lesson = Lesson.new
-    @everpresent_field_placeholder = "Обязательное поле"
+    reporting = @lesson.build_reporting
+    @report_types = collect_report_types
   end
 
   def create
@@ -22,7 +23,7 @@ class LessonsController < ApplicationController
                                                       @subject.subject_name,
                                                       @school_class )
     @timetables_collection = timetables_for_select_list( timetables )
-
+    @report_types = collect_report_types
     @lesson = Lesson.new( params[:lesson] )
 
     if @lesson.save
@@ -47,6 +48,7 @@ class LessonsController < ApplicationController
                                                       @subject.subject_name,
                                                       @school_class )
     @timetables_collection = timetables_for_select_list( timetables )
+    @report_types = collect_report_types
   end
 
   def update
@@ -59,6 +61,7 @@ class LessonsController < ApplicationController
                                                       @subject.subject_name,
                                                       @school_class )
     @timetables_collection = timetables_for_select_list( timetables )
+    @report_types = collect_report_types
 
     if @lesson.update_attributes( params[:lesson] )
       redirect_to journals_path( :class_code => params[:class_code],

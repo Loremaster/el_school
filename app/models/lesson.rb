@@ -15,8 +15,9 @@ class Lesson < ActiveRecord::Base
   belongs_to :timetable
 
   has_one :attendance
+  has_one :reporting
 
-  has_one :reportings
+  accepts_nested_attributes_for :reporting
 
   validates :timetable_id, :presence => { :message => "должен быть указан" }
 

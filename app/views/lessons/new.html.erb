@@ -24,6 +24,14 @@
       </div>
     </div>
 
+    <hr/>
+
+    <%= f.fields_for :reporting do |builder| %>
+      <%= render :partial => 'reporting_fields',
+          :locals => { :f => builder, :report_types => @report_types }
+      %>
+    <% end %>
+
     <%= f.submit "Создать", :class => "btn btn-large btn-success" %>
   <% end %>
 <% end %>

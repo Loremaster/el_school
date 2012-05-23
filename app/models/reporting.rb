@@ -14,8 +14,6 @@
 class Reporting < ActiveRecord::Base
   belongs_to :lesson
 
-  validates :lesson_id, :presence => { :message => "должен быть указан" }
-
   # homework - домашняя работа.
   # classwork - работа на уроке.
   # labwork - лабораторная работа.
