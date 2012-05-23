@@ -13,6 +13,7 @@ class LessonsController < ApplicationController
     @lesson = Lesson.new
     reporting = @lesson.build_reporting
     @report_types = collect_report_types
+    @choosen_report_type = collect_report_types()[0][0]                                   # Collecting all report types and getting first type of type.
   end
 
   def create
@@ -25,6 +26,7 @@ class LessonsController < ApplicationController
     @timetables_collection = timetables_for_select_list( timetables )
     @report_types = collect_report_types
     @lesson = Lesson.new( params[:lesson] )
+    @choosen_report_type = params[:lesson][:reporting_attributes][:report_type]
 
     if @lesson.save
       redirect_to journals_path( :class_code => params[:class_code],
@@ -49,6 +51,7 @@ class LessonsController < ApplicationController
                                                       @school_class )
     @timetables_collection = timetables_for_select_list( timetables )
     @report_types = collect_report_types
+    @choosen_report_type = Lesson.first.reporting.report_type
   end
 
   def update
@@ -62,6 +65,7 @@ class LessonsController < ApplicationController
                                                       @school_class )
     @timetables_collection = timetables_for_select_list( timetables )
     @report_types = collect_report_types
+    @choosen_report_type = params[:lesson][:reporting_attributes][:report_type]
 
     if @lesson.update_attributes( params[:lesson] )
       redirect_to journals_path( :class_code => params[:class_code],

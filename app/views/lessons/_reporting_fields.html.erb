@@ -10,6 +10,6 @@
    <%= f.label :report_type, "Вид отчетности", :class => "control-label" %>
 
    <div class="controls">
-     <%= f.select( :report_type, options_for_select( report_types )) %>                   <%# report_types is input param. %>
+     <%= f.select( :report_type, options_for_select( report_types, choosen_report_type )) %>                   <%# report_types is input param. %>
    </div>
 </div>

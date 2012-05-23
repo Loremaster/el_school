@@ -26,7 +26,8 @@
 
     <%= f.fields_for :reporting do |builder| %>
       <%= render :partial => 'reporting_fields',
-          :locals => { :f => builder, :report_types => @report_types }
+          :locals => { :f => builder, :report_types => @report_types,
+                       :choosen_report_type => @choosen_report_type }
       %>
     <% end %>
 
