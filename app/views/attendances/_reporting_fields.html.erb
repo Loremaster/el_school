@@ -1,0 +1,17 @@
+<%= f.hidden_field :lesson_id, :value => lesson.id %>                                     <%# Passing lesson id. Input param. %>
+
+<div class="control-group">
+   <%= f.label :report_topic, "Тема", :class => "control-label" %>
+
+   <div class="controls">
+     <%= f.text_field :report_topic, :class => "span2" %>
+   </div>
+</div>
+
+<div class="control-group">
+   <%= f.label :report_type, "Вид отчетности", :class => "control-label" %>
+
+   <div class="controls">
+     <%= f.select( :report_type, options_for_select( report_types )) %>                   <%# report_types is input param. %>
+   </div>
+</div>
