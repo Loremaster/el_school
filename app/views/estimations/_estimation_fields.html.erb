@@ -1,0 +1,10 @@
+<%= f.hidden_field :pupil_id, :value => pupil.id %>                                       <%# Passing pupil id inside as one of the param of estimation. %>
+<%= f.hidden_field :reporting_id, :value => reporting.id %>                               <%# ... reporting id ... %>
+
+<div class="control-group">
+  <%= f.label :nominal, "Оценка", :class => "control-label" %>
+  <div class="controls">
+    <%= f.select( :nominal, options_for_select( nominals ),
+                 { :include_blank => true }, { :class => "span1" } )%>
+  </div>
+</div>
