@@ -25,6 +25,7 @@ class Pupil < ActiveRecord::Base
 
   has_one  :pupil_phone
   has_one  :attendance
+  has_one  :estimation
 
   has_many :orders
   has_many :parent_pupils
