@@ -18,9 +18,12 @@ class Reporting < ActiveRecord::Base
   # classwork - работа на уроке.
   # labwork - лабораторная работа.
   # checkpoint - контрольная работа.
+  # year_result - годовая отчетность.
+  # intermediate_result - промежуточная отчетность.
   validates :report_type,
               :presence  => { :message => "должен быть указан" },
-              :inclusion => { :in => %w(homework classwork labwork checkpoint),
+              :inclusion => { :in => %w(homework classwork labwork checkpoint year_result
+                                        intermediate_result),
                               :message => "не имеет верного значения"
                             }
 
