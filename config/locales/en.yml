@@ -83,4 +83,8 @@ en:
             lesson_id: "Урок"
             report_type: "Вид отчетности"
             report_topic: "Тема"
+          estimation:
+            reporting_id: "Отчетность для урока"
+            pupil_id: "Ученик"
+            nominal: "Оценка"
 
