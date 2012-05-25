@@ -44,4 +44,16 @@ module ApplicationHelper
     lessons = { "Primary lesson" => "Обязательное занятие", "Extra" => "Электив" }
     lessons[ lesson ]
   end
+
+  # Nominal for lesson of pupil.
+  def nominals_of_pupil_from_lesson( lesson, pupil_id  )
+    estimations = lesson.reporting.estimations
+    pupil_est = estimations.where( "pupil_id = ?", pupil_id ).first
+
+    unless pupil_est.nil?
+      pupil_est.nominal
+    else
+      ""
+    end
+  end
 end

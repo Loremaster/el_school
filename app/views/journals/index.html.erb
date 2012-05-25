@@ -56,6 +56,9 @@
                                    :subject_name => params[:subject_name],
                                    :p_id => p.id,                                         # p_id is pupil_id
                                    :lesson_id => l.id ) %>'">
+
+                    <%= render :partial => 'show_pupil_estimation',
+                        :locals => { :lesson => l, :pupil => p }%>
                 </td>
               <% end %>
             <% end %>
