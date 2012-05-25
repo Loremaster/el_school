@@ -51,7 +51,7 @@ class LessonsController < ApplicationController
                                                       @school_class )
     @timetables_collection = timetables_for_select_list( timetables )
     @report_types = collect_report_types
-    @choosen_report_type = Lesson.first.reporting.report_type
+    @choosen_report_type = @lesson.reporting.report_type
   end
 
   def update
