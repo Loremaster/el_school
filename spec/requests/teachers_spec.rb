@@ -82,7 +82,7 @@ describe "Teachers" do
 
         describe "View" do
           it "should have placeholders" do
-            click_link "Создать дату"
+            click_link "Создать урок"
             click_link @teacher_class.class_code
             visit new_lesson_path( :class_code => @teacher_class.class_code,              # Visit manually because in app we use javascript.
                                    :subject_name => @subject_name )
@@ -96,7 +96,7 @@ describe "Teachers" do
         describe "Create" do
           it "should save new lesson with valid params" do
             expect do
-              click_link "Создать дату"
+              click_link "Создать урок"
               click_link @teacher_class.class_code
               visit new_lesson_path( :class_code => @teacher_class.class_code,            # Visit manually because in app we use javascript.
                                      :subject_name => @subject_name )
@@ -108,7 +108,7 @@ describe "Teachers" do
 
           it "should not save new lesson with invalid params" do
             expect do
-              click_link "Создать дату"
+              click_link "Создать урок"
               click_link @teacher_class.class_code
               visit new_lesson_path( :class_code => @teacher_class.class_code,            # Visit manually because in app we use javascript.
                                      :subject_name => @subject_name )
@@ -126,12 +126,13 @@ describe "Teachers" do
                                    :subject_name => @subject_name )
             fill_in "Дата", :with => "#{Date.today}"
             click_button "Создать"
+            @lesson_date = @t.teacher.qualifications.first.curriculums.first.timetables.first.lessons.first.lesson_date.strftime("%d.%m.%Y")
           end
 
           it "should update with valid params" do
             click_link "Выбрать класс"
             click_link @teacher_class.class_code
-            click_link @t.teacher.qualifications.first.curriculums.first.timetables.first.lessons.first.lesson_date.strftime("%d.%m.%Y")
+            click_link @lesson_date
 
             fill_in "Дата", :with => "#{Date.today}"
 
@@ -143,7 +144,7 @@ describe "Teachers" do
           it "should not update with invalid params" do
             click_link "Выбрать класс"
             click_link @teacher_class.class_code
-            click_link @t.teacher.qualifications.first.curriculums.first.timetables.first.lessons.first.lesson_date.strftime("%d.%m.%Y")
+            click_link @lesson_date
 
             fill_in "Дата", :with => ""
 
