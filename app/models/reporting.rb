@@ -14,7 +14,7 @@
 class Reporting < ActiveRecord::Base
   belongs_to :lesson
 
-  has_one :estimation
+  has_many :estimations
 
   # homework - домашняя работа.
   # classwork - работа на уроке.
