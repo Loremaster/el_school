@@ -82,4 +82,9 @@ class ApplicationController < ActionController::Base
      ["Лабораторная работа", "labwork"], ["Контрольная работа", "checkpoint"],
      ["Промежуточная отчетность", "intermediate_result"], ["Итоговая", "year_result"]]
   end
+
+  # Collecting all nominals!
+  def collect_nominals()
+    (2..5).collect{ |n| [n,n] }
+  end
 end
