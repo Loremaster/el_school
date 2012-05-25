@@ -79,6 +79,7 @@ class ApplicationController < ActionController::Base
   # Collecting report types and translations for them.
   def collect_report_types()
     [["Домашняя работа", "homework"], ["Работа в класса", "classwork"],
-     ["Лабораторная работа", "labwork"], ["Контрольная работа", "checkpoint"]]
+     ["Лабораторная работа", "labwork"], ["Контрольная работа", "checkpoint"],
+     ["Промежуточная отчетность", "intermediate_result"], ["Итоговая", "year_result"]]
   end
 end
