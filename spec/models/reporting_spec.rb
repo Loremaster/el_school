@@ -49,11 +49,6 @@ describe Reporting do
 
   describe "Validations" do
     describe "Rejection" do
-      it "should reject nil lesson id" do
-        wrong_attr = @attr_rep.merge( :lesson_id => nil )
-        Reporting.new( wrong_attr ).should_not be_valid
-      end
-
       it "should reject invalid report type" do
         invalid_type = %w(1 2 sd dfdf gfdsds dfsdfd1)
         invalid_type.each do |i|

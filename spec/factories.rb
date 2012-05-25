@@ -135,7 +135,11 @@ FactoryGirl.define do
     l.lesson_date "#{Date.today.strftime("%d.%m.%Y")}"
   end
 
-
+  factory :reporting do |r|
+    r.lesson
+    r.report_type 'homework'
+    r.report_topic 'New theme!'
+  end
 end
 
 
