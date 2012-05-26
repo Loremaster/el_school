@@ -6,8 +6,8 @@ describe "Teachers" do
 
     # Here we use trick. First of all we create timetable with teacher first and
     # only then we edit it's user to be correct. I found that only this works.
-    timetable = FactoryGirl.create( :timetable )
-    @t = timetable.curriculum.qualification.teacher.user
+    @timetable = FactoryGirl.create( :timetable )
+    @t = @timetable.curriculum.qualification.teacher.user
     @t.user_role = "teacher"
     @t.save!
 
@@ -155,5 +155,35 @@ describe "Teachers" do
         end
       end
     end
+
+    # describe "Attendance and Estimations" do
+    #   before(:each) do
+    #     @lesson = Lesson.create( :timetable_id => @timetable.id,                          # Lesson should be created if we want to create attendance or estimation.
+    #                              :lesson_date => "#{Date.today}" )
+    #
+    #     @pupil = FactoryGirl.create( :pupil )                                             # We also need pupil because we create data for him.
+    #     @pupil.school_class = @timetable.curriculum.school_class
+    #     @pupil.school_class.save!
+    #
+    #     click_link "Журнал"
+    #     click_link @subject_name
+    #     click_link "Выбрать класс"
+    #     click_link @teacher_class.class_code
+    #   end
+    #
+    #   describe "Create" do
+    #     before(:each) do
+    #       visit new_attendance_path( :class_code => @teacher_class.class_code,
+    #                                  :subject_name => @subject_name,
+    #                                  :lesson_id => @lesson.id,
+    #                                  :p_id => @pupil.id )
+    #     end
+    #
+    #     it "should save new attendance and estimation with valid params" do
+    #
+    #     end
+    #   end
+    # end
+  
   end
 end
