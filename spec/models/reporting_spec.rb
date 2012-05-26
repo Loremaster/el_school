@@ -64,8 +64,7 @@ describe Reporting do
 
     describe "Acceptance" do
       it "should accept correct report type" do
-        valid_type = %w(homework classwork labwork checkpoint year_result
-                        intermediate_result)
+        valid_type = %w(homework classwork labwork checkpoint)
         valid_type.each do |i|
           Reporting.new( @attr_rep.merge( :report_type => i ) ).should be_valid
         end
