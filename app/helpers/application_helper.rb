@@ -75,4 +75,29 @@ module ApplicationHelper
 
     pupil.attendances.where( :lesson_id => lessons_ids, :visited => true ).size           # Collecting attendances for subject which pupil VISITED!
   end
+
+  # Average estimation of pupil's lesson.
+  def average_estimation_for_pupil_lesson( pupil, subject )
+    curriculums = subject.qualifications.collect{ |q| q.curriculums }.flatten
+
+    unless curriculums.empty?
+      timetables = curriculums.collect{ |c| c.timetables }.flatten
+
+      unless timetables.empty?
+        lessons = timetables.collect{ |t| t.lessons }.flatten
+
+        unless lessons.empty?
+          reportings_ids = lessons.collect{ |l| l.reporting.id }
+        else
+          reportings_ids = []
+        end
+      else
+        reportings_ids = []
+      end
+    else
+      reportings_ids = []
+    end
+
+    pupil.estimations.where(:reporting_id => reportings_ids).average( :nominal ).to_f       # Average of estimations for subject of pupil
+  end
 end

@@ -23,6 +23,7 @@
     <thead>
       <tr>
         <th>Ученик\Дата</th>
+
         <% if @lessons_exist %>
           <% @lessons.each do |l| %>
             <th>
@@ -34,6 +35,8 @@
         <% end %>
 
         <th>Посещение</th>
+
+        <th>Средний балл</th>
       </tr>
     </thead>
     <tbody>
@@ -67,6 +70,8 @@
             <% end %>
 
             <td><%= "#{number_of_visited_lessons( p, @subject )} из #{@lessons.size}" %></td> <%# Showing number of visited lessons. %>
+
+            <td><%= "#{average_estimation_for_pupil_lesson( p, @subject )}" %></td>
           </tr>
         <% end %>
       <% end %>
