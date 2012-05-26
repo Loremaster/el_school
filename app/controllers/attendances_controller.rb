@@ -50,23 +50,40 @@ class AttendancesController < ApplicationController
     pupil = get_pupil_from_params( params ); $pupil = pupil
     lesson = get_lesson_from_params( params ); $lesson = lesson
     @pupil = $pupil; @lesson = $lesson
+    @reporting = @lesson.reporting; @nominals = collect_nominals
     @attendance = Attendance.find( params[:id] )
+    @estimation = estimation_of_pupil_from_lesson( @lesson, @pupil.id )
   end
 
   def update
+    errors_messages = []
     @teacher_subjects = current_user.teacher.subjects
     @subject, school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
     @pupil = $pupil; @lesson = $lesson
+    @reporting = @lesson.reporting; @nominals = collect_nominals
     @attendance = Attendance.find( params[:id] )
+    @estimation = estimation_of_pupil_from_lesson( @lesson, @pupil.id )
 
-    if @attendance.update_attributes( params[:attendance] )
+    temp_att = Attendance.new( params[:attendance] )                                      # Hack to test that new objects will valid, so we can
+    temp_est = Estimation.new( params[:estimation] )                                      # update them and show all errors.
+
+    unless temp_att.valid?
+      errors_messages << temp_att.errors.full_messages.to_sentence
+    end
+
+    unless temp_est.valid?
+      errors_messages << temp_est.errors.full_messages.to_sentence
+    end
+
+    # Adding errors to array of errors for each object that we want to save.
+    if errors_messages.empty?
+      @attendance.update_attributes( params[:attendance] )
+      @estimation.update_attributes( params[:estimation] )
       redirect_to journals_path( :class_code => params[:class_code],
-	                               :subject_name => params[:subject_name] )
+                                 :subject_name => params[:subject_name] )
       flash[:success] = "Данные успешно обновлены!"
     else
-      flash.now[:error] = @attendance.errors.full_messages
-                                     .to_sentence :last_word_connector => ", ",
-                                                  :two_words_connector => ", "
+      flash.now[:error] = get_clear_error_message( errors_messages )
       render 'edit'
     end
   end

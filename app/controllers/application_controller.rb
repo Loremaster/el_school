@@ -87,4 +87,15 @@ class ApplicationController < ActionController::Base
   def collect_nominals()
     (2..5).collect{ |n| [n,n] }
   end
+
+  # Estimation for lesson of pupil.
+  def estimation_of_pupil_from_lesson( lesson, pupil_id  )
+    estimation = lesson.reporting.estimations.where( "pupil_id = ?", pupil_id ).first
+
+    unless estimation.nil?
+      estimation
+    else
+      ""
+    end
+  end
 end

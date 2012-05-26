@@ -11,6 +11,15 @@
         :locals => { :f => f, :pupil => @pupil, :lesson => @lesson }
     %>
 
+    <hr/>
+
+    <%= fields_for :estimation do |builder| %>
+      <%= render :partial => 'estimations/estimation_fields',
+          :locals => { :f => builder, :pupil => @pupil, :reporting => @reporting,
+                       :nominals => @nominals }
+      %>
+    <% end %>
+
     <%= f.submit "Отметить", :class => "btn btn-large btn-warning" %>
   <% end %>
 <% end %>
