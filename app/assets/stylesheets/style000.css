@@ -273,3 +273,9 @@ float: none;
 {
 	background: #aaccaa;
 }
+
+/*Horizontal scrolling block.*/
+.scrol{
+	display: block;
+	overflow: auto;
+}
