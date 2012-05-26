@@ -1,4 +1,5 @@
-<legend>Просмотр расписания</legend>
+<%= render :partial => 'journal_legend', :locals => { :classes => @classes,
+                                                      :school_class => @school_class } %>
 
 <% unless @subject.nil? %>
   <div style="margin-top: 18px;" class="btn-toolbar">
