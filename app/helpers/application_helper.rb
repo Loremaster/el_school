@@ -56,4 +56,23 @@ module ApplicationHelper
       ""
     end
   end
+
+  # Number of visited lesons of subject by pupil.
+  def number_of_visited_lessons( pupil, subject )
+    curriculums = subject.qualifications.collect{ |q| q.curriculums }.flatten
+
+    unless curriculums.empty?
+      timetables = curriculums.collect{ |c| c.timetables }.flatten
+
+      unless timetables.empty?
+        lessons_ids = timetables.collect{ |t| t.lessons }.flatten.collect{ |l| l.id }
+      else
+        lessons_ids = []
+      end
+    else
+      lessons_ids = []
+    end
+
+    pupil.attendances.where( :lesson_id => lessons_ids, :visited => true ).size           # Collecting attendances for subject which pupil VISITED!
+  end
 end
