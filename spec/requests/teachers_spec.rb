@@ -156,34 +156,73 @@ describe "Teachers" do
       end
     end
 
-    # describe "Attendance and Estimations" do
-    #   before(:each) do
-    #     @lesson = Lesson.create( :timetable_id => @timetable.id,                          # Lesson should be created if we want to create attendance or estimation.
-    #                              :lesson_date => "#{Date.today}" )
-    #
-    #     @pupil = FactoryGirl.create( :pupil )                                             # We also need pupil because we create data for him.
-    #     @pupil.school_class = @timetable.curriculum.school_class
-    #     @pupil.school_class.save!
-    #
-    #     click_link "Журнал"
-    #     click_link @subject_name
-    #     click_link "Выбрать класс"
-    #     click_link @teacher_class.class_code
-    #   end
-    #
-    #   describe "Create" do
-    #     before(:each) do
-    #       visit new_attendance_path( :class_code => @teacher_class.class_code,
-    #                                  :subject_name => @subject_name,
-    #                                  :lesson_id => @lesson.id,
-    #                                  :p_id => @pupil.id )
-    #     end
-    #
-    #     it "should save new attendance and estimation with valid params" do
-    #
-    #     end
-    #   end
-    # end
-  
+    describe "Attendance and Estimations" do
+      before(:each) do
+        @lesson = Lesson.create( :timetable_id => @timetable.id,                          # Lesson should be created if we want to create attendance or estimation.
+                                 :lesson_date => "#{Date.today}" )
+        @reporting = Reporting.create( :lesson_id => @lesson.id, :report_type => "homework",
+                                      :report_topic => "" )
+
+        @pupil = FactoryGirl.create( :pupil )                                             # We also need pupil because we create data for him.
+        @pupil.school_class = @timetable.curriculum.school_class
+        @pupil.school_class.save!
+
+        click_link "Журнал"
+        click_link @subject_name
+        click_link "Выбрать класс"
+        click_link @teacher_class.class_code
+      end
+
+      describe "Create" do
+        before(:each) do
+          visit new_attendance_path( :class_code => @teacher_class.class_code,
+                                     :subject_name => @subject_name,
+                                     :lesson_id => @lesson.id,
+                                     :p_id => @pupil.id )
+        end
+
+        it "should save new attendance and estimation with valid params" do
+          expect do
+          expect do
+            choose 'Был'
+            select '5', :from => 'estimation[nominal]'
+
+            click_button 'Отметить'
+          end.should change( Attendance, :count ).by( 1 )
+          end.should change( Estimation, :count ).by( 1 )
+        end
+      end
+
+      describe "Update" do
+        before(:each) do
+          # Creating Attendance and Estimation
+          visit new_attendance_path( :class_code => @teacher_class.class_code,
+                                     :subject_name => @subject_name,
+                                     :lesson_id => @lesson.id,
+                                     :p_id => @pupil.id )
+
+          choose 'Был'
+          select '5', :from => 'estimation[nominal]'
+          click_button 'Отметить'
+
+          # Visit edit page of Attendance and Estimation
+          visit edit_attendance_path( :id => @lesson.attendances.first,
+                                      :class_code => @teacher_class.class_code,
+                                      :subject_name => @subject_name,
+                                      :lesson_id => @lesson.id,
+                                      :p_id => @pupil.id )
+        end
+
+        it "should update with new params" do
+          choose 'Не был'
+          select '4', :from => 'estimation[nominal]'
+
+          click_button 'Отметить'
+
+          flash[:success].should =~ /Данные успешно обновлены!/i
+        end
+      end
+    end
+
   end
 end
