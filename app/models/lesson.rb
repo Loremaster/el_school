@@ -14,8 +14,8 @@
 class Lesson < ActiveRecord::Base
   belongs_to :timetable
 
-  has_one :attendance
-  has_one :reporting
+  has_many :attendances
+  has_one  :reporting
 
   accepts_nested_attributes_for :reporting
 
