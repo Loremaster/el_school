@@ -9,25 +9,25 @@ describe AttendancesController do
     @adm.user_role = "admin"
     @adm.save!
 
-    r = FactoryGirl.create( :reporting )
+    @r = FactoryGirl.create( :reporting )
 
     # Curriculum and Timetable should link to same class.
-    r.lesson.timetable.school_class = r.lesson.timetable.curriculum.school_class
-    r.lesson.timetable.school_class.save!
+    @r.lesson.timetable.school_class = @r.lesson.timetable.curriculum.school_class
+    @r.lesson.timetable.school_class.save!
 
     # Make created user teacher.
-    r.lesson.timetable.curriculum.qualification.teacher.user.user_role = "teacher"
-    r.lesson.timetable.curriculum.qualification.teacher.user.save!
-    @tch = r.lesson.timetable.curriculum.qualification.teacher.user
+    @r.lesson.timetable.curriculum.qualification.teacher.user.user_role = "teacher"
+    @r.lesson.timetable.curriculum.qualification.teacher.user.save!
+    @tch = @r.lesson.timetable.curriculum.qualification.teacher.user
 
     # Creating shortcuts.
-    @subject_name = r.lesson.timetable.curriculum.qualification.subject.subject_name
-    @class_code = r.lesson.timetable.curriculum.school_class.class_code
-    @lesson = r.lesson
+    @subject_name = @r.lesson.timetable.curriculum.qualification.subject.subject_name
+    @class_code = @r.lesson.timetable.curriculum.school_class.class_code
+    @lesson = @r.lesson
 
     # Creating pupil and save for him existing class.
     @pupil = FactoryGirl.create( :pupil )
-    @pupil.school_class = r.lesson.timetable.curriculum.school_class
+    @pupil.school_class = @r.lesson.timetable.curriculum.school_class
     @pupil.save!
 
     @attendance = Attendance.create( :pupil_id => @pupil.id, :lesson_id => @lesson.id,
@@ -72,6 +72,11 @@ describe AttendancesController do
   end
 
   describe "GET 'edit'" do
+    before(:each) do
+      Estimation.create( :reporting_id => @r.id, :pupil_id => @pupil.id,                  # Estimation should already exist here.
+                         :nominal => 4 )
+    end
+
     describe "for non-signed users" do
       it "should deny access" do
         get :edit, { :id => @attendance, :subject_name => @subject_name,
