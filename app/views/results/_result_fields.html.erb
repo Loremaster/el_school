@@ -1,0 +1,47 @@
+<%= f.hidden_field :pupil_id, :value => pupil.id %>
+<%= f.hidden_field :curriculum_id, :value => curriculum.id %>
+
+<div class="control-group">
+  <%= f.label :quarter_1, "Оценка за 1ю Четверть", :class => "control-label" %>
+
+  <div class="controls">
+    <%= f.select( :quarter_1, options_for_select( nominals ),
+                { :include_blank => true }, { :class => "span1" } ) %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :quarter_2, "Оценка за 2ю Четверть", :class => "control-label" %>
+
+  <div class="controls">
+    <%= f.select( :quarter_2, options_for_select( nominals ),
+                { :include_blank => true }, { :class => "span1" } ) %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :quarter_3, "Оценка за 3ю Четверть", :class => "control-label" %>
+
+  <div class="controls">
+    <%= f.select( :quarter_3, options_for_select( nominals ),
+                { :include_blank => true }, { :class => "span1" } ) %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :quarter_4, "Оценка за 4ю Четверть", :class => "control-label" %>
+
+  <div class="controls">
+    <%= f.select( :quarter_4, options_for_select( nominals ),
+                { :include_blank => true }, { :class => "span1" } ) %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :year, "Итоговая оценка", :class => "control-label" %>
+
+  <div class="controls">
+    <%= f.select( :year, options_for_select( nominals ),
+                { :include_blank => true }, { :class => "span1" } ) %>
+  </div>
+</div>
