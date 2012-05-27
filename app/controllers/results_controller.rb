@@ -10,10 +10,17 @@ class ResultsController < ApplicationController
   end
 
   def new
-
+    @subject, @school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
+    $pupil = get_pupil_from_params( params ); @pupil = $pupil
+    @result = Result.new
   end
 
   def create
 
   end
+
+  private
+    def get_pupil_from_params( params )
+      Pupil.where( "id = ?", params[:p_id] ).first
+    end
 end

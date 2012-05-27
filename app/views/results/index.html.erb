@@ -21,7 +21,7 @@
   </div>
 
   <%# PUPILS/RESULTS. %>
-  <table class="tablee table-bordered scrol" name="journals">
+  <table class="table table-bordered" name="journals">
     <thead>
       <tr>
         <th>Ученик\Итог</th>
@@ -35,8 +35,16 @@
     <tbody>
       <% if @pupils_exist %>
         <% @pupils.each do |p| %>
-          <tr>
+          <tr class="cross"
+              onclick = "location.href='<%= new_result_path(
+                                        :class_code => params[:class_code],
+                                        :subject_name => params[:subject_name],
+                                        :p_id => p.id ) %>'">
             <td><%= pupil_full_names( p ) %></td>
+
+            <% 5.times do %>
+              <td></td>
+            <% end %>
           </tr>
         <% end %>
       <% end %>
