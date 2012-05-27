@@ -10,7 +10,7 @@ class AttendancesController < ApplicationController
     @pupil = $pupil; @lesson = $lesson                                                    # Using global value to save object from params.
     @report_types = collect_report_types
     @reporting = @lesson.reporting; @nominals = collect_nominals
-    @choosen_nominal = nil
+    @choosen_nominal = nil                                                                # It is first empty value in list.
     @attendance = Attendance.new
     @estimation = Estimation.new
   end
