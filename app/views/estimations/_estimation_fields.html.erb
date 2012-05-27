@@ -4,7 +4,7 @@
 <div class="control-group">
   <%= f.label :nominal, "Оценка", :class => "control-label" %>
   <div class="controls">
-    <%= f.select( :nominal, options_for_select( nominals ),
+    <%= f.select( :nominal, options_for_select( nominals, choosen_nominal ),
                  { :include_blank => true }, { :class => "span1" } )%>
   </div>
 </div>

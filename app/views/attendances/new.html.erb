@@ -17,7 +17,7 @@
     <%= fields_for :estimation do |builder| %>
       <%= render :partial => 'estimations/estimation_fields',
           :locals => { :f => builder, :pupil => @pupil, :reporting => @reporting,
-                       :nominals => @nominals }
+                       :nominals => @nominals, :choosen_nominal => @choosen_nominal }
       %>
     <% end %>
 
