@@ -1,0 +1,45 @@
+<legend>Итоги</legend>
+
+<% unless @subject.nil? %>
+
+  <%# CHOOSING CLASS. %>
+  <div style="margin-top: 18px;" class="btn-toolbar">
+    <div class="btn-group">
+      <a href="#" data-toggle="dropdown" class="btn dropdown-toggle">
+        Выбрать класс
+        <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+  			<% @classes.each do |c| %>
+  			  <li>
+  			    <%= link_to c.class_code, results_path( :class_code => c.class_code,
+  			                                            :subject_name => params[:subject_name]) %>
+  			  </li>
+  			<% end %>
+      </ul>
+    </div>
+  </div>
+
+  <%# PUPILS/RESULTS. %>
+  <table class="tablee table-bordered scrol" name="journals">
+    <thead>
+      <tr>
+        <th>Ученик\Итог</th>
+        <th>1я Четверть</th>
+        <th>2я Четверть</th>
+        <th>3я Четверть</th>
+        <th>4я Четверть</th>
+        <th>Год</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @pupils_exist %>
+        <% @pupils.each do |p| %>
+          <tr>
+            <td><%= pupil_full_names( p ) %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
