@@ -1,3 +1,5 @@
+# encoding: UTF-8
+# Created by 'bundle exec annotate --position before'
 # == Schema Information
 #
 # Table name: results
@@ -15,4 +17,6 @@
 #
 
 class Result < ActiveRecord::Base
+  belongs_to :pupil
+  belongs_to :curriculum
 end
