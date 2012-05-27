@@ -47,6 +47,18 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Get pupils for class via class code.
+  # => [] if there were no pupils.
+  def get_pupils_for_class( class_code )
+    pupils = []
+
+    unless @school_class.nil?
+      pupils = Pupil.select{|p| p.school_class.class_code == class_code }
+    end
+
+    pupils
+  end
+
   # Day of week to russian word.
   def translate_day_of_week( day )
     days = { :Mon => "Понедельник", :Tue => "Вторник", :Wed => "Среда", :Thu => "Четверг",
