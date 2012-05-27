@@ -10,7 +10,7 @@ class JournalsController < ApplicationController
     @lessons = teacher_lessons_dates( current_user.teacher, @subject, @school_class )     # Lessons of teacher.
     @lessons_exist = @lessons.first ? true : false
 
-    @pupils = Pupil.select{|p| p.school_class.class_code == @school_class.class_code } unless @school_class.nil? # Pupils in the class.
+    @pupils = get_pupils_for_class( @school_class )                                       # Pupils in the class.
     @pupils_exist = @pupils.first ? true : false
   end
 
