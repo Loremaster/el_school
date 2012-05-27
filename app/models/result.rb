@@ -19,4 +19,28 @@
 class Result < ActiveRecord::Base
   belongs_to :pupil
   belongs_to :curriculum
+
+  validates :pupil_id, :presence => { :message => "должен быть указан" }
+
+  validates :curriculum_id, :presence => { :message => "должна быть указана" }
+
+  validates :quarter_1, :inclusion => { :in => 2..5,
+                                        :message => "должна быть цифрой от 2 до 5" },
+                        :allow_nil => true
+
+  validates :quarter_2, :inclusion => { :in => 2..5,
+                                        :message => "должна быть цифрой от 2 до 5" },
+                        :allow_nil => true
+
+  validates :quarter_3, :inclusion => { :in => 2..5,
+                                        :message => "должна быть цифрой от 2 до 5" },
+                        :allow_nil => true
+
+  validates :quarter_4, :inclusion => { :in => 2..5,
+                                        :message => "должна быть цифрой от 2 до 5" },
+                        :allow_nil => true
+
+  validates :year, :inclusion => { :in => 2..5,
+                                        :message => "должна быть цифрой от 2 до 5" },
+                   :allow_nil => true
 end
