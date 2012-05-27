@@ -64,11 +64,19 @@ describe "Teachers" do
         end
 
         click_link "Журнал"
-        click_link @t.teacher.subjects.first.subject_name
+        click_link @subject_name
 
         response.should be_success
         response.body.should have_selector( "li.active") do
           have_selector('a', :content => 'Журнал')
+        end
+
+        click_link "Итоги"
+        click_link @subject_name
+
+        response.should be_success
+        response.body.should have_selector( "li.active") do
+          have_selector('a', :content => 'Итоги')
         end
       end
     end
