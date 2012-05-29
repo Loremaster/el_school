@@ -15,4 +15,12 @@
 class Homework < ActiveRecord::Base
   belongs_to :pupil
   belongs_to :lesson
+
+  validates :pupil_id, :presence => { :message => "должен быть указан" }
+
+  validates :lesson_id, :presence => { :message => "должен быть указан" }
+
+  validates :task_text,
+              :length => { :maximum => 250,
+                           :message => "должно содержать не более %{count} символов"}
 end
