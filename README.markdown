@@ -31,6 +31,7 @@
 - Can create/update and see dates of lessons.
 - Can create/update pupils attendances.
 - Can create/update pupils estimations.
+- Can create/update pupils results.
 
 ------------------------------------------------------------------------------
 
