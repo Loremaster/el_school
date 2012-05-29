@@ -42,9 +42,13 @@
                                         :p_id => p.id ) %>'">
             <td><%= pupil_full_names( p ) %></td>
 
-            <% 5.times do %>
-              <td></td>
-            <% end %>
+            <% results = pupil_results( p, @teacher, @subject.subject_name, @school_class ) %> <%# All results of current pupil for current subject. %>
+
+            <td> <% unless results.nil? %> <%= results.quarter_1 %> <% end %> </td>       <%# quarter_1 estimation %>
+            <td> <% unless results.nil? %> <%= results.quarter_2 %> <% end %> </td>       <%# quarter_2 estimation %>
+            <td> <% unless results.nil? %> <%= results.quarter_3 %> <% end %> </td>       <%# quarter_3 estimation %>
+            <td> <% unless results.nil? %> <%= results.quarter_4 %> <% end %> </td>       <%# quarter_4 estimation %>
+            <td> <% unless results.nil? %> <%= results.year %>      <% end %> </td>       <%# year      estimation %>
           </tr>
         <% end %>
       <% end %>
