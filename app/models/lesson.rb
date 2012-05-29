@@ -14,8 +14,11 @@
 class Lesson < ActiveRecord::Base
   belongs_to :timetable
 
+  has_one :reporting
+  has_one :homework
+
   has_many :attendances
-  has_one  :reporting
+
 
   accepts_nested_attributes_for :reporting
 

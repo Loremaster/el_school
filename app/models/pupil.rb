@@ -31,6 +31,7 @@ class Pupil < ActiveRecord::Base
   has_many :attendances
   has_many :estimations
   has_many :results
+  has_many :homeworks
 
   accepts_nested_attributes_for :user
   accepts_nested_attributes_for :pupil_phone
