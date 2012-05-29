@@ -42,7 +42,7 @@
                 onclick = "location.href='<%= new_result_path(
                                               :class_code => params[:class_code],
                                               :subject_name => params[:subject_name],
-                                              :p_id => p.id ) %>'">
+                                              :p_id => p.id ) %>'">                       <%# p_id is pupil_id %>
               <td><%= pupil_full_names( p ) %></td>
 
               <td></td>                                                                   <%# quarter_1 estimation %>
@@ -57,7 +57,7 @@
                                             :id => results.id,
                                             :class_code => params[:class_code],
                                             :subject_name => params[:subject_name],
-                                            :p_id => p.id ) %>'">
+                                            :p_id => p.id ) %>'">                         <%# p_id is pupil_id %>
               <td><%= pupil_full_names( p ) %></td>
 
               <td> <%= results.quarter_1 %> </td>                                         <%# quarter_1 estimation %>
