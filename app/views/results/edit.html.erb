@@ -1,0 +1,14 @@
+<legend>Редактирование итогов ученика</legend>
+
+<%= form_for @result, :html => {:class => "form-horizontal"} do |f| %>
+  <%= field_set_tag do %>
+    <%= hidden_field_tag :class_code, params[:class_code] %>                              <%# Passing class code and subject_name so we can %>
+    <%= hidden_field_tag :subject_name, params[:subject_name] %>                          <%# see results table without choosing select lists. %>
+
+    <%= render :partial => 'result_fields',
+        :locals => { :f => f, :pupil => @result.pupil, :curriculum => @result.curriculum,
+                     :nominals => @nominals } %>
+
+    <%= f.submit "Обновить", :class => "btn btn-large btn-warning" %>
+  <% end %>
+<% end %>

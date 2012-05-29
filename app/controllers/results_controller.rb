@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class ResultsController < ApplicationController
-  before_filter :authenticate_teachers, :only => [ :index, :new, :create ]
+  before_filter :authenticate_teachers, :only => [ :index, :new, :create, :edit, :update ]
 
   def index
     @subject = []; @pupils = []
@@ -37,6 +37,29 @@ class ResultsController < ApplicationController
                                         .to_sentence :last_word_connector => ", ",
                                                      :two_words_connector => ", "
       render 'new'
+    end
+  end
+
+  def edit
+    @subject, @school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
+    @nominals = collect_nominals
+    @result = Result.find( params[:id] )
+  end
+
+  def update
+    @subject, @school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
+    @nominals = collect_nominals
+    @result = Result.find( params[:id] )
+
+    if @result.update_attributes( params[:result] )
+      redirect_to results_path( :class_code => params[:class_code],
+                                :subject_name => params[:subject_name] )
+      flash[:success] = "Итоги успешно обновлены!"
+    else
+      flash.now[:error] = @result.errors.full_messages
+                                        .to_sentence :last_word_connector => ", ",
+                                                     :two_words_connector => ", "
+      render 'edit'
     end
   end
 
