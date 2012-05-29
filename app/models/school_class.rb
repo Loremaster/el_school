@@ -18,31 +18,32 @@ class SchoolClass < ActiveRecord::Base
                   :teacher_leader_id,
                   :pupil_ids,
                   :qualification_ids                                                      # We use this to save ids in Curriculum table.
-  
+
   belongs_to :teacher_leader
-  
+
   has_many :pupils
   has_many :curriculums
-  has_many :qualifications, :through => :curriculums 
+  has_many :qualifications, :through => :curriculums
   has_many :orders
   has_many :meetings
   has_many :timetables
   has_many :events
-                
+  has_many :homeworks
+
   validates :class_code,
-              :presence   => { :message => "не может быть пустым" },            
-              :length     => { 
+              :presence   => { :message => "не может быть пустым" },
+              :length     => {
                                 :maximum => 3,
-                                :message => "должен содержать не более 3 символов" 
+                                :message => "должен содержать не более 3 символов"
                              }
-                             
-  validates :date_of_class_creation, 
+
+  validates :date_of_class_creation,
               :inclusion => {
                                 :in => ( Date.today - 1.year )..( Date.today + 1.year ),
                                 :message => "должна находиться в пределах одного года от текущей даты"
                              }
-  
-  validates :teacher_leader_id, 
+
+  validates :teacher_leader_id,
               :uniqueness => { :message => "уже является классным руководителем класса" },
               :presence   => { :message => "должен иметь выбранного классного руководителя" }
 end

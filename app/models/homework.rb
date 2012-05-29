@@ -4,19 +4,19 @@
 #
 # Table name: homeworks
 #
-#  id         :integer         not null, primary key
-#  pupil_id   :integer
-#  lesson_id  :integer
-#  task_text  :string(255)
-#  created_at :datetime        not null
-#  updated_at :datetime        not null
+#  id              :integer         not null, primary key
+#  school_class_id :integer
+#  lesson_id       :integer
+#  task_text       :string(255)
+#  created_at      :datetime        not null
+#  updated_at      :datetime        not null
 #
 
 class Homework < ActiveRecord::Base
-  belongs_to :pupil
+  belongs_to :school_class
   belongs_to :lesson
 
-  validates :pupil_id, :presence => { :message => "должен быть указан" }
+  validates :school_class_id, :presence => { :message => "должен быть указан" }
 
   validates :lesson_id, :presence => { :message => "должен быть указан" }
 

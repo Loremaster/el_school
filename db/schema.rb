@@ -54,15 +54,15 @@ ActiveRecord::Schema.define(:version => 20120529183955) do
   end
 
   create_table "homeworks", :force => true do |t|
-    t.integer  "pupil_id"
+    t.integer  "school_class_id"
     t.integer  "lesson_id"
     t.string   "task_text"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   add_index "homeworks", ["lesson_id"], :name => "index_homeworks_on_lesson_id"
-  add_index "homeworks", ["pupil_id"], :name => "index_homeworks_on_pupil_id"
+  add_index "homeworks", ["school_class_id"], :name => "index_homeworks_on_school_class_id"
 
   create_table "lessons", :force => true do |t|
     t.integer  "timetable_id"

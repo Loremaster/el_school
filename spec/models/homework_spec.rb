@@ -2,21 +2,22 @@
 #
 # Table name: homeworks
 #
-#  id         :integer         not null, primary key
-#  pupil_id   :integer
-#  lesson_id  :integer
-#  task_text  :string(255)
-#  created_at :datetime        not null
-#  updated_at :datetime        not null
+#  id              :integer         not null, primary key
+#  school_class_id :integer
+#  lesson_id       :integer
+#  task_text       :string(255)
+#  created_at      :datetime        not null
+#  updated_at      :datetime        not null
 #
 
 require 'spec_helper'
 
 describe Homework do
   before(:each) do
-    @pupil = FactoryGirl.create( :pupil )
+    @school_class = FactoryGirl.create( :school_class )
     @lesson = FactoryGirl.create( :lesson )
-    @attr_hw = { :pupil_id => @pupil.id, :lesson_id => @lesson.id, :task_text => "bla" }
+    @attr_hw = { :school_class_id => @school_class.id, :lesson_id => @lesson.id,
+                 :task_text => "bla" }
   end
 
   describe "Creation" do
@@ -28,7 +29,7 @@ describe Homework do
 
     it "should not create homework with valid attributes" do
       expect do
-        Homework.create( @attr_hw.merge( :pupil_id => nil, :lesson_id => nil )
+        Homework.create( @attr_hw.merge( :school_class_id => nil, :lesson_id => nil )
                         ).should_not be_valid
       end.should_not change( Homework, :count )
     end
@@ -39,17 +40,17 @@ describe Homework do
       @hw = Homework.create( @attr_hw )
     end
 
-    it "should have pupil attribute" do
-      @hw.should respond_to( :pupil )
+    it "should have school_class attribute" do
+      @hw.should respond_to( :school_class )
     end
 
     it "should have lesson attribute" do
       @hw.should respond_to( :lesson )
     end
 
-    it "should have right associated pupil" do
-      @hw.pupil_id.should == @pupil.id
-      @hw.pupil.should == @pupil
+    it "should have right associated school_class" do
+      @hw.school_class_id.should == @school_class.id
+      @hw.school_class.should == @school_class
     end
 
     it "should have right associated lesson" do
@@ -60,8 +61,8 @@ describe Homework do
 
   describe "Validations" do
     describe "Rejection" do
-      it "should reject nil pupil id" do
-        wrong_attr = @attr_hw.merge( :pupil_id => nil )
+      it "should reject nil school_class id" do
+        wrong_attr = @attr_hw.merge( :school_class_id => nil )
         Homework.new( wrong_attr ).should_not be_valid
       end
 
