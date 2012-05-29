@@ -18,7 +18,9 @@ class Homework < ActiveRecord::Base
 
   validates :school_class_id, :presence => { :message => "должен быть указан" }
 
-  validates :lesson_id, :presence => { :message => "должен быть указан" }
+  validates :lesson_id,
+              :presence => { :message => "должен быть указан" },
+              :uniqueness => { :message => "такой c заданием уже существует" }
 
   validates :task_text,
               :length => { :maximum => 250,
