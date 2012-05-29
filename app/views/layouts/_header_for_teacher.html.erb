@@ -39,7 +39,29 @@
         <% end %>
       <% else %>
         <li>
-            Вы не ведете ни одного предмета.
+          Вы не ведете ни одного предмета.
+        </li>
+      <% end %>
+    </ul>
+  </li>
+
+  <%# HOMEWORKS. %>
+  <li class="dropdown <%= active_toolbar?( homeworks_path ) %>">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
+      Задания
+      <b class="caret"></b>
+    </a>
+
+    <ul class="dropdown-menu">
+      <% unless current_user.teacher.subjects.empty? %>
+        <% current_user.teacher.subjects.each do |s| %>
+          <li>
+            <%= link_to s.subject_name, homeworks_path( :subject_name => s.subject_name ) %>
+          </li>
+        <% end %>
+      <% else %>
+        <li>
+          Вы не ведете ни одного предмета.
         </li>
       <% end %>
     </ul>
