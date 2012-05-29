@@ -140,6 +140,16 @@ FactoryGirl.define do
     r.report_type 'homework'
     r.report_topic 'New theme!'
   end
+
+  factory :result do |r|
+    r.pupil
+    r.curriculum
+    r.quarter_1 '3'
+    r.quarter_2 '3'
+    r.quarter_3 '3'
+    r.quarter_4 '3'
+    r.year      '3'
+  end
 end
 
 
