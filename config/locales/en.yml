@@ -96,6 +96,6 @@ en:
             quarter_4: "Оценка за 4ю четверть"
             year: "Итоговая оценка"
           homework:
-            pupil_id: "Ученик"
+            school_class_id: "Класс"
             lesson_id: "Урок"
             task_text: "Задание"
