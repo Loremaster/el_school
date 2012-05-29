@@ -95,3 +95,7 @@ en:
             quarter_3: "Оценка за 3ю четверть"
             quarter_4: "Оценка за 4ю четверть"
             year: "Итоговая оценка"
+          homework:
+            pupil_id: "Ученик"
+            lesson_id: "Урок"
+            task_text: "Задание"
