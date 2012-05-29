@@ -100,4 +100,32 @@ module ApplicationHelper
 
     pupil.estimations.where(:reporting_id => reportings_ids).average( :nominal ).to_f       # Average of estimations for subject of pupil
   end
+
+  # Return 1 curriculum for teacher.
+  # => <#Curriculum> - if curriculum founded
+  # => nil - if we didn't find curriculum
+  def curriculum_for_teacher_with_subject_and_class( teacher, subject_name, school_class )
+    subject = teacher.subjects.where(:subject_name => subject_name).first                 # Get subject for teacher.
+    subject_qualification = teacher.qualifications.where(:subject_id => subject.id).first # Qualification for subject.
+    curriculum = subject_qualification.curriculums.select do |c|                          # Filter curriculum
+      c.school_class.class_code == school_class.class_code                                # ... via input class code
+    end
+
+    unless curriculum.empty?                                                              # If we found curriculum return it (first element in array)
+      curriculum.first
+    else
+      nil                                                                                 # Then return nil, it will help to debug (i hope)
+    end
+  end
+
+  # Pupil results for subject in school class.
+  def pupil_results( pupil, teacher, subject_name, school_class )
+    curriculum = curriculum_for_teacher_with_subject_and_class( teacher, subject_name,
+                                                                school_class )
+    if not curriculum.nil? and not pupil.nil?
+      pupil.results.where(:curriculum_id => curriculum.id).first                          # Find results of pupil for chosen subject and class code.
+    else
+      nil
+    end
+  end
 end
