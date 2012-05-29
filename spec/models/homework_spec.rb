@@ -71,6 +71,16 @@ describe Homework do
         Homework.new( wrong_attr ).should_not be_valid
       end
 
+      it "should reject dublicate lesson id" do
+        expect do
+          Homework.create( @attr_hw ).should be_valid
+        end.should change( Homework, :count ).by( 1 )
+
+        expect do
+          Homework.create( @attr_hw ).should_not be_valid
+        end.should_not change( Homework, :count )
+      end
+
       it "should reject too long task text" do
         wrong_attr = @attr_hw.merge( :task_text => 'a' * 251 )
         Homework.new( wrong_attr ).should_not be_valid
