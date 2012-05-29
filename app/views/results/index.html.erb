@@ -35,21 +35,38 @@
     <tbody>
       <% if @pupils_exist %>
         <% @pupils.each do |p| %>
-          <tr class="cross"
-              onclick = "location.href='<%= new_result_path(
-                                        :class_code => params[:class_code],
-                                        :subject_name => params[:subject_name],
-                                        :p_id => p.id ) %>'">
-            <td><%= pupil_full_names( p ) %></td>
+          <% results = pupil_results( p, @teacher, @subject.subject_name, @school_class ) %> <%# All results of current pupil for current subject. %>
 
-            <% results = pupil_results( p, @teacher, @subject.subject_name, @school_class ) %> <%# All results of current pupil for current subject. %>
+          <% if results.nil? %>                                                           <%# If nobody created results yet. %>
+            <tr class="cross"
+                onclick = "location.href='<%= new_result_path(
+                                              :class_code => params[:class_code],
+                                              :subject_name => params[:subject_name],
+                                              :p_id => p.id ) %>'">
+              <td><%= pupil_full_names( p ) %></td>
 
-            <td> <% unless results.nil? %> <%= results.quarter_1 %> <% end %> </td>       <%# quarter_1 estimation %>
-            <td> <% unless results.nil? %> <%= results.quarter_2 %> <% end %> </td>       <%# quarter_2 estimation %>
-            <td> <% unless results.nil? %> <%= results.quarter_3 %> <% end %> </td>       <%# quarter_3 estimation %>
-            <td> <% unless results.nil? %> <%= results.quarter_4 %> <% end %> </td>       <%# quarter_4 estimation %>
-            <td> <% unless results.nil? %> <%= results.year %>      <% end %> </td>       <%# year      estimation %>
-          </tr>
+              <td></td>                                                                   <%# quarter_1 estimation %>
+              <td></td>                                                                   <%# quarter_2 estimation %>
+              <td></td>                                                                   <%# quarter_3 estimation %>
+              <td></td>                                                                   <%# quarter_4 estimation %>
+              <td></td>                                                                   <%# year      estimation %>
+            </tr>
+          <% else %>                                                                      <%# If results have been created. %>
+            <tr class="cross"
+              onclick = "location.href='<%= edit_result_path(
+                                            :id => results.id,
+                                            :class_code => params[:class_code],
+                                            :subject_name => params[:subject_name],
+                                            :p_id => p.id ) %>'">
+              <td><%= pupil_full_names( p ) %></td>
+
+              <td> <%= results.quarter_1 %> </td>                                         <%# quarter_1 estimation %>
+              <td> <%= results.quarter_2 %> </td>                                         <%# quarter_2 estimation %>
+              <td> <%= results.quarter_3 %> </td>                                         <%# quarter_3 estimation %>
+              <td> <%= results.quarter_4 %> </td>                                         <%# quarter_4 estimation %>
+              <td> <%= results.year %>      </td>                                         <%# year      estimation %>
+            </tr>
+          <% end %>
         <% end %>
       <% end %>
     </tbody>
