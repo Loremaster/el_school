@@ -232,5 +232,48 @@ describe "Teachers" do
       end
     end
 
+    describe "Results" do
+      before(:each) do
+        @pupil = FactoryGirl.create( :pupil,
+        :school_class_id => @t.teacher.qualifications.first.curriculums.first.school_class.id )
+
+        click_link "Итоги"
+        click_link @subject_name
+        click_link "Выбрать класс"
+        click_link @teacher_class.class_code
+      end
+
+      describe "Create" do
+        before(:each) do
+          visit new_result_path( :class_code => @teacher_class.class_code,
+                                 :subject_name => @subject_name,
+                                 :p_id => @pupil.id )
+        end
+
+
+        it "should save new results with valid params" do
+          expect do
+            click_button 'Создать'
+          end.should change( Result, :count ).by( 1 )
+        end
+      end
+
+      describe "Update" do
+        before(:each) do
+          visit new_result_path( :class_code => @teacher_class.class_code,
+                                 :subject_name => @subject_name, :p_id => @pupil.id )
+          click_button 'Создать'
+          visit edit_result_path( :id => @pupil.results.first,
+                                  :class_code => @teacher_class.class_code,
+                                  :subject_name => @subject_name )
+        end
+
+        it "should update results with new params" do
+          click_button 'Обновить'
+
+          flash[:success].should =~ /Итоги успешно обновлены!/i
+        end
+      end
+    end
   end
 end
