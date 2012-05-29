@@ -77,11 +77,21 @@ describe Lesson do
       end
 
       it "should reject date if it's > 15 years from nowdays" do
-        dates = ( Date.today + 16.years )..( Date.today + 125.years )
+        dates = ( Date.today + 16.years )..( Date.today + 25.years )
         dates.each do |d|
           wrong_attr = @attr_lesson.merge( :lesson_date => d )
           Lesson.new( wrong_attr ).should_not be_valid
         end
+      end
+
+      it "should reject dublicate pair of timetable_id + lesson_date" do
+        expect do
+          Lesson.create( @attr_lesson ).should be_valid
+        end.should change( Lesson, :count ).by( 1 )
+
+        expect do
+          Lesson.create( @attr_lesson ).should_not be_valid
+        end.should_not change( Lesson, :count )
       end
     end
   end

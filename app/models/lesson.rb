@@ -24,6 +24,9 @@ class Lesson < ActiveRecord::Base
 
   validates :timetable_id, :presence => { :message => "должен быть указан" }
 
+  validates_uniqueness_of :timetable_id, :scope => :lesson_date,                          # Checking that pair of timetable_id + lesson_date should be unique together.
+                          :message => "c такой датой уже существует"
+
   validates :lesson_date,
               :inclusion => { :in => ( Date.today - 15.years )..( Date.today + 15.years ),
                               :message => "должна находиться в пределах 15 лет от текущей даты"
