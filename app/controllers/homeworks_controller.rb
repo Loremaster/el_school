@@ -15,7 +15,21 @@ class HomeworksController < ApplicationController
   end
 
   def create
+    @subject = []; @everpresent_field_placeholder = "Обязательное поле"
+    @subject, @school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
+    @lessons = lessons_for_select_list( current_user.teacher, @subject.subject_name, @school_class )
+    @homework = Homework.new( params[:homework] )
 
+    if @homework.save
+      redirect_to homeworks_path( :class_code => params[:class_code],
+	                               :subject_name => params[:subject_name] )
+      flash[:success] = "Задание успешно создано!"
+    else
+      flash.now[:error] = @homework.errors.full_messages
+                                   .to_sentence :last_word_connector => ", ",
+                                                :two_words_connector => ", "
+      render 'new'
+    end
   end
 
   private
