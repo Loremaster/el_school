@@ -16,37 +16,40 @@
 
 class Meeting < ActiveRecord::Base
   belongs_to :school_class
-  
+
   has_many :parent_meetings
   has_many :parents, :through => :parent_meetings
-  
-  validates :school_class_id, 
+
+  scope :fresh_meetings, where(" meeting_date >= :today_date ",
+                               { :today_date => Date.today } )
+
+  validates :school_class_id,
               :presence => { :message => "должен быть указан" }
-  
+
   validates :meeting_theme,
-              :presence   => { :message => "не может быть пустой" },            
-              :length     => { 
+              :presence   => { :message => "не может быть пустой" },
+              :length     => {
                                 :maximum => 200,
-                                :message => "должна содержать не более 200 символов" 
+                                :message => "должна содержать не более 200 символов"
                              }
-                             
-  validates :meeting_date,                                                                              
-              :inclusion => {                                                                           
-                                :in => ( Date.today - 1.year )..( Date.today + 1.year ),                
-                                :message => "должна находиться в пределах одного года от текущей даты"  
-                             }                                                                          
+
+  validates :meeting_date,
+              :inclusion => {
+                                :in => ( Date.today - 1.year )..( Date.today + 1.year ),
+                                :message => "должна находиться в пределах одного года от текущей даты"
+                             }
 
   validates :meeting_time,
               :presence => { :message => "не может быть пустым" },
-              :length   => { 
+              :length   => {
                              :minimum => 5,
-                             :message => "должно содержать 5 символов"  
+                             :message => "должно содержать 5 символов"
                            }
-               
-  validates :meeting_room,                                                                    
-              :presence   => { :message => "не может быть пустым" },                          
-              :length     => {                                                                
-                                :maximum => 4,                                                
-                                :message => "должен содержать не более 4 символов"             
-                             }                                                                                             
+
+  validates :meeting_room,
+              :presence   => { :message => "не может быть пустым" },
+              :length     => {
+                                :maximum => 4,
+                                :message => "должен содержать не более 4 символов"
+                             }
 end

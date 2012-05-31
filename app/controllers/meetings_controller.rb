@@ -9,8 +9,7 @@ class MeetingsController < ApplicationController
 
     if params.has_key?( :p_id )
       @pupil = Pupil.where( "id = ?", params[:p_id] ).first
-      @fresh_meetings = @pupil.school_class.meetings.where("meeting_date >= :today_date",{:today_date => Date.today})
-                                                    .order( :meeting_date )
+      @fresh_meetings = @pupil.school_class.meetings.fresh_meetings.order( :meeting_date )
       @meeting_exist = @fresh_meetings.first ? true : false
     end
   end
