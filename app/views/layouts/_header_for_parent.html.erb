@@ -12,7 +12,7 @@
       <% unless current_user.parent.pupils.empty? %>
         <% current_user.parent.pupils.each do |p| %>
           <li>
-            <%= link_to pupil_full_names( p ), meetings_show_parent_path( :p_id => p.id ) %>
+            <%= link_to pupil_full_names( p ), meetings_show_parent_path( :p_id => p.id ) %> <%# To find children we pass their id.  %>
           </li>
         <% end %>
       <% else %>
