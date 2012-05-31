@@ -22,6 +22,10 @@
                 <%= render 'layouts/header_for_teacher' %>
              <% end %>
 
+             <% if signed_in? and current_user_parent? %>
+                <%= render 'layouts/header_for_parent' %>
+             <% end %>
+
              <ul class="nav pull-right">
                 <li class="divider-vertical"/></li>
                <% if signed_in? %>
