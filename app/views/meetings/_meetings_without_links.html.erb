@@ -1,0 +1,24 @@
+<table class="table table-bordered table-striped" name="meetings">
+  <thead>
+    <tr>
+      <th>Тема</th>
+      <th>Дата</th>
+      <th>Время</th>
+      <th>Класс</th>
+      <th>Кабинет</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if meeting_exist %>
+      <% meetings.each do |m| %>
+        <tr>
+          <td><%= m.meeting_theme %></td>
+          <td><%= m.meeting_date.strftime("%d.%m.%Y") %></td>
+          <td><%= m.meeting_time.strftime("%H:%M") %></td>
+          <td><%= m.school_class.class_code %></td>
+          <td><%= m.meeting_room %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

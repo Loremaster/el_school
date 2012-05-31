@@ -1,0 +1,5 @@
+<legend>Будущие родительские собрания</legend>
+
+<%= render :partial => 'meetings_without_links',
+    :locals => { :meeting_exist => @meeting_exist, :meetings => @fresh_meetings }
+%>
