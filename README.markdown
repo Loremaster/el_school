@@ -32,6 +32,7 @@
 - Can create/update pupils attendances.
 - Can create/update pupils estimations.
 - Can create/update pupils results.
+- Can create/update homeworks.
 
 ------------------------------------------------------------------------------
 
