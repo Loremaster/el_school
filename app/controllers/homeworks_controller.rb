@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class HomeworksController < ApplicationController
-  before_filter :authenticate_teachers, :only => [ :index, :new, :create ]
+  before_filter :authenticate_teachers, :only => [ :index, :new, :create, :edit, :update ]
 
   def index
     @subject = []; @pupils = []; @classes = SchoolClass.all; @homeworks_exist = false
@@ -34,6 +34,31 @@ class HomeworksController < ApplicationController
                                    .to_sentence :last_word_connector => ", ",
                                                 :two_words_connector => ", "
       render 'new'
+    end
+  end
+
+  def edit
+    @subject = []; @everpresent_field_placeholder = "Обязательное поле"
+    @subject, @school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
+    @lessons = lessons_for_select_list( current_user.teacher, @subject.subject_name, @school_class )
+    @homework = Homework.find( params[:id] )
+  end
+
+  def update
+    @subject = []; @everpresent_field_placeholder = "Обязательное поле"
+    @subject, @school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
+    @lessons = lessons_for_select_list( current_user.teacher, @subject.subject_name, @school_class )
+    @homework = Homework.find( params[:id] )
+
+    if @homework.update_attributes( params[:homework] )
+      redirect_to homeworks_path( :class_code => params[:class_code],
+	                                :subject_name => params[:subject_name] )
+      flash[:success] = "Задание успешно обновлено!"
+    else
+      flash.now[:error] = @homework.errors.full_messages
+                                   .to_sentence :last_word_connector => ", ",
+                                                :two_words_connector => ", "
+      render 'edit'
     end
   end
 

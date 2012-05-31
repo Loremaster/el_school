@@ -1,0 +1,15 @@
+<legend>Редактирование задания для <%= @school_class.class_code %></legend>
+
+<%= form_for @homework, :html => {:class => "form-horizontal"} do |f| %>
+  <%= field_set_tag do %>
+    <%= hidden_field_tag :class_code, params[:class_code] %>                              <%# Passing class code and subject_name so we can %>
+    <%= hidden_field_tag :subject_name, params[:subject_name] %>                          <%# see results table without choosing select lists. %>
+
+    <%= render :partial => 'homework_fields',
+        :locals => { :f => f, :school_class => @school_class,
+                     :placeholder => @placeholder, :lessons => @lessons }
+    %>
+
+    <%= f.submit "Обновить", :class => "btn btn-large btn-warning" %>
+  <% end %>
+<% end %>
