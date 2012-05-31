@@ -20,29 +20,22 @@ ElSchool::Application.routes.draw do
   resources :results,          :only => [ :index, :new, :create, :edit, :update ]
   resources :homeworks,        :only => [ :index, :new, :create, :edit, :update ]
 
-
   get "sessions/new"
 
   match 'pages/wrong_page', :to => 'pages#wrong_page'
   match '/signin',          :to => 'sessions#new'
   match '/signout',         :to => 'sessions#destroy'
 
-  match '/admins/backups', :controller => 'admins',
-                           :action     => 'backups'
-
-  match '/admins/new_school_head', :controller => 'admins',
-                                   :action => 'new_school_head'
-
-  match '/admins/new_teacher', :controller => 'admins',
-                               :action => 'new_teacher'
-
+  match '/admins/backups', :controller => 'admins', :action => 'backups'
+  match '/admins/new_school_head', :controller => 'admins', :action => 'new_school_head'
+  match '/admins/new_teacher', :controller => 'admins', :action => 'new_teacher'
   match '/admins/create_school_head' => 'admins#create_school_head',
                                          :as => :create_school_head                       # named route
-
-  match '/admins/create_teacher' => 'admins#create_teacher',
-                                    :as => :create_teacher
+  match '/admins/create_teacher' => 'admins#create_teacher', :as => :create_teacher
 
   match '/events/show', :controller => 'events', :action => 'index_school_head'
+
+  match '/meetings/show/parent', :controller => 'meetings', :action => 'index_for_parent'
 
   root :to => 'sessions#new'                                                              # Home
 
