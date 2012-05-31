@@ -29,7 +29,9 @@
     <tbody>
       <% if @homeworks_exist %>
         <% @homeworks_collection.each do |h| %>
-          <tr>
+          <tr class="cross" onclick = "location.href='<%= edit_homework_path(
+                                        :id => h.id, :class_code => params[:class_code],
+                                        :subject_name => params[:subject_name] ) %>'">
             <td><%= homework_lesson_info( h ) %></td>
             <td><%= h.task_text %></td>
           </tr>
