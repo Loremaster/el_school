@@ -19,6 +19,25 @@
     </div>
   </div>
 
+  <table class="table table-bordered" name="homeworks">
+    <thead>
+      <tr>
+        <th>Урок</th>
+        <th>Задание</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @homeworks_exist %>
+        <% @homeworks_collection.each do |h| %>
+          <tr>
+            <td><%= homework_lesson_info( h ) %></td>
+            <td><%= h.task_text %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+
   <div style="margin-top: 18px;" class="btn-toolbar">
     <div class="btn-group">
       <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle">

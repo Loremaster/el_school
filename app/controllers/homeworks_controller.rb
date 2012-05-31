@@ -3,8 +3,13 @@ class HomeworksController < ApplicationController
   before_filter :authenticate_teachers, :only => [ :index, :new, :create ]
 
   def index
-    @subject = []; @pupils = []; @classes = SchoolClass.all
+    @subject = []; @pupils = []; @classes = SchoolClass.all; @homeworks_exist = false
     @subject, @school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
+
+    unless @school_class.nil?
+      @homeworks_collection = Homework.where( "school_class_id = ?", @school_class.id )
+      @homeworks_exist = @homeworks_collection.first ? true : false
+    end
   end
 
   def new
@@ -43,8 +48,10 @@ class HomeworksController < ApplicationController
         final_lessons = lessons.flatten.sort_by{ |l| l[:lesson_date] }                      # Sort output lessons by it's date.
 
         unless final_lessons.empty?
-          final_lessons.collect do |l|
-            [ "#{l.lesson_date.strftime("%d.%m.%Y")} - #{l.timetable.tt_number_of_lesson}й урок", # Collect array date - number of lesson
+          final_lessons.collect do |l|                                                    # Collect array date - day - number of lesson - lesson id
+            [ "#{l.lesson_date.strftime("%d.%m.%Y")} - " +
+              "#{translate_day_of_week(l.timetable.tt_day_of_week)} - " +
+              "#{l.timetable.tt_number_of_lesson}й урок",
               l.id ]
           end
         else
