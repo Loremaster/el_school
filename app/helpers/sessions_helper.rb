@@ -16,6 +16,9 @@ module SessionsHelper
       if signed_in? and current_user_teacher?
         redirect_back_or journals_path
       end
+      if signed_in? and current_user_parent?
+        redirect_back_or meetings_show_parent_path
+      end
     end
   end
 
