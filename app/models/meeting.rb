@@ -20,8 +20,7 @@ class Meeting < ActiveRecord::Base
   has_many :parent_meetings
   has_many :parents, :through => :parent_meetings
 
-  scope :fresh_meetings, where(" meeting_date >= :today_date ",
-                               { :today_date => Date.today } )
+  scope :fresh_meetings, lambda { where("meeting_date >= ?", Date.today ) }
 
   validates :school_class_id,
               :presence => { :message => "должен быть указан" }
