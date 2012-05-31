@@ -73,5 +73,28 @@ describe "Parents" do
         end
       end
     end
+
+    describe "Meetings" do
+      before(:each) do
+        @text = "Test!"
+        meeting = FactoryGirl.create( :meeting, :meeting_theme => @text,
+                                      :meeting_date => Date.today + 1.day,
+                                      :school_class_id => @pupil.school_class.id )
+
+        click_link 'Родительские собрания'
+        click_link "#{@pupil.pupil_last_name} #{@pupil.pupil_first_name} " +
+                   "#{@pupil.pupil_middle_name}"
+      end
+
+      it "should show fresh meeting" do
+        response.should have_selector('table', :name => "meetings") do |table|
+          table.should have_selector('tbody') do |tbody|
+            tbody.should have_selector('tr') do |td|
+              td.should contain( @text )
+            end
+          end
+        end
+      end
+    end
   end
 end
