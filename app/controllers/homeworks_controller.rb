@@ -6,7 +6,7 @@ class HomeworksController < ApplicationController
     @subject = []; @pupils = []; @classes = SchoolClass.all; @homeworks_exist = false
     @subject, @school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
 
-    unless @school_class.nil?
+    unless @school_class.nil?                                                             # Because we have situation when school_class is not choosen.
       @homeworks_collection = Homework.where( "school_class_id = ?", @school_class.id )
       @homeworks_exist = @homeworks_collection.first ? true : false
     end
@@ -42,10 +42,10 @@ class HomeworksController < ApplicationController
       lessons = []; final_lessons = []
       timetables = timetables_for_teacher_with_subject( current_user.teacher, subject_name,
                                                         school_class )
-      timetables.each { |t| lessons << t.lessons  }                                       # Collect lessons from timetales.
+      timetables.each { |t| lessons << t.lessons  }                                       # Collect lessons from timetales to work with them.
 
       unless lessons.empty?
-        final_lessons = lessons.flatten.sort_by{ |l| l[:lesson_date] }                      # Sort output lessons by it's date.
+        final_lessons = lessons.flatten.sort_by{ |l| l[:lesson_date] }                    # Sort output lessons by it's date.
 
         unless final_lessons.empty?
           final_lessons.collect do |l|                                                    # Collect array date - day - number of lesson - lesson id
@@ -55,10 +55,10 @@ class HomeworksController < ApplicationController
               l.id ]
           end
         else
-          []                                                                              # => [] if no lessons founded.
+          []                                                                              # => [] if no lessons founded (we don't want errors!).
         end
       else
-        []                                                                                # => [] if no lessons founded.
+        []                                                                                # => [] if no lessons founded (we don't want errors!).
       end
     end
 end
