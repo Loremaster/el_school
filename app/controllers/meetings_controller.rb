@@ -7,7 +7,7 @@ class MeetingsController < ApplicationController
   def index_for_parent
     @pupil = nil; @meeting_exist = false
 
-    if params.has_key?( :p_id )
+    if params.has_key?( :p_id )                                                           # If it's pupil id.
       @pupil = Pupil.where( "id = ?", params[:p_id] ).first
       @fresh_meetings = @pupil.school_class.meetings.fresh_meetings.order( :meeting_date )
       @meeting_exist = @fresh_meetings.first ? true : false

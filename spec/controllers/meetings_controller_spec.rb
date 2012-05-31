@@ -13,6 +13,7 @@ describe MeetingsController do
     @sh.user_role = "school_head"
     @sh.save!
 
+    # We create user this way because it auto creates school class (controller need that.)
     @pupil = FactoryGirl.create( :pupil )
     @pupil.user.user_role = "pupil"
     @pupil.user.save!
