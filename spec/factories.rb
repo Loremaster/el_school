@@ -150,6 +150,12 @@ FactoryGirl.define do
     r.quarter_4 '3'
     r.year      '3'
   end
+
+  factory :homework do |h|
+    h.school_class
+    h.lesson
+    h.task_text 'New task.'
+  end
 end
 
 
