@@ -7,7 +7,8 @@
 
     <%= render :partial => 'homework_fields',
         :locals => { :f => f, :school_class => @school_class,
-                     :placeholder => @placeholder, :lessons => @lessons }
+                     :placeholder => @placeholder, :lessons => @lessons,
+                     :choosen_lesson => @choosen_lesson }
     %>
 
     <%= f.submit "Обновить", :class => "btn btn-large btn-warning" %>

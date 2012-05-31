@@ -17,6 +17,7 @@ class HomeworksController < ApplicationController
     @subject, @school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
     @lessons = lessons_for_select_list( current_user.teacher, @subject.subject_name, @school_class )
     @homework = Homework.new
+    @choosen_lesson = nil
   end
 
   def create
@@ -24,6 +25,7 @@ class HomeworksController < ApplicationController
     @subject, @school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
     @lessons = lessons_for_select_list( current_user.teacher, @subject.subject_name, @school_class )
     @homework = Homework.new( params[:homework] )
+    @choosen_lesson = params[:homework][:lesson_id]                                       # To set correct lesson in list.
 
     if @homework.save
       redirect_to homeworks_path( :class_code => params[:class_code],
@@ -42,6 +44,7 @@ class HomeworksController < ApplicationController
     @subject, @school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
     @lessons = lessons_for_select_list( current_user.teacher, @subject.subject_name, @school_class )
     @homework = Homework.find( params[:id] )
+    @choosen_lesson = @homework.lesson.id                                                 # To set correct lesson in list from database.
   end
 
   def update
@@ -49,6 +52,7 @@ class HomeworksController < ApplicationController
     @subject, @school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
     @lessons = lessons_for_select_list( current_user.teacher, @subject.subject_name, @school_class )
     @homework = Homework.find( params[:id] )
+    @choosen_lesson = params[:homework][:lesson_id]                                       # To set correct lesson in list.
 
     if @homework.update_attributes( params[:homework] )
       redirect_to homeworks_path( :class_code => params[:class_code],

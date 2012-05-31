@@ -13,6 +13,6 @@
    <%= f.label :lesson_id, "Урок", :class => "control-label" %>
 
    <div class="controls">
-     <%= f.select( :lesson_id, options_for_select( lessons )) %>
+     <%= f.select( :lesson_id, options_for_select( lessons, choosen_lesson )) %>
    </div>
 </div>
