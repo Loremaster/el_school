@@ -5,24 +5,10 @@
     <%= hidden_field_tag :class_code, params[:class_code] %>                              <%# Passing class code and subject_name so we can %>
     <%= hidden_field_tag :subject_name, params[:subject_name] %>                          <%# see results table without choosing select lists. %>
 
-    <%= f.hidden_field :school_class_id, :value => @school_class.id %>
-
-    <div class="control-group">
-      <%= f.label :task_text, "Текст задания", :class => "control-label" %>
-
-      <div class="controls">
-        <%= f.text_area  :task_text, :rows => 3, :class => "span3",
-                         :placeholder => @everpresent_field_placeholder %>
-      </div>
-    </div>
-
-    <div class="control-group">
-       <%= f.label :lesson_id, "Урок", :class => "control-label" %>
-
-       <div class="controls">
-         <%= f.select( :lesson_id, options_for_select( @lessons )) %>
-       </div>
-    </div>
+    <%= render :partial => 'homework_fields',
+        :locals => { :f => f, :school_class => @school_class,
+                     :placeholder => @placeholder, :lessons => @lessons }
+    %>
 
     <%= f.submit "Создать", :class => "btn btn-large btn-success" %>
   <% end %>

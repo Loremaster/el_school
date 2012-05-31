@@ -1,0 +1,18 @@
+<%= f.hidden_field :school_class_id, :value => school_class.id %>
+
+<div class="control-group">
+  <%= f.label :task_text, "Текст задания", :class => "control-label" %>
+
+  <div class="controls">
+    <%= f.text_area  :task_text, :rows => 3, :class => "span3",
+                     :placeholder => placeholder %>
+  </div>
+</div>
+
+<div class="control-group">
+   <%= f.label :lesson_id, "Урок", :class => "control-label" %>
+
+   <div class="controls">
+     <%= f.select( :lesson_id, options_for_select( lessons )) %>
+   </div>
+</div>
