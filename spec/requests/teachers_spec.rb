@@ -275,5 +275,55 @@ describe "Teachers" do
         end
       end
     end
+
+    describe "Homeworks" do
+      before(:each) do
+        @pupil = FactoryGirl.create( :pupil,
+        :school_class_id => @t.teacher.qualifications.first.curriculums.first.school_class.id )
+
+        @lesson = FactoryGirl.create( :lesson, :timetable_id => @timetable.id )
+
+        click_link "Задания"
+        click_link @subject_name
+      end
+
+      describe "Create" do
+        before(:each) do
+          # click_link "Создать задание"
+          # click_link @teacher_class.class_code
+
+          visit new_homework_path( :class_code => @teacher_class.class_code,
+                                   :subject_name => @subject_name )
+        end
+
+
+        it "should save new homework with valid params" do
+          expect do
+            fill_in "Текст задания", :with => "Test message"
+
+            click_button "Создать"
+          end.should change( Homework, :count ).by( 1 )
+        end
+      end
+
+      describe "Update" do
+        before(:each) do
+          @homework = FactoryGirl.create( :homework, :lesson_id => @lesson.id,
+                                          :school_class_id => @teacher_class.id )
+
+          visit edit_homework_path( :id => @homework,
+                                    :class_code => @teacher_class.class_code,
+                                    :subject_name => @subject_name )
+        end
+
+        it "should update with valid params" do
+          fill_in "Текст задания", :with => "Test message!"
+
+          click_button "Обновить"
+
+          flash[:success].should =~ /Задание успешно обновлено/i
+        end
+      end
+    end
   end
 end
