@@ -71,6 +71,15 @@ describe "Parents" do
         response.body.should have_selector( "li.active") do
           have_selector('a', :content => 'Родительские собрания')
         end
+
+        click_link 'Мероприятия'
+        click_link "#{@pupil.pupil_last_name} #{@pupil.pupil_first_name} " +
+                   "#{@pupil.pupil_middle_name}"
+
+        response.should be_success
+        response.body.should have_selector( "li.active") do
+          have_selector('a', :content => 'Мероприятия')
+        end
       end
     end
 
@@ -94,6 +103,22 @@ describe "Parents" do
             end
           end
         end
+      end
+    end
+
+    describe "Events" do
+      before(:each) do
+        @event = FactoryGirl.create( :event,
+                                    :event_begin_date => "#{Date.today}",
+                                    :event_end_date => "#{Date.today}",
+                                    :school_class_id => @pupil.school_class.id )
+        click_link 'Мероприятия'
+        click_link "#{@pupil.pupil_last_name} #{@pupil.pupil_first_name} " +
+                   "#{@pupil.pupil_middle_name}"
+      end
+
+      it "should find fresh event" do
+        @pupil.school_class.events.fresh_events.first.should == @event
       end
     end
   end
