@@ -33,6 +33,17 @@
            <% end %>
          </tr>
        </thead>
+       <tbody>
+         <% if not @choosen_lesson.nil? and @pupil_lessons_exist and not @pupil.nil? %>
+           <td><%= @choosen_lesson.subject_name %></td>
+
+            <% @pupil_lessons.each do |l| %>
+              <td class="<%= color_of_attendance( @pupil.id, l.id )  %>">
+
+              </td>
+            <% end %>
+         <% end %>
+       </tbody>
      </table>
   <% end %>
 <% end %>
