@@ -18,6 +18,40 @@ describe JournalsController do
     teacher.save!
   end
 
+  describe "GET 'index_for_parent'" do
+    before(:each) do
+      # We create user this way because it auto creates school class (controller need that.)
+      @pupil = FactoryGirl.create( :pupil )
+      @pupil.user.user_role = "pupil"
+      @pupil.user.save!
+
+      # Creating parent and link to his child - pupil.
+      pp = FactoryGirl.create( :parent_pupil, :pupil_id => @pupil.id )
+      pp.parent.user.user_role = "parent"
+      pp.parent.user.save!
+
+      @parent = pp.parent.user
+    end
+
+    describe "for signed-in parents" do
+      before(:each) do
+        test_sign_in( @parent )
+      end
+
+      it "should show journal without params" do
+        get :index_for_parent
+        response.should be_success
+        flash[:error].should be_nil
+      end
+
+      it "should show journal with pupil id" do
+        get :index_for_parent, { :p_id => @pupil.id }
+        response.should be_success
+        flash[:error].should be_nil
+      end
+    end
+  end
+
   describe "GET 'index'" do
     describe "for non-signed users" do
       it "should deny access to show journal" do
