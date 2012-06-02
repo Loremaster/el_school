@@ -1,6 +1,6 @@
 <legend>Итоги</legend>
 
-<% unless @subject.nil? %>
+<% if not @subject.nil? and @show_results %>
 
   <%# CHOOSING CLASS. %>
   <div style="margin-top: 18px;" class="btn-toolbar">

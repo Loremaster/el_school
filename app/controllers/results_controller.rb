@@ -3,12 +3,19 @@ class ResultsController < ApplicationController
   before_filter :authenticate_teachers, :only => [ :index, :new, :create, :edit, :update ]
 
   def index
-    @subject = []; @pupils = []
-    @classes = SchoolClass.all
-    @subject, @school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
-    @pupils = get_pupils_for_class( @school_class )                                       # Pupils in the class.
-    @pupils_exist = @pupils.first ? true : false
-    @teacher = current_user.teacher
+    @subject = []; @pupils = []; @show_results = false
+
+    if params.has_key?( :subject_name )
+      @classes = SchoolClass.all
+      @subject, @school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
+
+      if current_user.teacher.subject_ids.include?( @subject.id )                         # If teacher teach that subject...
+        @show_results = true                                                              # ...show view.
+        @pupils = get_pupils_for_class( @school_class )                                   # Pupils in the class.
+        @pupils_exist = @pupils.first ? true : false
+        @teacher = current_user.teacher
+      end
+    end
   end
 
   def new
