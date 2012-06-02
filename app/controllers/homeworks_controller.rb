@@ -4,11 +4,18 @@ class HomeworksController < ApplicationController
 
   def index
     @subject = []; @pupils = []; @classes = SchoolClass.all; @homeworks_exist = false
+    @show_homeworks = false
     @subject, @school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
 
-    unless @school_class.nil?                                                             # Because we have situation when school_class is not choosen.
-      @homeworks_collection = Homework.where( "school_class_id = ?", @school_class.id )
-      @homeworks_exist = @homeworks_collection.first ? true : false
+    if params.has_key?( :subject_name )
+      if current_user.teacher.subject_ids.include?( @subject.id )                         # If teacher teach that subject...
+        @show_homeworks = true                                                            # ...show homeworks.
+
+        unless @school_class.nil?                                                         # Because we have situation when school_class is not choosen.
+          @homeworks_collection = Homework.where( "school_class_id = ?", @school_class.id )
+          @homeworks_exist = @homeworks_collection.first ? true : false
+        end
+      end
     end
   end
 

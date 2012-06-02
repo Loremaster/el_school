@@ -1,6 +1,6 @@
 <legend>Задания</legend>
 
-<% unless @subject.nil? %>
+<% if not  @subject.nil? and @show_homeworks %>
   <%# CHOOSING CLASS. %>
   <div style="margin-top: 18px;" class="btn-toolbar">
     <div class="btn-group">
