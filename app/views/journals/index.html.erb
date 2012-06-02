@@ -1,7 +1,7 @@
 <%= render :partial => 'journal_legend', :locals => { :classes => @classes,
                                                       :school_class => @school_class } %>
 
-<% unless @subject.nil? %>
+<% if not @subject.nil? and @show_journal %>
   <div style="margin-top: 18px;" class="btn-toolbar">
     <div class="btn-group">
       <a href="#" data-toggle="dropdown" class="btn dropdown-toggle">
