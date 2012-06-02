@@ -27,18 +27,20 @@ class JournalsController < ApplicationController
   def index
     @subject = []; @pupils = []; @lessons_exist = false; @pupils_exist = false;
     @show_journal = false
-    
+
     @teacher_subjects = current_user.teacher.subjects                                     # This we get when user choose subject from toolbar.
     @classes = SchoolClass.all
     @subject, @school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
 
-    if current_user.teacher.subject_ids.include?( @subject.id )
-      @show_journal = true
-      @lessons = teacher_lessons_dates( current_user.teacher, @subject, @school_class )     # Lessons of teacher.
-      @lessons_exist = @lessons.first ? true : false
+    if params.has_key?( :subject_name )
+      if current_user.teacher.subject_ids.include?( @subject.id )
+        @show_journal = true
+        @lessons = teacher_lessons_dates( current_user.teacher, @subject, @school_class ) # Lessons of teacher.
+        @lessons_exist = @lessons.first ? true : false
 
-      @pupils = get_pupils_for_class( @school_class )                                       # Pupils in the class.
-      @pupils_exist = @pupils.first ? true : false
+        @pupils = get_pupils_for_class( @school_class )                                   # Pupils in the class.
+        @pupils_exist = @pupils.first ? true : false
+      end
     end
   end
 
