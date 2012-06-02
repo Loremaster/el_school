@@ -13,7 +13,7 @@ class JournalsController < ApplicationController
       if params.has_key?( :curr_id )                                                      # If parent chose subject.
         curriculum = Curriculum.where( "id = ?", params[:curr_id] ).first
 
-        @choosen_lesson = curriculum.qualification.subject                                # Choosen lesson from dropdown menu.
+        @choosen_subject = curriculum.qualification.subject                               # Choosen lesson from dropdown menu.
 
         @pupil_lessons = lessons_for_one_curriculum( curriculum )
         @pupil_lessons_exist = @pupil_lessons.first ? true : false
