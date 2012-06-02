@@ -1,5 +1,12 @@
 **E-school** project.
 
+-----------------------------------------------------------------------------
+
+**Parent**
+
+- Can view Meetings.
+- Can view Events.
+- Can view journal of his children for chosen subject.
 
 ------------------------------------------------------------------------------
 
