@@ -2,10 +2,13 @@ class JournalsController < ApplicationController
   before_filter :authenticate_teachers, :only => [ :index ]
 
   def index_for_parent
-    @pupil = nil
+    @pupil = nil; @pupil_curriculums_exist = false
 
     if params.has_key?( :p_id )
       @pupil = Pupil.where( "id = ?", params[:p_id] ).first
+
+      @pupil_curriculums = curriculums_for_pupil( @pupil )
+      @pupil_curriculums_exist = @pupil_curriculums.first ? true : false
     end
   end
 

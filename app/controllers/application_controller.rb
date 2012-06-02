@@ -137,4 +137,33 @@ class ApplicationController < ActionController::Base
       nil
     end
   end
+
+  # => [Array] of curriculums for pupil
+  # => [] empty if no curriculums have been founded.
+  def curriculums_for_pupil( pupil )
+    out = []; school_class = pupil.school_class
+
+    unless school_class.nil?
+      out = school_class.curriculums
+    end
+
+    out
+  end
+
+  # # => [Array] of sorted by name subjects for pupil.
+  # # => [] empty if no subjects have been founded.
+  # def subjects_for_pupil( pupil )
+  #   out = []
+  #   curriculums = curriculums_for_pupil( pupil )
+  #
+  #   unless curriculums.empty?
+  #     subjects = curriculums.collect{ |c| c.qualification.subject }
+  #
+  #     unless subjects.empty?
+  #       out = subjects.sort_by{ |e| e[:subject_name] }
+  #     end
+  #   end
+  #
+  #   out
+  # end
 end
