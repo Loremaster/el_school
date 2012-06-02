@@ -80,6 +80,15 @@ describe "Parents" do
         response.body.should have_selector( "li.active") do
           have_selector('a', :content => 'Мероприятия')
         end
+
+        click_link 'Успеваемость'
+        click_link "#{@pupil.pupil_last_name} #{@pupil.pupil_first_name} " +
+                   "#{@pupil.pupil_middle_name}"
+
+        response.should be_success
+        response.body.should have_selector( "li.active") do
+          have_selector('a', :content => 'Успеваемость')
+        end
       end
     end
 
@@ -87,8 +96,8 @@ describe "Parents" do
       before(:each) do
         @text = "Test!"
         @meeting = FactoryGirl.create( :meeting, :meeting_theme => @text,
-                                      :meeting_date => Date.today + 1.day,
-                                      :school_class_id => @pupil.school_class.id )
+                                       :meeting_date => Date.today + 1.day,
+                                       :school_class_id => @pupil.school_class.id )
 
         click_link 'Родительские собрания'
         click_link "#{@pupil.pupil_last_name} #{@pupil.pupil_first_name} " +
@@ -110,9 +119,9 @@ describe "Parents" do
     describe "Events" do
       before(:each) do
         @event = FactoryGirl.create( :event,
-                                    :event_begin_date => "#{Date.today}",
-                                    :event_end_date => "#{Date.today}",
-                                    :school_class_id => @pupil.school_class.id )
+                                     :event_begin_date => "#{Date.today}",
+                                     :event_end_date => "#{Date.today}",
+                                     :school_class_id => @pupil.school_class.id )
         click_link 'Мероприятия'
         click_link "#{@pupil.pupil_last_name} #{@pupil.pupil_first_name} " +
                    "#{@pupil.pupil_middle_name}"
@@ -120,6 +129,22 @@ describe "Parents" do
 
       it "should find fresh event" do
         @pupil.school_class.events.fresh_events.first.should == @event
+      end
+    end
+
+    describe "Journal" do
+      before(:each) do
+        @curriculum = FactoryGirl.create( :curriculum, :school_class_id => @pupil.school_class.id  )
+        click_link 'Успеваемость'
+        click_link "#{@pupil.pupil_last_name} #{@pupil.pupil_first_name} " +
+                   "#{@pupil.pupil_middle_name}"
+        click_link 'Выбрать предмет'
+        click_link "#{@curriculum.qualification.subject.subject_name}"
+        visit journals_show_parent_path( :p_id => @pupil.id, :curr_id => @curriculum.id )
+      end
+
+      it "should have subject name" do
+        @pupil.school_class.curriculums.first.qualification.subject.subject_name.should == 'Math'
       end
     end
   end
