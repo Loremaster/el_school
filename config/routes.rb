@@ -37,6 +37,7 @@ ElSchool::Application.routes.draw do
 
   match '/meetings/show/parent', :controller => 'meetings', :action => 'index_for_parent'
   match '/events/show/parent',   :controller => 'events', :action => 'index_for_parent'
+  match '/journals/show/parent', :controller => 'journals', :action => 'index_for_parent'
 
   root :to => 'sessions#new'                                                              # Home
 

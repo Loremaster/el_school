@@ -1,6 +1,14 @@
 class JournalsController < ApplicationController
   before_filter :authenticate_teachers, :only => [ :index ]
 
+  def index_for_parent
+    @pupil = nil
+
+    if params.has_key?( :p_id )
+      @pupil = Pupil.where( "id = ?", params[:p_id] ).first
+    end
+  end
+
   def index
     @subject = []; @pupils = []
     @teacher_subjects = current_user.teacher.subjects                                     # This we get when user choose subject from toolbar.
