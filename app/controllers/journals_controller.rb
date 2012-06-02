@@ -7,17 +7,20 @@ class JournalsController < ApplicationController
     if params.has_key?( :p_id )                                                           # If parent chose his pupil.
       @pupil = Pupil.where( "id = ?", params[:p_id] ).first
 
-      @pupil_curriculums = curriculums_for_pupil( @pupil )
-      @pupil_curriculums_exist = @pupil_curriculums.first ? true : false
+      if current_user.parent.pupil_ids.include? @pupil.id                                 # If chosen pupil is child of parent.
+        @pupil_curriculums = curriculums_for_pupil( @pupil )
+        @pupil_curriculums_exist = @pupil_curriculums.first ? true : false
 
-      if params.has_key?( :curr_id )                                                      # If parent chose subject.
-        curriculum = Curriculum.where( "id = ?", params[:curr_id] ).first
+        if params.has_key?( :curr_id )                                                      # If parent chose subject.
+          curriculum = Curriculum.where( "id = ?", params[:curr_id] ).first
 
-        @choosen_subject = curriculum.qualification.subject                               # Choosen lesson from dropdown menu.
+          @choosen_subject = curriculum.qualification.subject                               # Choosen lesson from dropdown menu.
 
-        @pupil_lessons = lessons_for_one_curriculum( curriculum )
-        @pupil_lessons_exist = @pupil_lessons.first ? true : false
+          @pupil_lessons = lessons_for_one_curriculum( curriculum )
+          @pupil_lessons_exist = @pupil_lessons.first ? true : false
+        end
       end
+
     end
   end
 

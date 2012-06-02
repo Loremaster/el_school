@@ -22,8 +22,11 @@ class EventsController < ApplicationController
 
      if params.has_key?( :p_id )                                                          # If it's pupil id.
        @pupil = Pupil.where( "id = ?", params[:p_id] ).first
-       @fresh_events = @pupil.school_class.events.fresh_events
-       @event_exist = @fresh_events.first ? true : false
+
+       if current_user.parent.pupil_ids.include? @pupil.id                                 # If chosen pupil is child of parent.
+         @fresh_events = @pupil.school_class.events.fresh_events
+         @event_exist = @fresh_events.first ? true : false
+       end
      end
   end
 
