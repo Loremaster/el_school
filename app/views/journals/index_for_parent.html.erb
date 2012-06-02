@@ -1,5 +1,7 @@
 <% unless @pupil.nil? %>
   <% if @pupil_curriculums_exist %>
+
+    <%# Choosing subject in journal of parent. %>
     <div style="margin-top: 18px;" class="btn-toolbar">
       <div class="btn-group">
         <a href="#" data-toggle="dropdown" class="btn dropdown-toggle">
@@ -17,6 +19,20 @@
       </div>
     </div>
 
+     <table class="tablee table-bordered scrol" name="journals">
+       <thead>
+         <tr>
+           <th>Урок</th>
 
+           <% if @pupil_lessons_exist %>
+             <% @pupil_lessons.each do |l| %>
+               <th>
+                  <%= l.lesson_date.strftime("%d.%m.%Y") %>
+               </th>
+             <% end %>
+           <% end %>
+         </tr>
+       </thead>
+     </table>
   <% end %>
 <% end %>

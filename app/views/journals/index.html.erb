@@ -27,7 +27,7 @@
         <% if @lessons_exist %>
           <% @lessons.each do |l| %>
             <th>
-              <%= link_to l.lesson_date.strftime("%d.%m.%Y") ,
+              <%= link_to l.lesson_date.strftime("%d.%m.%Y"),
                   edit_lesson_path( :id => l.id, :class_code => params[:class_code],
                                     :subject_name => params[:subject_name]) %>
             </th>

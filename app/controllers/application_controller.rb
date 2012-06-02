@@ -138,7 +138,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # => [Array] of curriculums for pupil
+  # Return array of curriculums for pupil
   # => [] empty if no curriculums have been founded.
   def curriculums_for_pupil( pupil )
     out = []; school_class = pupil.school_class
@@ -150,5 +150,17 @@ class ApplicationController < ActionController::Base
     out.flatten
   end
 
+  # Return sorted by lesson date array of lessons for one input curriculum.
+  # => [] if no lessons founded.
+  def lessons_for_one_curriculum( curriculum )
+    out = []
 
+    timetables = curriculum.timetables
+
+    unless timetables.empty?
+      out = timetables.collect{ |t| t.lessons }
+    end
+
+    out.flatten.sort_by{|e| e[:lesson_date]}
+  end
 end

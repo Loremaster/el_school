@@ -2,13 +2,19 @@ class JournalsController < ApplicationController
   before_filter :authenticate_teachers, :only => [ :index ]
 
   def index_for_parent
-    @pupil = nil; @pupil_curriculums_exist = false
+    @pupil = nil; @pupil_curriculums_exist = false; @pupil_lessons_exist = false
 
-    if params.has_key?( :p_id )
+    if params.has_key?( :p_id )                                                           # If parent chose his pupil.
       @pupil = Pupil.where( "id = ?", params[:p_id] ).first
 
       @pupil_curriculums = curriculums_for_pupil( @pupil )
       @pupil_curriculums_exist = @pupil_curriculums.first ? true : false
+
+      if params.has_key?( :curr_id )                                                      # If parent chose subject.
+        curriculum = Curriculum.where( "id = ?", params[:curr_id] ).first
+        @pupil_lessons = lessons_for_one_curriculum( curriculum )
+        @pupil_lessons_exist = @pupil_lessons.first ? true : false
+      end
     end
   end
 
