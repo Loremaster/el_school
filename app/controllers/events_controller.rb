@@ -18,7 +18,13 @@ class EventsController < ApplicationController
   end
 
   def index_for_parent
+     @pupil = nil; @event_exist = false
 
+     if params.has_key?( :p_id )                                                          # If it's pupil id.
+       @pupil = Pupil.where( "id = ?", params[:p_id] ).first
+       @fresh_events = @pupil.school_class.events.fresh_events
+       @event_exist = @fresh_events.first ? true : false
+     end
   end
 
   def index
