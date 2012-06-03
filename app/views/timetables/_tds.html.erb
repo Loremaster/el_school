@@ -1,0 +1,10 @@
+<td><%= t.tt_number_of_lesson %></td>
+<td>
+  <% if t.curriculum.nil? or t.curriculum.qualification.nil?  %>
+    <%# Show empty string here. %>
+  <% else %>
+    <%= t.curriculum.qualification.subject.subject_name %>
+  <% end %>
+</td>
+<td><%= t.tt_room %></td>
+<td><%= translate_type_of_lesson( t.tt_type ) %></td>
