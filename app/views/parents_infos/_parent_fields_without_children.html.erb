@@ -42,6 +42,10 @@
   <%= f.label :parent_birthday, "Дата рождения", :class => "control-label" %>
 
   <div class="controls">
-    <%= f.text_field :parent_birthday, :placeholder => field_placeholder %>
+    <%= f.date_select :parent_birthday,
+                      { :start_year => 1955, :end_year => 1993,
+                        :order => [:day, :month, :year],
+                        :use_month_names => russian_names_of_months() },
+                      { :class => "span2" } %>
   </div>
 </div>

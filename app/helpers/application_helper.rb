@@ -51,6 +51,12 @@ module ApplicationHelper
     sexes[ sex ]
   end
 
+  # We use that in date select.
+  def russian_names_of_months
+    ["Января", "Февраля", "Марта", "Апреля", "Мая", "Июня", "Июля", "Августа", "Сентября",
+     "Октября", "Ноября", "Декабря"]
+  end
+
   # Nominal for lesson of pupil.
   def nominals_of_pupil_from_lesson( lesson, pupil_id  )
     estimations = lesson.reporting.estimations
