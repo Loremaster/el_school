@@ -27,54 +27,54 @@ class Teacher < ActiveRecord::Base
                   :teacher_phone_attributes,
                   :subject_ids
 
-  belongs_to :user                                              
-  
+  belongs_to :user
+
   has_one :teacher_education
   has_one :teacher_phone
   has_one :teacher_leader
-  
+
   has_many :qualifications
   has_many :subjects, :through => :qualifications
   has_many :events
-     
+
   accepts_nested_attributes_for :teacher_education
   accepts_nested_attributes_for :teacher_phone
-                       
-  validates :teacher_last_name,   
-              :presence   => { :message => "не может быть пустой" },             
-              :length     => { 
+
+  validates :teacher_last_name,
+              :presence   => { :message => "не может быть пустой" },
+              :length     => {
                                :maximum => 40,
-                               :message => "должна содержать не более 40 символов" 
+                               :message => "должна содержать не более 40 символов"
                              }
-                                                                  
-  validates :teacher_first_name,  
-              :presence   => { :message => "не может быть пустым" },             
-              :length     => { 
+
+  validates :teacher_first_name,
+              :presence   => { :message => "не может быть пустым" },
+              :length     => {
                                :maximum => 40,
-                               :message => "должно содержать не более 40 символов" 
+                               :message => "должно содержать не более 40 символов"
                              }
-                                 
-  validates :teacher_middle_name, 
-              :presence   => { :message => "не может быть пустым" },             
-              :length     => { 
+
+  validates :teacher_middle_name,
+              :presence   => { :message => "не может быть пустым" },
+              :length     => {
                                :maximum => 40,
-                               :message => "должно содержать не более 40 символов" 
+                               :message => "должно содержать не более 40 символов"
                              }
-                                   
-  validates :teacher_sex,         
+
+  validates :teacher_sex,
               :presence  => true,
               :inclusion => { :in => %w(m w) }
-                                  
+
   validates :teacher_category,                                                            # Might be empty as i understand.
-              :length   => { 
+              :length   => {
                             :maximum => 20,
-                            :message => "должна содержать не более 20 символов" 
-                           }         
-          
-  validates :teacher_birthday, 
+                            :message => "должна содержать не более 20 символов"
+                           }
+
+  validates :teacher_birthday,
               :inclusion => {
                               :in => Date.civil(1970, 1, 1)..Date.today,
                               :message => "должна быть с 1970 по сегодняшний день"
                              }
-                             
+
 end

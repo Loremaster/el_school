@@ -1,0 +1,9 @@
+<legend>Редактирование ваших данных</legend>
+
+<%= form_for @parent, :url => parents_info_url, :html => {:class => "form-horizontal"} do |f| %>
+  <%= render :partial => 'parent_fields_without_children',
+      :locals => { :f => f, :field_placeholder => @everpresent_field_placeholder }
+  %>
+
+  <%= f.submit "Обновить", :class => "btn btn-large btn-warning" %>
+<% end %>

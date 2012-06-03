@@ -12,4 +12,5 @@
 <h4>Дата рождения: <%= @parent.parent_birthday.strftime("%d.%m.%Y")  %></h4>
 <br/>
 
-
+<%= link_to "Изменить данные", edit_parents_info_path( :id => @parent.id ),
+   :class => "btn btn-primary btn-large" %>
