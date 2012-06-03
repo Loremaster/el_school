@@ -23,6 +23,28 @@
     </ul>
   </li>
 
+  <%# TIMETABLE. %>
+  <li class="dropdown <%= active_toolbar?( timetables_show_parent_path ) %>">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
+      Расписание
+      <b class="caret"></b>
+    </a>
+
+    <ul class="dropdown-menu">
+      <% unless current_user.parent.pupils.empty? %>
+        <% current_user.parent.pupils.each do |p| %>
+          <li>
+            <%= link_to pupil_full_names( p ), timetables_show_parent_path( :p_id => p.id ) %> <%# To find children we pass their id.  %>
+          </li>
+        <% end %>
+      <% else %>
+        <li>
+          У вас нет детей.
+        </li>
+      <% end %>
+    </ul>
+  </li>
+
   <%# MEETINGS. %>
   <li class="dropdown <%= active_toolbar?( meetings_show_parent_path ) %>">
     <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">

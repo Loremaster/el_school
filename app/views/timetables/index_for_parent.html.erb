@@ -1,0 +1,20 @@
+<legend>Расписание занятий</legend>
+
+<% if @show_timetable and not @school_class.nil? %>
+  <table class="table table-bordered table-striped" name="timetable_for_school_class">
+    <%= render :partial => 'theads', :locals => { :day => 'Понедельник' } %>
+    <%= render :partial => 'tbody_day_no_links', :locals => { :timetables_for_day => @tt_monday } %>
+
+    <%= render :partial => 'theads', :locals => { :day => 'Вторник' } %>
+    <%= render :partial => 'tbody_day_no_links', :locals => { :timetables_for_day => @tt_tuesday } %>
+
+    <%= render :partial => 'theads', :locals => { :day => 'Среда' } %>
+    <%= render :partial => 'tbody_day_no_links', :locals => { :timetables_for_day => @tt_wednesday } %>
+
+    <%= render :partial => 'theads', :locals => { :day => 'Четверг' } %>
+    <%= render :partial => 'tbody_day_no_links', :locals => { :timetables_for_day => @tt_thursday } %>
+
+    <%= render :partial => 'theads', :locals => { :day => 'Пятница' } %>
+    <%= render :partial => 'tbody_day_no_links', :locals => { :timetables_for_day => @tt_friday } %>
+  </table>
+<% end %>
