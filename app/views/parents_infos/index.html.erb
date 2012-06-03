@@ -1,0 +1,15 @@
+<legend>Мои данные</legend>
+
+<h4>Тип учетной записи: <%= translate_user_role( current_user.user_role ) %></h4>
+<br/>
+
+<h4>Ваше ФИО: <%= parent_full_names( @parent ) %></h4>
+<br/>
+
+<h4>Пол: <%= translate_sex( @parent.parent_sex )  %></h4>
+<br/>
+
+<h4>Дата рождения: <%= @parent.parent_birthday.strftime("%d.%m.%Y")  %></h4>
+<br/>
+
+

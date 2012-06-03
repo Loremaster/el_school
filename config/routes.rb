@@ -19,6 +19,7 @@ ElSchool::Application.routes.draw do
   resources :attendances,      :only => [ :new, :create, :edit, :update ]
   resources :results,          :only => [ :index, :new, :create, :edit, :update ]
   resources :homeworks,        :only => [ :index, :new, :create, :edit, :update ]
+  resources :parents_infos,    :only => [ :index, :edit, :update ]
 
   get "sessions/new"
 

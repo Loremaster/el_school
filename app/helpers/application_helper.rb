@@ -45,6 +45,12 @@ module ApplicationHelper
     lessons[ lesson ]
   end
 
+  # Translate to Russian sex.
+  def translate_sex( sex )
+    sexes = { "m" => "Мужской", "w" => "Женский" }
+    sexes[ sex ]
+  end
+
   # Nominal for lesson of pupil.
   def nominals_of_pupil_from_lesson( lesson, pupil_id  )
     estimations = lesson.reporting.estimations

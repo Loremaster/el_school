@@ -27,6 +27,10 @@
              <% end %>
 
              <ul class="nav pull-right">
+               <% if signed_in? and current_user_parent? %>
+                 <%= render 'layouts/parent_personal_info' %>
+               <% end %>
+
                 <li class="divider-vertical"/></li>
                <% if signed_in? %>
                     <li><%= link_to "Выход", signout_path, :method => :delete %></li>
