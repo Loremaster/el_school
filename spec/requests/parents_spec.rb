@@ -47,7 +47,7 @@ describe "Parents" do
     end
   end
 
-  describe "for sign-in class heads" do
+  describe "for sign-in parents" do
     before(:each) do
       visit signin_path
       fill_in "Логин",  :with => @parent.user_login
