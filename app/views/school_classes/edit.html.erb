@@ -2,39 +2,39 @@
 
 <%= form_for @class, :html => {:class => "form-horizontal"} do |f| %>
   <%= field_set_tag do %>
-    <%= render :partial => 'school_class_fields', 
-        :locals => { 
+    <%= render :partial => 'school_class_fields',
+        :locals => {
                      :f => f,
                      :field_placeholder => @everpresent_field_placeholder,
                      :leaders => @leaders, :choosen_teacher => @choosen_teacher
                     }
     %>
-        
+
     <div class="control-group">
       <%= f.label :pupil_ids, "Ученики в классе", :class => "control-label" %>
-                  
-      <div class="controls">        
-        <%= hidden_field_tag "school_class[pupil_ids][]", nil %>   
-                               
-        <% Pupil.all.each do |pupil| %>          
+
+      <div class="controls">
+        <%= hidden_field_tag "school_class[pupil_ids][]", nil %>
+
+        <% Pupil.all.each do |pupil| %>
           <%= label_tag dom_id( pupil ), nil, :class => "checkbox" do %>                  <%# Name, content_or_options = nil, options. %>
             <%= check_box_tag "school_class[pupil_ids][]",                                # [] brackets tells that this is array.
                               pupil.id,                                                   # Value of checkbox.
                               @class.pupil_ids.include?( pupil.id ),                      # Here we automatically check checkboxes.
                               id: dom_id( pupil ) %>                                      <%# Give unique id for each value. 'dom_id' is Rails helper.%>
-                              
+
             <%= pupil_full_names( pupil ) %>                                              <%# Use helper from helpers/application_helper %>
           <% end %>
-        <% end %>                                                                 
-      </div>  
+        <% end %>
+      </div>
     </div>
-    
+
     <div class="control-group">
-      <%= f.label :qualification_ids, "Учебная программа (выберите предметы, которые " + 
-                                      "учителя будут вести у данного класса)", 
+      <%= f.label :qualification_ids, "Учебная программа (выберите предметы, которые " +
+                                      "учителя будут вести у данного класса)",
                   :class => "control-label" %>
-      
-      <div class="controls">  
+
+      <div class="controls">
         <table class="table table-bordered table-striped" name="curriculums">
           <thead>
             <tr>
@@ -44,19 +44,44 @@
           </thead>
           <tbody>
             <%= hidden_field_tag "school_class[qualification_ids][]", nil %>
-            
+
             <% Teacher.all.each do |t| %>
               <tr>
                 <td>
-                  <% t.qualifications.each do |q| %>                                                                 
-                    <%= label_tag dom_id( q ), nil, :class => "checkbox" do %>            <%# Name, content_or_options = nil, options. %>                                   
-                      <%= check_box_tag "school_class[qualification_ids][]",              # [] brackets tells that this is array.                               
-                                        q.id,                                             # Value of checkbox.                                                  
-                                        @class.qualification_ids.include?( q.id ),        # Automatically checking checkboxes.                                  
-                                        id: dom_id( q ) %>                                <%# Give unique id for each value. 'dom_id' is Rails helper.%>        
-                      
-                      <%= "#{q.subject.subject_name}" %>                                  <%# Subject %>           
-                    <% end %>                                                                                        
+                  <% t.qualifications.each do |q| %>
+                    <% subj_for_class = curriculum_for_qualification_with_school_class(
+                                                                             q, @class )%> <%# Get relation between teacher teach subject and school class.  %>
+
+                    <% if subj_for_class.nil? or                                          # If teacher doesn't teach subject for school class
+                       ( not subj_for_class.nil? and subj_for_class.timetables.empty?  )%><%# OR teacher teaches subject for school class but timetable doesn't use it yet%>
+                                                                                          <%# THEN we can check/uncheck checkbox. %>
+                      <%= label_tag dom_id( q ), nil, :class => "checkbox" do %>          <%# Name, content_or_options = nil, options. %>
+                        <%= check_box_tag "school_class[qualification_ids][]",            # [] brackets tells that this is array.
+                                          q.id,                                           # Value of checkbox.
+                                          @class.qualification_ids.include?( q.id ),      # Automatically checking checkboxes.
+                                          id: dom_id( q ) %>                              <%# Give unique id for each value. 'dom_id' is Rails helper.%>
+
+                        <%= "#{q.subject.subject_name}" %>                                <%# Subject %>
+                      <% end %>
+                    <% end %>
+
+                    <% if not subj_for_class.nil? and not subj_for_class.timetables.empty? %> <%# If teacher teaches that subject for school class and we USE it in timetable %>
+                                                                                          <%# Then user CAN't uncheck that checkbox.%>
+                      <%= label_tag dom_id( q ), nil, :class => "checkbox" do %>          <%# Name, content_or_options = nil, options. %>
+                        <%= check_box_tag "school_class[qualification_ids][]",            # [] brackets tells that this is array.
+                                          q.id,                                           # Value of checkbox.
+                                          @class.qualification_ids.include?( q.id ),      # Automatically checking checkboxes.
+                                          id: dom_id( q ),                                # Give unique id for each value. 'dom_id' is Rails helper.
+                                          :disabled => true %>
+
+                        <%= "#{q.subject.subject_name}" %>                                <%# Subject %>
+
+                        <%= f.hidden_field "qualification_ids][",                         # Here we use hack to save in qualification_ids values of disavled checkboxes.
+                                         { :id => "qualification_ids", :value => q.id } %>
+
+                        (Нельзя убрать этот предмет поскольку он уже используется в расписании)
+                      <% end %>
+                    <% end %>
                   <% end %>
                 </td>
                 <td>
@@ -68,7 +93,7 @@
         </table>
       </div>
     </div>
-                                                                                                       
+
     <%= f.submit "Обновить", :class => "btn btn-large btn-warning" %>
   <% end %>
 <% end %>

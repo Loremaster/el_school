@@ -144,6 +144,12 @@ module ApplicationHelper
   # Get qualification for input teacher and subject
   # => nil if qualification have not been founded.
   def qualification_for_teacher_with_subject( teacher, subject )
-    subject_qualification = teacher.qualifications.where(:subject_id => subject.id).first # Qualification for subject.
+    teacher.qualifications.where(:subject_id => subject.id).first                         # Qualification for subject.
+  end
+
+  # Get curriculum for qualification teacher and school_class
+  # => nil if curriculum have not been founded.
+  def curriculum_for_qualification_with_school_class( qualification, school_class )
+    qualification.curriculums.where(:school_class_id => school_class.id).first
   end
 end
