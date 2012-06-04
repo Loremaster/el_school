@@ -26,6 +26,10 @@
                 <%= render 'layouts/header_for_parent' %>
              <% end %>
 
+             <% if signed_in? and current_user_pupil? %>
+                <%= render 'layouts/header_for_pupil' %>
+             <% end %>
+
              <ul class="nav pull-right">
                <% if signed_in? and current_user_parent? %>
                  <%= render 'layouts/parent_personal_info' %>
