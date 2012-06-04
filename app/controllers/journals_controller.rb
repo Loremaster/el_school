@@ -4,7 +4,20 @@ class JournalsController < ApplicationController
   before_filter :authenticate_pupils, :only => [ :index_for_pupil ]
 
   def index_for_pupil
+    @pupil = current_user.pupil; @pupil_curriculums_exist = false
+    @pupil_lessons_exist = false
 
+    @pupil_curriculums = curriculums_for_pupil( @pupil )
+    @pupil_curriculums_exist = @pupil_curriculums.first ? true : false
+
+    if params.has_key?( :curr_id )                                                        # If pupil chose subject.
+      curriculum = Curriculum.where( "id = ?", params[:curr_id] ).first
+
+      @choosen_subject = curriculum.qualification.subject                                 # Choosen lesson from dropdown menu.
+
+      @pupil_lessons = lessons_for_one_curriculum( curriculum )
+      @pupil_lessons_exist = @pupil_lessons.first ? true : false
+    end
   end
 
   def index_for_parent
