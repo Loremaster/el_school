@@ -18,6 +18,47 @@ describe JournalsController do
     teacher.save!
   end
 
+  describe "GET 'index_for_pupil'" do
+    before(:each) do
+      pupil = FactoryGirl.create( :pupil )
+      pupil.user.user_role = "pupil"
+      pupil.user.save!
+      @pupil = pupil.user
+    end
+
+    describe "for non-signed users" do
+      it "should deny access to show pupil's journal" do
+        get :index_for_pupil
+        response.should redirect_to( signin_path )
+        flash[:notice].should =~ /войдите в систему как ученик/i
+      end
+    end
+
+    describe "for signed-in admins" do
+      before(:each) do
+        test_sign_in( @adm )
+      end
+
+      it "should deny access to show pupil's journal" do
+        get :index_for_pupil
+        response.should redirect_to( pages_wrong_page_path )
+        flash[:error].should =~ /вы не можете увидеть эту страницу/i
+      end
+    end
+
+    describe "for signed-in pupils" do
+      before(:each) do
+        test_sign_in( @pupil )
+      end
+
+      it "should show journal without params" do
+        get :index_for_pupil
+        response.should be_success
+        flash[:error].should be_nil
+      end
+    end
+  end
+
   describe "GET 'index_for_parent'" do
     before(:each) do
       # We create user this way because it auto creates school class (controller need that.)
@@ -31,6 +72,26 @@ describe JournalsController do
       pp.parent.user.save!
 
       @parent = pp.parent.user
+    end
+
+    describe "for non-signed users" do
+      it "should deny access to show pupil's journal" do
+        get :index_for_parent
+        response.should redirect_to( signin_path )
+        flash[:notice].should =~ /войдите в систему как родитель/i
+      end
+    end
+
+    describe "for signed-in admins" do
+      before(:each) do
+        test_sign_in( @adm )
+      end
+
+      it "should deny access to show pupil's journal" do
+        get :index_for_parent
+        response.should redirect_to( pages_wrong_page_path )
+        flash[:error].should =~ /вы не можете увидеть эту страницу/i
+      end
     end
 
     describe "for signed-in parents" do
