@@ -1,0 +1,40 @@
+<table class="tablee table-bordered scrol" name="journals">
+  <thead>
+    <tr>
+      <th>Урок</th>
+
+      <% if pupil_lessons_exist %>
+        <% pupil_lessons.each do |l| %>
+          <th>
+             <%= l.lesson_date.strftime("%d.%m.%Y") %>
+          </th>
+        <% end %>
+      <% end %>
+
+      <th>Посещение</th>
+
+      <th>Средний балл</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if not choosen_subject.nil? and pupil_lessons_exist and not pupil.nil? %>
+      <td><%= choosen_subject.subject_name %></td>                                        <%# Name of subject. %>
+
+       <% pupil_lessons.each do |l| %>
+         <td class="<%= color_of_attendance( pupil.id, l.id )  %>">                       <%# Show attendance by color. %>
+           <%= render :partial => 'journals/show_pupil_estimation',                       # Show pupil marks.
+               :locals => { :lesson => l, :pupil => @pupil }%>
+         </td>
+       <% end %>
+
+       <td>                                                                               <%# Showing number of visited lessons. %>
+         <%= "#{number_of_visited_lessons( pupil, choosen_subject )} "+
+             "из #{pupil_lessons.size}" %>
+       </td>
+
+       <td>
+         <%= "#{average_estimation_for_pupil_lesson( pupil, choosen_subject )}" %>
+       </td>
+    <% end %>
+  </tbody>
+</table>
