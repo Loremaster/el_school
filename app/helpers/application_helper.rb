@@ -140,4 +140,10 @@ module ApplicationHelper
       nil
     end
   end
+
+  # Get qualification for input teacher and subject
+  # => nil if qualification have not been founded.
+  def qualification_for_teacher_with_subject( teacher, subject )
+    subject_qualification = teacher.qualifications.where(:subject_id => subject.id).first # Qualification for subject.
+  end
 end
