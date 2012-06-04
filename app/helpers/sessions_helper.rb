@@ -19,6 +19,9 @@ module SessionsHelper
       if signed_in? and current_user_parent?
         redirect_back_or meetings_show_parent_path
       end
+      if signed_in? and current_user_pupil?
+        redirect_back_or journals_show_pupil_path
+      end
     end
   end
 
@@ -64,6 +67,10 @@ module SessionsHelper
     current_user.user_role == "parent"
   end
 
+  def current_user_pupil?
+    current_user.user_role == "pupil"
+  end
+
   def authenticate_admins
     deny_access_except_admins unless ( signed_in? and current_user_admin? )
   end
@@ -82,6 +89,10 @@ module SessionsHelper
 
   def authenticate_parents
     deny_access_except_parents unless ( signed_in? and current_user_parent? )
+  end
+
+  def authenticate_pupils
+    deny_access_except_pupils unless ( signed_in? and current_user_pupil? )
   end
 
   def deny_access
@@ -142,6 +153,17 @@ module SessionsHelper
     else
       redirect_to signin_path,
                   :notice => "Пожалуйста, войдите в систему как Родитель, чтобы увидеть эту страницу."
+    end
+  end
+
+  def deny_access_except_pupils
+    store_location
+    if signed_in?
+      redirect_to pages_wrong_page_path,
+                  :flash => { :error => "К сожалению, вы не можете увидеть эту страницу." }
+    else
+      redirect_to signin_path,
+                  :notice => "Пожалуйста, войдите в систему как Ученик, чтобы увидеть эту страницу."
     end
   end
 

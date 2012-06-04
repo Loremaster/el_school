@@ -41,6 +41,8 @@ ElSchool::Application.routes.draw do
   match '/journals/show/parent', :controller => 'journals', :action => 'index_for_parent'
   match '/timetables/show/parent', :controller => 'timetables', :action => 'index_for_parent'
 
+  match '/journals/show/pupil', :controller => 'journals', :action => 'index_for_pupil'
+
   root :to => 'sessions#new'                                                              # Home
 
   # The priority is based upon order of creation:

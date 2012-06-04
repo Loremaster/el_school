@@ -1,6 +1,11 @@
 class JournalsController < ApplicationController
   before_filter :authenticate_teachers, :only => [ :index ]
   before_filter :authenticate_parents, :only => [ :index_for_parent ]
+  before_filter :authenticate_pupils, :only => [ :index_for_pupil ]
+
+  def index_for_pupil
+
+  end
 
   def index_for_parent
     @pupil = nil; @pupil_curriculums_exist = false; @pupil_lessons_exist = false
