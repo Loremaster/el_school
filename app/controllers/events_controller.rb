@@ -5,7 +5,7 @@ class EventsController < ApplicationController
 
   before_filter :authenticate_school_heads, :only => [ :index_school_head ]
   before_filter :authenticate_parents, :only => [ :index_for_parent ]
-  before_filter :authenticate_pupils, :only => [ :index_for_pupil ]
+  before_filter :authenticate_pupils, :only => [ :edit_event_by_pupil ]
 
   def index_school_head
     @classes = SchoolClass.order( :class_code )
@@ -31,8 +31,14 @@ class EventsController < ApplicationController
      end
   end
 
-  def index_for_pupil
+  def edit_event_by_pupil
+    @school_class = current_user.pupil.school_class; @pupil_events_exist = false
+    @pupil = current_user.pupil
 
+    unless @school_class.nil?
+      @pupil_events = events_for( @school_class.class_code )
+      @pupil_events_exist = @pupil_events.first ? true : false
+    end
   end
 
   def index
