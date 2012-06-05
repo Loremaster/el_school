@@ -1,0 +1,7 @@
+<legend>Будущие родительские собрания <%= @school_class.class_code %> </legend>
+
+<% unless @school_class.nil? and @meeting_exist %>
+  <%= render :partial => 'meetings_without_links',
+      :locals => { :meeting_exist => @meeting_exist, :meetings => @fresh_meetings }
+  %>
+<% end %>

@@ -6,7 +6,12 @@ class MeetingsController < ApplicationController
   before_filter :authenticate_pupils, :only => [ :index_for_pupil ]
 
   def index_for_pupil
+    @school_class = current_user.pupil.school_class; @meeting_exist = false
 
+    unless @school_class.nil?
+      @fresh_meetings = current_user.pupil.school_class.meetings.fresh_meetings.order( :meeting_date )
+      @meeting_exist = @fresh_meetings.first ? true : false
+    end
   end
 
   def index_for_parent
