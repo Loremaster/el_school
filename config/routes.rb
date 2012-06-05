@@ -43,6 +43,7 @@ ElSchool::Application.routes.draw do
 
   match '/journals/show/pupil', :controller => 'journals', :action => 'index_for_pupil'
   match '/timetables/show/pupil', :controller => 'timetables', :action => 'index_for_pupil'
+  match '/meetings/show/pupil', :controller => 'meetings', :action => 'index_for_pupil'
 
   root :to => 'sessions#new'                                                              # Home
 

@@ -3,6 +3,11 @@ class MeetingsController < ApplicationController
   before_filter :authenticate_school_heads, :only => [ :index, :new, :create, :edit,
                                                        :update ]
   before_filter :authenticate_parents, :only => [ :index_for_parent ]
+  before_filter :authenticate_pupils, :only => [ :index_for_pupil ]
+
+  def index_for_pupil
+
+  end
 
   def index_for_parent
     @pupil = nil; @meeting_exist = false
