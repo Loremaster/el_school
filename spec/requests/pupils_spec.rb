@@ -69,6 +69,13 @@ describe "Pupils" do
         response.body.should have_selector( "li.active") do
           have_selector('a', :content => 'Расписание')
         end
+
+        click_link 'Родительские собрания'
+
+        response.should be_success
+        response.body.should have_selector( "li.active") do
+          have_selector('a', :content => 'Родительские собрания')
+        end
       end
     end
 
@@ -116,6 +123,28 @@ describe "Pupils" do
               tr.should have_selector('td') do |td|
                 td.should contain( "#{@timetable.tt_number_of_lesson}" )
                 td.should contain( "#{@timetable.tt_room}" )
+              end
+            end
+          end
+        end
+      end
+    end
+
+    describe "Meetings" do
+      before(:each) do
+        @meeting = FactoryGirl.create( :meeting,
+                                       :meeting_date => "#{Date.today + 1.day}",
+                                       :school_class_id => @pupil.pupil.school_class.id )
+        click_link 'Родительские собрания'
+      end
+
+      it "should show fresh parents meetings" do
+        response.should have_selector('table', :name => "meetings") do |table|
+          table.should have_selector('tbody') do |tbody|
+            tbody.should have_selector('tr') do |tr|
+              tr.should have_selector('td') do |td|
+                td.should contain( "#{@meeting.meeting_theme}" )
+                td.should contain( "#{@meeting.meeting_room}" )
               end
             end
           end
