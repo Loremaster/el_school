@@ -64,5 +64,30 @@ describe "Pupils" do
         end
       end
     end
+
+    describe "Journal" do
+      before(:each) do
+        @estimation = FactoryGirl.create(:estimation, :pupil_id => @pupil.pupil.id)        # Save for pupil estimation
+        @estimation.reporting.lesson.timetable.curriculum.school_class = @pupil.pupil.school_class # Save pupil's class for estimation.
+        @estimation.reporting.lesson.timetable.curriculum.school_class.save!
+
+        @pupil.pupil.school_class.curriculums << @estimation.reporting.lesson.timetable.curriculum  # Add curriculum to school_class curriculums
+        @pupil.pupil.school_class.curriculums.first.save!                                 # And save it.
+
+        click_link 'Успеваемость'
+        click_link 'Выбрать предмет'
+        click_link "#{@estimation.reporting.lesson.timetable.curriculum.qualification.subject.subject_name}" # Choose subject.
+      end
+
+      it "should show journal for pupil" do
+        response.should have_selector('table', :name => "journals") do |table|
+          table.should have_selector('tbody') do |tbody|
+            tbody.should have_selector('td') do |td|
+              td.should contain( "#{@estimation.nominal}" )
+            end
+          end
+        end
+      end
+    end
   end
 end
