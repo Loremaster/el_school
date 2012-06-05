@@ -9,14 +9,14 @@ class TimetablesController < ApplicationController
     @school_class = current_user.pupil.school_class; @show_timetable = false
 
     unless @school_class.nil?
-      tts = timetable_for_class_with_existance_data( @school_class )                    # Here we get timetable for class witch actual data.
+      tts = timetable_for_class_with_existance_data( @school_class )                      # Here we get timetable for class witch actual data.
       @show_timetable = true unless tts.empty?
 
-      @tt_monday = sorted_timetable_for_day( tts, "Mon" )                               # Timetable for monday.
-      @tt_tuesday = sorted_timetable_for_day( tts, "Tue" )                              # Timetable for tuesday.
-      @tt_wednesday = sorted_timetable_for_day( tts, "Wed" )                            # Timetable for wednesday.
-      @tt_thursday = sorted_timetable_for_day( tts, "Thu")                              # Timetable for thursday.
-      @tt_friday = sorted_timetable_for_day( tts, "Fri")                                # Timetable for friday.
+      @tt_monday = sorted_timetable_for_day( tts, "Mon" )                                 # Timetable for monday.
+      @tt_tuesday = sorted_timetable_for_day( tts, "Tue" )                                # Timetable for tuesday.
+      @tt_wednesday = sorted_timetable_for_day( tts, "Wed" )                              # Timetable for wednesday.
+      @tt_thursday = sorted_timetable_for_day( tts, "Thu")                                # Timetable for thursday.
+      @tt_friday = sorted_timetable_for_day( tts, "Fri")                                  # Timetable for friday.
     end
   end
 
