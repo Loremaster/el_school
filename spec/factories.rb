@@ -156,6 +156,12 @@ FactoryGirl.define do
     h.lesson
     h.task_text 'New task.'
   end
+
+  factory :estimation do |e|
+    e.pupil
+    e.reporting
+    e.nominal 5
+  end
 end
 
 
