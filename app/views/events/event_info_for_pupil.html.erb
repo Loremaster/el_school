@@ -1,23 +1,25 @@
 <legend>Подробная информация о мероприятии</legend>
 
-<blockquote>
-  <p><%= teacher_full_names( @event.teacher ) %></p>
-  <small>Ответственный учитель</small>
-</blockquote>
+<% if @show_event %>
+  <blockquote>
+    <p><%= teacher_full_names( @event.teacher ) %></p>
+    <small>Ответственный учитель</small>
+  </blockquote>
 
-<% unless @school_class.nil? %>
-  <table class="table-bordered table-striped">
-    <thead>
-      <tr>
-        <th>Участники</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <% @pupils_on_event.each do |p| %>
-          <td><%= pupil_full_names( p ) %></td>
-        <% end %>
-      </tr>
-    </tbody>
-  </table>
+  <% unless @school_class.nil? %>
+    <table class="table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Участники</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <% @pupils_on_event.each do |p| %>
+            <td><%= pupil_full_names( p ) %></td>
+          <% end %>
+        </tr>
+      </tbody>
+    </table>
+  <% end %>
 <% end %>

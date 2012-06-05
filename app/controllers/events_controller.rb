@@ -64,11 +64,14 @@ class EventsController < ApplicationController
   end
 
   def event_info_for_pupil
-    @event = Event.find( params[:id] )
-    @school_class = current_user.pupil.school_class
+    @school_class = current_user.pupil.school_class; @show_event = false
 
     unless @school_class.nil?
-      @pupils_on_event = @event.pupils
+      if Event.find( params[:id] ).school_class_id == @school_class.id
+        @show_event = true
+        @event = Event.find( params[:id] )
+        @pupils_on_event = @event.pupils
+      end
     end
   end
 
