@@ -1,4 +1,8 @@
-<legend>Расписание занятий <%= @school_class.class_code %></legend>
+<% if @school_class.nil? %>
+  <legend>Расписание занятий</legend>
+<% else %>
+  <legend>Расписание занятий <%= @school_class.class_code %></legend>
+<% end %>
 
 <% unless @school_class.nil? and @show_timetable %>
   <table class="table table-bordered table-striped" name="timetable">

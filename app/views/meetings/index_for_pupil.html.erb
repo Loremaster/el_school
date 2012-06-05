@@ -1,4 +1,8 @@
-<legend>Будущие родительские собрания <%= @school_class.class_code %> </legend>
+<% if @school_class.nil? %>
+  <legend>Будущие родительские собрания</legend>
+<% else %>
+  <legend>Будущие родительские собрания <%= @school_class.class_code %></legend>
+<% end %>
 
 <% unless @school_class.nil? and @meeting_exist %>
   <%= render :partial => 'meetings_without_links',
