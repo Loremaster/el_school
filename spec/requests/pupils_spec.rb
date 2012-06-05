@@ -76,6 +76,13 @@ describe "Pupils" do
         response.body.should have_selector( "li.active") do
           have_selector('a', :content => 'Родительские собрания')
         end
+
+        click_link 'Мероприятия'
+
+        response.should be_success
+        response.body.should have_selector( "li.active") do
+          have_selector('a', :content => 'Мероприятия')
+        end
       end
     end
 
@@ -147,6 +154,37 @@ describe "Pupils" do
                 td.should contain( "#{@meeting.meeting_room}" )
               end
             end
+          end
+        end
+      end
+    end
+
+    describe "Events" do
+      before(:each) do
+        @event = FactoryGirl.create(:event, :school_class_id => @pupil.pupil.school_class.id)
+      end
+
+      it "should save new chosen event" do
+        click_link 'Мероприятия'
+
+        expect do
+          check "pupil[event_ids][]"
+          click_button 'Принять участие'
+        end.should change( PupilsEvent, :count ).by( 1 )
+      end
+
+      it "should show information about event" do
+        visit events_info_pupil_path( :id => @event )
+
+        response.should have_selector('blockquote') do |blk|
+          blk.should have_selector('p') do |p|
+            p.should contain( "#{@event.teacher.teacher_last_name}"+
+                              " #{@event.teacher.teacher_first_name}"+
+                              " #{@event.teacher.teacher_middle_name}" )
+          end
+
+          blk.should have_selector('small') do |small|
+            small.should contain( "Ответственный учитель" )
           end
         end
       end
