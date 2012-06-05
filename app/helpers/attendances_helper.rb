@@ -8,6 +8,8 @@ module AttendancesHelper
   end
 
   def color_of_attendance( pupil_id, lesson_id )
+    return nil if Attendance.where("pupil_id = ? AND lesson_id = ?",pupil_id, lesson_id).first.nil?
+
     if Attendance.where("pupil_id = ? AND lesson_id = ?",pupil_id, lesson_id).first.visited
       "visited"
     else
