@@ -6,10 +6,17 @@ class TimetablesController < ApplicationController
   before_filter :authenticate_pupils, :only => [ :index_for_pupil ]
 
   def index_for_pupil
-    @school_class = current_user.pupil.school_class
+    @school_class = current_user.pupil.school_class; @show_timetable = false
 
     unless @school_class.nil?
+      tts = timetable_for_class_with_existance_data( @school_class )                    # Here we get timetable for class witch actual data.
+      @show_timetable = true unless tts.empty?
 
+      @tt_monday = sorted_timetable_for_day( tts, "Mon" )                               # Timetable for monday.
+      @tt_tuesday = sorted_timetable_for_day( tts, "Tue" )                              # Timetable for tuesday.
+      @tt_wednesday = sorted_timetable_for_day( tts, "Wed" )                            # Timetable for wednesday.
+      @tt_thursday = sorted_timetable_for_day( tts, "Thu")                              # Timetable for thursday.
+      @tt_friday = sorted_timetable_for_day( tts, "Fri")                                # Timetable for friday.
     end
   end
 
@@ -20,8 +27,9 @@ class TimetablesController < ApplicationController
       @pupil = Pupil.where( "id = ?", params[:p_id] ).first
 
       if current_user.parent.pupil_ids.include? @pupil.id                                 # If chosen pupil is child of parent.
-        @show_timetable = true; @school_class = @pupil.school_class
+        @school_class = @pupil.school_class
         tts = timetable_for_class_with_existance_data( @school_class )                    # Here we get timetable for class witch actual data.
+        @show_timetable = true unless tts.empty?
         @tt_monday = sorted_timetable_for_day( tts, "Mon" )                               # Timetable for monday.
         @tt_tuesday = sorted_timetable_for_day( tts, "Tue" )                              # Timetable for tuesday.
         @tt_wednesday = sorted_timetable_for_day( tts, "Wed" )                            # Timetable for wednesday.
