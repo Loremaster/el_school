@@ -22,6 +22,9 @@ class Event < ActiveRecord::Base
   belongs_to :school_class
   belongs_to :teacher
 
+  has_many :pupils_events
+  has_many :pupils, :through => :pupils_events
+
   scope :fresh_events, lambda { where("event_begin_date >= ?", Date.today ) }
 
   validates :school_class_id, :presence => { :message => "должен быть указан" }

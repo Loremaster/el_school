@@ -32,6 +32,9 @@ class Pupil < ActiveRecord::Base
   has_many :estimations
   has_many :results
 
+  has_many :pupils_events
+  has_many :events, :through => :pupils_events
+
   accepts_nested_attributes_for :user
   accepts_nested_attributes_for :pupil_phone
 
