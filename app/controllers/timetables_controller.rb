@@ -3,6 +3,15 @@ class TimetablesController < ApplicationController
   before_filter :authenticate_school_heads, :only => [ :index, :new, :create, :edit,
                                                        :update ]
   before_filter :authenticate_parents, :only => [ :index_for_parent ]
+  before_filter :authenticate_pupils, :only => [ :index_for_pupil ]
+
+  def index_for_pupil
+    @school_class = current_user.pupil.school_class
+
+    unless @school_class.nil?
+
+    end
+  end
 
   def index_for_parent
     @show_timetable = false; @school_class = nil
