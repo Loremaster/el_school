@@ -86,6 +86,90 @@ describe EventsController do
     end
   end
 
+  describe "GET 'edit_event_by_pupil'" do
+    before(:each) do
+      pupil = FactoryGirl.create( :pupil )
+      pupil.user.user_role = "pupil"
+      pupil.user.save!
+      @pupil = pupil.user
+    end
+
+    describe "for non-signed users" do
+      it "should deny access to show events for school head" do
+        get :edit_event_by_pupil
+        response.should redirect_to( signin_path )
+        flash[:notice].should =~ /войдите в систему как ученик/i
+      end
+    end
+
+    describe "for signed-in admins" do
+      before(:each) do
+        test_sign_in( @adm )
+      end
+
+      it "should deny access to show events for school head" do
+        get :edit_event_by_pupil
+        response.should redirect_to( pages_wrong_page_path )
+        flash[:error].should =~ /вы не можете увидеть эту страницу/i
+      end
+    end
+
+    describe "for signed-in pupils" do
+      before(:each) do
+        test_sign_in( @pupil )
+      end
+
+      it "should show event" do
+        get :edit_event_by_pupil
+        response.should be_success
+        flash[:error].should be_nil
+      end
+    end
+  end
+
+  describe "GET 'event_info_for_pupil'" do
+    before(:each) do
+      pupil = FactoryGirl.create( :pupil )
+      pupil.user.user_role = "pupil"
+      pupil.user.save!
+      @pupil = pupil.user
+
+      @event = FactoryGirl.create(:event, :school_class_id => @pupil.pupil.school_class.id)
+    end
+
+    describe "for non-signed users" do
+      it "should deny access to show events" do
+        get :edit_event_by_pupil, { :id => @event }
+        response.should redirect_to( signin_path )
+        flash[:notice].should =~ /войдите в систему как ученик/i
+      end
+    end
+
+    describe "for signed-in admins" do
+      before(:each) do
+        test_sign_in( @adm )
+      end
+
+      it "should deny access to show events for school head" do
+        get :edit_event_by_pupil, { :id => @event }
+        response.should redirect_to( pages_wrong_page_path )
+        flash[:error].should =~ /вы не можете увидеть эту страницу/i
+      end
+    end
+
+    describe "for signed-in pupils" do
+      before(:each) do
+        test_sign_in( @pupil )
+      end
+
+      it "should show event" do
+        get :edit_event_by_pupil, { :id => @event }
+        response.should be_success
+        flash[:error].should be_nil
+      end
+    end
+  end
+
   describe "GET 'index'" do
     describe "for non-signed users" do
       it "should deny access to show events" do
