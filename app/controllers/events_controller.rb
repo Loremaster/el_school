@@ -5,7 +5,7 @@ class EventsController < ApplicationController
 
   before_filter :authenticate_school_heads, :only => [ :index_school_head ]
   before_filter :authenticate_parents, :only => [ :index_for_parent ]
-  before_filter :authenticate_pupils, :only => [ :edit_event_by_pupil ]
+  before_filter :authenticate_pupils, :only => [ :edit_event_by_pupil, :update_event_by_pupil ]
 
   def index_school_head
     @classes = SchoolClass.order( :class_code )
@@ -38,6 +38,26 @@ class EventsController < ApplicationController
     unless @school_class.nil?
       @pupil_events = events_for( @school_class.class_code )
       @pupil_events_exist = @pupil_events.first ? true : false
+    end
+  end
+
+  def update_event_by_pupil
+    @school_class = current_user.pupil.school_class; @pupil_events_exist = false
+    @pupil = current_user.pupil
+
+    unless @school_class.nil?
+      @pupil_events = events_for( @school_class.class_code )
+      @pupil_events_exist = @pupil_events.first ? true : false
+
+      if @pupil.update_attributes(params[:pupil])
+        redirect_to events_edit_pupil_path
+        flash[:success] = "Ваше участие принято!"
+      else
+        flash.now[:error] = @pupil.errors.full_messages
+                                          .to_sentence :last_word_connector => ", ",
+                                                       :two_words_connector => ", "
+        render "edit_event_by_pupil"
+      end
     end
   end
 

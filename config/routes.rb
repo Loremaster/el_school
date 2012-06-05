@@ -45,6 +45,7 @@ ElSchool::Application.routes.draw do
   match '/timetables/show/pupil', :controller => 'timetables', :action => 'index_for_pupil'
   match '/meetings/show/pupil', :controller => 'meetings', :action => 'index_for_pupil'
   match '/events/edit/pupil',   :controller => 'events', :action => 'edit_event_by_pupil'
+  match '/events/update/pupil', :controller => 'events', :action => 'update_event_by_pupil'
 
   root :to => 'sessions#new'                                                              # Home
 

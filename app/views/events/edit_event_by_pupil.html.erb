@@ -5,36 +5,40 @@
 <% end %>
 
 <% if not @school_class.nil? and @pupil_events_exist %>
-  <table class="table table-bordered table-striped" name="teachers">
-    <thead>
-      <tr>
-        <th>Выбрать</th>
-        <th>Место проведения</th>
-        <th>Место сбора</th>
-        <th>Дата начала</th>
-        <th>Время начала</th>
-        <th>Дата окончания</th>
-        <th>Время окончания</th>
-        <th>ФИО ответственного учителя</th>
-        <th>Стоимость</th>
-      </tr>
-    </thead>
-    <tbody>
-      <%= hidden_field_tag "pupil[event_ids][]", nil %>                                   <%# We use hidden field because it doesn't submit unchecked fields. So, we pass nil and nothing will be submitted.%>
-
-      <% @pupil_events.each do |e| %>
+  <%= form_for @pupil, :url => events_update_pupil_url, :html => {:class => "form-horizontal"} do |f| %>
+    <table class="table table-bordered table-striped" name="teachers">
+      <thead>
         <tr>
-          <td>
-            <%= check_box_tag "pupil[event_ids][]",                                       # [] brackets tells that this is array.
-                              e.id,                                                       # Value of checkbox.
-                              @pupil.event_ids.include?(e.id),                            # Here we automatically check checkboxes.
-                              id: dom_id( e )                                             # Give unique id for each value. 'dom_id' is Rails helper. We will have ids like: 'subject_1', 'subject_2' and etc.
-            %>
-          </td>
-
-          <%= render :partial => 'tds', :locals => { :e => e } %>
+          <th>Выбрать</th>
+          <th>Место проведения</th>
+          <th>Место сбора</th>
+          <th>Дата начала</th>
+          <th>Время начала</th>
+          <th>Дата окончания</th>
+          <th>Время окончания</th>
+          <th>ФИО ответственного учителя</th>
+          <th>Стоимость</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <%= hidden_field_tag "pupil[event_ids][]", nil %>                                   <%# We use hidden field because it doesn't submit unchecked fields. So, we pass nil and nothing will be submitted.%>
+
+        <% @pupil_events.each do |e| %>
+          <tr>
+            <td>
+              <%= check_box_tag "pupil[event_ids][]",                                       # [] brackets tells that this is array.
+                                e.id,                                                       # Value of checkbox.
+                                @pupil.event_ids.include?(e.id),                            # Here we automatically check checkboxes.
+                                id: dom_id( e )                                             # Give unique id for each value. 'dom_id' is Rails helper. We will have ids like: 'subject_1', 'subject_2' and etc.
+              %>
+            </td>
+
+            <%= render :partial => 'tds', :locals => { :e => e } %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= f.submit "Принять участие", :class => "btn btn-large btn-success" %>
+  <% end %>
 <% end %>
