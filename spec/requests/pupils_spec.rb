@@ -62,6 +62,13 @@ describe "Pupils" do
         response.body.should have_selector( "li.active") do
           have_selector('a', :content => 'Успеваемость')
         end
+
+        click_link 'Расписание'
+
+        response.should be_success
+        response.body.should have_selector( "li.active") do
+          have_selector('a', :content => 'Расписание')
+        end
       end
     end
 
@@ -84,6 +91,32 @@ describe "Pupils" do
           table.should have_selector('tbody') do |tbody|
             tbody.should have_selector('td') do |td|
               td.should contain( "#{@estimation.nominal}" )
+            end
+          end
+        end
+      end
+    end
+
+    describe "Timetable" do
+      before(:each) do
+        @timetable = FactoryGirl.create(:timetable)
+        @timetable.curriculum.school_class = @pupil.pupil.school_class
+        @timetable.curriculum.school_class.save!
+
+        @pupil.pupil.school_class.curriculums << @timetable.curriculum
+        @pupil.pupil.school_class.curriculums.first.save!
+
+        click_link 'Расписание'
+      end
+
+      it "should show timetable for pupil" do
+        response.should have_selector('table', :name => "timetable") do |table|
+          table.should have_selector('tbody') do |tbody|
+            tbody.should have_selector('tr') do |tr|
+              tr.should have_selector('td') do |td|
+                td.should contain( "#{@timetable.tt_number_of_lesson}" )
+                td.should contain( "#{@timetable.tt_room}" )
+              end
             end
           end
         end
