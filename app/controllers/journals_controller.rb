@@ -28,7 +28,7 @@ class JournalsController < ApplicationController
     if params.has_key?( :p_id )                                                           # If parent chose his pupil.
       @pupil = Pupil.where( "id = ?", params[:p_id] ).first
 
-      if current_user.parent.pupil_ids.include? @pupil.id                                 # If chosen pupil is child of parent.
+      if current_user.parent.pupil_ids.include? @pupil.id #and @pupil.school_class.nil?    # If chosen pupil is child of parent and pupil has his class.
         @pupil_curriculums = curriculums_for_pupil( @pupil )
         @pupil_curriculums_exist = @pupil_curriculums.first ? true : false
 
