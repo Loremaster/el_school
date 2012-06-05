@@ -13,6 +13,12 @@
 </ul>
 
 <ul class="nav">
+   <li class=<%= active_toolbar?( events_show_pupil_path ) %>>
+     <%= link_to "Мероприятия", events_show_pupil_path %>
+   </li>
+</ul>
+
+<ul class="nav">
    <li class=<%= active_toolbar?( meetings_show_pupil_path ) %>>
      <%= link_to "Родительские собрания", meetings_show_pupil_path %>
    </li>

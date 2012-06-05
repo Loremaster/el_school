@@ -5,6 +5,7 @@ class EventsController < ApplicationController
 
   before_filter :authenticate_school_heads, :only => [ :index_school_head ]
   before_filter :authenticate_parents, :only => [ :index_for_parent ]
+  before_filter :authenticate_pupils, :only => [ :index_for_pupil ]
 
   def index_school_head
     @classes = SchoolClass.order( :class_code )
@@ -28,6 +29,10 @@ class EventsController < ApplicationController
          @event_exist = @fresh_events.first ? true : false
        end
      end
+  end
+
+  def index_for_pupil
+
   end
 
   def index
