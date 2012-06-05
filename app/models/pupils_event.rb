@@ -14,4 +14,7 @@
 class PupilsEvent < ActiveRecord::Base
   belongs_to :pupil
   belongs_to :event
+
+  validates :pupil_id, :presence => { :message => "должен быть указан" }
+  validates :event_id, :presence => { :message => "должно быть указано" }
 end

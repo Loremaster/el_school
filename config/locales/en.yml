@@ -99,3 +99,6 @@ en:
             school_class_id: "Класс"
             lesson_id: "Урок"
             task_text: "Задание"
+          pupils_event:
+            pupil_id: "Ученик"
+            event_id: "Мероприятие"
