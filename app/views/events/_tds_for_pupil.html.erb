@@ -1,0 +1,32 @@
+<td class="cross"
+    onclick = "location.href='<%= events_info_pupil_path(:id => e.id) %>'">
+    <%= e.event_place %>
+</td>
+<td class="cross"
+    onclick = "location.href='<%= events_info_pupil_path(:id => e.id) %>'">
+    <%= e.event_place_of_start %>
+</td>
+<td class="cross"
+    onclick = "location.href='<%= events_info_pupil_path(:id => e.id) %>'">
+    <%= e.event_begin_date.strftime("%d.%m.%Y") %>
+</td>
+<td class="cross"
+    onclick = "location.href='<%= events_info_pupil_path(:id => e.id) %>'">
+    <%= e.event_begin_time.strftime("%H:%M") %>
+</td>
+<td class="cross"
+    onclick = "location.href='<%= events_info_pupil_path(:id => e.id) %>'">
+    <%= e.event_end_date.strftime("%d.%m.%Y") %>
+</td>
+<td class="cross"
+    onclick = "location.href='<%= events_info_pupil_path(:id => e.id) %>'">
+    <%= e.event_end_time.strftime("%H:%M") %>
+</td>
+<td class="cross"
+    onclick = "location.href='<%= events_info_pupil_path(:id => e.id) %>'">
+    <%= teacher_full_names( e.teacher ) %>
+</td>
+<td class="cross"
+    onclick = "location.href='<%= events_info_pupil_path(:id => e.id) %>'">
+    <%= e.event_cost %>
+</td>
