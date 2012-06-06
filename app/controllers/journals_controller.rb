@@ -1,7 +1,16 @@
 class JournalsController < ApplicationController
   before_filter :authenticate_teachers, :only => [ :index ]
-  before_filter :authenticate_parents, :only => [ :index_for_parent ]
-  before_filter :authenticate_pupils, :only => [ :index_for_pupil ]
+  before_filter :authenticate_parents,  :only => [ :index_for_parent ]
+  before_filter :authenticate_pupils,   :only => [ :index_for_pupil ]
+  before_filter :authenticate_class_heads, :only => [ :index_class_head ]
+
+  def index_class_head
+    @school_class = get_class( current_user ); @subjects_of_class = []
+
+    unless @school_class.nil?
+      @subjects_of_class = get_subjects_for_class( @school_class )
+    end
+  end
 
   def index_for_pupil
     @pupil = current_user.pupil; @pupil_curriculums_exist = false
@@ -77,5 +86,24 @@ class JournalsController < ApplicationController
                                                                 school_class )
       teacher_timetables.each { |t| lessons << t.lessons }                                # Collecting lessons.
       lessons.flatten.sort_by{ |e| e[:lesson_date] }                                      # To 1 dimension array (because of many-to-one). Then sorting by date.
+    end
+
+    def get_subjects_for_class( school_class )
+      out = []; curriculums = []
+      curriculums = school_class.curriculums
+
+      unless curriculums.empty?
+        qualifications = curriculums.collect{ |c| c.qualification }
+
+        unless qualifications.empty?
+          out = qualifications.collect{ |q| q.subject  }
+        end
+      end
+
+      if out.empty?
+        out
+      else
+        out.flatten
+      end
     end
 end

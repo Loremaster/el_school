@@ -1,0 +1,19 @@
+<legend>Журнал класса</legend>
+
+<% if not @school_class.nil? and not @subjects_of_class.empty? %>
+  <div style="margin-top: 18px;" class="btn-toolbar">
+    <div class="btn-group">
+      <a href="#" data-toggle="dropdown" class="btn dropdown-toggle">
+        Выбрать предмет
+        <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+  			<% @subjects_of_class.each do |s| %>
+  			  <li>
+  			    <%= link_to s.subject_name, journals_show_class_head_path( :s_id => s.id ) %>
+  			  </li>
+  			<% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>

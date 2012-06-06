@@ -49,6 +49,8 @@ ElSchool::Application.routes.draw do
   match '/events/update/pupil', :controller => 'events', :action => 'update_event_by_pupil'
   match '/events/info/pupil',   :controller => 'events', :action => 'event_info_for_pupil'
 
+  match '/journals/show/class_head', :controller => 'journals', :action => 'index_class_head'
+
   root :to => 'sessions#new'                                                              # Home
 
   # The priority is based upon order of creation:
