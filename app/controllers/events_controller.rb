@@ -76,10 +76,13 @@ class EventsController < ApplicationController
   end
 
   def index
-    school_class = get_class( current_user )
-    @class_code = school_class.class_code
-    @event_exist = Event.first ? true : false
-    @events = events_for( @class_code )
+    @school_class = get_class( current_user )
+
+    unless @school_class.nil?
+      @class_code = @school_class.class_code
+      @event_exist = Event.first ? true : false
+      @events = events_for( @class_code )
+    end
   end
 
   def new
