@@ -37,7 +37,9 @@ class ApplicationController < ActionController::Base
   # => [] if there were no parents.
   def get_parents_for_class( class_code )
     parents = []                                                                          # Output.
-    pupils = Pupil.select{|p| p.school_class.class_code == class_code }                   # Get pupils for class via class_code of class.
+    pupils = Pupil.select do |p|                                                          # Get pupils for class via class_code of class.
+      ( not p.school_class.nil? ) and ( p.school_class.class_code == class_code )
+    end
     pupils.each{ |p| parents << p.parents }                                               # Get parents for each pupil.
 
     if parents.empty?
