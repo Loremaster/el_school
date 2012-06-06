@@ -28,6 +28,11 @@ class Event < ActiveRecord::Base
 
   scope :fresh_events, lambda { where("event_begin_date >= ?", Date.today ) }
 
+  validates :description,
+              :length     => { :maximum => 200,
+                               :message => "должно содержать не более %{count} символов"
+                             }
+
   validates :school_class_id, :presence => { :message => "должен быть указан" }
 
   validates :teacher_id, :presence => { :message => "должен быть указан" }
