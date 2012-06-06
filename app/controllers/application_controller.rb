@@ -40,12 +40,12 @@ class ApplicationController < ActionController::Base
     pupils = Pupil.select do |p|                                                          # Get pupils for class via class_code of class.
       ( not p.school_class.nil? ) and ( p.school_class.class_code == class_code )
     end
-    pupils.each{ |p| parents << p.parents }                                               # Get parents for each pupil.
+    pupils.each{ |p| parents << p.parents } unless pupils.empty?                                              # Get parents for each pupil.
 
     if parents.empty?
       parents
     else
-      parents.flatten.uniq!                                                               # Turn multy-dimension array into one dimension array (each parent for pupil got their array). And then keep only unique parents.
+      parents.flatten.uniq                                                                # Turn multy-dimension array into one dimension array (each parent for pupil got their array). And then keep only unique parents.
     end
   end
 
