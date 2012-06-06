@@ -36,7 +36,8 @@
     <tbody>
       <% if @event_exist %>
         <% @events.each do |e| %>
-          <tr>
+          <tr class="cross"
+            onclick = "location.href='<%= edit_event_description_path( :id => e.id ) %>'">
             <%= render :partial => 'events/tds', :locals => { :e => e } %>
           </tr>
         <% end %>

@@ -16,7 +16,6 @@ class ReportsController < ApplicationController
     end
   end
 
-
   private
 
     # Get events for school class via class code.

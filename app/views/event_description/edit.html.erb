@@ -1,0 +1,16 @@
+<legend>Отчет о мероприятии</legend>
+
+<%= form_for @event, :url => event_description_url, :html => {:class => "form-horizontal"} do |f| %>
+  <%= field_set_tag do %>
+    <div class="control-group">
+      <%= f.label :description, "Отчет о мероприятии", :class => "control-label" %>
+
+      <div class="controls">
+        <%= f.text_area  :description, :rows => 3, :class => "span3",
+                         :placeholder => "Обязательное поле" %>
+      </div>
+    </div>
+
+    <%= f.submit "Обновить", :class => "btn btn-large btn-warning" %>
+  <% end %>
+<% end %>
