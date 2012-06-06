@@ -20,7 +20,8 @@ class MeetingsController < ApplicationController
     if params.has_key?( :p_id )                                                           # If it's pupil id.
       @pupil = Pupil.where( "id = ?", params[:p_id] ).first
 
-      if current_user.parent.pupil_ids.include? @pupil.id                                 # If chosen pupil is child of parent.
+      if ( current_user.parent.pupil_ids.include? @pupil.id ) and not                     # If chosen pupil is child of parent.
+         ( @pupil.school_class.nil? ) and not ( @pupil.school_class.meetings.empty? )     # And pupil has his class and class has meetings.
         @fresh_meetings = @pupil.school_class.meetings.fresh_meetings.order( :meeting_date )
         @meeting_exist = @fresh_meetings.first ? true : false
       end
