@@ -78,6 +78,11 @@ describe Event do
 
   describe "Validations" do
     describe "Rejection" do
+      it "should reject too long description" do
+        wrong_attr = @attr_event.merge( :description => 'a' * 201 )
+        Event.new( wrong_attr ).should_not be_valid
+      end
+
       it "should reject nil school's class" do
         wrong_attr = @attr_event.merge( :school_class_id => nil )
         Event.new( wrong_attr ).should_not be_valid
@@ -241,6 +246,23 @@ describe Event do
     end
 
     describe "Acceptance" do
+      it "should accept nil description" do
+        correct_attr = @attr_event.merge( :description => nil  )
+        Event.new( correct_attr ).should be_valid
+      end
+
+      it "should accept blank description" do
+        correct_attr = @attr_event.merge( :description => ""  )
+        Event.new( correct_attr ).should be_valid
+      end
+
+      it "should accept description with correct length" do
+        (1..200).each do |i|
+          correct_attr = @attr_event.merge( :description => 'a' * i  )
+          Event.new( correct_attr ).should be_valid
+        end
+      end
+
       it "should accept event's place with correct length" do
         (1..200).each do |i|
           correct_attr = @attr_event.merge( :event_place => 'a' * i  )
