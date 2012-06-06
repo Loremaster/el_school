@@ -47,16 +47,16 @@
                   <td>
                   </td>
                   <% else %>                                                                  <%# If attendance exists. %>
-                    <td class="cross selectt <%= color_of_attendance( p.id, l.id )  %>">
+                    <td class="<%= color_of_attendance( p.id, l.id )  %>">
                         <%= render :partial => 'show_pupil_estimation',
                             :locals => { :lesson => l, :pupil => p }%>
                     </td>
                   <% end %>
               <% end %>
 
-              <td><%#= "#{number_of_visited_lessons( p, @subject )} из #{@lessons.size}" %></td> <%# Showing number of visited lessons. %>
+              <td><%= "#{number_of_visited_lessons( p, @subject )} из #{@lessons.size}" %></td> <%# Showing number of visited lessons. %>
 
-              <td><%#= "#{average_estimation_for_pupil_lesson( p, @subject )}" %></td>
+              <td><%= "#{average_estimation_for_pupil_lesson( p, @subject )}" %></td>
             </tr>
           <% end %>
         <% end %>

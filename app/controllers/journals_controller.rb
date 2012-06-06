@@ -12,7 +12,7 @@ class JournalsController < ApplicationController
       @subjects_of_class = get_subjects_for_class( @school_class )
 
       if params.has_key?( :s_id )                                                         # If user chose subject.
-        subject = Subject.where( "id = ?", params[:s_id] ).first
+        @subject = Subject.where( "id = ?", params[:s_id] ).first
         @show_journal = true
 
         @lessons = lessons_for_school_class( @school_class )                               # Lessons of class.
