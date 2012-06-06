@@ -4,7 +4,7 @@
   <legend>Расписание занятий <%= @school_class.class_code %></legend>
 <% end %>
 
-<% unless @school_class.nil? and @show_timetable %>
+<% if not @school_class.nil? and @show_timetable %>
   <table class="table table-bordered table-striped" name="timetable">
     <%= render :partial => 'theads', :locals => { :day => 'Понедельник' } %>
     <%= render :partial => 'tbody_day_no_links', :locals => { :timetables_for_day => @tt_monday } %>

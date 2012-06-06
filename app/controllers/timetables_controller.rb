@@ -127,6 +127,8 @@ class TimetablesController < ApplicationController
     end
 
     def timetable_for_class_with_existance_data( school_class )
+      return [] if Timetable.all.empty?
+
       Timetable.select do |t|
         ( t.school_class.class_code == school_class.class_code ) and
         not ( t.tt_room.blank? ) and not ( t.tt_type.blank? ) and
