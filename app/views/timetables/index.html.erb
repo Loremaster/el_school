@@ -9,11 +9,11 @@
       <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
-			
+
       <% @classes.each do |c| %>
 			  <li>
 			    <%= link_to c.class_code, timetables_path( :class_code => c.class_code ) %>
-			  </li>			
+			  </li>
 			<% end %>
     </ul>
   </div>
@@ -28,15 +28,15 @@
 
     <%= render :partial => 'theads', :locals => { :day => 'Вторник' } %>
     <%= render :partial => 'tbody_day', :locals => { :timetables_for_day => @tt_tuesday } %>
-              
+
     <%= render :partial => 'theads', :locals => { :day => 'Среда' } %>
-    <%= render :partial => 'tbody_day', :locals => { :timetables_for_day => @tt_wednesday } %>      
-    
+    <%= render :partial => 'tbody_day', :locals => { :timetables_for_day => @tt_wednesday } %>
+
     <%= render :partial => 'theads', :locals => { :day => 'Четверг' } %>
-    <%= render :partial => 'tbody_day', :locals => { :timetables_for_day => @tt_thursday } %>      
-    
+    <%= render :partial => 'tbody_day', :locals => { :timetables_for_day => @tt_thursday } %>
+
     <%= render :partial => 'theads', :locals => { :day => 'Пятница' } %>
-    <%= render :partial => 'tbody_day', :locals => { :timetables_for_day => @tt_friday } %>      
+    <%= render :partial => 'tbody_day', :locals => { :timetables_for_day => @tt_friday } %>
   </table>
 <% end %>
 
@@ -48,13 +48,18 @@
       Создать расписание для класса
       <span class="caret"></span>
     </a>
-    
-    <ul class="dropdown-menu">			
+
+    <ul class="dropdown-menu">
       <% @classes.each do |c| %>
 			  <li>
 			    <%= link_to c.class_code, new_timetable_path( :class_code => c.class_code ) %>
-			  </li>			
+			  </li>
 			<% end %>
     </ul>
   </div>
 </div>
+
+<% if params.has_key?( :class_code ) %>
+  <%= link_to_function "Отправить на печать", "javascript:window.print()",
+      :class => "btn btn-inverse" %>
+<% end %>
