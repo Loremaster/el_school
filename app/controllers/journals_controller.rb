@@ -5,10 +5,22 @@ class JournalsController < ApplicationController
   before_filter :authenticate_class_heads, :only => [ :index_class_head ]
 
   def index_class_head
-    @school_class = get_class( current_user ); @subjects_of_class = []
+    @school_class = get_class( current_user ); @subjects_of_class = []; @show_journal = false
+    @pupils = []; @lessons = []; @lessons_exist = false; @pupils_exist = false;
 
     unless @school_class.nil?
       @subjects_of_class = get_subjects_for_class( @school_class )
+
+      if params.has_key?( :s_id )                                                         # If user chose subject.
+        subject = Subject.where( "id = ?", params[:s_id] ).first
+        @show_journal = true
+
+        @lessons = lessons_for_school_class( @school_class )                               # Lessons of class.
+        @lessons_exist = @lessons.first ? true : false
+
+        @pupils = get_pupils_for_class( @school_class )                                   # Pupils in the class.
+        @pupils_exist = @pupils.first ? true : false
+      end
     end
   end
 
@@ -88,6 +100,9 @@ class JournalsController < ApplicationController
       lessons.flatten.sort_by{ |e| e[:lesson_date] }                                      # To 1 dimension array (because of many-to-one). Then sorting by date.
     end
 
+    # Collecting all subjects for class.
+    # Return Array.
+    # => [] if no subjects founded.
     def get_subjects_for_class( school_class )
       out = []; curriculums = []
       curriculums = school_class.curriculums
@@ -97,6 +112,27 @@ class JournalsController < ApplicationController
 
         unless qualifications.empty?
           out = qualifications.collect{ |q| q.subject  }
+        end
+      end
+
+      if out.empty?
+        out
+      else
+        out.flatten
+      end
+    end
+
+    # Collecting all lessons for class.
+    # Return Array.
+    # => [] if no lessons founded.
+    def lessons_for_school_class( school_class )
+      out = []; curriculums = []; curriculums = school_class.curriculums
+
+      unless curriculums.empty?
+        timetables = curriculums.collect{ |c| c.timetables }.flatten
+
+        unless timetables.empty?
+          out = timetables.collect{ |t| t.lessons }.flatten
         end
       end
 

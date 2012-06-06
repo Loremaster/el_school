@@ -16,4 +16,51 @@
       </ul>
     </div>
   </div>
+
+  <% if @show_journal %>
+    <table class="tablee table-bordered scrol" name="journals">
+      <thead>
+        <tr>
+          <th>Ученик\Дата</th>
+
+          <% if @lessons_exist %>
+            <% @lessons.each do |l| %>
+              <th>
+                <%= l.lesson_date.strftime("%d.%m.%Y") %>
+              </th>
+            <% end %>
+          <% end %>
+
+          <th>Посещение</th>
+
+          <th>Средний балл</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @pupils_exist and @lessons_exist %>
+          <% @pupils.each do |p| %>
+            <tr>
+              <td><%= pupil_full_names( p ) %></td>
+
+              <% @lessons.each do |l| %>
+                <% if not attendance_of_lesson_for_pupil_exists?( p.id, l.id ) %>           <%# If nobody created attendance. %>
+                  <td>
+                  </td>
+                  <% else %>                                                                  <%# If attendance exists. %>
+                    <td class="cross selectt <%= color_of_attendance( p.id, l.id )  %>">
+                        <%= render :partial => 'show_pupil_estimation',
+                            :locals => { :lesson => l, :pupil => p }%>
+                    </td>
+                  <% end %>
+              <% end %>
+
+              <td><%#= "#{number_of_visited_lessons( p, @subject )} из #{@lessons.size}" %></td> <%# Showing number of visited lessons. %>
+
+              <td><%#= "#{average_estimation_for_pupil_lesson( p, @subject )}" %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
 <% end %>
