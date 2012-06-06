@@ -28,4 +28,19 @@
       <% end %>
     </tbody>
   </table>
+
+  <h2>Мероприятия</h2>
+
+  <table class="table table-bordered table-striped" name="meetings">
+    <%= render :partial => 'events/theads' %>
+    <tbody>
+      <% if @event_exist %>
+        <% @events.each do |e| %>
+          <tr>
+            <%= render :partial => 'events/tds', :locals => { :e => e } %>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
 <% end %>
