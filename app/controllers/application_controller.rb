@@ -55,7 +55,9 @@ class ApplicationController < ActionController::Base
     pupils = []
 
     unless school_class.nil?
-      pupils = Pupil.select{|p| p.school_class.class_code == school_class.class_code }
+      pupils = Pupil.select do |p|
+        ( not p.school_class.nil? ) and ( p.school_class.class_code == class_code )
+      end
     end
 
     pupils
