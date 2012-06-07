@@ -1405,5 +1405,33 @@ describe "SchoolHeads" do
         end
       end
     end
+
+    describe "Event's report" do
+      before(:each) do
+        @event = FactoryGirl.create( :event, :description => "Test" )
+      end
+
+      it "should show report" do
+        visit event_description_index_path( :id => @event.id )
+
+        response.should have_selector( "textarea", :content => @event.description )
+      end
+    end
+
+    describe "Meeting's report" do
+      before(:each) do
+        @meeting = FactoryGirl.create( :meeting )
+        @parent = FactoryGirl.create( :parent )
+        ParentMeeting.create( :parent_id => @parent.id, :meeting_id => @meeting.id )
+      end
+
+      it "should show report and parents on meeting" do
+        visit parents_meetings_path( :id => @meeting.id )
+
+        response.should have_selector("td",
+                :content => "#{@parent.parent_last_name} #{@parent.parent_first_name} " +
+                            "#{@parent.parent_middle_name}" )
+      end
+    end
   end
 end
