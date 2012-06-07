@@ -487,9 +487,9 @@ describe "SchoolHeads" do
           @pupil2 = FactoryGirl.create( :pupil, :pupil_last_name => "Andropov",
                                                 :pupil_first_name => "Igor",
                                                 :pupil_middle_name => "kolima")
-          @pupil3 = FactoryGirl.create( :pupil, :pupil_last_name => "Andropov2",
-                                                :pupil_first_name => "Igor2",
-                                                :pupil_middle_name => "kolima2")
+          @pupil3 = FactoryGirl.create( :pupil, :pupil_last_name => "Andropovv",
+                                                :pupil_first_name => "Igorr",
+                                                :pupil_middle_name => "kolimaa")
 
           @class1 = FactoryGirl.create( :school_class )
           @class2 = FactoryGirl.create( :school_class, :class_code => "111")
