@@ -15,7 +15,7 @@
 </div>
 
 <% unless @chosen_class.nil? %>
-  
+
   <h2>Родительские собрания</h2>
 
   <table class="table table-bordered table-striped" name="meetings">
@@ -50,7 +50,8 @@
     <tbody>
       <% if @event_exist %>
         <% @events.each do |e| %>
-          <tr>
+          <tr class="cross"
+              onclick = "location.href='<%= event_description_index_path( :id => e.id) %>'">
             <%= render :partial => 'events/tds', :locals => { :e => e } %>
           </tr>
         <% end %>

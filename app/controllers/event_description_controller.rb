@@ -1,6 +1,11 @@
 # encoding: UTF-8
 class EventDescriptionController < ApplicationController
   before_filter :authenticate_class_heads, :only => [ :edit, :update ]
+  before_filter :authenticate_school_heads, :only => [ :index ]
+
+  def index
+    @event = Event.find( params[:id] )
+  end
 
   def edit
     event = Event.find( params[:id] ); @event = nil;
