@@ -36,6 +36,7 @@ ElSchool::Application.routes.draw do
   match '/admins/create_teacher' => 'admins#create_teacher', :as => :create_teacher
 
   match '/events/show', :controller => 'events', :action => 'index_school_head'
+  match '/reports/show', :controller => 'reports', :action => 'index_school_head'
 
   match '/meetings/show/parent', :controller => 'meetings', :action => 'index_for_parent'
   match '/events/show/parent',   :controller => 'events', :action => 'index_for_parent'

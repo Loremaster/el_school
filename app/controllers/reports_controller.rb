@@ -1,6 +1,11 @@
 # encoding: UTF-8
 class ReportsController < ApplicationController
+  before_filter :authenticate_school_heads, :only => [ :index_school_head ]
   before_filter :authenticate_class_heads, :only => [ :index ]
+
+  def index_school_head
+
+  end
 
   def index
     @school_class = get_class( current_user ); @meeting_exist = false; @event_exist = false
