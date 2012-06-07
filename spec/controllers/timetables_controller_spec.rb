@@ -29,6 +29,47 @@ describe TimetablesController do
     @timetable = Timetable.create( @attr_timetable )
   end
 
+  describe "GET 'index_class_head'" do
+    before(:each) do
+      school_class = FactoryGirl.create( :school_class )
+      @ch = school_class.teacher_leader.user
+      @ch.user_role = "class_head"
+      @ch.save
+    end
+
+    describe "for non-signed users" do
+      it "should deny access to show timetables" do
+        get :index_class_head
+        response.should redirect_to( signin_path )
+        flash[:notice].should =~ /войдите в систему как классный руководитель/i
+      end
+    end
+
+    describe "for signed-in admins" do
+      before(:each) do
+        test_sign_in( @adm )
+      end
+
+      it "should deny access" do
+        get :index_class_head
+        response.should redirect_to( pages_wrong_page_path )
+        flash[:error].should =~ /вы не можете увидеть эту страницу/i
+      end
+    end
+
+    describe "for signed-in class-headed" do
+      before(:each) do
+        test_sign_in( @ch )
+      end
+
+      it "should show" do
+        get :index_class_head
+        response.should be_success
+        flash[:error].should be_nil
+      end
+    end
+  end
+
   describe "GET 'index_for_pupil'" do
     before(:each) do
       pupil = FactoryGirl.create( :pupil )
