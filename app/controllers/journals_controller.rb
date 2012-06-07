@@ -13,13 +13,16 @@ class JournalsController < ApplicationController
 
       if params.has_key?( :s_id )                                                         # If user chose subject.
         @subject = Subject.where( "id = ?", params[:s_id] ).first
-        @show_journal = true
 
-        @lessons = lessons_for_school_class( @school_class )                               # Lessons of class.
-        @lessons_exist = @lessons.first ? true : false
+        if current_user.teacher_leader.teacher.subject_ids.include? @subject.id
+          @show_journal = true
 
-        @pupils = get_pupils_for_class( @school_class )                                   # Pupils in the class.
-        @pupils_exist = @pupils.first ? true : false
+          @lessons = lessons_for_school_class( @school_class )                               # Lessons of class.
+          @lessons_exist = @lessons.first ? true : false
+
+          @pupils = get_pupils_for_class( @school_class )                                   # Pupils in the class.
+          @pupils_exist = @pupils.first ? true : false
+        end
       end
     end
   end
