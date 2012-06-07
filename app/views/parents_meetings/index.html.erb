@@ -1,0 +1,16 @@
+<legend>Отчет о родительском собрании</legend>
+
+<table class="table table-bordered table-striped" name="meetings">
+  <thead>
+    <tr>
+      <th>Присутствовавшие родители</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @meeting.parents.each do |p| %>
+      <tr>
+        <td><%= parent_full_names p %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

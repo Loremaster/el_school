@@ -1,6 +1,11 @@
 # encoding: UTF-8
 class ParentsMeetingsController < ApplicationController
   before_filter :authenticate_class_heads, :only => [ :edit, :update ]
+  before_filter :authenticate_school_heads, :only => [ :index ]
+
+  def index
+    @meeting = Meeting.find( params[:id] )
+  end
 
   def edit
     @parents = []

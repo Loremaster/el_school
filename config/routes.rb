@@ -13,7 +13,7 @@ ElSchool::Application.routes.draw do
   resources :timetables,       :only => [ :index, :new, :create, :edit, :update ]
   resources :events,           :only => [ :index, :new, :create, :edit, :update ]
   resources :reports,          :only => [ :index ]
-  resources :parents_meetings, :only => [ :edit, :update ]
+  resources :parents_meetings, :only => [ :index, :edit, :update ]
   resources :journals,         :only => [ :index ]
   resources :lessons,          :only => [ :new, :create, :edit, :update ]
   resources :attendances,      :only => [ :new, :create, :edit, :update ]
