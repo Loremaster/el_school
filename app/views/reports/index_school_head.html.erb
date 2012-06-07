@@ -1,0 +1,60 @@
+<div style="margin-top: 18px;" class="btn-toolbar">
+  <div class="btn-group">
+    <a href="#" data-toggle="dropdown" class="btn dropdown-toggle">
+      Выбрать класс
+      <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+			<% @classes.each do |c| %>
+			  <li>
+			    <%= link_to c.class_code, reports_show_path( :c_id => c.id ) %>
+			  </li>
+			<% end %>
+    </ul>
+  </div>
+</div>
+
+<% unless @chosen_class.nil? %>
+  
+  <h2>Родительские собрания</h2>
+
+  <table class="table table-bordered table-striped" name="meetings">
+    <thead>
+      <tr>
+        <th>Тема</th>
+        <th>Дата</th>
+        <th>Время</th>
+        <th>Класс</th>
+        <th>Кабинет</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @meeting_exist %>
+        <% @meetings.each do |m| %>
+          <tr>
+            <td><%= m.meeting_theme %></td>
+            <td><%= m.meeting_date.strftime("%d.%m.%Y") %></td>
+            <td><%= m.meeting_time.strftime("%H:%M") %></td>
+            <td><%= m.school_class.class_code %></td>
+            <td><%= m.meeting_room %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+
+  <h2>Мероприятия</h2>
+
+  <table class="table table-bordered table-striped" name="meetings">
+    <%= render :partial => 'events/theads' %>
+    <tbody>
+      <% if @event_exist %>
+        <% @events.each do |e| %>
+          <tr>
+            <%= render :partial => 'events/tds', :locals => { :e => e } %>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
