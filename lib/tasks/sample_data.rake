@@ -6,22 +6,22 @@ namespace :db do
     make_admin
     make_school_head
   end
-  
+
   desc "Fill database with teacher leader"
   task :populate_teacher_leader => :environment do
     make_teacher_leader
   end
-  
+
   desc "Fill database with few subjects"
   task :populate_subjects => :environment do
     make_subjects
   end
-  
+
   desc "Fill database with pupil and his phones"
   task :populate_pupil => :environment do
     make_pupil
-  end  
-  
+  end
+
   desc "Fill database with teacher and his phones and education"
   task :populate_teacher => :environment do
     make_teacher
@@ -29,7 +29,7 @@ namespace :db do
 end
 
 def make_admin
-  admin = User.new( :user_login => "admin", :password => "qwerty" ) 
+  admin = User.new( :user_login => "admin", :password => "qwerty" )
   admin.user_role = "admin"
   admin.save
 end
@@ -37,23 +37,23 @@ end
 def make_school_head
   school_head = User.new( :user_login => "sh", :password => "qwerty" )
   school_head.user_role = "school_head"
-  school_head.save 
+  school_head.save
 end
 
 def make_teacher_leader
   teacher = make_teacher
-  
+
   user_leader = make_user( "class_head" )
   attr_teacher_leader = {
     :user_id => user_leader.id,
     :teacher_id => teacher.id
   }
-  
-  user_leader.create_teacher_leader( attr_teacher_leader )              
+
+  user_leader.create_teacher_leader( attr_teacher_leader )
 end
 
 def make_user( role )
-  user = User.new( :user_login => random_str( 10 ), 
+  user = User.new( :user_login => random_str( 10 ),
                    :password => "qwerty" )
   user.user_role = role
   user.save
@@ -62,15 +62,15 @@ end
 
 def make_teacher
   attr_teacher = {
-                  :teacher_last_name   => "Каров_#{random_digit_str( 4 )}",
+                  :teacher_last_name   => "Каров#{random_str( 4 )}",
                   :teacher_first_name  => "Петр",
                   :teacher_middle_name => "Иванович",
-                  :teacher_birthday    => "01.12.1980",                                                
+                  :teacher_birthday    => "01.12.1980",
                   :teacher_sex         => "m",
                   :teacher_category    => "1я Категория"
                  }
-  
-  user_teacher = make_user( "teacher" )  
+
+  user_teacher = make_user( "teacher" )
   teacher = user_teacher.create_teacher( attr_teacher )
   make_teacher_phones( teacher )
   make_teacher_education( teacher )
@@ -91,7 +91,7 @@ def make_teacher_education( teacher )
                         :teacher_education_graduation => "Специалист",
                         :teacher_education_speciality => "Механика и математика"
                      }
-  teacher.create_teacher_education( attr_teacher_edu )                   
+  teacher.create_teacher_education( attr_teacher_edu )
 end
 
 def make_subjects
@@ -111,7 +111,7 @@ def make_pupil
     :pupil_address_of_registration => "Москва, ул. Ленина, д. 1",
     :pupil_address_of_living => "Москва, ул. Ленина, д. 1"
   }
-  pupil = user.create_pupil( attr_pupil )  
+  pupil = user.create_pupil( attr_pupil )
   make_pupil_phones( pupil )
 end
 
@@ -130,7 +130,7 @@ private
   def random_str( size=1 )
     (0...size).map{65.+(rand(25)).chr}.join
   end
-  
+
   # Return string with random digits. If size is not set then return string with length == 1.
   # random_digit_str( 2 ) => "12"
   # random_digit_str => "1"
