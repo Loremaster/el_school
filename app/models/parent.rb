@@ -17,43 +17,49 @@
 
 class Parent < ActiveRecord::Base
   belongs_to :user
-  
+
   has_many :parent_pupils
   has_many :pupils, :through => :parent_pupils
   has_many :parent_meetings
   has_many :meetings, :through => :parent_meetings
-  
+
   accepts_nested_attributes_for :user
-  
-  
+
+
   validates :parent_last_name,
               :presence   => { :message => "не может быть пустой" },
-              :length     => { 
+              :length     => {
                                :maximum => 40,
-                               :message => "должна содержать не более 40 символов" 
-                             }
+                               :message => "должна содержать не более 40 символов"
+                             },
+              :format     => { :with => /^[a-zA-Zа-яА-Я]*$/i,
+                               :message => "должна содержать только буквы" }
 
-  validates :parent_first_name,                                                                              
-              :presence   => { :message => "не может быть пустым" },                                         
-              :length     => {                                                                               
-                               :maximum => 40,                                                               
-                               :message => "должно содержать не более 40 символов"                            
-                             }                                                                               
+  validates :parent_first_name,
+              :presence   => { :message => "не может быть пустым" },
+              :length     => {
+                               :maximum => 40,
+                               :message => "должно содержать не более 40 символов"
+                             },
+              :format     => { :with => /^[a-zA-Zа-яА-Я]*$/i,
+                               :message => "должно содержать только буквы" }
 
-  validates :parent_middle_name,                                                                             
-              :presence   => { :message => "не может быть пустым" },                                         
-              :length     => {                                                                               
-                               :maximum => 40,                                                               
-                               :message => "должно содержать не более 40 символов"                            
-                             }                                                                               
+  validates :parent_middle_name,
+              :presence   => { :message => "не может быть пустым" },
+              :length     => {
+                               :maximum => 40,
+                               :message => "должно содержать не более 40 символов"
+                             },
+              :format     => { :with => /^[a-zA-Zа-яА-Я]*$/i,
+                               :message => "должно содержать только буквы" }
 
-  validates :parent_birthday,                                                                                                    
-              :inclusion => {                                                                                                   
-                              :in => ( Date.today - 100.years )..( Date.today - 18.years ),                                       
-                              :message => "должна быть в пределах от 18 до 100 лет от текущего года"                            
-                            }                                                                                                  
+  validates :parent_birthday,
+              :inclusion => {
+                              :in => ( Date.today - 100.years )..( Date.today - 18.years ),
+                              :message => "должна быть в пределах от 18 до 100 лет от текущего года"
+                            }
 
-  validates :parent_sex,                                                  
-              :presence  => { :message => "не может быть пустым" },                                        
-              :inclusion => { :in => %w(m w), :message => "должен быть указан" }                                                    
+  validates :parent_sex,
+              :presence  => { :message => "не может быть пустым" },
+              :inclusion => { :in => %w(m w), :message => "должен быть указан" }
 end

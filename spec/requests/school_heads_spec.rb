@@ -1243,9 +1243,9 @@ describe "SchoolHeads" do
 
           describe "Success" do
             it "should update parent with valid data" do
-              fill_in "Фамилия", :with => "Mokov2"
-              fill_in "Имя",     :with => "Igot2"
-              fill_in "Отчество", :with => "Pokov2"
+              fill_in "Фамилия", :with => "Mokovv"
+              fill_in "Имя",     :with => "Igott"
+              fill_in "Отчество", :with => "Pokovv"
               choose  "Мужской"
               fill_in "Дата рождения",  :with => "#{Date.today - 20.years}"
 
