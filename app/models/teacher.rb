@@ -45,21 +45,27 @@ class Teacher < ActiveRecord::Base
               :length     => {
                                :maximum => 40,
                                :message => "должна содержать не более 40 символов"
-                             }
+                             },
+              :format     => { :with => /^[a-zA-Zа-яА-Я]*$/i,
+                               :message => "должна содержать только буквы" }
 
   validates :teacher_first_name,
               :presence   => { :message => "не может быть пустым" },
               :length     => {
                                :maximum => 40,
                                :message => "должно содержать не более 40 символов"
-                             }
+                             },
+              :format     => { :with => /^[a-zA-Zа-яА-Я]*$/i,
+                               :message => "должно содержать только буквы" }
 
   validates :teacher_middle_name,
               :presence   => { :message => "не может быть пустым" },
               :length     => {
                                :maximum => 40,
                                :message => "должно содержать не более 40 символов"
-                             }
+                             },
+              :format     => { :with => /^[a-zA-Zа-яА-Я]*$/i,
+                               :message => "должна содержать только буквы" }
 
   validates :teacher_sex,
               :presence  => true,

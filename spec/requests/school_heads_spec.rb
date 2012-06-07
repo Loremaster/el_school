@@ -316,8 +316,8 @@ describe "SchoolHeads" do
           describe "Success" do
             before(:each) do
               @teacher2 = FactoryGirl.create( :teacher,
-                                              :teacher_last_name   => "B.",
-                                              :teacher_first_name  => "B.",
+                                              :teacher_last_name   => "B",
+                                              :teacher_first_name  => "B",
                                               :teacher_middle_name => "King")
               @teacher2.user.user_role = "teacher"
               @teacher2.save!
@@ -849,7 +849,7 @@ describe "SchoolHeads" do
           @ipupil = FactoryGirl.create( :pupil )
           @attr_pupil_phones = {
             :pupil_home_number   => "8903111111",
-            :pupil_mobile_number => "777-33-22"
+            :pupil_mobile_number => "7773322"
           }
           @ipupil.create_pupil_phone( @attr_pupil_phones )
 
@@ -1084,7 +1084,7 @@ describe "SchoolHeads" do
 
           fill_in 'Фамилия',  :with => "This"
           fill_in 'Имя',      :with => "Is"
-          fill_in 'Отчество', :with => "Sparta!"
+          fill_in 'Отчество', :with => "Sparta"
           fill_in 'Дата рождения',      :with => "#{Date.today - 25.years}"
           fill_in 'Мобильный телефон',  :with => "23456789"
           fill_in 'Домашний телефон',   :with => "3456789"
