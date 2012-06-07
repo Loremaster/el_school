@@ -50,6 +50,7 @@ ElSchool::Application.routes.draw do
   match '/events/info/pupil',   :controller => 'events', :action => 'event_info_for_pupil'
 
   match '/journals/show/class_head', :controller => 'journals', :action => 'index_class_head'
+  match '/timetables/show/class_head', :controller => 'timetables', :action => 'index_class_head'
 
   root :to => 'sessions#new'                                                              # Home
 

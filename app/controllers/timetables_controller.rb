@@ -4,6 +4,11 @@ class TimetablesController < ApplicationController
                                                        :update ]
   before_filter :authenticate_parents, :only => [ :index_for_parent ]
   before_filter :authenticate_pupils, :only => [ :index_for_pupil ]
+  before_filter :authenticate_class_heads, :only => [ :index_class_head ]
+
+  def index_class_head
+
+  end
 
   def index_for_pupil
     @school_class = current_user.pupil.school_class; @show_timetable = false

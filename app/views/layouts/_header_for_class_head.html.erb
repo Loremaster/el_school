@@ -7,6 +7,12 @@
 </ul>
 
 <ul class="nav">
+   <li class=<%= active_toolbar?( timetables_show_class_head_path ) %>>
+     <%= link_to "Расписание", timetables_show_class_head_path %>
+   </li>
+</ul>
+
+<ul class="nav">
    <li class=<%= active_toolbar?( events_path ) %>>
      <%= link_to "Мероприятия", events_path %>
    </li>
