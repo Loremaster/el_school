@@ -14,18 +14,22 @@
 
 class PupilPhone < ActiveRecord::Base
   belongs_to :pupil
-  
+
   validates :pupil_home_number,
-              :presence   => { :message => "не может быть пустым" },     
-              :length     => { 
+              :presence   => { :message => "не может быть пустым" },
+              :length     => {
                                 :maximum => 20,
                                 :message => "должен содержать не более 20 символов"
-                              }
-                              
+                              },
+              :numericality => { :only_integer => true,
+                                 :message => "должен состоять из цифр" }
+
   validates :pupil_mobile_number,
-              :presence   => { :message => "не может быть пустым" },     
-              :length     => { 
+              :presence   => { :message => "не может быть пустым" },
+              :length     => {
                                 :maximum => 20,
                                 :message => "должен содержать не более 20 символов"
-                              }                            
+                              },
+              :numericality => { :only_integer => true,
+                                 :message => "должен состоять из цифр" }
 end
