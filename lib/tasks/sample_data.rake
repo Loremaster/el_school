@@ -102,7 +102,7 @@ end
 def make_pupil
   user = make_user( "pupil" )
   attr_pupil = {
-    :pupil_last_name => "Смирнов_#{random_digit_str( 4 )}",
+    :pupil_last_name => "Смирнов#{random_str( 4 )}",
     :pupil_first_name => "Петр",
     :pupil_middle_name => "Петрович",
     :pupil_birthday => "#{Date.today - 10.years}",
