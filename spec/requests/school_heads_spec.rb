@@ -281,29 +281,29 @@ describe "SchoolHeads" do
             end.should_not change( TeacherLeader, :count )
           end
 
-          it "should keep values in forms" do
-            # @teacher2 = Factory( :teacher,
-            #                      :teacher_last_name   => "B.",
-            #                      :teacher_first_name  => "B.",
-            #                      :teacher_middle_name => "Kingi",
-            #                      :user => Factory( :user, :user_login => Factory.next( :user_login )))
-            # @teacher2.user.user_role = "teacher"
-            # @teacher2.save!
-
-            fill_in "Логин учетной записи",  :with => "something"
-            fill_in "Пароль учетной записи", :with => "ano"
-            # select "#{@teacher2.teacher_last_name} "  +                                 # Select option via name.
-            #        "#{@teacher2.teacher_first_name} " +
-            #        "#{@teacher2.teacher_middle_name}",
-            #        :from => "user_teacher_leader_attributes_teacher_id"
-
-            click_button "Создать"
-
-            response.should have_selector("form") do |form|
-              form.should have_selector( "input", :value => "something" )
-              form.should have_selector( "input", :value => "ano"  )
-            end
-          end
+          # it "should keep values in forms" do
+          #   # @teacher2 = Factory( :teacher,
+          #   #                      :teacher_last_name   => "B.",
+          #   #                      :teacher_first_name  => "B.",
+          #   #                      :teacher_middle_name => "Kingi",
+          #   #                      :user => Factory( :user, :user_login => Factory.next( :user_login )))
+          #   # @teacher2.user.user_role = "teacher"
+          #   # @teacher2.save!
+          #
+          #   fill_in "Логин учетной записи",  :with => "something"
+          #   fill_in "Пароль учетной записи", :with => "ano"
+          #   # select "#{@teacher2.teacher_last_name} "  +                                 # Select option via name.
+          #   #        "#{@teacher2.teacher_first_name} " +
+          #   #        "#{@teacher2.teacher_middle_name}",
+          #   #        :from => "user_teacher_leader_attributes_teacher_id"
+          #
+          #   click_button "Создать"
+          #
+          #   response.should have_selector("form") do |form|
+          #     form.should have_selector( "input", :value => "something" )
+          #     form.should have_selector( "input", :value => "ano"  )
+          #   end
+          # end
         end
       end
 
