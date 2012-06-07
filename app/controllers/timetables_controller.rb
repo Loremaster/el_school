@@ -3,7 +3,7 @@ class TimetablesController < ApplicationController
   before_filter :authenticate_school_heads, :only => [ :index, :new, :create, :edit,
                                                        :update ]
   before_filter :authenticate_parents, :only => [ :index_for_parent ]
-  before_filter :authenticate_pupils, :only => [ :index_for_pupil ]
+  before_filter :authenticate_pupils,  :only => [ :index_for_pupil ]
   before_filter :authenticate_class_heads, :only => [ :index_class_head ]
 
   def index_class_head
