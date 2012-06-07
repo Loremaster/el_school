@@ -1,91 +1,84 @@
 <legend>Создание учетной записи Учителя</legend>
 
-<%= form_for @user, :url => create_teacher_url, 
+<%= form_for @user, :url => create_teacher_url,
                     :html => {:class => "form-horizontal"} do |f| %>
   <%= field_set_tag do %>
 		<%= f.fields_for :teacher do |builder| %>
       <div class="control-group">
         <%= builder.label :teacher_last_name, "Фамилия", :class => "control-label" %>
         <div class="controls">
-          <%= builder.text_field :teacher_last_name, 
-                                 :value => @teacher_last_name,
+          <%= builder.text_field :teacher_last_name,
                                  :placeholder => @everpresent_field_placeholder %>
         </div>
       </div>
-      
+
       <div class="control-group">
         <%= builder.label :teacher_first_name, "Имя", :class => "control-label" %>
         <div class="controls">
-          <%= builder.text_field :teacher_first_name, 
-                                 :value => @teacher_first_name,
+          <%= builder.text_field :teacher_first_name,
                                  :placeholder => @everpresent_field_placeholder %>
         </div>
       </div>
-      
+
       <div class="control-group">
         <%= builder.label :teacher_middle_name, "Отчество", :class => "control-label" %>
         <div class="controls">
-          <%= builder.text_field :teacher_middle_name, 
-                                 :value => @teacher_middle_name,
+          <%= builder.text_field :teacher_middle_name,
                                  :placeholder => @everpresent_field_placeholder %>
         </div>
       </div>
-      
+
       <div class="control-group">
         <%= builder.label :teacher_sex, "Пол", :class => "control-label" %>
         <div class="controls">
           <%= label_tag nil, nil, :class => "radio" do %>
-            <%= builder.radio_button :teacher_sex, 'm', :checked => @user_sex_man %>
+            <%= builder.radio_button :teacher_sex, 'm' %>
             Мужской
           <% end %>
-        
+
           <%= label_tag nil, nil, :class => "radio" do %>
-            <%= builder.radio_button :teacher_sex, 'w', :checked => @user_sex_woman %>
+            <%= builder.radio_button :teacher_sex, 'w' %>
             Женский
           <% end %>
-        </div> 
+        </div>
       </div>
-      
+
       <div class="control-group">
         <%= builder.label :teacher_birthday, "Дата рождения", :class => "control-label" %>
         <div class="controls">
-          <%= builder.text_field :teacher_birthday, 
-                                 :value => @teacher_birthday,
+          <%= builder.text_field :teacher_birthday,
                                  :placeholder => @everpresent_field_placeholder %>
           <p class="help-block">Формат даты: дд.мм.гггг</p>
         </div>
       </div>
-      
+
       <hr/>
-           
+
       <%= builder.fields_for :teacher_phone do |tp_fields| %>
         <div class="control-group">
           <%= tp_fields.label :teacher_mobile_number, "Мобильный телефон", :class => "control-label" %>
           <div class="controls">
-            <%= tp_fields.text_field :teacher_mobile_number, 
-                              :value => @teacher_mobile_num,
+            <%= tp_fields.text_field :teacher_mobile_number,
                               :placeholder => @everpresent_field_placeholder %>
           </div>
         </div>
-        
+
         <div class="control-group">
           <%= tp_fields.label :teacher_home_number, "Домашний телефон", :class => "control-label" %>
           <div class="controls">
-            <%= tp_fields.text_field :teacher_home_number, 
-                              :value => @teacher_home_num,
+            <%= tp_fields.text_field :teacher_home_number,
                               :placeholder => @everpresent_field_placeholder %>
           </div>
         </div>
       <% end %>
-      
+
       <hr/>
-      
+
       <%= builder.fields_for :teacher_education do |edu_fields| %>
         <div class="control-group">
           <%= edu_fields.label :teacher_education_university, "Название ВУЗа", :class => "control-label" %>
           <div class="controls">
-            <%= edu_fields.text_field :teacher_education_university, 
-                                      :value => @teacher_university,
+            <%= edu_fields.text_field :teacher_education_university,
                                       :placeholder => @everpresent_field_placeholder %>
           </div>
         </div>
@@ -93,8 +86,7 @@
         <div class="control-group">
           <%= edu_fields.label :teacher_education_year, "Дата выпуска из ВУЗа", :class => "control-label" %>
           <div class="controls">
-            <%= edu_fields.text_field :teacher_education_year, 
-                                      :value => @teacher_finish_univ,
+            <%= edu_fields.text_field :teacher_education_year,
                                       :placeholder => @everpresent_field_placeholder %>
             <p class="help-block">Формат даты: дд.мм.гггг</p>
           </div>
@@ -103,8 +95,7 @@
         <div class="control-group">
           <%= edu_fields.label :teacher_education_graduation, "Степень", :class => "control-label" %>
           <div class="controls">
-            <%= edu_fields.text_field :teacher_education_graduation, 
-                                      :value => @teacher_graduation,
+            <%= edu_fields.text_field :teacher_education_graduation,
                                       :placeholder => @everpresent_field_placeholder %>
           </div>
         </div>
@@ -112,36 +103,32 @@
         <div class="control-group">
           <%= edu_fields.label :teacher_education_speciality, "Специальность", :class => "control-label" %>
           <div class="controls">
-            <%= edu_fields.text_field :teacher_education_speciality, 
-                                      :value => @teacher_specl,
+            <%= edu_fields.text_field :teacher_education_speciality,
                                       :placeholder => @everpresent_field_placeholder %>
           </div>
         </div>
-      <% end %>            
+      <% end %>
 		<% end %>
-	
+
 	  <%= f.fields_for :teacher do |builder| %>
   	  <div class="control-group">
         <%= builder.label :teacher_category, "Категория", :class => "control-label" %>
         <div class="controls">
-          <%= builder.text_field :teacher_category, 
-                                 :value => @teacher_category %>
+          <%= builder.text_field :teacher_category %>
         </div>
       </div>
 	  <% end %>
-	
+
 	  <hr/>
-		  
-	  <%= render :partial => 'shared/user_fields_new', 
+
+	  <%= render :partial => 'shared/user_fields_new',
 	             :locals => { :f => f,
 	                          :field_placeholder => @everpresent_field_placeholder,
-                            :login => @user_login,
-                            :password => @user_password,
                             :login_field_id => "user_user_login",
                             :password_field_id => "user_password"
 	                        }
 	  %>
 	<% end %>
-	
+
 	<%= f.submit "Создать", :class => "btn btn-large btn-success" %>
 <% end %>
