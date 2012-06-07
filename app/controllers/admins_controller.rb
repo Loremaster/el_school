@@ -15,24 +15,20 @@ class AdminsController < ApplicationController
 
   def new_school_head
     @user = User.new
-    @user_login, @user_pass = "", ""
     @everpresent_field_placeholder = "Обязательное поле"
-
-    @user_login = params[:user_login]
-    @user_pass  = params[:password]
   end
 
   def create_school_head
-    user = User.new( params[:user] )
-    user.user_role = "school_head" if current_user_admin?
+    @user = User.new( params[:user] )
+    @user.user_role = "school_head" if current_user_admin?
 
-    if user.save
+    if @user.save
       redirect_to users_path
       flash[:success] = "Завуч успешно создан!"
     else
-      redirect_to admins_new_school_head_path( params[:user] )
-      flash[:error] = user.errors.full_messages.to_sentence :last_word_connector => ", ",
+      flash[:error] = @user.errors.full_messages.to_sentence :last_word_connector => ", ",
                                                             :two_words_connector => ", "
+      render 'new_school_head'
     end
   end
 
