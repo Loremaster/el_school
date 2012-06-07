@@ -15,20 +15,24 @@
 class TeacherPhone < ActiveRecord::Base
   attr_accessible :teacher_home_number,
                   :teacher_mobile_number
-  
-  belongs_to :teacher 
-    
+
+  belongs_to :teacher
+
   validates :teacher_home_number,
-              :presence   => { :message => "не может быть пустым" },     
-              :length     => { 
+              :presence   => { :message => "не может быть пустым" },
+              :length     => {
                                 :maximum => 15,
                                 :message => "должен содержать не более 15 символов"
-                              }
-                              
+                              },
+              :numericality => { :only_integer => true,
+                                 :message => "должен состоять из цифр" }
+
   validates :teacher_mobile_number,
-              :presence   => { :message => "не может быть пустым" },     
-              :length     => { 
+              :presence   => { :message => "не может быть пустым" },
+              :length     => {
                                 :maximum => 15,
                                 :message => "должен содержать не более 15 символов"
-                              }
+                              },
+              :numericality => { :only_integer => true,
+                                 :message => "должен состоять из цифр" }
 end
