@@ -1282,12 +1282,7 @@ describe "SchoolHeads" do
 
 
           it "should have placeholders" do
-             inputs = [ "meeting[meeting_date]", "meeting[meeting_room]" ]
-             inputs.each do |inp|
-               response.should have_selector( 'input',
-                                              :name => inp,
-                                              :placeholder => @everpresent_field_placeholder )
-             end
+             inputs = [ "meeting[meeting_room]" ]
 
              response.should have_selector( 'textarea',
                                             :name => "meeting[meeting_theme]",
@@ -1309,7 +1304,6 @@ describe "SchoolHeads" do
             it "should create meeting with valid data" do
               expect do
                 fill_in "Тема собрания", :with => "Yeeeeeeee!"
-                fill_in "Дата", :with => "#{Date.today}"
                 fill_in "Номер кабинета", :with => "123"
 
                 click_button "Создать"
@@ -1321,7 +1315,6 @@ describe "SchoolHeads" do
             it "should reject to create meeting with invalid data" do
               expect do
                 fill_in "Тема собрания", :with => ""
-                fill_in "Дата", :with => ""
                 fill_in "Номер кабинета", :with => ""
 
                 click_button "Создать"
