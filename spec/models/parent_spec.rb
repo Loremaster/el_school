@@ -167,7 +167,7 @@ describe Parent do
       end
 
       it "should accept correct birthdays of parents" do
-        dates = ( Date.today - 100.years )..( Date.today - 18.years )
+        dates = ( Date.today - 71.years )..( Date.today - 18.years )
         dates.each do |d|
           correct_attr = @attr_parent.merge( :parent_birthday => d )
           @user.build_parent( correct_attr ).should be_valid

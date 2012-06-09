@@ -55,8 +55,8 @@ class Parent < ActiveRecord::Base
 
   validates :parent_birthday,
               :inclusion => {
-                              :in => ( Date.today - 100.years )..( Date.today - 18.years ),
-                              :message => "должна быть в пределах от 18 до 100 лет от текущего года"
+                              :in => ( Date.today - 71.years )..( Date.today - 18.years ),
+                              :message => "должна быть в пределах от 18 до 71 года от текущей даты"
                             }
 
   validates :parent_sex,
