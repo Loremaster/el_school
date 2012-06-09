@@ -45,10 +45,13 @@
 
       <div class="control-group">
         <%= builder.label :teacher_birthday, "Дата рождения", :class => "control-label" %>
+
         <div class="controls">
-          <%= builder.text_field :teacher_birthday,
-                                 :placeholder => @everpresent_field_placeholder %>
-          <p class="help-block">Формат даты: дд.мм.гггг</p>
+          <%= builder.date_select :teacher_birthday,
+                            { :start_year => 1970, :end_year => date_year_from_now(),
+                              :order => [:day, :month, :year],
+                              :use_month_names => russian_names_of_months() },
+                            { :class => "span2" } %>
         </div>
       </div>
 

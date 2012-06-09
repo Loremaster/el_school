@@ -152,4 +152,8 @@ module ApplicationHelper
   def curriculum_for_qualification_with_school_class( qualification, school_class )
     qualification.curriculums.where(:school_class_id => school_class.id).first
   end
+
+  def date_year_from_now( num_years=18 )
+    (Date.today - num_years.years).year.to_i
+  end
 end
