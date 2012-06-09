@@ -1075,12 +1075,10 @@ describe "SchoolHeads" do
           fill_in 'Фамилия',  :with => "This"
           fill_in 'Имя',      :with => "Is"
           fill_in 'Отчество', :with => "Sparta"
-          fill_in 'Дата рождения',      :with => "#{Date.today - 25.years}"
           fill_in 'Мобильный телефон',  :with => "23456789"
           fill_in 'Домашний телефон',   :with => "3456789"
           fill_in 'Категория',          :with => "First category"
           fill_in 'Название ВУЗа',         :with => 'MITT'
-          fill_in 'Дата выпуска из ВУЗа',  :with => "#{Date.today - 25.years}"
           fill_in 'Степень',               :with => 'Spec'
           fill_in 'Специальность',         :with => 'Programmer'
 
@@ -1093,12 +1091,10 @@ describe "SchoolHeads" do
           fill_in 'Фамилия',  :with => ' '
           fill_in 'Имя',      :with => ' '
           fill_in 'Отчество', :with => ' '
-          fill_in 'Дата рождения',      :with => ' '
           fill_in 'Мобильный телефон',  :with => ' '
           fill_in 'Домашний телефон',   :with => ' '
           fill_in 'Категория',          :with => ' '
           fill_in 'Название ВУЗа',        :with => ' '
-          fill_in 'Дата выпуска из ВУЗа', :with => ' '
           fill_in 'Степень',              :with => ' '
           fill_in 'Специальность',        :with => ' '
 
