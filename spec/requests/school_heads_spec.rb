@@ -1120,8 +1120,7 @@ describe "SchoolHeads" do
 
           it "should have placeholders" do
             inputs = [ "parent[parent_last_name]", "parent[parent_first_name]",
-                       "parent[parent_middle_name]", "parent[parent_birthday]",
-                       "parent[user_attributes][user_login]",
+                       "parent[parent_middle_name]", "parent[user_attributes][user_login]",
                        "parent[user_attributes][password]"
                      ]
             inputs.each do |inp|
@@ -1136,7 +1135,6 @@ describe "SchoolHeads" do
             fill_in "Имя",     :with => "2"
             fill_in "Отчество", :with => "3"
             choose  "Мужской"
-            fill_in "Дата рождения",         :with => "4"
             fill_in "Логин учетной записи",  :with => "5"
             fill_in "Пароль учетной записи", :with => "6"
             check "#{@pp.pupil.pupil_last_name} #{@pp.pupil.pupil_first_name} " +
@@ -1158,9 +1156,6 @@ describe "SchoolHeads" do
                                           :name => "parent[parent_sex]",
                                           :value => "m",
                                           :checked => "checked" )
-              form.should have_selector( "input",
-                                          :name => "parent[parent_birthday]",
-                                          :value => "4" )
               form.should have_selector( "input",
                                           :name => "parent[user_attributes][user_login]",
                                           :value => "5" )
@@ -1190,7 +1185,6 @@ describe "SchoolHeads" do
                 fill_in "Имя",     :with => "Igot"
                 fill_in "Отчество", :with => "Pokov"
                 choose  "Мужской"
-                fill_in "Дата рождения",         :with => "#{Date.today - 20.years}"
                 fill_in "Логин учетной записи",  :with => "looogin"
                 fill_in "Пароль учетной записи", :with => "passsword"
                 check "#{@pp.pupil.pupil_last_name} #{@pp.pupil.pupil_first_name} " +
@@ -1212,7 +1206,6 @@ describe "SchoolHeads" do
                 fill_in "Имя",     :with => ""
                 fill_in "Отчество", :with => ""
                 choose  "Мужской"
-                fill_in "Дата рождения",         :with => ""
                 fill_in "Логин учетной записи",  :with => ""
                 fill_in "Пароль учетной записи", :with => ""
 
@@ -1237,7 +1230,6 @@ describe "SchoolHeads" do
               fill_in "Имя",     :with => "Igott"
               fill_in "Отчество", :with => "Pokovv"
               choose  "Мужской"
-              fill_in "Дата рождения",  :with => "#{Date.today - 20.years}"
 
               click_button "Обновить"
 
@@ -1251,7 +1243,6 @@ describe "SchoolHeads" do
               fill_in "Имя",     :with => ""
               fill_in "Отчество", :with => ""
               choose  "Мужской"
-              fill_in "Дата рождения",  :with => ""
 
               click_button "Обновить"
 
