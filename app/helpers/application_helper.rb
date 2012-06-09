@@ -156,4 +156,8 @@ module ApplicationHelper
   def date_year_from_now( num_years=18 )
     (Date.today - num_years.years).year.to_i
   end
+
+  def date_year_in_future_from_now( num_years=18 )
+    (Date.today + num_years.years).year.to_i
+  end
 end
