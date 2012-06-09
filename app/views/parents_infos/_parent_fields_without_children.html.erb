@@ -43,7 +43,8 @@
 
   <div class="controls">
     <%= f.date_select :parent_birthday,
-                      { :start_year => 1955, :end_year => 1993,
+                      { :start_year => date_year_from_now( 70 ),
+                        :end_year => date_year_from_now( 18 ),
                         :order => [:day, :month, :year],
                         :use_month_names => russian_names_of_months() },
                       { :class => "span2" } %>
