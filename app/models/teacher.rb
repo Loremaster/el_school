@@ -79,8 +79,8 @@ class Teacher < ActiveRecord::Base
 
   validates :teacher_birthday,
               :inclusion => {
-                              :in => Date.civil(1970, 1, 1)..Date.today,
-                              :message => "должна быть с 1970 по сегодняшний день"
+                              :in => Date.civil(1970, 1, 1)..( Date.today - 18.year ),
+                              :message => "должна быть не меньше 1970 года и не меньше 18 лет"
                              }
 
 end
