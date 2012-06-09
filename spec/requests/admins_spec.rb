@@ -144,7 +144,6 @@ describe "Admins" do
         @user_login          = 'login'
         @user_password       = 'password'
         @user_univ           = 'МГУ'
-        @user_finish_univ    = '01.01.1980'
         @user_graduation     = 'Бакалавр'
         @user_speciality     = 'Математик'
         @teacher_mobile_num  = '8998775556'
@@ -177,9 +176,6 @@ describe "Admins" do
 
           form.should have_selector( 'input',
                                       :id => 'user_teacher_attributes_teacher_education_attributes_teacher_education_university',
-                                      :placeholder => @everpresent_field_placeholder)
-          form.should have_selector( 'input',
-                                      :id => 'user_teacher_attributes_teacher_education_attributes_teacher_education_year',
                                       :placeholder => @everpresent_field_placeholder)
           form.should have_selector( 'input',
                                       :id => 'user_teacher_attributes_teacher_education_attributes_teacher_education_graduation',
@@ -222,7 +218,6 @@ describe "Admins" do
             fill_in 'Логин учетной записи',  :with => @user_login
             fill_in 'Пароль учетной записи', :with => @user_pas
             fill_in 'Название ВУЗа',         :with => @user_univ
-            fill_in 'Дата выпуска из ВУЗа',  :with => @user_finish_univ
             fill_in 'Степень',               :with => @user_graduation
             fill_in 'Специальность',         :with => @user_speciality
             click_button 'Создать'
@@ -259,7 +254,6 @@ describe "Admins" do
           fill_in 'Логин учетной записи',  :with => @user_login
           fill_in 'Пароль учетной записи', :with => user_pas
           fill_in 'Название ВУЗа',         :with => @user_univ
-          fill_in 'Дата выпуска из ВУЗа',  :with => @user_finish_univ
           fill_in 'Степень',               :with => @user_graduation
           fill_in 'Специальность',         :with => @user_speciality
           click_button 'Создать'
@@ -294,7 +288,6 @@ describe "Admins" do
           fill_in 'Логин учетной записи',  :with => @user_login
           fill_in 'Пароль учетной записи', :with => wrong_user_pas
           fill_in 'Название ВУЗа',         :with => @user_univ
-          fill_in 'Дата выпуска из ВУЗа',  :with => @user_finish_univ
           fill_in 'Степень',               :with => @user_graduation
           fill_in 'Специальность',         :with => @user_speciality
           click_button 'Создать'
@@ -314,7 +307,6 @@ describe "Admins" do
             form.should have_selector( 'input', :value   => 'm',
                                                 :checked => 'checked'  )                  # In DB 'w' is woman, 'm' is man thats why we keep such letters in view.
             form.should have_selector( 'input', :value => @user_univ        )
-            form.should have_selector( 'input', :value => @user_finish_univ )
             form.should have_selector( 'input', :value => @user_graduation  )
             form.should have_selector( 'input', :value => @user_speciality  )
           end
