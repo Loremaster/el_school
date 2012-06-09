@@ -68,8 +68,8 @@ class Teacher < ActiveRecord::Base
                                :message => "должна содержать только буквы" }
 
   validates :teacher_sex,
-              :presence  => true,
-              :inclusion => { :in => %w(m w) }
+              :presence  => { :message => "не может быть пустым" },
+              :inclusion => { :in => %w(m w), :message => "должен быть указан" }
 
   validates :teacher_category,                                                            # Might be empty as i understand.
               :length   => {
