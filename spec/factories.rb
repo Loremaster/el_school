@@ -64,7 +64,7 @@ FactoryGirl.define do
 
   factory :teacher_education do |te|
     te.teacher_education_university 'MIT'
-    te.teacher_education_year       "#{Date.today - 10.years}"
+    te.teacher_education_year       "#{Date.today - 20.years}"
     te.teacher_education_graduation 'Programmer'
     te.teacher_education_speciality 'Math programmer'
   end
