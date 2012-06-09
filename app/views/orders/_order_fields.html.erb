@@ -2,8 +2,8 @@
   <%= f.label :number_of_order, "Номер приказа", :class => "control-label" %>
 
   <div class="controls">
-    <%= f.text_field :number_of_order, 
-                     :class => "span2",                         
+    <%= f.text_field :number_of_order,
+                     :class => "span2",
                      :placeholder => field_placeholder %>
   </div>
 </div>
@@ -12,9 +12,12 @@
   <%= f.label :date_of_order, "Дата создания приказа", :class => "control-label" %>
 
   <div class="controls">
-    <%= f.text_field :date_of_order, 
-                     :class => "span2",                         
-                     :placeholder => field_placeholder %>
+    <%= f.date_select :date_of_order,
+                      { :start_year => date_year_from_now( 1 ),
+                        :end_year => date_year_in_future_from_now( 1 ),
+                        :order => [:day, :month, :year],
+                        :use_month_names => russian_names_of_months() },
+                      { :class => "span2" } %>
   </div>
 </div>
 
@@ -22,7 +25,7 @@
   <%= f.label :text_of_order, "Текст приказа", :class => "control-label" %>
 
   <div class="controls">
-    <%= f.text_area :text_of_order, :rows => 7, 
+    <%= f.text_area :text_of_order, :rows => 7,
                     :placeholder => field_placeholder %>
   </div>
 </div>
