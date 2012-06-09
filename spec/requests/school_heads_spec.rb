@@ -702,8 +702,7 @@ describe "SchoolHeads" do
           it "should have placeholders" do
             inputs = [
                        "pupil[pupil_last_name]",   "pupil[pupil_first_name]",
-                       "pupil[pupil_middle_name]", "pupil[pupil_birthday]",
-                       "pupil[pupil_nationality]",
+                       "pupil[pupil_middle_name]", "pupil[pupil_nationality]",
                        "pupil[pupil_phone_attributes][pupil_home_number]",
                        "pupil[pupil_phone_attributes][pupil_mobile_number]",
                        "pupil[user_attributes][user_login]",
@@ -733,7 +732,6 @@ describe "SchoolHeads" do
             fill_in "Имя",      :with => pupil.pupil_first_name
             fill_in "Отчество", :with => pupil.pupil_middle_name
             choose "Женский"
-            fill_in "Дата рождения",  :with => pupil.pupil_birthday
             fill_in "Национальность", :with => pupil.pupil_nationality
             fill_in "Адрес прописки", :with => pupil.pupil_address_of_registration
             fill_in "Адрес проживания",  :with => pupil.pupil_address_of_living
@@ -758,9 +756,6 @@ describe "SchoolHeads" do
                                           :name => "pupil[pupil_sex]",
                                           :value => "w",
                                           :checked => "checked" )
-              form.should have_selector( "input",
-                                          :name => "pupil[pupil_birthday]",
-                                          :value => "#{pupil.pupil_birthday}" )
               form.should have_selector( "input",
                                           :name => "pupil[pupil_nationality]",
                                           :value => pupil.pupil_nationality )
@@ -801,7 +796,6 @@ describe "SchoolHeads" do
                 fill_in "Имя",      :with => "Петр"
                 fill_in "Отчество", :with => "Петрович"
                 choose "Мужской"
-                fill_in "Дата рождения",  :with => "#{Date.today - 10.years}"
                 fill_in "Национальность", :with => "Русский"
                 fill_in "Адрес прописки", :with => "Москва ..."
                 fill_in "Адрес проживания",  :with => "Москва ..."
@@ -826,7 +820,6 @@ describe "SchoolHeads" do
                 fill_in "Имя",      :with => ""
                 fill_in "Отчество", :with => "Петрович"
                 choose "Мужской"
-                fill_in "Дата рождения",  :with => "#{Date.today - 10.years}"
                 fill_in "Национальность", :with => "Русский"
                 fill_in "Адрес прописки", :with => "Москва ..."
                 fill_in "Адрес проживания",  :with => "Москва ..."
@@ -880,9 +873,6 @@ describe "SchoolHeads" do
                                           :name => "pupil[pupil_sex]",
                                           :value => @ipupil.pupil_sex,
                                           :checked => "checked" )
-              form.should have_selector( "input",
-                                          :name => "pupil[pupil_birthday]",
-                                          :value => "#{@ipupil.pupil_birthday}" )
               form.should have_selector( "input",
                                           :name => "pupil[pupil_nationality]",
                                           :value => @ipupil.pupil_nationality )
