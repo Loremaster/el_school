@@ -9,13 +9,15 @@
 </div>
 
 <div class="control-group">
-  <%= f.label :date_of_class_creation, "Дата создания класса",
-              :class => "control-label" %>
+  <%= f.label :date_of_class_creation, "Дата создания класса", :class => "control-label" %>
 
   <div class="controls">
-    <%= f.text_field :date_of_class_creation,
-                     :class => "span2",
-                     :placeholder => field_placeholder %>
+    <%= f.date_select :date_of_class_creation,
+                      { :start_year => date_year_from_now( 1 ),
+                        :end_year => date_year_in_future_from_now( 1 ),
+                        :order => [:day, :month, :year],
+                        :use_month_names => russian_names_of_months() },
+                      { :class => "span2" } %>
   </div>
 </div>
 
