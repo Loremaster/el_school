@@ -122,7 +122,9 @@ class TimetablesController < ApplicationController
   end
 
   def update
+    @types_of_lesson = collect_types_of_lesson
     @tt = Timetable.find( params[:id] )
+    @subjects_with_curriculums = collect_subjects_with_curriculums( @tt.school_class )
 
     if @tt.update_attributes( params[:timetable] )
       flash[:success] = "Расписание успешно обновлено!"

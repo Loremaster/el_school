@@ -44,4 +44,16 @@ class Timetable < ActiveRecord::Base
   validates :tt_type,
               :inclusion => { :in => ["Primary lesson", "Extra"] },
               :allow_blank => true
+
+  validate :timetable_should_have_curriculum_id_and_room_and_type_nil_or_with_data
+
+  def timetable_should_have_curriculum_id_and_room_and_type_nil_or_with_data
+    unless ( ( self.curriculum_id.nil? and self.tt_room.blank? and self.tt_type.blank? ) or
+             ( not self.curriculum_id.nil? and not self.tt_room.blank? and
+               not self.tt_type.blank? ) )
+       errors.add :base, "Тип предмета, номер кабинета и тип занятия должны быть либо " +
+                         "пустыми либо содержать непустые данные"
+    end
+  end
+
 end
