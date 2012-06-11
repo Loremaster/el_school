@@ -54,7 +54,7 @@ class EventsController < ApplicationController
 
       if @pupil.update_attributes(params[:pupil])
         redirect_to events_edit_pupil_path
-        flash[:success] = "Ваше участие принято!"
+        flash[:success] = "Изменения сохранены!"
       else
         flash.now[:error] = @pupil.errors.full_messages
                                           .to_sentence :last_word_connector => ", ",
