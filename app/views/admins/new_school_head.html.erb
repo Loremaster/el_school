@@ -1,12 +1,10 @@
 <legend>Создание учетной записи Завуча</legend>
 
 <%= form_for @user, :url => create_school_head_url, :html => {:class => "form-horizontal"} do |f| %>
-		<%= field_set_tag do %>		  
-		  <%= render :partial => 'shared/user_fields_new', 
+		<%= field_set_tag do %>
+		  <%= render :partial => 'shared/user_fields_new',
 		             :locals => { :f => f,
 		                          :field_placeholder => @everpresent_field_placeholder,
-                              :login => @user_login,
-                              :password => @user_pass,
                               :login_field_id => "user_user_login",
                               :password_field_id => "user_password"
 		                        }

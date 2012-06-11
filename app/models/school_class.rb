@@ -32,6 +32,7 @@ class SchoolClass < ActiveRecord::Base
 
   validates :class_code,
               :presence   => { :message => "не может быть пустым" },
+              :uniqueness => { :message => "должен быть уникальным" },
               :length     => {
                                 :maximum => 3,
                                 :message => "должен содержать не более 3 символов"

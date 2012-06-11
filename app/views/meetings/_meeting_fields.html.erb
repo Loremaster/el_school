@@ -2,7 +2,7 @@
   <%= f.label :meeting_theme, "Тема собрания", :class => "control-label" %>
 
   <div class="controls">
-    <%= f.text_area :meeting_theme, :rows => 3, 
+    <%= f.text_area :meeting_theme, :rows => 3,
                     :placeholder => field_placeholder %>
   </div>
 </div>
@@ -11,42 +11,42 @@
   <%= f.label :meeting_date, "Дата", :class => "control-label" %>
 
   <div class="controls">
-    <%= f.text_field :meeting_date, 
-                     :class => "span2",                         
-                     :placeholder => field_placeholder,
-                     :maxlength => 10 %>
-                     
-    <p class="help-block">Желаемый формат - дд.мм.гггг</p>                 
+    <%= f.date_select :meeting_date,
+                      { :start_year => date_year_from_now( 1 ),
+                        :end_year => date_year_in_future_from_now( 1 ),
+                        :order => [:day, :month, :year],
+                        :use_month_names => russian_names_of_months() },
+                      { :class => "span2" } %>
   </div>
-</div> 
+</div>
 
 <div class="control-group">
   <%= f.label :meeting_time, "Время", :class => "control-label" %>
 
   <div class="controls">
-    <%= f.time_select :meeting_time, {}, { :class => "span1" } %>              
+    <%= f.time_select :meeting_time, {}, { :class => "span1" } %>
   </div>
-</div>   
+</div>
 
 <div class="control-group">
   <%= f.label :meeting_room, "Номер кабинета", :class => "control-label" %>
 
   <div class="controls">
-    <%= f.text_field :meeting_room, 
-                     :class => "span2",                         
+    <%= f.text_field :meeting_room,
+                     :class => "span2",
                      :placeholder => field_placeholder %>
   </div>
-</div>  
+</div>
 
 <div class="control-group">
-  <%= f.label :school_class_id, "Номер класса", 
+  <%= f.label :school_class_id, "Номер класса",
       :class => "control-label" %>
 
   <div class="controls">
     <%= f.select( :school_class_id,                                                       # Here we use 'select' instead of 'select_tag' because 'select' allows us to give builder ('tl.select' here).
-                  options_for_select( 
+                  options_for_select(
                         SchoolClass.all.collect { |s| [ s.class_code, s.id ] } ),
                   {},
-                  { :class => "span1" } ) %>            	     
+                  { :class => "span1" } ) %>
   </div>
 </div>

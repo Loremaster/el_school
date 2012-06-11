@@ -122,11 +122,13 @@ class TimetablesController < ApplicationController
   end
 
   def update
+    @types_of_lesson = collect_types_of_lesson
     @tt = Timetable.find( params[:id] )
+    @subjects_with_curriculums = collect_subjects_with_curriculums( @tt.school_class )
 
     if @tt.update_attributes( params[:timetable] )
       flash[:success] = "Расписание успешно обновлено!"
-      redirect_to timetables_path
+      redirect_to timetables_path( :class_code => @tt.school_class.class_code )
     else
       flash.now[:error] = @tt.errors.full_messages.to_sentence :last_word_connector => ", ",
                                                                :two_words_connector => ", "

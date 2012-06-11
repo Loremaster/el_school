@@ -4,9 +4,8 @@
   <%= f.label :user_login, "Логин учетной записи", :class => "control-label" %>
   <div class="controls">
     <%= f.text_field :user_login,
-                     :value => login,
                      :placeholder => field_placeholder %>
-	  <%= link_to_function "Сгенерировать логин", 
+	  <%= link_to_function "Сгенерировать логин",
 	                       "generate_login_with_id('#{login_field_id}')", :class => "btn" %>
   </div>
 </div>
@@ -14,11 +13,10 @@
 <div class="control-group">
   <%= f.label :password, "Пароль учетной записи", :class => "control-label" %>
   <div class="controls">
-    <%= f.text_field :password, 
-                     :value => password,
+    <%= f.text_field :password,
                      :placeholder => field_placeholder %>
-		<%= link_to_function "Сгенерировать пароль", 
-		                     "generate_password_with_id('#{password_field_id}')", 
+		<%= link_to_function "Сгенерировать пароль",
+		                     "generate_password_with_id('#{password_field_id}')",
 		                     :class => "btn" %>
   </div>
 </div>

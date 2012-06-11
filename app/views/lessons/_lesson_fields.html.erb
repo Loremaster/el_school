@@ -1,0 +1,20 @@
+<div class="control-group">
+  <%= f.label :timetable_id, "Урок", :class => "control-label" %>
+  <div class="controls">
+    <%= f.select( :timetable_id,                                                          # Here we use 'select' instead of 'select_tag' because 'select' allows us to give builder ('tl.select' here).
+                  options_for_select( timetables_collection, choosen_timetable  )) %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :lesson_date, "Дата", :class => "control-label" %>
+
+  <div class="controls">
+    <%= f.date_select :lesson_date,
+                      { :start_year => date_year_from_now( 15 ),
+                        :end_year => date_year_in_future_from_now( 15 ),
+                        :order => [:day, :month, :year],
+                        :use_month_names => russian_names_of_months() },
+                      { :class => "span2" } %>
+  </div>
+</div>

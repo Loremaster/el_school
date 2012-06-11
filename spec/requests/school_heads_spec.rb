@@ -281,29 +281,29 @@ describe "SchoolHeads" do
             end.should_not change( TeacherLeader, :count )
           end
 
-          it "should keep values in forms" do
-            # @teacher2 = Factory( :teacher,
-            #                      :teacher_last_name   => "B.",
-            #                      :teacher_first_name  => "B.",
-            #                      :teacher_middle_name => "Kingi",
-            #                      :user => Factory( :user, :user_login => Factory.next( :user_login )))
-            # @teacher2.user.user_role = "teacher"
-            # @teacher2.save!
-
-            fill_in "Логин учетной записи",  :with => "something"
-            fill_in "Пароль учетной записи", :with => "ano"
-            # select "#{@teacher2.teacher_last_name} "  +                                 # Select option via name.
-            #        "#{@teacher2.teacher_first_name} " +
-            #        "#{@teacher2.teacher_middle_name}",
-            #        :from => "user_teacher_leader_attributes_teacher_id"
-
-            click_button "Создать"
-
-            response.should have_selector("form") do |form|
-              form.should have_selector( "input", :value => "something" )
-              form.should have_selector( "input", :value => "ano"  )
-            end
-          end
+          # it "should keep values in forms" do
+          #   # @teacher2 = Factory( :teacher,
+          #   #                      :teacher_last_name   => "B.",
+          #   #                      :teacher_first_name  => "B.",
+          #   #                      :teacher_middle_name => "Kingi",
+          #   #                      :user => Factory( :user, :user_login => Factory.next( :user_login )))
+          #   # @teacher2.user.user_role = "teacher"
+          #   # @teacher2.save!
+          #
+          #   fill_in "Логин учетной записи",  :with => "something"
+          #   fill_in "Пароль учетной записи", :with => "ano"
+          #   # select "#{@teacher2.teacher_last_name} "  +                                 # Select option via name.
+          #   #        "#{@teacher2.teacher_first_name} " +
+          #   #        "#{@teacher2.teacher_middle_name}",
+          #   #        :from => "user_teacher_leader_attributes_teacher_id"
+          #
+          #   click_button "Создать"
+          #
+          #   response.should have_selector("form") do |form|
+          #     form.should have_selector( "input", :value => "something" )
+          #     form.should have_selector( "input", :value => "ano"  )
+          #   end
+          # end
         end
       end
 
@@ -373,42 +373,34 @@ describe "SchoolHeads" do
           response.should have_selector('input',
                                         :name => "school_class[class_code]",
                                         :placeholder => @everpresent_field_placeholder)
-          response.should have_selector('input',
-                                        :name => "school_class[date_of_class_creation]",
-                                        :placeholder => @everpresent_field_placeholder)
-
         end
 
-        it "should keep values in forms" do
-          teacher_leader = FactoryGirl.create( :teacher_leader )
-
-          click_link "Классы"
-          click_link "Создать класс"
-
-          fill_in "Номер класса",  :with => "11"
-          fill_in "Дата создания класса", :with => "21"
-          select "#{teacher_leader.teacher.teacher_last_name} "  +                        # Select option via name.
-                 "#{teacher_leader.teacher.teacher_first_name} " +
-                 "#{teacher_leader.teacher.teacher_middle_name}",
-                 :from => "school_class[teacher_leader_id]"
-
-          click_button "Создать"
-
-          response.should have_selector("form") do |form|
-            form.should have_selector( "input",
-                                       :name => "school_class[class_code]",
-                                       :value => "11" )
-            form.should have_selector( "input",
-                                       :name => "school_class[date_of_class_creation]",
-                                       :value => "21"  )
-          end
-          response.should have_selector( "select",
-                                         :name => "school_class[teacher_leader_id]") do |sel|
-             sel.should have_selector( "option",
-                                       :selected => "selected",
-                                       :value => "#{teacher_leader.id}" )
-          end
-        end
+        # it "should keep values in forms" do
+        #   teacher_leader = FactoryGirl.create( :teacher_leader )
+        #
+        #   click_link "Классы"
+        #   click_link "Создать класс"
+        #
+        #   fill_in "Номер класса",  :with => "11"
+        #   select "#{teacher_leader.teacher.teacher_last_name} "  +                        # Select option via name.
+        #          "#{teacher_leader.teacher.teacher_first_name} " +
+        #          "#{teacher_leader.teacher.teacher_middle_name}",
+        #          :from => "school_class[teacher_leader_id]"
+        #
+        #   click_button "Создать"
+        #
+        #   response.should have_selector("form") do |form|
+        #     form.should have_selector( "input",
+        #                                :name => "school_class[class_code]",
+        #                                :value => "11" )
+        #   end
+        #   response.should have_selector( "select",
+        #                                  :name => "school_class[teacher_leader_id]") do |sel|
+        #      sel.should have_selector( "option",
+        #                                :selected => "selected",
+        #                                :value => "#{teacher_leader.id}" )
+        #   end
+        # end
       end
 
       describe "Pupils in School class" do
@@ -456,14 +448,13 @@ describe "SchoolHeads" do
         it "should save pupils in class when class is creating" do
           t_leader = FactoryGirl.create( :teacher_leader )
           ipupil = FactoryGirl.create( :pupil )
-          class2 = FactoryGirl.create( :school_class, :class_code => "11d" )
+          class2 = FactoryGirl.create( :school_class, :class_code => "11k" )
 
           click_link "Классы"
           click_link "Создать класс"
 
           # Creating class and choosing pupil.
           fill_in "Номер класса",  :with => "11a"
-          fill_in "Дата создания класса", :with => "#{Date.today}"
           select "#{t_leader.teacher.teacher_last_name} "  +                              # Select option via name.
                  "#{t_leader.teacher.teacher_first_name} " +
                  "#{t_leader.teacher.teacher_middle_name}",
@@ -483,19 +474,17 @@ describe "SchoolHeads" do
 
       describe "Showing pupils by class" do
         before(:each) do
-          @pupil1 = FactoryGirl.create( :pupil )
+          @class1 = FactoryGirl.create( :school_class )
+          @class2 = FactoryGirl.create( :school_class, :class_code => "111")
+
+          @pupil1 = FactoryGirl.create( :pupil, :school_class => @class1 )
           @pupil2 = FactoryGirl.create( :pupil, :pupil_last_name => "Andropov",
                                                 :pupil_first_name => "Igor",
                                                 :pupil_middle_name => "kolima")
           @pupil3 = FactoryGirl.create( :pupil, :pupil_last_name => "Andropovv",
                                                 :pupil_first_name => "Igorr",
-                                                :pupil_middle_name => "kolimaa")
-
-          @class1 = FactoryGirl.create( :school_class )
-          @class2 = FactoryGirl.create( :school_class, :class_code => "111")
-
-          @pupil1.school_class_id = @class1.id
-          @pupil3.school_class_id = @class2.id
+                                                :pupil_middle_name => "kolimaa",
+                                        :school_class => @class2 )
         end
 
         it "should show all pupils by link in button" do
@@ -559,7 +548,6 @@ describe "SchoolHeads" do
           it "should create class with valid data" do
             expect do
               fill_in "Номер класса",  :with => "11a"
-              fill_in "Дата создания класса", :with => "#{Date.today}"
               select "#{@t_leader.teacher.teacher_last_name} "  +                         # Select option via name.
                      "#{@t_leader.teacher.teacher_first_name} " +
                      "#{@t_leader.teacher.teacher_middle_name}",
@@ -573,8 +561,7 @@ describe "SchoolHeads" do
         describe "Failure" do
           it "should reject to create class with invalid data" do
             expect do
-              fill_in "Номер класса",  :with => "11a"
-              fill_in "Дата создания класса", :with => "#{Date.today - 2.years}"
+              fill_in "Номер класса",  :with => ""
               select "#{@t_leader.teacher.teacher_last_name} "  +                         # Select option via name.
                      "#{@t_leader.teacher.teacher_first_name} " +
                      "#{@t_leader.teacher.teacher_middle_name}",
@@ -593,7 +580,6 @@ describe "SchoolHeads" do
           click_link "Создать класс"
 
           fill_in "Номер класса",  :with => "11a"
-          fill_in "Дата создания класса", :with => "#{Date.today}"
           select "#{@t_leader.teacher.teacher_last_name} "  +                             # Select option via name.
                  "#{@t_leader.teacher.teacher_first_name} " +
                  "#{@t_leader.teacher.teacher_middle_name}",
@@ -646,7 +632,6 @@ describe "SchoolHeads" do
         it "should successful check curriculums and save it in DB" do
           expect do
             fill_in "Номер класса",  :with => "11a"
-            fill_in "Дата создания класса", :with => "#{Date.today}"
             select "#{@t_leader.teacher.teacher_last_name} "  +                           # Select option via name.
                    "#{@t_leader.teacher.teacher_first_name} " +
                    "#{@t_leader.teacher.teacher_middle_name}",
@@ -702,8 +687,7 @@ describe "SchoolHeads" do
           it "should have placeholders" do
             inputs = [
                        "pupil[pupil_last_name]",   "pupil[pupil_first_name]",
-                       "pupil[pupil_middle_name]", "pupil[pupil_birthday]",
-                       "pupil[pupil_nationality]",
+                       "pupil[pupil_middle_name]", "pupil[pupil_nationality]",
                        "pupil[pupil_phone_attributes][pupil_home_number]",
                        "pupil[pupil_phone_attributes][pupil_mobile_number]",
                        "pupil[user_attributes][user_login]",
@@ -733,7 +717,6 @@ describe "SchoolHeads" do
             fill_in "Имя",      :with => pupil.pupil_first_name
             fill_in "Отчество", :with => pupil.pupil_middle_name
             choose "Женский"
-            fill_in "Дата рождения",  :with => pupil.pupil_birthday
             fill_in "Национальность", :with => pupil.pupil_nationality
             fill_in "Адрес прописки", :with => pupil.pupil_address_of_registration
             fill_in "Адрес проживания",  :with => pupil.pupil_address_of_living
@@ -758,9 +741,6 @@ describe "SchoolHeads" do
                                           :name => "pupil[pupil_sex]",
                                           :value => "w",
                                           :checked => "checked" )
-              form.should have_selector( "input",
-                                          :name => "pupil[pupil_birthday]",
-                                          :value => "#{pupil.pupil_birthday}" )
               form.should have_selector( "input",
                                           :name => "pupil[pupil_nationality]",
                                           :value => pupil.pupil_nationality )
@@ -801,7 +781,7 @@ describe "SchoolHeads" do
                 fill_in "Имя",      :with => "Петр"
                 fill_in "Отчество", :with => "Петрович"
                 choose "Мужской"
-                fill_in "Дата рождения",  :with => "#{Date.today - 10.years}"
+                select "#{(Date.today - 10.years).year}", :from => 'pupil_pupil_birthday_1i'
                 fill_in "Национальность", :with => "Русский"
                 fill_in "Адрес прописки", :with => "Москва ..."
                 fill_in "Адрес проживания",  :with => "Москва ..."
@@ -826,7 +806,6 @@ describe "SchoolHeads" do
                 fill_in "Имя",      :with => ""
                 fill_in "Отчество", :with => "Петрович"
                 choose "Мужской"
-                fill_in "Дата рождения",  :with => "#{Date.today - 10.years}"
                 fill_in "Национальность", :with => "Русский"
                 fill_in "Адрес прописки", :with => "Москва ..."
                 fill_in "Адрес проживания",  :with => "Москва ..."
@@ -881,9 +860,6 @@ describe "SchoolHeads" do
                                           :value => @ipupil.pupil_sex,
                                           :checked => "checked" )
               form.should have_selector( "input",
-                                          :name => "pupil[pupil_birthday]",
-                                          :value => "#{@ipupil.pupil_birthday}" )
-              form.should have_selector( "input",
                                           :name => "pupil[pupil_nationality]",
                                           :value => @ipupil.pupil_nationality )
               form.should have_selector( "textarea",
@@ -936,7 +912,7 @@ describe "SchoolHeads" do
           end
 
           it "should have placeholders" do
-            inputs = [ "order[number_of_order]", "order[date_of_order]" ]
+            inputs = [ "order[number_of_order]" ]
             inputs.each do |inp|
               response.should have_selector( 'input',
                                              :name => inp,
@@ -948,44 +924,40 @@ describe "SchoolHeads" do
                                            :placeholder => @everpresent_field_placeholder )
           end
 
-          it "should keep values in forms" do
-            order_num, order_date, order_text = "144", "1", "bla"
-            pupil_full_name = "#{@pupil.pupil_last_name} #{@pupil.pupil_first_name} " +
-                              "#{@pupil.pupil_middle_name}"
-
-            fill_in "Номер приказа",  :with => order_num
-            fill_in "Дата создания приказа", :with => order_date
-            fill_in "Текст приказа",  :with => order_text
-            select "#{@school_class.class_code}", :from => "order[school_class_id]"
-            select pupil_full_name, :from => "order[pupil_id]"
-
-            click_button "Создать"
-
-            response.should have_selector("form") do |form|
-              form.should have_selector( "input",
-                                          :name => "order[number_of_order]",
-                                          :value => order_num )
-              form.should have_selector( "input",
-                                          :name => "order[date_of_order]",
-                                          :value => order_date )
-              form.should have_selector( "textarea",
-                                          :name => "order[text_of_order]",
-                                          :content => order_text )
-
-              form.should have_selector( "select",
-                                          :name => "order[school_class_id]") do |select|
-                select.should have_selector( "option",
-                                              :content => "#{@school_class.class_code}",
-                                              :selected => "selected")
-              end
-              form.should have_selector( "select",
-                                          :name => "order[pupil_id]") do |select|
-                select.should have_selector( "option",
-                                              :content => pupil_full_name,
-                                              :selected => "selected")
-              end
-            end
-          end
+          # it "should keep values in forms" do
+          #             order_num, order_date, order_text = "144", "1", "bla"
+          #             pupil_full_name = "#{@pupil.pupil_last_name} #{@pupil.pupil_first_name} " +
+          #                               "#{@pupil.pupil_middle_name}"
+          #
+          #             fill_in "Номер приказа",  :with => order_num
+          #             fill_in "Текст приказа",  :with => order_text
+          #             select "#{@school_class.class_code}", :from => "order[school_class_id]"
+          #             select pupil_full_name, :from => "order[pupil_id]"
+          #
+          #             click_button "Создать"
+          #
+          #             response.should have_selector("form") do |form|
+          #               form.should have_selector( "input",
+          #                                           :name => "order[number_of_order]",
+          #                                           :value => order_num )
+          #               form.should have_selector( "textarea",
+          #                                           :name => "order[text_of_order]",
+          #                                           :content => order_text )
+          #
+          #               form.should have_selector( "select",
+          #                                           :name => "order[school_class_id]") do |select|
+          #                 select.should have_selector( "option",
+          #                                               :content => "#{@school_class.class_code}",
+          #                                               :selected => "selected")
+          #               end
+          #               form.should have_selector( "select",
+          #                                           :name => "order[pupil_id]") do |select|
+          #                 select.should have_selector( "option",
+          #                                               :content => pupil_full_name,
+          #                                               :selected => "selected")
+          #               end
+          #             end
+          #           end
         end
 
         describe "Create" do
@@ -1003,7 +975,6 @@ describe "SchoolHeads" do
                                   "#{@pupil.pupil_middle_name}"
 
                 fill_in "Номер приказа",  :with => "134"
-                fill_in "Дата создания приказа", :with => "#{Date.today}"
                 fill_in "Текст приказа",  :with => "bla-bla"
                 select "#{@school_class.class_code}", :from => "order[school_class_id]"
                 select pupil_full_name, :from => "order[pupil_id]"
@@ -1019,8 +990,7 @@ describe "SchoolHeads" do
                 pupil_full_name = "#{@pupil.pupil_last_name} #{@pupil.pupil_first_name} " +
                                   "#{@pupil.pupil_middle_name}"
 
-                fill_in "Номер приказа",  :with => "134"
-                fill_in "Дата создания приказа", :with => " "
+                fill_in "Номер приказа",  :with => ""
                 fill_in "Текст приказа",  :with => "bla-bla"
                 select "#{@school_class.class_code}", :from => "order[school_class_id]"
                 select pupil_full_name, :from => "order[pupil_id]"
@@ -1045,7 +1015,6 @@ describe "SchoolHeads" do
           describe "Success" do
             it "should update order with valid data" do
               fill_in "Номер приказа",  :with => "134"
-              fill_in "Дата создания приказа", :with => "#{Date.today}"
               fill_in "Текст приказа",  :with => "bla-bla"
               select "#{@school_class.class_code}", :from => "order[school_class_id]"
               select @pupil_full_name, :from => "order[pupil_id]"
@@ -1085,12 +1054,10 @@ describe "SchoolHeads" do
           fill_in 'Фамилия',  :with => "This"
           fill_in 'Имя',      :with => "Is"
           fill_in 'Отчество', :with => "Sparta"
-          fill_in 'Дата рождения',      :with => "#{Date.today - 25.years}"
           fill_in 'Мобильный телефон',  :with => "23456789"
           fill_in 'Домашний телефон',   :with => "3456789"
           fill_in 'Категория',          :with => "First category"
           fill_in 'Название ВУЗа',         :with => 'MITT'
-          fill_in 'Дата выпуска из ВУЗа',  :with => "#{Date.today - 25.years}"
           fill_in 'Степень',               :with => 'Spec'
           fill_in 'Специальность',         :with => 'Programmer'
 
@@ -1103,12 +1070,10 @@ describe "SchoolHeads" do
           fill_in 'Фамилия',  :with => ' '
           fill_in 'Имя',      :with => ' '
           fill_in 'Отчество', :with => ' '
-          fill_in 'Дата рождения',      :with => ' '
           fill_in 'Мобильный телефон',  :with => ' '
           fill_in 'Домашний телефон',   :with => ' '
           fill_in 'Категория',          :with => ' '
           fill_in 'Название ВУЗа',        :with => ' '
-          fill_in 'Дата выпуска из ВУЗа', :with => ' '
           fill_in 'Степень',              :with => ' '
           fill_in 'Специальность',        :with => ' '
 
@@ -1130,8 +1095,7 @@ describe "SchoolHeads" do
 
           it "should have placeholders" do
             inputs = [ "parent[parent_last_name]", "parent[parent_first_name]",
-                       "parent[parent_middle_name]", "parent[parent_birthday]",
-                       "parent[user_attributes][user_login]",
+                       "parent[parent_middle_name]", "parent[user_attributes][user_login]",
                        "parent[user_attributes][password]"
                      ]
             inputs.each do |inp|
@@ -1146,7 +1110,6 @@ describe "SchoolHeads" do
             fill_in "Имя",     :with => "2"
             fill_in "Отчество", :with => "3"
             choose  "Мужской"
-            fill_in "Дата рождения",         :with => "4"
             fill_in "Логин учетной записи",  :with => "5"
             fill_in "Пароль учетной записи", :with => "6"
             check "#{@pp.pupil.pupil_last_name} #{@pp.pupil.pupil_first_name} " +
@@ -1168,9 +1131,6 @@ describe "SchoolHeads" do
                                           :name => "parent[parent_sex]",
                                           :value => "m",
                                           :checked => "checked" )
-              form.should have_selector( "input",
-                                          :name => "parent[parent_birthday]",
-                                          :value => "4" )
               form.should have_selector( "input",
                                           :name => "parent[user_attributes][user_login]",
                                           :value => "5" )
@@ -1200,7 +1160,6 @@ describe "SchoolHeads" do
                 fill_in "Имя",     :with => "Igot"
                 fill_in "Отчество", :with => "Pokov"
                 choose  "Мужской"
-                fill_in "Дата рождения",         :with => "#{Date.today - 20.years}"
                 fill_in "Логин учетной записи",  :with => "looogin"
                 fill_in "Пароль учетной записи", :with => "passsword"
                 check "#{@pp.pupil.pupil_last_name} #{@pp.pupil.pupil_first_name} " +
@@ -1222,7 +1181,6 @@ describe "SchoolHeads" do
                 fill_in "Имя",     :with => ""
                 fill_in "Отчество", :with => ""
                 choose  "Мужской"
-                fill_in "Дата рождения",         :with => ""
                 fill_in "Логин учетной записи",  :with => ""
                 fill_in "Пароль учетной записи", :with => ""
 
@@ -1247,7 +1205,6 @@ describe "SchoolHeads" do
               fill_in "Имя",     :with => "Igott"
               fill_in "Отчество", :with => "Pokovv"
               choose  "Мужской"
-              fill_in "Дата рождения",  :with => "#{Date.today - 20.years}"
 
               click_button "Обновить"
 
@@ -1261,7 +1218,6 @@ describe "SchoolHeads" do
               fill_in "Имя",     :with => ""
               fill_in "Отчество", :with => ""
               choose  "Мужской"
-              fill_in "Дата рождения",  :with => ""
 
               click_button "Обновить"
 
@@ -1282,12 +1238,7 @@ describe "SchoolHeads" do
 
 
           it "should have placeholders" do
-             inputs = [ "meeting[meeting_date]", "meeting[meeting_room]" ]
-             inputs.each do |inp|
-               response.should have_selector( 'input',
-                                              :name => inp,
-                                              :placeholder => @everpresent_field_placeholder )
-             end
+             inputs = [ "meeting[meeting_room]" ]
 
              response.should have_selector( 'textarea',
                                             :name => "meeting[meeting_theme]",
@@ -1309,7 +1260,6 @@ describe "SchoolHeads" do
             it "should create meeting with valid data" do
               expect do
                 fill_in "Тема собрания", :with => "Yeeeeeeee!"
-                fill_in "Дата", :with => "#{Date.today}"
                 fill_in "Номер кабинета", :with => "123"
 
                 click_button "Создать"
@@ -1321,7 +1271,6 @@ describe "SchoolHeads" do
             it "should reject to create meeting with invalid data" do
               expect do
                 fill_in "Тема собрания", :with => ""
-                fill_in "Дата", :with => ""
                 fill_in "Номер кабинета", :with => ""
 
                 click_button "Создать"
@@ -1345,41 +1294,42 @@ describe "SchoolHeads" do
         describe "Success" do
           it "should save timetable with valid attributes" do
             expect do
-              select "Электив", :from => "timetable[1][tt_type]"
-              click_button "Создать"
+              click_button "Создать"                                                      # Save values by default.
             end.should change( Timetable, :count ).by( 40 )                               # In one Timeatable we save data for 5 days, each day could have 9 lessons.
           end
         end
       end
 
-      describe "Update" do
-        before(:each) do
-          @curriculum = FactoryGirl.create( :curriculum )
-          @school_class = FactoryGirl.create( :school_class )
+      # describe "Update" do
+      #         before(:each) do
+      #           @curriculum = FactoryGirl.create( :curriculum )
+      #           @school_class = FactoryGirl.create( :school_class )
+      #
+      #           @attr_timetable = {
+      #             :school_class_id => @school_class.id,
+      #             :curriculum_id => @curriculum.id,
+      #             :tt_day_of_week => "Mon",
+      #             :tt_number_of_lesson => 1,
+      #             :tt_room => '123',
+      #             :tt_type => 'Primary lesson'
+      #           }
+      #           @timetable = Timetable.create( @attr_timetable )
+      #
+      #           visit edit_timetable_path( :id => @timetable )
+      #         end
+      #
+      #         describe "Success" do
+      #           it "should update timetable with attributes" do
+      #             fill_in "Номер кабинета", :with => "555"
+      #             select "Электив", :from => "timetable[tt_type]"
+      #             click_button "Обновить"
+      #
+      #             flash[:success].should =~ /Расписание успешно обновлено!/i
+      #           end
+      #         end
+      #       end
 
-          @attr_timetable = {
-            :school_class_id => @school_class.id,
-            :curriculum_id => @curriculum.id,
-            :tt_day_of_week => "Mon",
-            :tt_number_of_lesson => 1,
-            :tt_room => '123',
-            :tt_type => 'Primary lesson'
-          }
-          @timetable = Timetable.create( @attr_timetable )
 
-          visit edit_timetable_path( :id => @timetable )
-        end
-
-        describe "Success" do
-          it "should update timetable with attributes" do
-            fill_in "Номер кабинета", :with => "555"
-            select "Электив", :from => "timetable[tt_type]"
-            click_button "Обновить"
-
-            flash[:success].should =~ /Расписание успешно обновлено!/i
-          end
-        end
-      end
     end
 
     describe "Events" do

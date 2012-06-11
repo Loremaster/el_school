@@ -19,33 +19,33 @@ class TeacherEducation < ActiveRecord::Base
                   :teacher_education_year,
                   :teacher_education_graduation,
                   :teacher_education_speciality
-                  
+
   belongs_to :teacher
-                
-  validates :teacher_education_university,   
-              :presence   => { :message => "не может быть пустым" },             
-              :length     => { 
+
+  validates :teacher_education_university,
+              :presence   => { :message => "не может быть пустым" },
+              :length     => {
                                 :maximum => 100,
-                                :message => "должно содержать не более 100 символов" 
+                                :message => "должно содержать не более 100 символов"
                              }
-                             
-  validates :teacher_education_year, 
+
+  validates :teacher_education_year,
               :inclusion => {
-                               :in => Date.civil(1970, 1, 1)..Date.today,
-                               :message => "должна быть с 1970 по сегодняшний день"
-                            } 
-                                                      
-  validates :teacher_education_graduation,   
-              :presence   => { :message => "не может быть пустой" },             
-              :length     => { 
+                               :in => Date.civil(1970, 1, 1)..( Date.today - 18.year ),
+                               :message => "должна быть с 1970 по 18 лет назад от сегодняшней даты"
+                            }
+
+  validates :teacher_education_graduation,
+              :presence   => { :message => "не может быть пустой" },
+              :length     => {
                                 :maximum => 30,
-                                :message => "должна содержать не более 30 символов" 
+                                :message => "должна содержать не более 30 символов"
                               }
-                              
-  validates :teacher_education_speciality,   
-              :presence   => { :message => "не может быть пустой" },             
-              :length     => { 
+
+  validates :teacher_education_speciality,
+              :presence   => { :message => "не может быть пустой" },
+              :length     => {
                                 :maximum => 30,
-                                :message => "должна содержать не более 30 символов" 
+                                :message => "должна содержать не более 30 символов"
                               }
 end

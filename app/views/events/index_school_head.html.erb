@@ -9,11 +9,11 @@
       <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
-			
+
       <% @classes.each do |c| %>
 			  <li>
 			    <%= link_to c.class_code, events_show_path( :class_code => c.class_code ) %>
-			  </li>			
+			  </li>
 			<% end %>
     </ul>
   </div>

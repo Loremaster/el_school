@@ -1,7 +1,6 @@
 # Using Factory girl gem.
 FactoryGirl.define do
   factory :user do |user|
-    # user.user_login "Another User"
     user.user_role "admin"
     user.password "foobar"
     user.sequence(:user_login) { |n| "person=#{n}" }
@@ -34,7 +33,7 @@ FactoryGirl.define do
 
   factory :school_class do |c|
     c.date_of_class_creation "#{Date.today}"
-    c.class_code '11v'
+    c.sequence(:class_code) { |n| "#{n}" }
     c.teacher_leader
   end
 
@@ -64,7 +63,7 @@ FactoryGirl.define do
 
   factory :teacher_education do |te|
     te.teacher_education_university 'MIT'
-    te.teacher_education_year       "#{Date.today - 10.years}"
+    te.teacher_education_year       "#{Date.today - 20.years}"
     te.teacher_education_graduation 'Programmer'
     te.teacher_education_speciality 'Math programmer'
   end

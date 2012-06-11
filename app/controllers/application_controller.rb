@@ -54,8 +54,8 @@ class ApplicationController < ActionController::Base
   def get_pupils_for_class( school_class )
     pupils = []
 
-    unless school_class.nil?
-      pupils = Pupil.select{|p| p.school_class.class_code == school_class.class_code }
+    if not school_class.nil? and not Pupil.all.empty?
+      pupils = Pupil.select{|p| p.school_class == school_class }
     end
 
     pupils

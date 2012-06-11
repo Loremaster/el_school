@@ -7,21 +7,19 @@
   	    <%= tl.label :teacher_id, "ФИО учителя", :class => "control-label" %>
   	    <div class="controls">
           <%= tl.select( :teacher_id,                                                     # Here we use 'select' instead of 'select_tag' because 'select' allows us to give builder ('tl.select' here).
-                          options_for_select( @teachers_collection, @choosen_teacher )) %>  	     
+                          options_for_select( @teachers_collection, @choosen_teacher )) %>
   	    </div>
   	  </div>
 		<% end %>
-  
-    <%= render :partial => 'shared/user_fields_new', 
+
+    <%= render :partial => 'shared/user_fields_new',
         :locals => { :f => f,
                      :field_placeholder => @everpresent_field_placeholder,
-                     :login => @login,
-                     :password => @password,
                      :login_field_id => "user_user_login",
-                     :password_field_id => "user_password" 
-                    }  
-    %> 
+                     :password_field_id => "user_password"
+                    }
+    %>
 	  <% end %>
 
 	<%= f.submit "Создать", :class => "btn btn-large btn-success" %>
-<% end %>		 
+<% end %>
