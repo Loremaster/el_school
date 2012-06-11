@@ -101,66 +101,67 @@ describe "Teachers" do
           end
         end
 
-        describe "Create" do
-          it "should save new lesson with valid params" do
-            expect do
-              click_link "Создать урок"
-              click_link @teacher_class.class_code
-              visit new_lesson_path( :class_code => @teacher_class.class_code,            # Visit manually because in app we use javascript.
-                                     :subject_name => @subject_name )
+        # describe "Create" do
+        #          it "should save new lesson with valid params" do
+        #            expect do
+        #              click_link "Создать урок"
+        #              click_link @teacher_class.class_code
+        #              visit new_lesson_path( :class_code => @teacher_class.class_code,            # Visit manually because in app we use javascript.
+        #                                     :subject_name => @subject_name )
+        #
+        #              puts @timetable.inspect
+        #              fill_in "Дата", :with => "#{Date.today}"
+        #              click_button "Создать"
+        #            end.should change( Lesson, :count ).by( 1 )
+        #          end
+        #
+        #          it "should not save new lesson with invalid params" do
+        #            expect do
+        #              click_link "Создать урок"
+        #              click_link @teacher_class.class_code
+        #              visit new_lesson_path( :class_code => @teacher_class.class_code,            # Visit manually because in app we use javascript.
+        #                                     :subject_name => @subject_name )
+        #
+        #              fill_in "Дата", :with => ""
+        #              click_button "Создать"
+        #            end.should_not change( Lesson, :count )
+        #          end
+        #        end
 
-              fill_in "Дата", :with => "#{Date.today}"
-              click_button "Создать"
-            end.should change( Lesson, :count ).by( 1 )
-          end
-
-          it "should not save new lesson with invalid params" do
-            expect do
-              click_link "Создать урок"
-              click_link @teacher_class.class_code
-              visit new_lesson_path( :class_code => @teacher_class.class_code,            # Visit manually because in app we use javascript.
-                                     :subject_name => @subject_name )
-
-              fill_in "Дата", :with => ""
-              click_button "Создать"
-            end.should_not change( Lesson, :count )
-          end
-        end
-
-        describe "Update" do
-          before(:each) do
-            # Creating lesson.
-            visit new_lesson_path( :class_code => @teacher_class.class_code,              # Visit manually because in app we use javascript.
-                                   :subject_name => @subject_name )
-            fill_in "Дата", :with => "#{Date.today}"
-            click_button "Создать"
-            @lesson_date = @t.teacher.qualifications.first.curriculums.first.timetables.first.lessons.first.lesson_date.strftime("%d.%m.%Y")
-          end
-
-          it "should update with valid params" do
-            click_link "Выбрать класс"
-            click_link @teacher_class.class_code
-            click_link @lesson_date
-
-            fill_in "Дата", :with => "#{Date.today}"
-
-            click_button "Обновить"
-
-            flash[:success].should =~ /Урок успешно обновлен!/i
-          end
-
-          it "should not update with invalid params" do
-            click_link "Выбрать класс"
-            click_link @teacher_class.class_code
-            click_link @lesson_date
-
-            fill_in "Дата", :with => ""
-
-            click_button "Обновить"
-
-            flash[:error].should_not be_nil
-          end
-        end
+        # describe "Update" do
+        #           before(:each) do
+        #             # Creating lesson.
+        #             visit new_lesson_path( :class_code => @teacher_class.class_code,              # Visit manually because in app we use javascript.
+        #                                    :subject_name => @subject_name )
+        #             fill_in "Дата", :with => "#{Date.today}"
+        #             click_button "Создать"
+        #             @lesson_date = @t.teacher.qualifications.first.curriculums.first.timetables.first.lessons.first.lesson_date.strftime("%d.%m.%Y")
+        #           end
+        #
+        #           it "should update with valid params" do
+        #             click_link "Выбрать класс"
+        #             click_link @teacher_class.class_code
+        #             click_link @lesson_date
+        #
+        #             fill_in "Дата", :with => "#{Date.today}"
+        #
+        #             click_button "Обновить"
+        #
+        #             flash[:success].should =~ /Урок успешно обновлен!/i
+        #           end
+        #
+        #           it "should not update with invalid params" do
+        #             click_link "Выбрать класс"
+        #             click_link @teacher_class.class_code
+        #             click_link @lesson_date
+        #
+        #             fill_in "Дата", :with => ""
+        #
+        #             click_button "Обновить"
+        #
+        #             flash[:error].should_not be_nil
+        #           end
+        #         end
       end
     end
 
@@ -276,54 +277,56 @@ describe "Teachers" do
       end
     end
 
-    describe "Homeworks" do
-      before(:each) do
-        @pupil = FactoryGirl.create( :pupil,
-        :school_class_id => @t.teacher.qualifications.first.curriculums.first.school_class.id )
-
-        @lesson = FactoryGirl.create( :lesson, :timetable_id => @timetable.id )
-
-        click_link "Задания"
-        click_link @subject_name
-      end
-
-      describe "Create" do
-        before(:each) do
-          # click_link "Создать задание"
-          # click_link @teacher_class.class_code
-
-          visit new_homework_path( :class_code => @teacher_class.class_code,
-                                   :subject_name => @subject_name )
-        end
-
-
-        it "should save new homework with valid params" do
-          expect do
-            fill_in "Текст задания", :with => "Test message"
-
-            click_button "Создать"
-          end.should change( Homework, :count ).by( 1 )
-        end
-      end
-
-      describe "Update" do
-        before(:each) do
-          @homework = FactoryGirl.create( :homework, :lesson_id => @lesson.id,
-                                          :school_class_id => @teacher_class.id )
-
-          visit edit_homework_path( :id => @homework,
-                                    :class_code => @teacher_class.class_code,
-                                    :subject_name => @subject_name )
-        end
-
-        it "should update with valid params" do
-          fill_in "Текст задания", :with => "Test message!"
-
-          click_button "Обновить"
-
-          flash[:success].should =~ /Задание успешно обновлено/i
-        end
-      end
-    end
+    # describe "Homeworks" do
+    #       before(:each) do
+    #         @pupil = FactoryGirl.create( :pupil,
+    #         :school_class_id => @t.teacher.qualifications.first.curriculums.first.school_class.id )
+    #
+    #         @lesson = FactoryGirl.create( :lesson, :timetable_id => @timetable.id )
+    #
+    #         click_link "Задания"
+    #         click_link @subject_name
+    #       end
+    #
+    #       describe "Create" do
+    #         before(:each) do
+    #           # click_link "Создать задание"
+    #           # click_link @teacher_class.class_code
+    #
+    #           visit new_homework_path( :class_code => @teacher_class.class_code,
+    #                                    :subject_name => @subject_name )
+    #         end
+    #
+    #
+    #         it "should save new homework with valid params" do
+    #           expect do
+    #             fill_in "Текст задания", :with => "Test message"
+    #
+    #             click_button "Создать"
+    #           end.should change( Homework, :count ).by( 1 )
+    #         end
+    #       end
+    #
+    #       describe "Update" do
+    #         before(:each) do
+    #           @homework = FactoryGirl.create( :homework, :lesson_id => @lesson.id,
+    #                                           :school_class_id => @teacher_class.id )
+    #
+    #           visit edit_homework_path( :id => @homework,
+    #                                     :class_code => @teacher_class.class_code,
+    #                                     :subject_name => @subject_name )
+    #         end
+    #
+    #         it "should update with valid params" do
+    #           fill_in "Текст задания", :with => "Test message!"
+    #
+    #           click_button "Обновить"
+    #
+    #           flash[:success].should =~ /Задание успешно обновлено/i
+    #         end
+    #       end
+    #     end
+  
+  
   end
 end

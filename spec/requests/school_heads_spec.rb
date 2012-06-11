@@ -448,7 +448,7 @@ describe "SchoolHeads" do
         it "should save pupils in class when class is creating" do
           t_leader = FactoryGirl.create( :teacher_leader )
           ipupil = FactoryGirl.create( :pupil )
-          class2 = FactoryGirl.create( :school_class, :class_code => "11d" )
+          class2 = FactoryGirl.create( :school_class, :class_code => "11k" )
 
           click_link "Классы"
           click_link "Создать класс"
@@ -474,19 +474,17 @@ describe "SchoolHeads" do
 
       describe "Showing pupils by class" do
         before(:each) do
-          @pupil1 = FactoryGirl.create( :pupil )
+          @class1 = FactoryGirl.create( :school_class )
+          @class2 = FactoryGirl.create( :school_class, :class_code => "111")
+
+          @pupil1 = FactoryGirl.create( :pupil, :school_class => @class1 )
           @pupil2 = FactoryGirl.create( :pupil, :pupil_last_name => "Andropov",
                                                 :pupil_first_name => "Igor",
                                                 :pupil_middle_name => "kolima")
           @pupil3 = FactoryGirl.create( :pupil, :pupil_last_name => "Andropovv",
                                                 :pupil_first_name => "Igorr",
-                                                :pupil_middle_name => "kolimaa")
-
-          @class1 = FactoryGirl.create( :school_class )
-          @class2 = FactoryGirl.create( :school_class, :class_code => "111")
-
-          @pupil1.school_class_id = @class1.id
-          @pupil3.school_class_id = @class2.id
+                                                :pupil_middle_name => "kolimaa",
+                                        :school_class => @class2 )
         end
 
         it "should show all pupils by link in button" do
