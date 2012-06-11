@@ -15,6 +15,8 @@ end
 
 gem 'jquery-rails'
 
+gem 'yaml_db'
+
 group :development do
   gem 'rspec-rails', '2.9.0'
   gem 'therubyracer-heroku'

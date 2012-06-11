@@ -1,3 +1,15 @@
-<legend>Бекапы!!</legend>
-<p>Backups!</p>
+<legend>Бекапы</legend>
+
+	<%= link_to "Создать бэкап", create_backup_path, :class => "btn btn-success" %>
+</div>
+
+<%= form_tag("load_backup") do %>
+	<div class="control-group">
+		<%= label :backup_id, "Восстановить бэкап", :class => "control-label" %>
+		<div class="controls">
+			<%= select_tag(:backup_id, options_for_select(@backup_list, @selected_backup)) %>
+		</div>
+	</div>
+	<%= submit_tag "Восстановить бэкап", :class => "btn btn-warning" %>
+<% end %>
 

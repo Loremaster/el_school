@@ -1,0 +1,110 @@
+
+---
+users:
+  columns:
+  - id
+  - user_login
+  - user_role
+  - created_at
+  - updated_at
+  - encrypted_password
+  - salt
+  records: 
+  - - '1'
+    - Admin
+    - admin
+    - '2012-06-10 19:02:53.299499'
+    - '2012-06-10 19:02:53.299499'
+    - fc25b21d822949b5942e98287d083baf94d8d7d3f49ee7b6c8186341a6f538f7
+    - 814a19e9a6c081e5128ddea25784193b52ccea736f430108e2b45fecfc8a3df1
+  - - '2'
+    - schoolh_n9J0r
+    - school_head
+    - '2012-06-10 19:03:57.226431'
+    - '2012-06-10 19:03:57.226431'
+    - ff32b5e05ec1140fc100c6766ebd445fb00573af444d0af0e15bda941d8c766a
+    - 5f7f2c8c749ff6cfda5964280a4734c35c0a9d38dadfe3e07dff8bab5b7dc891
+  - - '3'
+    - z
+    - school_head
+    - '2012-06-10 19:58:28.941814'
+    - '2012-06-10 19:58:28.941814'
+    - 6dd4f8a41218aed46cde044a8114623bc715305236183ee3f8417416de133984
+    - 48baeb86a20d21c3752128187a4c1fe095f38920c850def181f21b853694aac8
+  - - '4'
+    - u
+    - teacher
+    - '2012-06-10 20:00:26.452917'
+    - '2012-06-10 20:00:26.452917'
+    - 76c89070c72cfddfd761560dadf590e0b00f4572784dabcd9e0bca5a720f8b6b
+    - e5ea365a5e9a30c5a269609ab240f797103112fa72d643712965afecce2a5cbe
+  - - '5'
+    - new1
+    - school_head
+    - '2012-06-11 01:56:26.852819'
+    - '2012-06-11 01:56:26.852819'
+    - f7261bf673ceacca7f4e9deed5e8a412f55bb0599afb9407933465436bcd8c72
+    - 3f2eaecd6ca3e80bf7343e2df3cf572a9a3d7e4a19a0eba08ee54857e7165bb8
+
+---
+teachers:
+  columns:
+  - id
+  - user_id
+  - teacher_last_name
+  - teacher_first_name
+  - teacher_middle_name
+  - teacher_birthday
+  - teacher_sex
+  - teacher_category
+  - created_at
+  - updated_at
+  records: 
+  - - '1'
+    - '4'
+    - Лол
+    - Лол
+    - Лол
+    - '2000-11-21'
+    - w
+    - ''
+    - '2012-06-10 20:00:26.455419'
+    - '2012-06-10 20:00:26.455419'
+
+---
+teacher_educations:
+  columns:
+  - id
+  - teacher_id
+  - teacher_education_university
+  - teacher_education_year
+  - teacher_education_graduation
+  - teacher_education_speciality
+  - created_at
+  - updated_at
+  records: 
+  - - '1'
+    - '1'
+    - РОГ
+    - '1980-12-21'
+    - '1'
+    - ЛОР
+    - '2012-06-10 20:00:26.458353'
+    - '2012-06-10 20:00:26.458353'
+
+---
+teacher_phones:
+  columns:
+  - id
+  - teacher_id
+  - teacher_home_number
+  - teacher_mobile_number
+  - created_at
+  - updated_at
+  records: 
+  - - '1'
+    - '1'
+    - '1231212'
+    - '89099099999'
+    - '2012-06-10 20:00:26.461363'
+    - '2012-06-10 20:00:26.461363'

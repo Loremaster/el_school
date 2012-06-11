@@ -29,6 +29,8 @@ ElSchool::Application.routes.draw do
   match '/signout',         :to => 'sessions#destroy'
 
   match '/admins/backups', :controller => 'admins', :action => 'backups'
+  match '/admins/create_backup' => 'admins#create_backup', :as =>  'create_backup'
+  match '/admins/load_backup' => 'admins#load_backup', :as => :load_backup
   match '/admins/new_school_head', :controller => 'admins', :action => 'new_school_head'
   match '/admins/new_teacher', :controller => 'admins', :action => 'new_teacher'
   match '/admins/create_school_head' => 'admins#create_school_head',

@@ -2,6 +2,8 @@
 class AdminsController < ApplicationController
   before_filter :authenticate_admins, :only => [ 
                                                  :backups,
+                                                 :create_backup,
+                                                 :load_backup,
                                                  :new_school_head,
                                                  :new_teacher,
                                                  :create_school_head,
@@ -11,6 +13,30 @@ class AdminsController < ApplicationController
   #TODO Creating backups. Restore DB from backup.
   #TODO Test user updating (integration).
   def backups
+    @backup_list = Array.new#{ |hash, key| hash[key] = Array.new }
+    #@backup_list =Array.new
+    Dir.open("db/backups").each do |file|
+      next if file[-4..-1] != '.yml'
+      backup_file = file
+      @backup_list = @backup_list << backup_file
+    end
+    @backup_list = @backup_list.collect{|f| [f[0..18], f]}
+    @selected_backup = @backup_list.sort.first
+    #flash[:success] = @backup_list.inspect
+  end
+
+  def create_backup
+    YamlDb::Dump.dump(File.new("db/backups/#{Time.now.utc}.yml", "w"))
+    flash[:success] = "Резервная копия успешно создана"
+    redirect_to admins_backups_path
+  end
+
+  def load_backup
+    
+    #backup_file = @backup_list.at(:backup_id)
+    YamlDb::Load.load(File.new("db/backups/#{params[:backup_id]}", "r"))
+    flash[:success] = "Резервная копия успешно восстановлена"
+    redirect_to admins_backups_path
   end
 
   def new_school_head
