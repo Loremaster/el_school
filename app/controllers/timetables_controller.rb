@@ -128,7 +128,7 @@ class TimetablesController < ApplicationController
 
     if @tt.update_attributes( params[:timetable] )
       flash[:success] = "Расписание успешно обновлено!"
-      redirect_to timetables_path
+      redirect_to timetables_path( :class_code => @tt.school_class.class_code )
     else
       flash.now[:error] = @tt.errors.full_messages.to_sentence :last_word_connector => ", ",
                                                                :two_words_connector => ", "
