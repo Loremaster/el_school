@@ -32,7 +32,7 @@ describe Event do
       :event_begin_date => "#{Date.today}",
       :event_end_date => "#{Date.today}",
       :event_begin_time => Time.now.strftime("%H:%M"),
-      :event_end_time => Time.now.strftime("%H:%M"),
+      :event_end_time => (Time.now + 1.minute).strftime("%H:%M"),
       :event_cost => "500",
       :description => nil
     }
