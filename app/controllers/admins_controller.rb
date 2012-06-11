@@ -14,6 +14,9 @@ class AdminsController < ApplicationController
   #TODO Test user updating (integration).
   def backups
     @backup_list =Array.new
+    if !(File.exists?("db/backups") && File.directory?("db/backups"))
+      Dir.mkdir("db/backups")
+    end
     Dir.open("db/backups").each do |file|
       next if file[-4..-1] != '.yml'
       backup_file = file
@@ -29,8 +32,12 @@ class AdminsController < ApplicationController
   end
 
   def load_backup
-    YamlDb::Load.load(File.new("db/backups/#{params[:backup_id]}", "r"))
-    flash[:success] = "Резервная копия успешно восстановлена"
+    if (params[:backup_id] == nil) || !File.exists?("db/backups/#{params[:backup_id]}")
+      flash[:error] = "Выбранная резервная копия не найдена"
+    else
+      YamlDb::Load.load(File.new("db/backups/#{params[:backup_id]}", "r"))
+      flash[:success] = "Резервная копия успешно восстановлена"
+    end
     redirect_to admins_backups_path
   end
 
