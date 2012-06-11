@@ -10,7 +10,11 @@
   <%= f.label :lesson_date, "Дата", :class => "control-label" %>
 
   <div class="controls">
-    <%= f.text_field :lesson_date, :class => "span2",
-                     :placeholder => everpresent_field_placeholder %>
+    <%= f.date_select :lesson_date,
+                      { :start_year => date_year_from_now( 15 ),
+                        :end_year => date_year_in_future_from_now( 15 ),
+                        :order => [:day, :month, :year],
+                        :use_month_names => russian_names_of_months() },
+                      { :class => "span2" } %>
   </div>
 </div>

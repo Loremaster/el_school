@@ -88,18 +88,6 @@ describe "Teachers" do
           click_link @subject_name
         end
 
-        describe "View" do
-          it "should have placeholders" do
-            click_link "Создать урок"
-            click_link @teacher_class.class_code
-            visit new_lesson_path( :class_code => @teacher_class.class_code,              # Visit manually because in app we use javascript.
-                                   :subject_name => @subject_name )
-
-            response.should have_selector( 'input',
-                                           :name => "lesson[lesson_date]",
-                                           :placeholder => @everpresent_field_placeholder )
-          end
-        end
 
         # describe "Create" do
         #          it "should save new lesson with valid params" do
@@ -326,7 +314,7 @@ describe "Teachers" do
     #         end
     #       end
     #     end
-  
-  
+
+
   end
 end
