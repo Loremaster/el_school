@@ -7,7 +7,7 @@
 	<div class="control-group">
 		<%= label :backup_id, "Восстановить бэкап", :class => "control-label" %>
 		<div class="controls">
-			<%= select_tag(:backup_id, options_for_select(@backup_list, @selected_backup)) %>
+			<%= select_tag(:backup_id, options_for_select(@backup_list.sort_by{ |a| a.first}.reverse)) %>
 		</div>
 	</div>
 	<%= submit_tag "Восстановить бэкап", :class => "btn btn-warning" %>
