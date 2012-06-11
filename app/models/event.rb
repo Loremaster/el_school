@@ -86,9 +86,12 @@ class Event < ActiveRecord::Base
   end
 
   def start_must_be_before_or_eq_end_time
-    if not self.event_begin_time.nil? and not self.event_end_time.nil?
-      errors.add(:event_begin_time, "должно быть меньше либо равно дате окончания") unless
-        self.event_begin_time <= self.event_end_time
+    if not self.event_begin_time.nil? and not self.event_end_time.nil? and
+       not self.event_begin_date.nil? and not self.event_end_date.nil?
+
+      errors.add(:event_begin_time, "должно быть меньше либо равно дате окончания") if
+        ( self.event_begin_time >= self.event_end_time and
+          self.event_begin_date == self.event_end_date )
     end
   end
 end
