@@ -7,22 +7,12 @@
     <%= hidden_field_tag :class_code, params[:class_code] %>
     <%= hidden_field_tag :subject_name, params[:subject_name] %>
 
-    <div class="control-group">
-	    <%= f.label :timetable_id, "Урок", :class => "control-label" %>
-	    <div class="controls">
-        <%= f.select( :timetable_id,                                                        # Here we use 'select' instead of 'select_tag' because 'select' allows us to give builder ('tl.select' here).
-                      options_for_select( @timetables_collection  )) %>
-	    </div>
-	  </div>
-
-    <div class="control-group">
-      <%= f.label :lesson_date, "Дата", :class => "control-label" %>
-
-      <div class="controls">
-        <%= f.text_field :lesson_date, :class => "span2",
-                         :placeholder => @everpresent_field_placeholder %>
-      </div>
-    </div>
+    <%= render :partial => 'lesson_fields',
+        :locals => { :f => f,
+                     :choosen_timetable => nil,
+                     :timetables_collection => @timetables_collection,
+                     :everpresent_field_placeholder => @everpresent_field_placeholder }
+    %>
 
     <hr/>
 

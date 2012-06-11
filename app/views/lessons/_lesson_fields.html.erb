@@ -1,0 +1,16 @@
+<div class="control-group">
+  <%= f.label :timetable_id, "Урок", :class => "control-label" %>
+  <div class="controls">
+    <%= f.select( :timetable_id,                                                          # Here we use 'select' instead of 'select_tag' because 'select' allows us to give builder ('tl.select' here).
+                  options_for_select( timetables_collection, choosen_timetable  )) %>
+  </div>
+</div>
+
+<div class="control-group">
+  <%= f.label :lesson_date, "Дата", :class => "control-label" %>
+
+  <div class="controls">
+    <%= f.text_field :lesson_date, :class => "span2",
+                     :placeholder => everpresent_field_placeholder %>
+  </div>
+</div>
