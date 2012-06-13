@@ -175,6 +175,7 @@ GEM
       nokogiri (>= 1.2.0)
       rack (>= 1.0)
       rack-test (>= 0.5.3)
+    yaml_db (0.2.3)
 
 PLATFORMS
   ruby
@@ -203,3 +204,4 @@ DEPENDENCIES
   turn (~> 0.8.3)
   uglifier
   webrat (= 0.7.3)
+  yaml_db
