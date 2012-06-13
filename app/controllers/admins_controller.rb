@@ -10,18 +10,19 @@ class AdminsController < ApplicationController
                                                  :create_teacher
                                                 ]
 
-  #TODO Creating backups. Restore DB from backup.
-  #TODO Test user updating (integration).
   def backups
     @backup_list =Array.new
+
     if !(File.exists?("db/backups") && File.directory?("db/backups"))
       Dir.mkdir("db/backups")
     end
+
     Dir.open("db/backups").each do |file|
       next if file[-4..-1] != '.yml'
       backup_file = file
       @backup_list = @backup_list << backup_file
     end
+
     @backup_list = @backup_list.collect{|f| [f[0..18], f]}
   end
 
