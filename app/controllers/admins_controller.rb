@@ -27,7 +27,7 @@ class AdminsController < ApplicationController
   end
 
   def create_backup
-    YamlDb::Dump.dump(File.new("db/backups/#{Time.now.utc}.yml", "w"))
+    YamlDb::Dump.dump(File.new("db/backups/#{Time.now}.yml", "w"))
     flash[:success] = "Резервная копия успешно создана"
     redirect_to admins_backups_path
   end
