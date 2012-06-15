@@ -31,8 +31,8 @@ class TeacherEducation < ActiveRecord::Base
 
   validates :teacher_education_year,
               :inclusion => {
-                               :in => Date.civil(1970, 1, 1)..( Date.today - 18.year ),
-                               :message => "должна быть с 1970 по 18 лет назад от сегодняшней даты"
+                               :in => Date.civil(1970, 1, 1)..( Date.today + 8.year ),
+                               :message => "должна быть с 1970 по 8 лет вперед от сегодняшней даты"
                             }
 
   validates :teacher_education_graduation,

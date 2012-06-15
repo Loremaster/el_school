@@ -92,7 +92,8 @@
 
           <div class="controls">
             <%= edu_fields.date_select :teacher_education_year,
-                              { :start_year => 1970, :end_year => date_year_from_now(),
+                              { :start_year => 1970,
+                                :end_year => date_year_in_future_from_now(8),
                                 :order => [:day, :month, :year],
                                 :use_month_names => russian_names_of_months() },
                               { :class => "span2" } %>
