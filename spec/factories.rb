@@ -115,7 +115,7 @@ FactoryGirl.define do
     e.event_place_of_start  "Moscow"
     e.event_begin_date  "#{Date.today}"
     e.event_end_date  "#{Date.today}"
-    e.event_begin_time  Time.now.strftime("%H:%M")
+    e.event_begin_time  (Time.now - 1.minute).strftime("%H:%M")
     e.event_end_time  Time.now.strftime("%H:%M")
     e.event_cost  "500"
   end

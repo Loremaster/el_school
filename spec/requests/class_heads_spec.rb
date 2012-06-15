@@ -128,7 +128,8 @@ describe "ClassHeads" do
             expect do
               fill_in "Место проведения мероприятия", :with => "USA"
               fill_in "Место сбора на мероприятие", :with => "Moscow"
-              fill_in "Стоимость мероприятия", :with => 0
+              fill_in "Стоимость мероприятия", :with => "200"
+              select '00', :from => 'event[event_begin_time(5i)]'
 
               click_button "Создать"
             end.should change( Event, :count ).by( 1 )
