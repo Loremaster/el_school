@@ -6,8 +6,11 @@
     <%= hidden_field_tag :subject_name, params[:subject_name] %>                          <%# see results table without choosing select lists. %>
 
     <%= render :partial => 'result_fields',
-        :locals => { :f => f, :pupil => @result.pupil, :curriculum => @result.curriculum,
-                     :nominals => @nominals } %>
+        :locals => { :f => f,
+                     :pupil => @result.pupil,
+                     :curriculum => @result.curriculum,
+                     :nominals => @nominals,
+                     :result => @result } %>
 
     <%= f.submit "Обновить", :class => "btn btn-large btn-warning" %>
   <% end %>

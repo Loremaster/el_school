@@ -5,7 +5,7 @@
   <%= f.label :quarter_1, "Оценка за 1ю Четверть", :class => "control-label" %>
 
   <div class="controls">
-    <%= f.select( :quarter_1, options_for_select( nominals ),
+    <%= f.select( :quarter_1, options_for_select( nominals, result.quarter_1 ),
                 { :include_blank => true }, { :class => "span1" } ) %>
   </div>
 </div>
@@ -14,7 +14,7 @@
   <%= f.label :quarter_2, "Оценка за 2ю Четверть", :class => "control-label" %>
 
   <div class="controls">
-    <%= f.select( :quarter_2, options_for_select( nominals ),
+    <%= f.select( :quarter_2, options_for_select( nominals, result.quarter_2 ),
                 { :include_blank => true }, { :class => "span1" } ) %>
   </div>
 </div>
@@ -23,7 +23,7 @@
   <%= f.label :quarter_3, "Оценка за 3ю Четверть", :class => "control-label" %>
 
   <div class="controls">
-    <%= f.select( :quarter_3, options_for_select( nominals ),
+    <%= f.select( :quarter_3, options_for_select( nominals, result.quarter_3 ),
                 { :include_blank => true }, { :class => "span1" } ) %>
   </div>
 </div>
@@ -32,7 +32,7 @@
   <%= f.label :quarter_4, "Оценка за 4ю Четверть", :class => "control-label" %>
 
   <div class="controls">
-    <%= f.select( :quarter_4, options_for_select( nominals ),
+    <%= f.select( :quarter_4, options_for_select( nominals, result.quarter_4 ),
                 { :include_blank => true }, { :class => "span1" } ) %>
   </div>
 </div>
@@ -41,7 +41,7 @@
   <%= f.label :year, "Итоговая оценка", :class => "control-label" %>
 
   <div class="controls">
-    <%= f.select( :year, options_for_select( nominals ),
+    <%= f.select( :year, options_for_select( nominals, result.year ),
                 { :include_blank => true }, { :class => "span1" } ) %>
   </div>
 </div>
