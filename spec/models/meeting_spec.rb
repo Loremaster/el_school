@@ -22,7 +22,7 @@ describe Meeting do
       :meeting_theme => 'Text is here',
       :meeting_date => "#{Date.today}",
       :meeting_time => "#{Time.now.strftime("%H:%M")}",
-      :meeting_room => '1234'
+      :meeting_room => '123'
     }
   end
 
@@ -95,7 +95,7 @@ describe Meeting do
       end
 
       it "should reject too long meeting's room" do
-        wrong_attr = @attr_meeting.merge( :meeting_room => "a" * 5 )
+        wrong_attr = @attr_meeting.merge( :meeting_room => "a" * 4 )
         @class.meetings.build( wrong_attr ).should_not be_valid
       end
     end
@@ -122,7 +122,7 @@ describe Meeting do
       end
 
       it "should accept meetings's room with correct length" do
-        (1..4).each do |i|
+        (1..3).each do |i|
           correct_attr = @attr_meeting.merge( :meeting_room => 'a' * i  )
           @class.meetings.build( correct_attr ).should be_valid
         end

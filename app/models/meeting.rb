@@ -48,7 +48,7 @@ class Meeting < ActiveRecord::Base
   validates :meeting_room,
               :presence   => { :message => "не может быть пустым" },
               :length     => {
-                                :maximum => 4,
-                                :message => "должен содержать не более 4 символов"
+                                :maximum => 3,
+                                :message => "должен содержать не более 3 символов"
                              }
 end
