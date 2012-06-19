@@ -60,12 +60,15 @@ class JournalsController < ApplicationController
         @pupil_curriculums_exist = @pupil_curriculums.first ? true : false
 
         if params.has_key?( :curr_id )                                                    # If parent chose subject.
-          curriculum = Curriculum.where( "id = ?", params[:curr_id] ).first
+          curriculum = curriculum_for_given_id_and_pupil_class( params[:curr_id],
+                                                                @pupil.school_class )
 
-          @choosen_subject = curriculum.qualification.subject                             # Choosen lesson from dropdown menu.
+          unless curriculum.nil?                                                          # If chosen curriculum exists and can be choosed by current pupil.
+            @choosen_subject = curriculum.qualification.subject                           # Choosen lesson from dropdown menu.
 
-          @pupil_lessons = lessons_for_one_curriculum( curriculum )
-          @pupil_lessons_exist = @pupil_lessons.first ? true : false
+            @pupil_lessons = lessons_for_one_curriculum( curriculum )
+            @pupil_lessons_exist = @pupil_lessons.first ? true : false
+          end
         end
       end
     end
