@@ -3,8 +3,8 @@ class HomeworksController < ApplicationController
   before_filter :authenticate_teachers, :only => [ :index, :new, :create, :edit, :update ]
 
   def index
-    @subject = []; @pupils = []; @classes = SchoolClass.all; @homeworks_exist = false
-    @show_homeworks = false
+    @subject = []; @pupils = []; @classes = teacher_school_classes( current_user.teacher )
+    @homeworks_exist = false; @show_homeworks = false
     @subject, @school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
 
     if params.has_key?( :subject_name )

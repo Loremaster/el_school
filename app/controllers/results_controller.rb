@@ -6,7 +6,7 @@ class ResultsController < ApplicationController
     @subject = []; @pupils = []; @show_results = false
 
     if params.has_key?( :subject_name )
-      @classes = SchoolClass.all
+      @classes = teacher_school_classes( current_user.teacher )
       @subject, @school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
 
       if current_user.teacher.subject_ids.include?( @subject.id )                         # If teacher teach that subject...

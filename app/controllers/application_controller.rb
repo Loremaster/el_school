@@ -165,4 +165,16 @@ class ApplicationController < ActionController::Base
 
     out.flatten.sort_by{|e| e[:lesson_date]}
   end
+
+  # Return all school classes where teacher teach his subjects.
+  # => [] if no curriculums founded.
+  def teacher_school_classes( teacher )
+    curriculums = teacher.qualifications.collect{ |q| q.curriculums }.flatten
+
+    unless curriculums.empty?
+      curriculums.collect{ |c| c.school_class }.flatten
+    else
+      return []
+    end
+  end
 end

@@ -79,12 +79,11 @@ class JournalsController < ApplicationController
     @show_journal = false
 
     @teacher_subjects = current_user.teacher.subjects                                     # This we get when user choose subject from toolbar.
-    @classes = SchoolClass.all
+    @classes = teacher_school_classes( current_user.teacher )
     @subject, @school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
 
     if params.has_key?( :subject_name )
       if current_user.teacher.subject_ids.include?( @subject.id )
-        # flash[:notice] = "#{does_teacher_teach_subject_for_this_class?( @subject, @school_class, current_user.teacher )}"
         @show_journal = true
         @lessons = teacher_lessons_dates( current_user.teacher, @subject, @school_class ) # Lessons of teacher.
         @lessons_exist = @lessons.first ? true : false
@@ -156,23 +155,4 @@ class JournalsController < ApplicationController
     def curriculum_for_given_id_and_pupil_class( curriculum_id, school_class )
       Curriculum.where( "id = ? AND school_class_id = ?", curriculum_id, school_class ).first
     end
-
-    # def does_teacher_teach_subject_for_this_class?( subject, school_class, current_teacher )
-    #   qualification = current_teacher.qualifications.where( :subject_id => subject.id ).first
-    # 
-    #   unless qualification.nil?
-    #     curriculums = qualification.curriculums.select do |c|
-    #       c.school_class == school_class
-    #     end
-    # 
-    #     unless curriculums.empty?
-    #       true
-    #     else
-    #       false
-    #     end
-    # 
-    #   else
-    #     false
-    #   end
-    # end
 end
