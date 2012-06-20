@@ -73,6 +73,7 @@ en:
             event_begin_time: "Время начала"
             event_end_time: "Время окончания"
             event_cost: "Стоимость"
+            description: "Отчет о мероприятии"
           lesson:
             timetable_id: "Урок"
             lesson_date: "Дата"

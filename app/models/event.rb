@@ -30,7 +30,7 @@ class Event < ActiveRecord::Base
 
   validates :description,
               :length     => { :maximum => 200,
-                               :message => "должно содержать не более %{count} символов"
+                               :message => "должен содержать не более %{count} символов"
                              }
 
   validates :school_class_id, :presence => { :message => "должен быть указан" }
