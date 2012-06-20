@@ -172,7 +172,7 @@ class ApplicationController < ActionController::Base
     curriculums = teacher.qualifications.collect{ |q| q.curriculums }.flatten
 
     unless curriculums.empty?
-      curriculums.collect{ |c| c.school_class }.flatten
+      curriculums.collect{ |c| c.school_class }.flatten.uniq
     else
       return []
     end
