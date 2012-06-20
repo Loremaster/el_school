@@ -36,7 +36,7 @@ en:
             pupil_middle_name: "Отчество"
             pupil_birthday: "Дата рождения ученика"
             pupil_nationality: "Национальность"
-            pupil_address_of_registration: "Адрес регистрации"
+            pupil_address_of_registration: "Адрес прописки"
             pupil_address_of_living: "Адрес проживания"
           pupil_phone:
             pupil_home_number:   "Домашний телефон"
