@@ -100,12 +100,17 @@ class TimetablesController < ApplicationController
     params[:timetable].each do |i, values|                                                # Where i is the i-th set and values are the user inputs.
       @tt = Timetable.new( values )
 
-      if not @tt.save
+      if not @tt.valid?
         errors_messages << @tt.errors.full_messages.to_sentence
       end
     end
 
     if errors_messages.empty?
+      params[:timetable].each do |i, values|                                                # Where i is the i-th set and values are the user inputs.
+        @tt = Timetable.new( values )
+        @tt.save
+      end
+
       flash[:success] = "Расписание успешно создано!"
       redirect_to timetables_path
     else
@@ -156,7 +161,7 @@ class TimetablesController < ApplicationController
 
     # Return for school class it's timetable.
     def timetable_for_class( school_class )
-      Timetable.select{|t| t.school_class.class_code == school_class.class_code }.to_a
+      Timetable.select{|t| t.school_class == school_class }.to_a
     end
 
     def subjects_of_class( school_class )
