@@ -32,7 +32,7 @@
         <%= builder.label :teacher_sex, "Пол", :class => "control-label" %>
         <div class="controls">
           <%= label_tag nil, nil, :class => "radio" do %>
-            <%= builder.radio_button :teacher_sex, 'm' %>
+            <%= builder.radio_button :teacher_sex, 'm', :checked => true %>
             Мужской
           <% end %>
 
