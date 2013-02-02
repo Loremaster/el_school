@@ -54,12 +54,11 @@
 
 **Other**
 
+- Bumped to Rails 3.2.11
 - Using twitter bootstrap via gem.
 - New rake:db tasks.
 - Switched to PostgreSQL.
 - Added password encryption/decryption in User table.
-- Updated to Rails 3.2
-- Libraries updated.
 
 ------------------------------------------------------------------------------
 
