@@ -54,6 +54,7 @@
 
 **Other**
 
+- Using twitter bootstrap via gem.
 - New rake:db tasks.
 - Switched to PostgreSQL.
 - Added password encryption/decryption in User table.
