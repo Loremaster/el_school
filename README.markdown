@@ -59,3 +59,10 @@
 - Added password encryption/decryption in User table.
 - Updated to Rails 3.2
 - Libraries updated.
+
+------------------------------------------------------------------------------
+
+**Bugs**
+
+- Huge bug fixed with Zentest. To do that you should upgrade rubygems: `gem update --system 1.8.25`
+
