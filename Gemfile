@@ -4,9 +4,8 @@ gem 'rails', '3.2.11'
 gem 'jquery-rails'
 gem 'yaml_db'
 gem 'pg'                                                                                            # Connect to postgreSQL.
-
-# Bundle edge Rails instead:
-# gem 'rails',     :git => 'git://github.com/rails/rails.git'
+gem 'less-rails', '2.2.6'                                                                           # twitter-bootstrap-rails needs that now.
+gem 'therubyracer', :platform => :ruby
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -14,11 +13,11 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.4'
   gem 'coffee-rails', '~> 3.2.2'
   gem 'uglifier', '>= 1.2.3'
+  gem 'twitter-bootstrap-rails', '2.2.0'
 end
 
 group :development do
   gem 'rspec-rails', '2.9.0'
-  gem 'therubyracer-heroku'
   gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'                              # It is patched version from github. This one works.
   gem 'faker', '1.0.1'                                                                              # Automatically filling db by test data.
   gem 'capistrano', '2.12.0'                                                                        # Deploying to server. Be carefull with changing version!
