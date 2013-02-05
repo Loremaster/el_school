@@ -1,5 +1,30 @@
 **E-school** project.
 
+**Installtion notes**
+
+1) Install gems and make sure that tests pass:
+
+```shell
+ $ bundle install
+ $ rake db:create:all
+ $ rake db:migrate
+ $ rake db:test:prepare
+ $ rake spec
+```
+
+2) Launch app:
+
+```shell
+ $ rails s
+```
+
+3) Also you probably'd like to use .rvmrc file to set correct version. To use it you should do that:
+
+```shell
+ $ cd this_app
+ $ rvm rvmrc trust DIR
+```
+
 -----------------------------------------------------------------------------
 
 **Parent**
