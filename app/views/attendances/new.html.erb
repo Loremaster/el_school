@@ -18,7 +18,7 @@
       <%= ff.hidden_field :reporting_id, :value => @reporting.id %>                                 <%# ... reporting id ... %>
 
       <%= ff.input :nominal, :as => :radio_buttons, :collection => Estimation.nominals,
-                   :checked => Estimation.nominals.first %>
+                   :checked => Estimation.nominals.first, :label => "Оценка" %>
     <% end %>
 
     <%= f.submit "Отметить", :class => "btn btn-large btn-success" %>
