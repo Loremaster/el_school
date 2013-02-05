@@ -16,8 +16,7 @@
       <%= ff.hidden_field :pupil_id, :value => @pupil.id %>                                         <%# Passing pupil id inside as one of the param of estimation. %>
       <%= ff.hidden_field :reporting_id, :value => @reporting.id %>                                 <%# ... reporting id ... %>
 
-      <%= ff.input :nominal, :as => :radio_buttons, :collection => Estimation.nominals,
-                   :checked => Estimation.nominals.first %>
+      <%= ff.input :nominal, :as => :radio_buttons, :collection => Estimation.nominals %>
     <% end %>
 
     <%= f.submit "Отметить", :class => "btn btn-large btn-warning" %>
