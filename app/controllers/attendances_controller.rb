@@ -9,7 +9,7 @@ class AttendancesController < ApplicationController
     lesson = get_lesson_from_params( params ); $lesson = lesson
     @pupil = $pupil; @lesson = $lesson                                                    # Using global value to save object from params.
     @report_types = collect_report_types
-    @reporting = @lesson.reporting; @nominals = collect_nominals
+    @reporting = @lesson.reporting
     @choosen_nominal = nil                                                                # It is first empty value in list.
     @attendance = Attendance.new
     @estimation = Estimation.new
@@ -19,7 +19,7 @@ class AttendancesController < ApplicationController
     @teacher_subjects = current_user.teacher.subjects
     @subject, school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
     @pupil = $pupil; @lesson = $lesson
-    @reporting = @lesson.reporting; @nominals = collect_nominals
+    @reporting = @lesson.reporting
     @choosen_nominal = params[:estimation][:nominal]
     @attendance = Attendance.new( params[:attendance] )
     @estimation = Estimation.new( params[:estimation] )
@@ -42,7 +42,7 @@ class AttendancesController < ApplicationController
     pupil = get_pupil_from_params( params ); $pupil = pupil
     lesson = get_lesson_from_params( params ); $lesson = lesson
     @pupil = $pupil; @lesson = $lesson
-    @reporting = @lesson.reporting; @nominals = collect_nominals
+    @reporting = @lesson.reporting
     @attendance = Attendance.find( params[:id] )
     @estimation = estimation_of_pupil_from_lesson( @lesson, @pupil.id )
     @choosen_nominal = @estimation.nominal
@@ -52,13 +52,15 @@ class AttendancesController < ApplicationController
     @teacher_subjects = current_user.teacher.subjects
     @subject, school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
     @pupil = $pupil; @lesson = $lesson
-    @reporting = @lesson.reporting; @nominals = collect_nominals
+    @reporting = @lesson.reporting
     @attendance = Attendance.find( params[:id] )
     @estimation = estimation_of_pupil_from_lesson( @lesson, @pupil.id )
     @choosen_nominal = params[:estimation][:nominal]
 
     temp_att = Attendance.new( params[:attendance] )                                                # Hack to test that new objects will valid, so we can
     temp_est = Estimation.new( params[:estimation] )                                                # update them and show all errors.
+
+    puts temp_est.errors
 
     if temp_att.valid? and temp_est.valid?
       @attendance.update_attributes( params[:attendance] )
