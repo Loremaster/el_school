@@ -80,10 +80,4 @@ class AttendancesController < ApplicationController
     def get_lesson_from_params( params )
       Lesson.where("id = ?", params[:lesson_id] ).first
     end
-
-    # Removing "and" from error message with russians words.
-    def get_clear_error_message( errors_messages )
-      out = errors_messages.to_sentence :last_word_connector => ", ",:two_words_connector => ", "
-      out.gsub(" and", " ")                                                               # Removing "and" and put there " ".
-    end
 end
