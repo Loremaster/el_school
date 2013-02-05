@@ -182,7 +182,7 @@ describe "Teachers" do
           expect do
           expect do
             choose 'Был'
-            select '5', :from => 'estimation[nominal]'
+            choose '5'
 
             click_button 'Отметить'
           end.should change( Attendance, :count ).by( 1 )
@@ -199,7 +199,7 @@ describe "Teachers" do
                                      :p_id => @pupil.id )
 
           choose 'Был'
-          select '5', :from => 'estimation[nominal]'
+          choose '5'
           click_button 'Отметить'
 
           # Visit edit page of Attendance and Estimation
@@ -212,7 +212,7 @@ describe "Teachers" do
 
         it "should update with new params" do
           choose 'Не был'
-          select '4', :from => 'estimation[nominal]'
+          choose '4'
 
           click_button 'Отметить'
 

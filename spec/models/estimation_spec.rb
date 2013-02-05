@@ -69,8 +69,8 @@ describe Estimation do
         Estimation.new( wrong_attr ).should_not be_valid
       end
 
-      it "should reject nominals < 2" do
-        (-10..1).each do |i|
+      it "should reject nominals < 1" do
+        (-5..0).each do |i|
           wrong_attr = @attr_est.merge( :nominal => i )
           Estimation.new( wrong_attr ).should_not be_valid
         end
