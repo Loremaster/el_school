@@ -49,7 +49,6 @@ class AttendancesController < ApplicationController
   end
 
   def update
-    errors_messages = []
     @teacher_subjects = current_user.teacher.subjects
     @subject, school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
     @pupil = $pupil; @lesson = $lesson
@@ -58,26 +57,16 @@ class AttendancesController < ApplicationController
     @estimation = estimation_of_pupil_from_lesson( @lesson, @pupil.id )
     @choosen_nominal = params[:estimation][:nominal]
 
-    temp_att = Attendance.new( params[:attendance] )                                      # Hack to test that new objects will valid, so we can
-    temp_est = Estimation.new( params[:estimation] )                                      # update them and show all errors.
+    temp_att = Attendance.new( params[:attendance] )                                                # Hack to test that new objects will valid, so we can
+    temp_est = Estimation.new( params[:estimation] )                                                # update them and show all errors.
 
-    unless temp_att.valid?
-      errors_messages << temp_att.errors.full_messages.to_sentence
-    end
-
-    unless temp_est.valid?
-      errors_messages << temp_est.errors.full_messages.to_sentence
-    end
-
-    # Adding errors to array of errors for each object that we want to save.
-    if errors_messages.empty?
+    if temp_att.valid? and temp_est.valid?
       @attendance.update_attributes( params[:attendance] )
       @estimation.update_attributes( params[:estimation] )
-      redirect_to journals_path( :class_code => params[:class_code],
-                                 :subject_name => params[:subject_name] )
+
       flash[:success] = "Данные успешно обновлены!"
+      redirect_to journals_path( :class_code => params[:class_code], :subject_name => params[:subject_name] )
     else
-      flash.now[:error] = get_clear_error_message( errors_messages )
       render 'edit'
     end
   end
