@@ -21,6 +21,7 @@ group :development do
   gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'                              # It is patched version from github. This one works.
   gem 'faker', '1.0.1'                                                                              # Automatically filling db by test data.
   gem 'capistrano', '2.12.0'                                                                        # Deploying to server. Be carefull with changing version!
+  gem 'meta_request'                                                                                # Panel in chrome to debug rails apps.
 end
 
 group :test do
