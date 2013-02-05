@@ -16,7 +16,6 @@ class AttendancesController < ApplicationController
   end
 
   def create
-    errors_messages = []
     @teacher_subjects = current_user.teacher.subjects
     @subject, school_class = extract_class_code_and_subj_name( params, :subject_name, :class_code )
     @pupil = $pupil; @lesson = $lesson
@@ -25,23 +24,14 @@ class AttendancesController < ApplicationController
     @attendance = Attendance.new( params[:attendance] )
     @estimation = Estimation.new( params[:estimation] )
 
-    # Adding errors to array of errors for each object that we want to save.
-    unless @attendance.valid?
-      errors_messages << @attendance.errors.full_messages.to_sentence
-    end
-
-    unless @estimation.valid?
-      errors_messages << @estimation.errors.full_messages.to_sentence
-    end
-
     # Save objects if no errors founded.
-    if errors_messages.empty?
-      @attendance.save; @estimation.save
-      redirect_to journals_path( :class_code => params[:class_code],
-                                 :subject_name => params[:subject_name] )
+    if @attendance.valid? and @estimation.valid?
+      @attendance.save
+      @estimation.save
+
       flash[:success] = "Данные успешно созданы!"
+      redirect_to journals_path( :class_code => params[:class_code], :subject_name => params[:subject_name] )
     else
-      flash.now[:error] = get_clear_error_message( errors_messages )
       render 'new'
     end
   end

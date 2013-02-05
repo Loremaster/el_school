@@ -2,15 +2,14 @@
   Посещение урока ученика <%= pupil_full_names( @pupil ) %> по предмету <%=  @subject.subject_name %>
 </legend>
 
-<%= form_for @attendance, :html => {:class => "form-horizontal"} do |f| %>
+<%= simple_form_for @attendance, :html => {:class => "form-horizontal"} do |f| %>
   <%= field_set_tag do %>
     <%= hidden_field_tag :class_code, params[:class_code] %>
     <%= hidden_field_tag :subject_name, params[:subject_name] %>
+    <%= f.hidden_field :pupil_id, :value => @pupil.id %>                                            <%# Passing pupil id inside as one of the param of attendance. %>
+    <%= f.hidden_field :lesson_id, :value => @lesson.id %>                                          <%# Passing lesson id inside as one of the param of attendance. %>
 
-    <%= render :partial => 'attendance_fields',
-        :locals => { :f => f, :pupil => @pupil, :lesson => @lesson }
-    %>
-
+    <%= f.input :visited, :as => :radio_buttons, :collection => [['Был', true] ,['Не был', false]] %>
     <hr/>
 
     <%= fields_for :estimation do |builder| %>

@@ -6,6 +6,7 @@ gem 'yaml_db'
 gem 'pg'                                                                                            # Connect to postgreSQL.
 gem 'less-rails', '2.2.6'                                                                           # twitter-bootstrap-rails needs that now.
 gem 'therubyracer', :platform => :ruby
+gem 'simple_form'
 
 # Gems used only for assets and not required
 # in production environments by default.
