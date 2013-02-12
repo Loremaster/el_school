@@ -18,7 +18,6 @@ group :assets do
 end
 
 group :development do
-  gem 'rspec-rails', '2.9.0'
   gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'                              # It is patched version from github. This one works.
   gem 'faker', '1.0.1'                                                                              # Automatically filling db by test data.
   gem 'capistrano', '2.12.0'                                                                        # Deploying to server. Be carefull with changing version!
@@ -27,7 +26,6 @@ end
 
 group :test do
   gem 'turn', '~> 0.8.3', :require => false                                                         # Pretty printed test output.
-  gem 'rspec-rails', '2.9.0'
   gem 'webrat', '0.7.3'
   gem 'spork', '0.9.0'                                                                              # DRB server.
   gem 'autotest'
@@ -38,6 +36,7 @@ group :test do
 end
 
 group :development, :test do
+  gem 'rspec-rails', '2.12.2'
   gem 'rb-fsevent'#, :require => false if RUBY_PLATFORM =~ /darwin/i                                # Installing this gem only if we use darwin platform (e.g Mac OS X).
   gem 'guard-rspec'                                                                                 # Rspec for guard.
   gem 'ruby_gntp'                                                                                   # Show notifications from guard by growl.

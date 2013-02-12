@@ -84,7 +84,7 @@ describe "Teachers" do
     describe "Lesson" do
       describe "Creating" do
         before(:each) do
-          click_link "Журнал"
+          click_link "Выберите предмет"
           click_link @subject_name
         end
 
