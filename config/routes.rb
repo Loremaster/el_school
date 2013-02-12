@@ -33,8 +33,7 @@ ElSchool::Application.routes.draw do
   match '/admins/load_backup' => 'admins#load_backup', :as => :load_backup
   match '/admins/new_school_head', :controller => 'admins', :action => 'new_school_head'
   match '/admins/new_teacher', :controller => 'admins', :action => 'new_teacher'
-  match '/admins/create_school_head' => 'admins#create_school_head',
-                                         :as => :create_school_head                       # named route
+  match '/admins/create_school_head' => 'admins#create_school_head', :as => :create_school_head     # named route
   match '/admins/create_teacher' => 'admins#create_teacher', :as => :create_teacher
 
   match '/events/show', :controller => 'events', :action => 'index_school_head'
@@ -54,6 +53,8 @@ ElSchool::Application.routes.draw do
 
   match '/journals/show/class_head', :controller => 'journals', :action => 'index_class_head'
   match '/timetables/show/class_head', :controller => 'timetables', :action => 'index_class_head'
+
+  match '/statistics/teacher', :controller => 'statistics', :action => 'index_teacher'
 
   root :to => 'sessions#new'                                                              # Home
 

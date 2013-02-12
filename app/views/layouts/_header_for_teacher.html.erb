@@ -2,18 +2,20 @@
 
 <ul class="nav">
 
-  <%# JOURNAL. %>
   <li class=<%= active_toolbar?( journals_path ) %>>
     <%= link_to "Журнал", journals_path( :subject_name => params[:subject_name] ) %>
   </li>
 
-  <%# RESULTS %>
   <li class=<%= active_toolbar?( results_path ) %>>
     <%= link_to "Итоги", results_path( :subject_name => params[:subject_name] ) %>
   </li>
 
-  <%# HOMEWORKS. %>
   <li class=<%= active_toolbar?( homeworks_path ) %>>
     <%= link_to "Задания", homeworks_path( :subject_name => params[:subject_name] ) %>
+  </li>
+
+
+  <li class=<%= active_toolbar?( statistics_teacher_path ) %>>
+    <%= link_to "Статистика", statistics_teacher_path( :subject_name => params[:subject_name] ) %>
   </li>
 </ul>
