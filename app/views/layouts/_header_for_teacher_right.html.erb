@@ -1,0 +1,25 @@
+<li class="dropdown">
+  <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
+
+    <% unless params[:subject_name].nil? %>
+      Ваш предмет: <%= params[:subject_name] %>
+    <% else%>
+      Выберите предмет
+    <% end %>
+    <b class="caret"></b>
+  </a>
+
+  <ul class="dropdown-menu">
+    <% unless current_user.teacher.subjects.empty? %>
+      <% current_user.teacher.subjects.each do |s| %>
+        <li>
+          <%= link_to s.subject_name, params.merge( :subject_name => s.subject_name ) %>            <%# redirect to current path and pass params %>
+        </li>
+      <% end %>
+    <% else %>
+      <li>
+        Вы не ведете ни одного предмета.
+      </li>
+    <% end %>
+  </ul>
+</li>

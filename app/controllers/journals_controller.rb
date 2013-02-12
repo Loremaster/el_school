@@ -75,6 +75,7 @@ class JournalsController < ApplicationController
   end
 
   def index
+    # flash[:notice] = "#{params.inspect}"
     @subject = []; @pupils = []; @lessons_exist = false; @pupils_exist = false;
     @show_journal = false
 
