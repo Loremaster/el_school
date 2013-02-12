@@ -83,4 +83,16 @@ class Teacher < ActiveRecord::Base
                               :message => "должна быть не меньше 1970 года и не меньше 18 лет"
                              }
 
+  # Return all school classes where teacher teach his subjects.
+  # => [] if no curriculums founded.
+  def classes
+    curriculums = self.qualifications.collect{ |q| q.curriculums }.flatten
+
+    unless curriculums.empty?
+      curriculums.collect{ |c| c.school_class }.flatten.uniq
+    else
+      return []
+    end
+  end
+
 end
