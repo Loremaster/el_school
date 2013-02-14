@@ -4,5 +4,6 @@ class StatisticsController < ApplicationController
   def index_teacher
     @subject = params[:subject_name]
     @classes = current_user.teacher.classes
+    @class   = current_user.teacher.current_class( params[:class_code] )
   end
 end

@@ -83,6 +83,13 @@ class Teacher < ActiveRecord::Base
                               :message => "должна быть не меньше 1970 года и не меньше 18 лет"
                              }
 
+  # Find current class for teacher via class code (from params).
+  # => SchoolClass if it has been founded
+  # OR nil.
+  def current_class( class_code )
+    self.classes.select{|c| c.class_code == class_code  }.first
+  end
+
   # Return all school classes where teacher teach his subjects.
   # => [] if no curriculums founded.
   def classes

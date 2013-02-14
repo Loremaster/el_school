@@ -1,3 +1,4 @@
+/ Если выбран предмет.
 - if !@subject.nil?
   div style="margin-top: 18px;" class="btn-toolbar"
     div class="btn-group"
@@ -8,6 +9,9 @@
         - @classes.each do |c|
           li
             = link_to c.class_code, params.merge( :class_code => c.class_code, :subject_name => params[:subject_name])
+
+  - if !@class.nil?
+    | Show some data
 - else
   | Для показа содержимого необходимо выбрать ваш предмет (правая часть верхней панели).
 
