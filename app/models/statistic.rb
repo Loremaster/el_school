@@ -5,13 +5,11 @@ class Statistic
   # (number of "4" + number of "5") / number of all pupil's marks.
   # => "Нет оценок" - if pupil don't have estimation.
   # => Number - otherwise.
-  def self.pupil_quality(pupil)
+  def self.pupil_quality( pupil )
     marks = pupil.estimations
 
     unless marks.empty?
-      nominals = marks.collect{ |m| m.nominal }
-      positive_nominals = nominals.count{ |m| m == 5 or m == 4 }
-      (positive_nominals / nominals.size.to_f).round(3)                                             # Convert on value to float to get flot value.
+      core_quality( marks )
     else
       "Нет оценок"
     end
@@ -21,17 +19,12 @@ class Statistic
   # (number of "5" + number of "4" * 0,64 + number of "3" * 0,36) / number of pupils in the class.
   # => "Нет оценок" - if pupil don't have estimation.
   # => Number - otherwise.
-  def self.pupil_skilled_level(pupil)
+  def self.pupil_skilled_level( pupil )
     marks = pupil.estimations
     pupils_in_class = pupil.school_class.pupils.size
 
     unless marks.empty?
-      nominals = marks.collect{ |m| m.nominal }
-      five_nominals = nominals.count(5)
-      four_nominals = nominals.count(4)
-      three_nominals = nominals.count(3)
-
-      ((five_nominals + five_nominals * 0.64 + three_nominals * 0.36) / pupils_in_class).round(3)
+      core_skilled_level( marks, pupils_in_class )
     else
       "Нет оценок"
     end
@@ -45,9 +38,7 @@ class Statistic
     class_nominals = school_class.estimations
 
     unless class_nominals.empty?
-      nominals = class_nominals.collect{ |m| m.nominal }
-      positive_nominals = nominals.count{ |m| m == 5 or m == 4 }
-      (positive_nominals / nominals.size.to_f).round(3)
+      core_quality( class_nominals )
     else
       "Нет оценок"
     end
@@ -62,14 +53,27 @@ class Statistic
     pupils_in_class = school_class.pupils.size
 
     unless class_nominals.empty?
-      nominals = class_nominals.collect{ |m| m.nominal }
-      five_nominals = nominals.count(5)
-      four_nominals = nominals.count(4)
-      three_nominals = nominals.count(3)
-
-      ((five_nominals + five_nominals * 0.64 + three_nominals * 0.36) / pupils_in_class).round(3)
+      core_skilled_level( class_nominals, pupils_in_class )
     else
       "Нет оценок"
     end
+  end
+
+  class << self                                                                                     # This means that next class methods will be really private.
+    private
+      def core_quality( marks )
+        nominals = marks.collect{ |m| m.nominal }
+        positive_nominals = nominals.count{ |m| m == 5 or m == 4 }
+        (positive_nominals / nominals.size.to_f).round(3)                                           # Convert on value to float to get flot value.
+      end
+
+      def core_skilled_level( input_nominals, pupils_in_class )
+        nominals = input_nominals.collect{ |m| m.nominal }
+        five_nominals = nominals.count(5)
+        four_nominals = nominals.count(4)
+        three_nominals = nominals.count(3)
+
+        ((five_nominals + five_nominals * 0.64 + three_nominals * 0.36) / pupils_in_class).round(3)
+      end
   end
 end
