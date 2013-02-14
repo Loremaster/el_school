@@ -47,4 +47,15 @@ class SchoolClass < ActiveRecord::Base
   validates :teacher_leader_id,
               :uniqueness => { :message => "уже является классным руководителем класса" },
               :presence   => { :message => "должен иметь выбранного классного руководителя" }
+
+  # Fing all estimations for pupils from current class.
+  def estimations
+    all_estimations = []
+
+    self.pupils.each do |p|
+      all_estimations << p.estimations
+    end
+
+    all_estimations.flatten
+  end
 end

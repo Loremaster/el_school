@@ -11,12 +11,19 @@
             = link_to c.class_code, params.merge( :class_code => c.class_code, :subject_name => params[:subject_name])
 
   - if !@class.nil?
+    b
+      | Расчет качества знаний (во всем классе): &#32;
+    = Statistic.class_quality(@class)
+
+    br/
+    br/
+
     table class="table table-striped table-bordered"
       thead
         tr
          th Ученик
-         th Расчет качества знаний
-         th Степень обученности учащихся
+         th Расчет качества знаний (по всем предметам)
+         th Степень обученности учащихся (по всем предметам)
       tbody
         - unless @pupils.empty?
           - @pupils.each do |p|
