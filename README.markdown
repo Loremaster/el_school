@@ -25,6 +25,8 @@
  $ rvm rvmrc trust DIR
 ```
 
+4) You can view erd-diagramm of the project in app/erd.pdf. If you want to generate newer version make sure
+   that you installed `Graphviz 2.22` and then run in terminal `bundle exec erd`
 -----------------------------------------------------------------------------
 
 **Parent**

@@ -23,6 +23,7 @@ group :development do
   gem 'faker', '1.0.1'                                                                              # Automatically filling db by test data.
   gem 'capistrano', '2.12.0'                                                                        # Deploying to server. Be carefull with changing version!
   gem 'meta_request'                                                                                # Panel in chrome to debug rails apps.
+  gem 'rails-erd'
 end
 
 group :test do
