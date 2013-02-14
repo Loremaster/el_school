@@ -16,12 +16,14 @@
         tr
          th Ученик
          th Расчет качества знаний
+         th Степень обученности учащихся
       tbody
         - unless @pupils.empty?
           - @pupils.each do |p|
             tr
               td = pupil_full_names(p)
               td = Statistic.pupil_quality(p)
+              td = Statistic.pupil_skilled_level(p)
 
 - else
   | Для показа содержимого необходимо выбрать ваш предмет (правая часть верхней панели).
