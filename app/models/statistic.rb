@@ -52,4 +52,24 @@ class Statistic
       "Нет оценок"
     end
   end
+
+  # Level of class's skill in the class:
+  # (number of class's "5" + number of class's "4" * 0,64 + number of class's "3" * 0,36) / number of pupils in the class.
+  # => "Нет оценок" - if pupil don't have estimation.
+  # => Number - otherwise.
+  def self.class_skilled_level( school_class )
+    class_nominals = school_class.estimations
+    pupils_in_class = school_class.pupils.size
+
+    unless class_nominals.empty?
+      nominals = class_nominals.collect{ |m| m.nominal }
+      five_nominals = nominals.count(5)
+      four_nominals = nominals.count(4)
+      three_nominals = nominals.count(3)
+
+      ((five_nominals + five_nominals * 0.64 + three_nominals * 0.36) / pupils_in_class).round(3)
+    else
+      "Нет оценок"
+    end
+  end
 end
