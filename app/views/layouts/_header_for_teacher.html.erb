@@ -1,21 +1,21 @@
-<%= link_to "E-school", journals_path( :subject_name => params[:subject_name] ), :class => "brand" %>
+<%= link_to "E-school", journals_path( :subject_name => params[:subject_name], :class_code => params[:class_code] ), :class => "brand" %>
 
 <ul class="nav">
 
   <li class=<%= active_toolbar?( journals_path ) %>>
-    <%= link_to "Журнал", journals_path( :subject_name => params[:subject_name] ) %>
+    <%= link_to "Журнал", journals_path( :subject_name => params[:subject_name], :class_code => params[:class_code] ) %>
   </li>
 
   <li class=<%= active_toolbar?( results_path ) %>>
-    <%= link_to "Итоги", results_path( :subject_name => params[:subject_name] ) %>
+    <%= link_to "Итоги", results_path( :subject_name => params[:subject_name], :class_code => params[:class_code] ) %>
   </li>
 
   <li class=<%= active_toolbar?( homeworks_path ) %>>
-    <%= link_to "Задания", homeworks_path( :subject_name => params[:subject_name] ) %>
+    <%= link_to "Задания", homeworks_path( :subject_name => params[:subject_name], :class_code => params[:class_code] ) %>
   </li>
 
 
   <li class=<%= active_toolbar?( statistics_teacher_path ) %>>
-    <%= link_to "Статистика", statistics_teacher_path( :subject_name => params[:subject_name] ) %>
+    <%= link_to "Статистика", statistics_teacher_path( :subject_name => params[:subject_name], :class_code => params[:class_code] ) %>
   </li>
 </ul>
