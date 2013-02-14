@@ -11,7 +11,18 @@
             = link_to c.class_code, params.merge( :class_code => c.class_code, :subject_name => params[:subject_name])
 
   - if !@class.nil?
-    | Show some data
+    table class="table table-striped table-bordered"
+      thead
+        tr
+         th Ученик
+         th Расчет качества знаний
+      tbody
+        - unless @pupils.empty?
+          - @pupils.each do |p|
+            tr
+              td = pupil_full_names(p)
+              td = Statistic.pupil_quality(p)
+
 - else
   | Для показа содержимого необходимо выбрать ваш предмет (правая часть верхней панели).
 
