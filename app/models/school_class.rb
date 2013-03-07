@@ -58,4 +58,20 @@ class SchoolClass < ActiveRecord::Base
 
     all_estimations.flatten
   end
+
+  # All subjects for current class.
+  def subjects
+    curriculums = self.curriculums
+    out = []
+
+    unless curriculums.empty?
+      qualifications = curriculums.collect{ |c| c.qualification }
+
+      unless qualifications.empty?
+        out = qualifications.collect{ |q| q.subject  }
+      end
+    end
+
+    out
+  end
 end

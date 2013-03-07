@@ -55,6 +55,7 @@ ElSchool::Application.routes.draw do
   match '/timetables/show/class_head', :controller => 'timetables', :action => 'index_class_head'
 
   match '/statistics/teacher', :controller => 'statistics', :action => 'index_teacher'
+  match '/statistics/class_teacher', :controller => 'statistics', :action => 'index_class_head'
 
   root :to => 'sessions#new'                                                              # Home
 

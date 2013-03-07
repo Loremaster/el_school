@@ -1,0 +1,9 @@
+div style="margin-top: 18px;" class="btn-toolbar"
+  div class="btn-group"
+    a href="#" data-toggle="dropdown" class="btn dropdown-toggle"
+      | Выбрать предмет &#32;
+      span class="caret"
+    ul class="dropdown-menu"
+      - @school_class.subjects.each do |s|
+        li
+          = link_to s.subject_name, statistics_class_teacher_path( :subject_name => s.subject_name )
