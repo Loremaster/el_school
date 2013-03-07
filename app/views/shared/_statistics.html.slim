@@ -1,0 +1,27 @@
+/ Input params:
+/ school_class, pupils
+
+hr/
+b
+  | Расчет качества знаний (во всем классе): &#32;
+= Statistic.class_quality(school_class)
+
+br/
+b
+  | Степень обученности учащихся (во всем классе): &#32;
+= Statistic.class_skilled_level(school_class)
+
+hr/
+table class="table table-striped table-bordered"
+  thead
+    tr
+     th Ученик
+     th Расчет качества знаний (по всем предметам)
+     th Степень обученности учащихся (по всем предметам)
+  tbody
+    - unless pupils.empty?
+      - pupils.each do |p|
+        tr
+          td = pupil_full_names(p)
+          td = Statistic.pupil_quality(p)
+          td = Statistic.pupil_skilled_level(p)
