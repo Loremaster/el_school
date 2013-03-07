@@ -26,6 +26,6 @@
 
 <ul class="nav">
    <li class=<%= active_toolbar?( statistics_class_teacher_path ) %>>
-     <%= link_to "Статистика", statistics_class_teacher_path %>
+     <%= link_to "Статистика", statistics_class_teacher_path( :subject_name => params[:subject_name] ) %>
    </li>
 </ul>
