@@ -12,5 +12,6 @@ class StatisticsController < ApplicationController
   def index_class_head
     @subject = params[:subject_name]
     @school_class = current_user.teacher_leader.school_class
+    @pupils  = @school_class.pupils unless @school_class.nil?
   end
 end
