@@ -87,7 +87,7 @@ describe "Admins" do
 
      it "should have placeholders for everprecent attributes" do
        click_link "Создать учетную запись"
-       click_link "Завуч"
+       click_link "Заместитель директора по учебной работе"
 
        response.should have_selector('form') do |form|
          form.should have_selector( 'input',
@@ -102,9 +102,9 @@ describe "Admins" do
      it "should visit list of users after creating school head" do
        expect do
          click_link "Создать учетную запись"
-         click_link "Завуч"
+         click_link "Заместитель директора по учебной работе"
 
-         response.should have_selector('legend', :content => 'Создание учетной записи Завуча')
+         response.should have_selector('legend', :content => 'Создание учетной записи Заместителя директора по учебной работе')
 
          fill_in "Логин учетной записи",  :with => "user.user_login"
          fill_in "Пароль учетной записи", :with => "user.password"
@@ -119,14 +119,14 @@ describe "Admins" do
 
           click_link "Учетные записи"
           click_link "Создать учетную запись"
-          click_link "Завуч"
+          click_link "Заместитель директора по учебной работе"
 
           fill_in "Логин учетной записи",  :with => user_login
           fill_in "Пароль учетной записи", :with => wrong_user_pas
           click_button "Создать"
 
           response.should have_selector("legend",
-                                        :content => "Создание учетной записи Завуча")     # We stay on this page because we have wrong value in form
+                                        :content => "Создание учетной записи Заместителя директора по учебной работе")     # We stay on this page because we have wrong value in form
           response.should have_selector("form") do |form|
             form.should have_selector( "input", :value => user_login )
             form.should have_selector( "input", :value => wrong_user_pas  )

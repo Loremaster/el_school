@@ -44,7 +44,7 @@ describe AdminsController do
 
       it "should have legend" do
         get :new_school_head
-        response.should have_selector("legend", :content => "Создание учетной записи Завуча")
+        response.should have_selector("legend", :content => "Создание учетной записи Заместителя директора по учебной работе")
       end
 
       it "should create school head with valid data" do
