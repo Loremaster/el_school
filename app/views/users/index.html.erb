@@ -4,13 +4,13 @@
   <thead>
     <tr>
       <th>Категория пользователя</th>
-      <th>Категория в Базе Данных</th>      
+      <th>Категория в Базе Данных</th>
       <th>Логин</th>
       <th>Пароль</th>
     </tr>
   </thead>
-  <tbody>        
-    <% @users.each do |user| %>          
+  <tbody>
+    <% @users.each do |user| %>
       <tr class="cross" onclick = "location.href='<%= edit_user_path( :id => user.id ) %>'"> <%# Go to edit page of user we want to edit. %>
         <td><%= translate_user_role( user.user_role ) %></td>
         <td><%= user.user_role %></td>
@@ -29,7 +29,7 @@
   <div class="btn-group">
     <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle">Создать учетную запись<span class="caret"></span></a>
     <ul class="dropdown-menu">
-			<li><%= link_to "Завуч", admins_new_school_head_path %></li>
+			<li><%= link_to "Заместитель директора по учебной работе", admins_new_school_head_path %></li>
 			<li><%= link_to "Учитель", admins_new_teacher_path %></li>
     </ul>
   </div>
